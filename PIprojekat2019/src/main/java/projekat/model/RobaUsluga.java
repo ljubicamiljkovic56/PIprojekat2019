@@ -1,14 +1,29 @@
 package projekat.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name = "RobaUsluga")
 public class RobaUsluga {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idRobeUsluge;
+	
+	@Column(name = "nazivRobeUsluge", columnDefinition = "VARCHAR(10)")
 	private String nazivRobeUsluge;
+	
+	@Column(name = "opis", columnDefinition = "VARCHAR(20)")
 	private String opis;
+	
+	@Column(name = "roba", columnDefinition = "TINYINT(1)")
 	private boolean roba;
 	
-	public RobaUsluga(int idRobeUsluge, String nazivRobeUsluge, String opis, boolean roba) {
-		this.idRobeUsluge = idRobeUsluge;
+	public RobaUsluga(String nazivRobeUsluge, String opis, boolean roba) {
+		//this.idRobeUsluge = idRobeUsluge;
 		this.nazivRobeUsluge = nazivRobeUsluge;
 		this.opis = opis;
 		this.roba = roba;

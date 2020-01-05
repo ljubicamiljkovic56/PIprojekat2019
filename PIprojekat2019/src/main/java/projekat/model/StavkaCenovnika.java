@@ -1,12 +1,23 @@
 package projekat.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name = "StavkaCenovnika")
 public class StavkaCenovnika {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idStavke;
+	
+	@Column(name = "cena", columnDefinition = "DECIMAL")
 	private double cena;
 	
-	public StavkaCenovnika(int idStavke, double cena) {
-		this.idStavke = idStavke;
+	public StavkaCenovnika(double cena) {
+		//this.idStavke = idStavke;
 		this.cena = cena;
 	}
 

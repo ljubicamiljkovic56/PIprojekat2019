@@ -2,13 +2,25 @@ package projekat.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name="Cenovnik")
 public class Cenovnik {
 	
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idCenovnika;
+	
+	@Column(name="datumPocetkaVazenja", columnDefinition = "DATE")
 	private Date datumPocetkaVazenja;
 	
-	public Cenovnik(int idCenovnika, Date datumPocetkaVazenja) {
-		this.idCenovnika = idCenovnika;
+	public Cenovnik(Date datumPocetkaVazenja) {
+		//this.idCenovnika = idCenovnika;
 		this.datumPocetkaVazenja = datumPocetkaVazenja;
 	}
 

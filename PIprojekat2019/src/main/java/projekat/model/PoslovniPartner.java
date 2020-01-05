@@ -1,19 +1,41 @@
 package projekat.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name = "PoslovniPartner")
 public class PoslovniPartner {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idPoslovnogPartnera;
+	
+	@Column(name = "nazivPoslovnogPartnera", columnDefinition = "VARCHAR(20)")
 	private String nazivPoslovnogPartnera;
+	
+	@Column(name = "adresa", columnDefinition = "VARCHAR(20)")
 	private String adresa;
+	
+	@Column(name = "telefon", columnDefinition = "VARCHAR(20)")
 	private String telefon;
+	
+	@Column(name = "fax", columnDefinition = "VARCHAR(20)")
 	private String fax;
+	
+	@Column(name = "email", columnDefinition = "VARCHAR(15)")
 	private String email;
+	
 	private enum VrstaPartnera {KU, DO, KD};
+	
+	@Column(name = "vrstaPartnera", columnDefinition = "CHAR(2)")
 	private VrstaPartnera vrstaPartnera;
 	
-	public PoslovniPartner(int idPoslovnogPartnera, String nazivPoslovnogPartnera, String adresa, String telefon,
+	public PoslovniPartner(String nazivPoslovnogPartnera, String adresa, String telefon,
 			String fax, String email, VrstaPartnera vrstaPartnera) {
-		this.idPoslovnogPartnera = idPoslovnogPartnera;
+		//this.idPoslovnogPartnera = idPoslovnogPartnera;
 		this.nazivPoslovnogPartnera = nazivPoslovnogPartnera;
 		this.adresa = adresa;
 		this.telefon = telefon;

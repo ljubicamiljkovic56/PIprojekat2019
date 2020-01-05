@@ -1,19 +1,42 @@
 package projekat.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name = "StavkaFakture")
 public class StavkaFakture {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idStavke;
+	
+	@Column(name = "kolicina", columnDefinition = "DECIMAL")
 	private double kolicina;
+	
+	@Column(name = "rabat", columnDefinition = "DECIMAL")
 	private double rabat;
+	
+	@Column(name = "jedinicnaCena", columnDefinition = "DECIMAL")
 	private double jedinicnaCena;
+	
+	@Column(name = "pdvStopa", columnDefinition = "DECIMAL")
 	private double pdvStopa;
+	
+	@Column(name = "osnovicaZaPDV", columnDefinition = "DECIMAL")
 	private double osnovicaZaPDV;
+	
+	@Column(name = "iznosPDV", columnDefinition = "DECIMAL")
 	private double iznosPDV;
+	
+	@Column(name = "ukupanIznos", columnDefinition = "DECIMAL")
 	private double ukupanIznos;
 	
-	public StavkaFakture(int idStavke, double kolicina, double rabat, double jedinicnaCena, double pdvStopa,
+	public StavkaFakture(double kolicina, double rabat, double jedinicnaCena, double pdvStopa,
 			double osnovicaZaPDV, double iznosPDV, double ukupanIznos) {
-		this.idStavke = idStavke;
+		//this.idStavke = idStavke;
 		this.kolicina = kolicina;
 		this.rabat = rabat;
 		this.jedinicnaCena = jedinicnaCena;

@@ -1,12 +1,23 @@
 package projekat.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name = "GrupaRobeUsluga")
 public class GrupaRobeUsluga {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idGrupe;
+	
+	@Column(name = "nazivGrupe", columnDefinition = "VARCHAR(10)")
 	private String nazivGrupe;
 	
-	public GrupaRobeUsluga(int idGrupe, String nazivGrupe) {
-		this.idGrupe = idGrupe;
+	public GrupaRobeUsluga(String nazivGrupe) {
+		//this.idGrupe = idGrupe;
 		this.nazivGrupe = nazivGrupe;
 	}
 

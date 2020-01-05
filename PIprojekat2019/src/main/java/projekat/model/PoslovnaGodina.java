@@ -1,13 +1,26 @@
 package projekat.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name = "PoslovnaGodina")
 public class PoslovnaGodina {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idGodine;
+	
+	@Column(name = "godina", columnDefinition = "INT")
 	private int godina;
+	
+	@Column(name = "zakljucena", columnDefinition = "TINYINT(1)")
 	private boolean zakljucena;
 	
-	public PoslovnaGodina(int idGodine, int godina, boolean zakljucena) {
-		this.idGodine = idGodine;
+	public PoslovnaGodina(int godina, boolean zakljucena) {
+		//this.idGodine = idGodine;
 		this.godina = godina;
 		this.zakljucena = zakljucena;
 	}
