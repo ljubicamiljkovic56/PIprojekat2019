@@ -1,28 +1,44 @@
 package projekat.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-@Entity(name = "NaseljenoMesto")
-public class NaseljenoMesto {
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "naseljeno_mesto")
+public class NaseljenoMesto implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idMesta;
 	
-	@Column(name = "pttBroj", columnDefinition = "INT")
+	@Column(name = "ptt_broj", columnDefinition = "INT")
 	private int pttBroj;
 	
-	@Column(name = "nazivMesta", columnDefinition = "VARCHAR(15)")
+	@Column(name = "naziv_mesta", columnDefinition = "VARCHAR(15)")
 	private String nazivMesta;
 	
-	public NaseljenoMesto(int pttBroj, String nazivMesta) {
-		//this.idMesta = idMesta;
+	@OneToOne
+	private Preduzece preduzece;
+	
+	@OneToOne
+	private PoslovniPartner poslovniPartner;
+
+	public NaseljenoMesto(int idMesta, int pttBroj, String nazivMesta, Preduzece preduzece,
+			PoslovniPartner poslovniPartner) {
+		super();
+		this.idMesta = idMesta;
 		this.pttBroj = pttBroj;
 		this.nazivMesta = nazivMesta;
+		this.preduzece = preduzece;
+		this.poslovniPartner = poslovniPartner;
 	}
 
 	public int getIdMesta() {
@@ -48,9 +64,28 @@ public class NaseljenoMesto {
 	public void setNazivMesta(String nazivMesta) {
 		this.nazivMesta = nazivMesta;
 	}
-	
-	
-	
-	
 
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
+	}
+
+	public PoslovniPartner getPoslovniPartner() {
+		return poslovniPartner;
+	}
+
+	public void setPoslovniPartner(PoslovniPartner poslovniPartner) {
+		this.poslovniPartner = poslovniPartner;
+	}
+
+	@Override
+	public String toString() {
+		return "NaseljenoMesto [idMesta=" + idMesta + ", pttBroj=" + pttBroj + ", nazivMesta=" + nazivMesta
+				+ ", preduzece=" + preduzece + ", poslovniPartner=" + poslovniPartner + "]";
+	}
+	
+	
 }

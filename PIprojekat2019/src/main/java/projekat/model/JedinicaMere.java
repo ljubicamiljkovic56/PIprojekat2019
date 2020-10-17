@@ -1,28 +1,40 @@
 package projekat.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-@Entity(name = "JedinicaMere")
-public class JedinicaMere {
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "jedinica_mere")
+public class JedinicaMere implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idJediniceMere;
 	
-	@Column(name = "nazivJediniceMere", columnDefinition = "VARCHAR(10)")
+	@Column(name = "naziv_jedinice_mere", columnDefinition = "VARCHAR(20)")
 	private String nazivJediniceMere;
 	
-	@Column(name = "skraceniNaziv", columnDefinition = "CHAR(2)")
+	@Column(name = "skraceni_naziv", columnDefinition = "VARCHAR(5)")
 	private String skraceniNaziv;
 	
-	public JedinicaMere(String nazivJediniceMere, String skraceniNaziv) {
-		//this.idJediniceMere = idJediniceMere;
+	@OneToOne(fetch = FetchType.EAGER)
+	private RobaUsluga robaUsluga;
+
+	public JedinicaMere(int idJediniceMere, String nazivJediniceMere, String skraceniNaziv, RobaUsluga robaUsluga) {
+		super();
+		this.idJediniceMere = idJediniceMere;
 		this.nazivJediniceMere = nazivJediniceMere;
 		this.skraceniNaziv = skraceniNaziv;
+		this.robaUsluga = robaUsluga;
 	}
 
 	public int getIdJediniceMere() {
@@ -48,7 +60,18 @@ public class JedinicaMere {
 	public void setSkraceniNaziv(String skraceniNaziv) {
 		this.skraceniNaziv = skraceniNaziv;
 	}
-	
-	
 
+	public RobaUsluga getRobaUsluga() {
+		return robaUsluga;
+	}
+
+	public void setRobaUsluga(RobaUsluga robaUsluga) {
+		this.robaUsluga = robaUsluga;
+	}
+
+	@Override
+	public String toString() {
+		return "JedinicaMere [idJediniceMere=" + idJediniceMere + ", nazivJediniceMere=" + nazivJediniceMere
+				+ ", skraceniNaziv=" + skraceniNaziv + ", robaUsluga=" + robaUsluga + "]";
+	}	
 }

@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import projekat.model.RobaUsluga;
 
-public interface RobaUslugaRepository extends JpaRepository<RobaUsluga, Integer> {
+public interface RobaUslugaRepository extends JpaRepository<RobaUsluga, Long> {
 
 }

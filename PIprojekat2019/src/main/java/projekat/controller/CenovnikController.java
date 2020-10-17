@@ -11,24 +11,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import projekat.model.Cenovnik;
-import projekat.service.m.CenovnikService;
 
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/cenovnici")
 public class CenovnikController {
 	
-	@Autowired
-	private CenovnikService cenovnikService;
-	
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Cenovnik>> getCenovnici() {
-
-		List<Cenovnik> cenovnici = cenovnikService.findAll();
-
-		return new ResponseEntity<>(cenovnici, HttpStatus.OK);
-	}
-	
-	
+//	@Autowired
+//	private CenovnikService cenovnikService;
+//	
+//	@RequestMapping(method = RequestMethod.GET)
+//	public ResponseEntity<List<Cenovnik>> getCenovnici() {
+//
+//		List<Cenovnik> cenovnici = cenovnikService.findAll();
+//
+//		return new ResponseEntity<>(cenovnici, HttpStatus.OK);
+//	}
+//	
+//	
 
 }

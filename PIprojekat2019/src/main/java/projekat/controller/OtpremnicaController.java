@@ -10,22 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import projekat.model.Otpremnica;
-import projekat.service.m.OtpremnicaService;
 
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/otpremnice")
 public class OtpremnicaController {
 	
-	@Autowired
-	private OtpremnicaService otpremnicaService;
-	
-	@RequestMapping
-	public ResponseEntity<List<Otpremnica>> getOtpremnice() {
-
-		List<Otpremnica> otpremnice = otpremnicaService.findAll();
-
-		return new ResponseEntity<>(otpremnice, HttpStatus.OK);
-	}
+//	@Autowired
+//	private OtpremnicaService otpremnicaService;
+//	
+//	@RequestMapping
+//	public ResponseEntity<List<Otpremnica>> getOtpremnice() {
+//
+//		List<Otpremnica> otpremnice = otpremnicaService.findAll();
+//
+//		return new ResponseEntity<>(otpremnice, HttpStatus.OK);
+//	}
 
 }
