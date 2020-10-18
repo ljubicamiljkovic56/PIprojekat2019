@@ -1,38 +1,42 @@
 package projekat.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "korisnik")
-public class Korisnik {
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "korisnik")
+public class Korisnik  implements Serializable {
 	
 	@Id
 	@Column(name = "idKorisnik")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idKorisnik;
+	private Long idKorisnik;
 	
 	@Column(name = "korisnickoIme", columnDefinition = "VARCHAR(10)")
 	private String korisnickoIme;
 	
 	@Column(name = "lozinka", columnDefinition = "VARCHAR(10)")
 	private String lozinka;
-	
-	
 
-//	public Korisnik(int idKorisnik, String korisnickoIme, String lozinka) {
-//		this.idKorisnik = idKorisnik;
-//		this.korisnickoIme = korisnickoIme;
-//		this.lozinka = lozinka;
-//	}
+	public Korisnik(Long idKorisnik, String korisnickoIme, String lozinka) {
+		super();
+		this.idKorisnik = idKorisnik;
+		this.korisnickoIme = korisnickoIme;
+		this.lozinka = lozinka;
+	}
 
-	public int getIdKorisnik() {
+	public Long getIdKorisnik() {
 		return idKorisnik;
 	}
 
-	public void setIdKorisnik(int idKorisnik) {
+	public void setIdKorisnik(Long idKorisnik) {
 		this.idKorisnik = idKorisnik;
 	}
 
@@ -51,7 +55,10 @@ public class Korisnik {
 	public void setLozinka(String lozinka) {
 		this.lozinka = lozinka;
 	}
-	
 
+	@Override
+	public String toString() {
+		return "Korisnik [idKorisnik=" + idKorisnik + ", korisnickoIme=" + korisnickoIme + ", lozinka=" + lozinka + "]";
+	}
 	
 }

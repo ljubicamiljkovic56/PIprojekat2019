@@ -1,45 +1,63 @@
 package projekat.model;
 
+import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Entity(name = "Otpremnica")
-public class Otpremnica {
-	
-	
 
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "otpremnica")
+public class Otpremnica implements Serializable {
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int idOtpremnice;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idOtpremnice;
 	
-	@Column(name = "brojOtpremnice", columnDefinition = "INT")
+	@Column(name = "broj_otpremnice", columnDefinition = "INT")
 	private int brojOtpremnice;
 	
 	@Column(name = "kupac", columnDefinition = "VARCHAR(20)")
 	private String kupac;
 	
-	@Column(name = "adresaIsporuke", columnDefinition = "VARCHAR(20)")
+	@Column(name = "adresa_isporuke", columnDefinition = "VARCHAR(20)")
 	private String adresaIsporuke;
 	
-	@Column(name = "datumIsporuke", columnDefinition = "DATE")
+	@Column(name = "datum_isporuke", columnDefinition = "DATE")
 	private Date datumIsporuke;
 	
 	@Column(name = "prevoznik", columnDefinition = "VARCHAR(20)")
 	private String prevoznik;
 	
-	@Column(name = "potpisVozaca", columnDefinition = "TINYINT(1)")
+	@Column(name = "potpis_vozaca", columnDefinition = "TINYINT(1)")
 	private boolean potpisVozaca;
 	
-	@Column(name = "primioRobu", columnDefinition = "TINYINT(1)")
+	@Column(name = "primio_robu", columnDefinition = "TINYINT(1)")
 	private boolean primioRobu;
 
-	public Otpremnica(int brojOtpremnice, String kupac, String adresaIsporuke, Date datumIsporuke, String prevoznik,
-			boolean potpisVozaca, boolean primioRobu) {
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<StavkaOtpremnice> stavkeOtpremnice = new ArrayList<StavkaOtpremnice>();
+	
+	@ManyToOne
+	private Faktura faktura;
+
+	public Otpremnica(Long idOtpremnice, int brojOtpremnice, String kupac, String adresaIsporuke, Date datumIsporuke,
+			String prevoznik, boolean potpisVozaca, boolean primioRobu, List<StavkaOtpremnice> stavkeOtpremnice,
+			Faktura faktura) {
+		super();
+		this.idOtpremnice = idOtpremnice;
 		this.brojOtpremnice = brojOtpremnice;
 		this.kupac = kupac;
 		this.adresaIsporuke = adresaIsporuke;
@@ -47,13 +65,15 @@ public class Otpremnica {
 		this.prevoznik = prevoznik;
 		this.potpisVozaca = potpisVozaca;
 		this.primioRobu = primioRobu;
+		this.stavkeOtpremnice = stavkeOtpremnice;
+		this.faktura = faktura;
 	}
 
-	public int getIdOtpremnice() {
+	public Long getIdOtpremnice() {
 		return idOtpremnice;
 	}
 
-	public void setIdOtpremnice(int idOtpremnice) {
+	public void setIdOtpremnice(Long idOtpremnice) {
 		this.idOtpremnice = idOtpremnice;
 	}
 
@@ -112,8 +132,28 @@ public class Otpremnica {
 	public void setPrimioRobu(boolean primioRobu) {
 		this.primioRobu = primioRobu;
 	}
-	
-	
-	
 
+	public List<StavkaOtpremnice> getStavkeOtpremnice() {
+		return stavkeOtpremnice;
+	}
+
+	public void setStavkeOtpremnice(List<StavkaOtpremnice> stavkeOtpremnice) {
+		this.stavkeOtpremnice = stavkeOtpremnice;
+	}
+
+	public Faktura getFaktura() {
+		return faktura;
+	}
+
+	public void setFaktura(Faktura faktura) {
+		this.faktura = faktura;
+	}
+
+	@Override
+	public String toString() {
+		return "Otpremnica [idOtpremnice=" + idOtpremnice + ", brojOtpremnice=" + brojOtpremnice + ", kupac=" + kupac
+				+ ", adresaIsporuke=" + adresaIsporuke + ", datumIsporuke=" + datumIsporuke + ", prevoznik=" + prevoznik
+				+ ", potpisVozaca=" + potpisVozaca + ", primioRobu=" + primioRobu + ", stavkeOtpremnice="
+				+ stavkeOtpremnice + ", faktura=" + faktura + "]";
+	}
 }

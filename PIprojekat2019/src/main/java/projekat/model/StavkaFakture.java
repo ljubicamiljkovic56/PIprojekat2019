@@ -1,17 +1,23 @@
 package projekat.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Entity(name = "StavkaFakture")
-public class StavkaFakture {
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "stavka_fakture")
+public class StavkaFakture implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int idStavke;
+	private Long idStavke;
 	
 	@Column(name = "kolicina", columnDefinition = "DECIMAL")
 	private double kolicina;
@@ -19,24 +25,35 @@ public class StavkaFakture {
 	@Column(name = "rabat", columnDefinition = "DECIMAL")
 	private double rabat;
 	
-	@Column(name = "jedinicnaCena", columnDefinition = "DECIMAL")
+	@Column(name = "jedinicna_cena", columnDefinition = "DECIMAL")
 	private double jedinicnaCena;
 	
-	@Column(name = "pdvStopa", columnDefinition = "DECIMAL")
+	@Column(name = "pdv_stopa", columnDefinition = "DECIMAL")
 	private double pdvStopa;
 	
-	@Column(name = "osnovicaZaPDV", columnDefinition = "DECIMAL")
+	@Column(name = "osnovica_za_pdv", columnDefinition = "DECIMAL")
 	private double osnovicaZaPDV;
 	
-	@Column(name = "iznosPDV", columnDefinition = "DECIMAL")
+	@Column(name = "iznos_pdv", columnDefinition = "DECIMAL")
 	private double iznosPDV;
 	
-	@Column(name = "ukupanIznos", columnDefinition = "DECIMAL")
+	@Column(name = "ukupan_iznos", columnDefinition = "DECIMAL")
 	private double ukupanIznos;
 	
-	public StavkaFakture(double kolicina, double rabat, double jedinicnaCena, double pdvStopa,
-			double osnovicaZaPDV, double iznosPDV, double ukupanIznos) {
-		//this.idStavke = idStavke;
+	@ManyToOne
+	private Faktura faktura;
+	
+	@ManyToOne
+	private Preduzece preduzece;
+	
+	@ManyToOne
+	private RobaUsluga robaUsluga;
+
+	public StavkaFakture(Long idStavke, double kolicina, double rabat, double jedinicnaCena, double pdvStopa,
+			double osnovicaZaPDV, double iznosPDV, double ukupanIznos, Faktura faktura, Preduzece preduzece,
+			RobaUsluga robaUsluga) {
+		super();
+		this.idStavke = idStavke;
 		this.kolicina = kolicina;
 		this.rabat = rabat;
 		this.jedinicnaCena = jedinicnaCena;
@@ -44,13 +61,16 @@ public class StavkaFakture {
 		this.osnovicaZaPDV = osnovicaZaPDV;
 		this.iznosPDV = iznosPDV;
 		this.ukupanIznos = ukupanIznos;
+		this.faktura = faktura;
+		this.preduzece = preduzece;
+		this.robaUsluga = robaUsluga;
 	}
 
-	public int getIdStavke() {
+	public Long getIdStavke() {
 		return idStavke;
 	}
 
-	public void setIdStavke(int idStavke) {
+	public void setIdStavke(Long idStavke) {
 		this.idStavke = idStavke;
 	}
 
@@ -108,6 +128,38 @@ public class StavkaFakture {
 
 	public void setUkupanIznos(double ukupanIznos) {
 		this.ukupanIznos = ukupanIznos;
+	}
+
+	public Faktura getFaktura() {
+		return faktura;
+	}
+
+	public void setFaktura(Faktura faktura) {
+		this.faktura = faktura;
+	}
+
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
+	}
+
+	public RobaUsluga getRobaUsluga() {
+		return robaUsluga;
+	}
+
+	public void setRobaUsluga(RobaUsluga robaUsluga) {
+		this.robaUsluga = robaUsluga;
+	}
+
+	@Override
+	public String toString() {
+		return "StavkaFakture [idStavke=" + idStavke + ", kolicina=" + kolicina + ", rabat=" + rabat
+				+ ", jedinicnaCena=" + jedinicnaCena + ", pdvStopa=" + pdvStopa + ", osnovicaZaPDV=" + osnovicaZaPDV
+				+ ", iznosPDV=" + iznosPDV + ", ukupanIznos=" + ukupanIznos + ", faktura=" + faktura + ", preduzece="
+				+ preduzece + ", robaUsluga=" + robaUsluga + "]";
 	}
 	
 	

@@ -1,19 +1,30 @@
 package projekat.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-@Entity(name = "PoslovniPartner")
-public class PoslovniPartner {
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "poslovni_partner")
+public class PoslovniPartner implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idPoslovnogPartnera;
 	
-	@Column(name = "nazivPoslovnogPartnera", columnDefinition = "VARCHAR(20)")
+	@Column(name = "naziv_poslovnog_partnera", columnDefinition = "VARCHAR(20)")
 	private String nazivPoslovnogPartnera;
 	
 	@Column(name = "adresa", columnDefinition = "VARCHAR(20)")
@@ -25,23 +36,37 @@ public class PoslovniPartner {
 	@Column(name = "fax", columnDefinition = "VARCHAR(20)")
 	private String fax;
 	
-	@Column(name = "email", columnDefinition = "VARCHAR(15)")
+	@Column(name = "email", columnDefinition = "VARCHAR(20)")
 	private String email;
 	
 	private enum VrstaPartnera {KU, DO, KD};
 	
-	@Column(name = "vrstaPartnera", columnDefinition = "CHAR(2)")
+	@Column(name = "vrsta_partnera", columnDefinition = "CHAR(2)")
 	private VrstaPartnera vrstaPartnera;
 	
-	public PoslovniPartner(String nazivPoslovnogPartnera, String adresa, String telefon,
-			String fax, String email, VrstaPartnera vrstaPartnera) {
-		//this.idPoslovnogPartnera = idPoslovnogPartnera;
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Faktura> fakture = new ArrayList<Faktura>();
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	private NaseljenoMesto naseljenoMesto;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Preduzece preduzece;
+
+	public PoslovniPartner(int idPoslovnogPartnera, String nazivPoslovnogPartnera, String adresa, String telefon,
+			String fax, String email, VrstaPartnera vrstaPartnera, List<Faktura> fakture, NaseljenoMesto naseljenoMesto,
+			Preduzece preduzece) {
+		super();
+		this.idPoslovnogPartnera = idPoslovnogPartnera;
 		this.nazivPoslovnogPartnera = nazivPoslovnogPartnera;
 		this.adresa = adresa;
 		this.telefon = telefon;
 		this.fax = fax;
 		this.email = email;
 		this.vrstaPartnera = vrstaPartnera;
+		this.fakture = fakture;
+		this.naseljenoMesto = naseljenoMesto;
+		this.preduzece = preduzece;
 	}
 
 	public int getIdPoslovnogPartnera() {
@@ -99,8 +124,37 @@ public class PoslovniPartner {
 	public void setVrstaPartnera(VrstaPartnera vrstaPartnera) {
 		this.vrstaPartnera = vrstaPartnera;
 	}
-	
-	
-	
-	
+
+	public List<Faktura> getFakture() {
+		return fakture;
+	}
+
+	public void setFakture(List<Faktura> fakture) {
+		this.fakture = fakture;
+	}
+
+	public NaseljenoMesto getNaseljenoMesto() {
+		return naseljenoMesto;
+	}
+
+	public void setNaseljenoMesto(NaseljenoMesto naseljenoMesto) {
+		this.naseljenoMesto = naseljenoMesto;
+	}
+
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
+	}
+
+	@Override
+	public String toString() {
+		return "PoslovniPartner [idPoslovnogPartnera=" + idPoslovnogPartnera + ", nazivPoslovnogPartnera="
+				+ nazivPoslovnogPartnera + ", adresa=" + adresa + ", telefon=" + telefon + ", fax=" + fax + ", email="
+				+ email + ", vrstaPartnera=" + vrstaPartnera + ", fakture=" + fakture + ", naseljenoMesto="
+				+ naseljenoMesto + ", preduzece=" + preduzece + "]";
+	}
+		
 }
