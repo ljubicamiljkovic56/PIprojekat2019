@@ -31,8 +31,12 @@ public class PDVStopa implements Serializable {
 	@Column(name = "procenat", columnDefinition = "DOUBLE")
 	private double procenat;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	private PDVKategorija pdvKategorija;
+	
+	public PDVStopa() {
+		super();
+	}
 
 	public PDVStopa(Long idStope, Date datumVazenja, double procenat,
 			PDVKategorija pdvKategorija) {

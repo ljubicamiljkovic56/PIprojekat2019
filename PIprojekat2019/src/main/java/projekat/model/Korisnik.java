@@ -25,6 +25,10 @@ public class Korisnik  implements Serializable {
 	@Column(name = "lozinka", columnDefinition = "VARCHAR(10)")
 	private String lozinka;
 
+	public Korisnik() {
+		super();
+	}
+	
 	public Korisnik(Long idKorisnik, String korisnickoIme, String lozinka) {
 		super();
 		this.idKorisnik = idKorisnik;

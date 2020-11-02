@@ -1,6 +1,8 @@
 package projekat.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,9 +28,13 @@ public class GrupaRobeUsluga implements Serializable{
 	private String nazivGrupe;
 	
 	@OneToMany(fetch = FetchType.EAGER)
-	private RobaUsluga robaUsluga;
+	private List<RobaUsluga> robaUsluga = new ArrayList<RobaUsluga>();
+	
+	public GrupaRobeUsluga() {
+		super();
+	}
 
-	public GrupaRobeUsluga(Long idGrupe, String nazivGrupe, RobaUsluga robaUsluga) {
+	public GrupaRobeUsluga(Long idGrupe, String nazivGrupe,List<RobaUsluga> robaUsluga) {
 		super();
 		this.idGrupe = idGrupe;
 		this.nazivGrupe = nazivGrupe;
@@ -50,11 +57,12 @@ public class GrupaRobeUsluga implements Serializable{
 		this.nazivGrupe = nazivGrupe;
 	}
 
-	public RobaUsluga getRobaUsluga() {
+	
+	public List<RobaUsluga> getRobaUsluga() {
 		return robaUsluga;
 	}
 
-	public void setRobaUsluga(RobaUsluga robaUsluga) {
+	public void setRobaUsluga(List<RobaUsluga> robaUsluga) {
 		this.robaUsluga = robaUsluga;
 	}
 

@@ -28,6 +28,10 @@ public class JedinicaMere implements Serializable{
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	private RobaUsluga robaUsluga;
+	
+	public JedinicaMere() {
+		super();
+	}
 
 	public JedinicaMere(int idJediniceMere, String nazivJediniceMere, String skraceniNaziv, RobaUsluga robaUsluga) {
 		super();

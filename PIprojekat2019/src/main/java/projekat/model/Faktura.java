@@ -61,6 +61,10 @@ public class Faktura implements Serializable{
 	
 	@OneToMany
 	private List<Otpremnica> otpremnice = new ArrayList<Otpremnica>();
+	
+	public Faktura() {
+		super();
+	}
 
 	public Faktura(Long idFakture, int brojFakture, Date datumFakture, Date datumValute, double ukupnaOsnovica,
 			double ukupanPDV, double ukupanIznos, StatusFakture statusFakture, List<StavkaFakture> stavkeFakture,

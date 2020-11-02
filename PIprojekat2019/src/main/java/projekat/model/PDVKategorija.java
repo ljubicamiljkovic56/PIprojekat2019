@@ -17,18 +17,23 @@ import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "pdv?kategorija")
+@Table(name = "pdv_kategorija")
 public class PDVKategorija implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "kategorija_id")
 	private Long idKategorije;
 	
 	@Column(name = "naziv_kategorije", columnDefinition = "VARCHAR(20)")
 	private String nazivKategorije;
 	
-	@OneToMany(mappedBy = "pdvkategorija", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<PDVStopa> pdvStope = new ArrayList<PDVStopa>();
+	
+	public PDVKategorija() {
+		super();
+	}
 
 	public PDVKategorija(Long idKategorije, String nazivKategorije, List<PDVStopa> pdvStope) {
 		super();

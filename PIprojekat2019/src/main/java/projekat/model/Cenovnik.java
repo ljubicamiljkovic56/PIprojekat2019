@@ -36,6 +36,11 @@ public class Cenovnik implements Serializable{
 	@OneToOne(fetch = FetchType.LAZY)
 	private Preduzece preduzece;
 
+	
+	public Cenovnik() {
+		super();
+	}
+	
 	public Cenovnik(Long idCenovnika, Date datumPocetkaVazenja, List<StavkaCenovnika> stavkeCenovnika,
 			Preduzece preduzece) {
 		super();

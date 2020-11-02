@@ -31,6 +31,10 @@ public class NaseljenoMesto implements Serializable{
 	@OneToOne
 	private PoslovniPartner poslovniPartner;
 
+	public NaseljenoMesto() {
+		super();
+	}
+	
 	public NaseljenoMesto(int idMesta, int pttBroj, String nazivMesta, Preduzece preduzece,
 			PoslovniPartner poslovniPartner) {
 		super();

@@ -23,7 +23,7 @@ public class Preduzece implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idPreduzeca;
+	private Long idPreduzeca;
 	
 	@Column(name = "naziv_preduzeca", columnDefinition = "VARCHAR(20)")
 	private String nazivPreduzeca;
@@ -37,13 +37,13 @@ public class Preduzece implements Serializable {
 	@Column(name = "fax", columnDefinition = "VARCHAR(20)")
 	private String fax;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@OneToMany
 	private List<PoslovnaGodina> poslovneGodine = new ArrayList<PoslovnaGodina>();
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	private NaseljenoMesto naseljenoMesto;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany
 	private List<PoslovniPartner> poslovniPartneri = new ArrayList<PoslovniPartner>();
 	
 	@OneToOne(fetch = FetchType.EAGER)
@@ -54,8 +54,12 @@ public class Preduzece implements Serializable {
 	
 	@OneToMany
 	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
+	
+	public Preduzece() {
+		super();
+	}
 
-	public Preduzece(int idPreduzeca, String nazivPreduzeca, String adresa, String brojTelefona, String fax,
+	public Preduzece(Long idPreduzeca, String nazivPreduzeca, String adresa, String brojTelefona, String fax,
 			List<PoslovnaGodina> poslovneGodine, NaseljenoMesto naseljenoMesto, List<PoslovniPartner> poslovniPartneri,
 			Cenovnik cenovnik, List<Faktura> fakture, List<StavkaFakture> stavkeFakture) {
 		super();
@@ -72,11 +76,11 @@ public class Preduzece implements Serializable {
 		this.stavkeFakture = stavkeFakture;
 	}
 
-	public int getIdPreduzeca() {
+	public Long getIdPreduzeca() {
 		return idPreduzeca;
 	}
 
-	public void setIdPreduzeca(int idPreduzeca) {
+	public void setIdPreduzeca(Long idPreduzeca) {
 		this.idPreduzeca = idPreduzeca;
 	}
 

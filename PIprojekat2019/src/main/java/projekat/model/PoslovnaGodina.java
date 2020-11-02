@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -31,11 +32,15 @@ public class PoslovnaGodina implements Serializable{
 	@Column(name = "zakljucena", columnDefinition = "TINYINT(1)")
 	private boolean zakljucena;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Preduzece preduzece;
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<Faktura> fakture = new ArrayList<Faktura>();
+	
+	public PoslovnaGodina() {
+		super();
+	}
 
 	public PoslovnaGodina(Long idGodine, int godina, boolean zakljucena, Preduzece preduzece, List<Faktura> fakture) {
 		super();

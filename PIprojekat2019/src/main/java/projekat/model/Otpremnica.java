@@ -52,6 +52,10 @@ public class Otpremnica implements Serializable {
 	
 	@ManyToOne
 	private Faktura faktura;
+	
+	public Otpremnica() {
+		super();
+	}
 
 	public Otpremnica(Long idOtpremnice, int brojOtpremnice, String kupac, String adresaIsporuke, Date datumIsporuke,
 			String prevoznik, boolean potpisVozaca, boolean primioRobu, List<StavkaOtpremnice> stavkeOtpremnice,

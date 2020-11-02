@@ -26,6 +26,10 @@ public class StavkaCenovnika implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Cenovnik cenovnik;
 
+	public StavkaCenovnika() {
+		super();
+	}
+	
 	public StavkaCenovnika(Long idStavke, double cena, Cenovnik cenovnik) {
 		super();
 		this.idStavke = idStavke;

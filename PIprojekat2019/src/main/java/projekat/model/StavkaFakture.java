@@ -49,6 +49,11 @@ public class StavkaFakture implements Serializable {
 	@ManyToOne
 	private RobaUsluga robaUsluga;
 
+	
+	public StavkaFakture() {
+		super();
+	}
+	
 	public StavkaFakture(Long idStavke, double kolicina, double rabat, double jedinicnaCena, double pdvStopa,
 			double osnovicaZaPDV, double iznosPDV, double ukupanIznos, Faktura faktura, Preduzece preduzece,
 			RobaUsluga robaUsluga) {

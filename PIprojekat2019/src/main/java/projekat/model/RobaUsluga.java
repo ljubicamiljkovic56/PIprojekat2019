@@ -42,6 +42,10 @@ public class RobaUsluga implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 
+	public RobaUsluga() {
+		super();
+	}
+	
 	public RobaUsluga(Long idRobeUsluge, String nazivRobeUsluge, String opis, boolean roba, JedinicaMere jedinicaMere,
 			GrupaRobeUsluga grupaRobeUsluga, List<StavkaFakture> stavkeFakture) {
 		super();

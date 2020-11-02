@@ -52,6 +52,10 @@ public class PoslovniPartner implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Preduzece preduzece;
+	
+	public PoslovniPartner() {
+		super();
+	}
 
 	public PoslovniPartner(int idPoslovnogPartnera, String nazivPoslovnogPartnera, String adresa, String telefon,
 			String fax, String email, VrstaPartnera vrstaPartnera, List<Faktura> fakture, NaseljenoMesto naseljenoMesto,

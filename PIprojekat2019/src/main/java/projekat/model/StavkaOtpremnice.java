@@ -41,6 +41,9 @@ public class StavkaOtpremnice implements Serializable{
 	@ManyToOne
 	private Otpremnica otpremnica;
 
+	public StavkaOtpremnice() {
+		super();
+	}
 
 	public StavkaOtpremnice(Long idStavkeOtpremnice, int redniBrojProizvoda, String nazivProizvoda, String jedinicaMere,
 			double cena, double kolicina, String napomena, Otpremnica otpremnica) {
