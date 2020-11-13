@@ -8,11 +8,11 @@ import projekat.model.Korisnik;
 
 public interface KorisnikRepository extends JpaRepository<Korisnik, Long>{
 
-	 Korisnik findByUsername(String korisnickoIme);
+	 Korisnik findByUsername(String username);
 	    
-	 Korisnik findByPassword(String lozinka);
+	 Korisnik findByPassword(String password);
 	 
-	 Korisnik findByUsernameAndPassword(String korisnickoIme, String lozinka);
+	 Korisnik findByUsernameAndPassword(String username, String password);
 	    
 	 List<Korisnik> findAll();
 }

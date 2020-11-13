@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import projekat.model.Korisnik;
+import projekat.service.intrfc.KorisnikServiceInterface;
+import projekat.service.services.KorisnikService;
 
 
 @CrossOrigin
@@ -20,45 +22,58 @@ import projekat.model.Korisnik;
 @RequestMapping(value = "api/korisnici")
 public class KorisnikController {
 	
-//	@Autowired
-//	public JpaKorisnikService jpaKorisnikService;
-//	
-//	@GetMapping(path = "korisnik/all")
-//	public List<Korisnik> getAll(){
-//		return jpaKorisnikService.findAll();
-//	}
-//
-//	@PostMapping(path="korisnik/registracija")
-//	public ResponseEntity<Korisnik> registracija( 
-//			@RequestParam String korisnickoIme, @RequestParam String lozinka){
-//	
-//		System.out.println(korisnickoIme + "-" + lozinka);
-//		Korisnik korisnik = new Korisnik();
-//		boolean provera = jpaKorisnikService.proveriKorisnickoIme(korisnickoIme);
-//		if(provera == true) {
-//			System.out.println("Mozete se registrovati");
-//			korisnik.setKorisnickoIme(korisnickoIme);
-//			korisnik.setLozinka(lozinka);
-//			
-//			jpaKorisnikService.registracija(korisnik);
-//			
-//			return new ResponseEntity<Korisnik>(korisnik,HttpStatus.CREATED);
-//			
-//		}else  {
-//			System.out.println("Username vec postoji i ne mozete da se sa njim registrujete");
-//			return new ResponseEntity<>(HttpStatus.OK);
-//		}
-//}
-//	
-//	@PostMapping(path="korisnik/login")
-//	public ResponseEntity<String> loginKorisnika(@RequestParam String korisnickoIme, @RequestParam String lozinka) {
-//		
-//		System.out.println(korisnickoIme);
-//		System.out.println(lozinka);
-//		
-//		String korisnik = jpaKorisnikService.proveriKorisnika(korisnickoIme, lozinka);
-//	
-//		return new ResponseEntity<String>(korisnik, HttpStatus.CREATED);
-//	}
+	@Autowired
+	private KorisnikServiceInterface korisnikServiceInterface;
+	
+	@Autowired
+	private KorisnikService korisnikService;
+	
+	@GetMapping(path = "korisnik/all")
+	public List<Korisnik> getAll(){
+		return korisnikServiceInterface.findAll();
+	}
+
+	@PostMapping(path="korisnik/registracija")
+	public ResponseEntity<Korisnik> registracija(@RequestParam("username") String username, @RequestParam("password") String password){
+
+		
+		Korisnik korisnik = new Korisnik();
+		System.out.println("Username: " + username);
+		System.out.println("Password: " + password);
+		boolean provera = korisnikService.checkUsername(username);
+		if(provera == true) {
+			System.out.println("Mozete se registrovati");
+			korisnik.setUsername(username);
+			korisnik.setPassword(password);
+			korisnik.setUloga("korisnik");
+
+			
+			korisnikServiceInterface.save(korisnik);
+		
+		return new ResponseEntity<Korisnik>(korisnik,HttpStatus.CREATED);
+			
+		}else  {
+			System.out.println("Username vec postoji i ne mozete da se sa njim registrujete");
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+}
+	
+	@PostMapping(path="korisnik/loginKorisnika")
+	public ResponseEntity<Void> loginKorisnika(@RequestParam("username") String username, @RequestParam("password") String password) {
+		
+		System.out.println("Login...");
+		System.out.println(username);
+		System.out.println(password);
+		
+		Korisnik korisnik = korisnikServiceInterface.findByUsernameAndPassword(username, password);
+		if(korisnik == null) {
+			System.out.println("Neuspesna prijava");
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		System.out.println(korisnik.getUsername());
+		return new ResponseEntity<Void>(HttpStatus.OK);
+			
+		
+	}
 
 }

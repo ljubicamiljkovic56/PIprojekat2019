@@ -19,21 +19,25 @@ public class Korisnik  implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idKorisnik;
 	
-	@Column(name = "korisnickoIme", columnDefinition = "VARCHAR(10)")
-	private String korisnickoIme;
+	@Column(name = "korisnicko_ime", columnDefinition = "VARCHAR(10)")
+	private String username;
 	
 	@Column(name = "lozinka", columnDefinition = "VARCHAR(10)")
-	private String lozinka;
+	private String password;
+	
+	@Column(name = "uloga", columnDefinition = "VARCHAR(10)")
+	private String uloga;
 
 	public Korisnik() {
 		super();
 	}
 	
-	public Korisnik(Long idKorisnik, String korisnickoIme, String lozinka) {
+	public Korisnik(Long idKorisnik, String username, String password, String uloga) {
 		super();
 		this.idKorisnik = idKorisnik;
-		this.korisnickoIme = korisnickoIme;
-		this.lozinka = lozinka;
+		this.username = username;
+		this.password = password;
+		this.uloga = uloga;
 	}
 
 	public Long getIdKorisnik() {
@@ -44,25 +48,39 @@ public class Korisnik  implements Serializable {
 		this.idKorisnik = idKorisnik;
 	}
 
-	public String getKorisnickoIme() {
-		return korisnickoIme;
+	
+
+	public String getUloga() {
+		return uloga;
 	}
 
-	public void setKorisnickoIme(String korisnickoIme) {
-		this.korisnickoIme = korisnickoIme;
+	public void setUloga(String uloga) {
+		this.uloga = uloga;
 	}
 
-	public String getLozinka() {
-		return lozinka;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLozinka(String lozinka) {
-		this.lozinka = lozinka;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override
 	public String toString() {
-		return "Korisnik [idKorisnik=" + idKorisnik + ", korisnickoIme=" + korisnickoIme + ", lozinka=" + lozinka + "]";
+		return "Korisnik [idKorisnik=" + idKorisnik + ", username=" + username + ", password=" + password + ", uloga="
+				+ uloga + "]";
 	}
+
+	
+	
 	
 }
