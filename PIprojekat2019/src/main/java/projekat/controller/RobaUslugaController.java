@@ -7,21 +7,20 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import projekat.model.Proizvod;
-import projekat.service.intrfc.ProizvodServiceInterface;
+import projekat.model.RobaUsluga;
+import projekat.service.intrfc.RobaUslugaServiceInterface;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "api/proizvodi")
-public class ProizvodController {
-	
-	@Autowired
-	private ProizvodServiceInterface proizvodServiceInterface;
-	
-	@GetMapping(path="/sviproizvodi")
-	public List<Proizvod> getAll(){
-		return proizvodServiceInterface.findAll();
-	}
+@RequestMapping(value = "api/roba")
+public class RobaUslugaController {
 
+	@Autowired
+	private RobaUslugaServiceInterface robaUslugaServiceInterface;
+	
+	
+	@GetMapping(path="/sva_roba")
+	public List<RobaUsluga> getAll(){
+		return robaUslugaServiceInterface.findAll();
+	}
 }

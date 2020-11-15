@@ -28,7 +28,7 @@ public class PDVKategorija implements Serializable{
 	@Column(name = "naziv_kategorije", columnDefinition = "VARCHAR(20)")
 	private String nazivKategorije;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
 	private List<PDVStopa> pdvStope = new ArrayList<PDVStopa>();
 	
 	public PDVKategorija() {

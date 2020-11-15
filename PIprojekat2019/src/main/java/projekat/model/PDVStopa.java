@@ -5,10 +5,10 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,9 +21,6 @@ public class PDVStopa implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idStope;
-
-	//@Column(name = "naziv_kategorije", columnDefinition = "VARCHAR(20)")
-	//private String nazivKategorije;
 	
 	@Column(name = "datum_vazenja", columnDefinition = "DATE")
 	private Date datumVazenja;
@@ -32,6 +29,7 @@ public class PDVStopa implements Serializable {
 	private double procenat;
 
 	@ManyToOne
+	@JoinColumn(name = "kategorija_id")
 	private PDVKategorija pdvKategorija;
 	
 	public PDVStopa() {
@@ -42,7 +40,6 @@ public class PDVStopa implements Serializable {
 			PDVKategorija pdvKategorija) {
 		super();
 		this.idStope = idStope;
-	//	this.nazivKategorije = nazivKategorije;
 		this.datumVazenja = datumVazenja;
 		this.procenat = procenat;
 		this.pdvKategorija = pdvKategorija;
@@ -56,13 +53,6 @@ public class PDVStopa implements Serializable {
 		this.idStope = idStope;
 	}
 
-//	public String getNazivKategorije() {
-//		return nazivKategorije;
-//	}
-//
-//	public void setNazivKategorije(String nazivKategorije) {
-//		this.nazivKategorije = nazivKategorije;
-//	}
 
 	public Date getDatumVazenja() {
 		return datumVazenja;
