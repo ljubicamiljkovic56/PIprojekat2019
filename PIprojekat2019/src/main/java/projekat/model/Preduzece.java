@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -40,13 +41,15 @@ public class Preduzece implements Serializable {
 	@OneToMany
 	private List<PoslovnaGodina> poslovneGodine = new ArrayList<PoslovnaGodina>();
 	
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@JoinColumn(name = "id_mesta")
 	private NaseljenoMesto naseljenoMesto;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<PoslovniPartner> poslovniPartneri = new ArrayList<PoslovniPartner>();
 	
 	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_cenovnika")
 	private Cenovnik cenovnik;
 	
 	@OneToMany

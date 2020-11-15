@@ -2,13 +2,16 @@ package projekat.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -23,8 +26,14 @@ public class StavkaCenovnika implements Serializable {
 	@Column(name = "cena", columnDefinition = "DECIMAL")
 	private double cena;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_cenovnika")
 	private Cenovnik cenovnik;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@JoinColumn(name = "id_robe_usluge")
+	private RobaUsluga robaUsluga;
+	
 
 	public StavkaCenovnika() {
 		super();

@@ -40,6 +40,7 @@ public class RobaUsluga implements Serializable {
 	private JedinicaMere jedinicaMere;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_grupe")
 	private GrupaRobeUsluga grupaRobeUsluga;
 	
 	@OneToMany(fetch = FetchType.LAZY)

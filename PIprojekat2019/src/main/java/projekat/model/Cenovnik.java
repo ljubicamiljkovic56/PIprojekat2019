@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -33,21 +32,20 @@ public class Cenovnik implements Serializable{
 	@OneToMany(mappedBy = "cenovnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<StavkaCenovnika> stavkeCenovnika = new ArrayList<StavkaCenovnika>();
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	private Preduzece preduzece;
+	//@OneToOne(fetch = FetchType.LAZY)
+	//private Preduzece preduzece;
 
 	
 	public Cenovnik() {
 		super();
 	}
 	
-	public Cenovnik(Long idCenovnika, Date datumPocetkaVazenja, List<StavkaCenovnika> stavkeCenovnika,
-			Preduzece preduzece) {
+	public Cenovnik(Long idCenovnika, Date datumPocetkaVazenja, List<StavkaCenovnika> stavkeCenovnika) {
 		super();
 		this.idCenovnika = idCenovnika;
 		this.datumPocetkaVazenja = datumPocetkaVazenja;
 		this.stavkeCenovnika = stavkeCenovnika;
-		this.preduzece = preduzece;
+		//this.preduzece = preduzece;
 	}
 
 	public Long getIdCenovnika() {
@@ -74,18 +72,18 @@ public class Cenovnik implements Serializable{
 		this.stavkeCenovnika = stavkeCenovnika;
 	}
 
-	public Preduzece getPreduzece() {
-		return preduzece;
-	}
-
-	public void setPreduzece(Preduzece preduzece) {
-		this.preduzece = preduzece;
-	}
+//	public Preduzece getPreduzece() {
+//		return preduzece;
+//	}
+//
+//	public void setPreduzece(Preduzece preduzece) {
+//		this.preduzece = preduzece;
+//	}
 
 	@Override
 	public String toString() {
 		return "Cenovnik [idCenovnika=" + idCenovnika + ", datumPocetkaVazenja=" + datumPocetkaVazenja
-				+ ", stavkeCenovnika=" + stavkeCenovnika + ", preduzece=" + preduzece + "]";
+				+ ", stavkeCenovnika=" + stavkeCenovnika +  "]";
 	}
 
 	

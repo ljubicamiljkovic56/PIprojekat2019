@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -36,7 +37,7 @@ public class PoslovniPartner implements Serializable {
 	@Column(name = "fax", columnDefinition = "VARCHAR(20)")
 	private String fax;
 	
-	@Column(name = "email", columnDefinition = "VARCHAR(20)")
+	@Column(name = "email", columnDefinition = "VARCHAR(40)")
 	private String email;
 	
 	private enum VrstaPartnera {KU, DO, KD};
@@ -48,9 +49,11 @@ public class PoslovniPartner implements Serializable {
 	private List<Faktura> fakture = new ArrayList<Faktura>();
 	
 	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_mesta")
 	private NaseljenoMesto naseljenoMesto;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_preduzeca")
 	private Preduzece preduzece;
 	
 	public PoslovniPartner() {

@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -22,27 +21,26 @@ public class NaseljenoMesto implements Serializable{
 	@Column(name = "ptt_broj", columnDefinition = "INT")
 	private int pttBroj;
 	
-	@Column(name = "naziv_mesta", columnDefinition = "VARCHAR(15)")
+	@Column(name = "naziv_mesta", columnDefinition = "VARCHAR(20)")
 	private String nazivMesta;
 	
-	@OneToOne
-	private Preduzece preduzece;
+	//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	//private Preduzece preduzece;
 	
-	@OneToOne
-	private PoslovniPartner poslovniPartner;
+	//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	//private PoslovniPartner poslovniPartner;
 
 	public NaseljenoMesto() {
 		super();
 	}
 	
-	public NaseljenoMesto(int idMesta, int pttBroj, String nazivMesta, Preduzece preduzece,
-			PoslovniPartner poslovniPartner) {
+	public NaseljenoMesto(int idMesta, int pttBroj, String nazivMesta) {
 		super();
 		this.idMesta = idMesta;
 		this.pttBroj = pttBroj;
 		this.nazivMesta = nazivMesta;
-		this.preduzece = preduzece;
-		this.poslovniPartner = poslovniPartner;
+		//this.preduzece = preduzece;
+		//this.poslovniPartner = poslovniPartner;
 	}
 
 	public int getIdMesta() {
@@ -69,26 +67,26 @@ public class NaseljenoMesto implements Serializable{
 		this.nazivMesta = nazivMesta;
 	}
 
-	public Preduzece getPreduzece() {
-		return preduzece;
-	}
-
-	public void setPreduzece(Preduzece preduzece) {
-		this.preduzece = preduzece;
-	}
-
-	public PoslovniPartner getPoslovniPartner() {
-		return poslovniPartner;
-	}
-
-	public void setPoslovniPartner(PoslovniPartner poslovniPartner) {
-		this.poslovniPartner = poslovniPartner;
-	}
+//	public Preduzece getPreduzece() {
+//		return preduzece;
+//	}
+//
+//	public void setPreduzece(Preduzece preduzece) {
+//		this.preduzece = preduzece;
+//	}
+//
+//	public PoslovniPartner getPoslovniPartner() {
+//		return poslovniPartner;
+//	}
+//
+//	public void setPoslovniPartner(PoslovniPartner poslovniPartner) {
+//		this.poslovniPartner = poslovniPartner;
+//	}
 
 	@Override
 	public String toString() {
 		return "NaseljenoMesto [idMesta=" + idMesta + ", pttBroj=" + pttBroj + ", nazivMesta=" + nazivMesta
-				+ ", preduzece=" + preduzece + ", poslovniPartner=" + poslovniPartner + "]";
+				+  "]";
 	}
 	
 	
