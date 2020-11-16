@@ -14,7 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @SuppressWarnings("serial")
 @Entity
@@ -23,6 +26,7 @@ public class RobaUsluga implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_robe_usluge")
 	private Long idRobeUsluge;
 	
 	@Column(name = "naziv_robe_usluge", columnDefinition = "VARCHAR(30)")
@@ -34,9 +38,8 @@ public class RobaUsluga implements Serializable {
 	@Column(name = "roba", columnDefinition = "TINYINT(1)")
 	private boolean roba;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne//(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_jedinice_mere")
-	//@Column(name = "jedinica_mere")
 	private JedinicaMere jedinicaMere;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

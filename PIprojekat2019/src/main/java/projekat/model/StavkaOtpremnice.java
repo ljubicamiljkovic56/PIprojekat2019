@@ -2,11 +2,14 @@ package projekat.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -22,7 +25,7 @@ public class StavkaOtpremnice implements Serializable{
 	@Column(name = "redni_broj_proizvoda" , columnDefinition = "INT")
 	private int redniBrojProizvoda;
 	
-	@Column(name = "naziv_proizvoda", columnDefinition = "VARCHAR(20)")
+	@Column(name = "naziv_proizvoda", columnDefinition = "VARCHAR(30)")
 	private String nazivProizvoda;
 	
 	@Column(name = "jedinica_mere", columnDefinition = "CHAR(2)")
@@ -38,7 +41,8 @@ public class StavkaOtpremnice implements Serializable{
 	private String napomena;
 	
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_otpremnice")
 	private Otpremnica otpremnica;
 
 	public StavkaOtpremnice() {

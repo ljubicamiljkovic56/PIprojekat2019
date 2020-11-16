@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,7 +33,7 @@ public class Otpremnica implements Serializable {
 	@Column(name = "kupac", columnDefinition = "VARCHAR(20)")
 	private String kupac;
 	
-	@Column(name = "adresa_isporuke", columnDefinition = "VARCHAR(20)")
+	@Column(name = "adresa_isporuke", columnDefinition = "VARCHAR(30)")
 	private String adresaIsporuke;
 	
 	@Column(name = "datum_isporuke", columnDefinition = "DATE")
@@ -50,7 +51,8 @@ public class Otpremnica implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<StavkaOtpremnice> stavkeOtpremnice = new ArrayList<StavkaOtpremnice>();
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_fakture")
 	private Faktura faktura;
 	
 	public Otpremnica() {

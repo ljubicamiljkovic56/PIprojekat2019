@@ -2,6 +2,8 @@ package projekat.dto;
 
 import java.io.Serializable;
 
+import projekat.model.Proizvod;
+
 @SuppressWarnings("serial")
 public class ProizvodDTO implements Serializable {
 
@@ -20,6 +22,12 @@ public class ProizvodDTO implements Serializable {
 		this.naziv = naziv;
 		this.cena = cena;
 		this.opis = opis;
+	}
+	
+	public ProizvodDTO(Proizvod proizvod) {
+		this.id = proizvod.getId();
+		this.naziv = proizvod.getNaziv();
+		this.cena = proizvod.getCena();
 	}
 
 	public Long getId() {

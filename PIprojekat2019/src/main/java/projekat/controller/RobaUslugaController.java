@@ -19,7 +19,7 @@ public class RobaUslugaController {
 	private RobaUslugaServiceInterface robaUslugaServiceInterface;
 	
 	
-	@GetMapping(path="/sva_roba")
+	@GetMapping(path="/svaroba")
 	public List<RobaUsluga> getAll(){
 		return robaUslugaServiceInterface.findAll();
 	}

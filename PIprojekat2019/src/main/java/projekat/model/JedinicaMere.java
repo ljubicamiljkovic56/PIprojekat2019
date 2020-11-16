@@ -1,6 +1,7 @@
 package projekat.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,8 +10,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @SuppressWarnings("serial")
 @Entity
@@ -28,15 +33,16 @@ public class JedinicaMere implements Serializable{
 	@Column(name = "skraceni_naziv", columnDefinition = "CHAR(5)")
 	private String skraceniNaziv;
 	
-	@OneToOne(cascade = CascadeType.ALL ,fetch = FetchType.EAGER, orphanRemoval = true)
-	//@Column(name = "roba_usluga")
-	private RobaUsluga robaUsluga;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_robe_usluge",  nullable = true)
+	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+	private List<RobaUsluga>robaUsluga;
 	
 	public JedinicaMere() {
 		super();
 	}
 
-	public JedinicaMere(int idJediniceMere, String nazivJediniceMere, String skraceniNaziv, RobaUsluga robaUsluga) {
+	public JedinicaMere(int idJediniceMere, String nazivJediniceMere, String skraceniNaziv, List<RobaUsluga> robaUsluga) {
 		super();
 		this.idJediniceMere = idJediniceMere;
 		this.nazivJediniceMere = nazivJediniceMere;
@@ -68,17 +74,28 @@ public class JedinicaMere implements Serializable{
 		this.skraceniNaziv = skraceniNaziv;
 	}
 
-	public RobaUsluga getRobaUsluga() {
-		return robaUsluga;
-	}
-
-	public void setRobaUsluga(RobaUsluga robaUsluga) {
-		this.robaUsluga = robaUsluga;
-	}
+//	public RobaUsluga getRobaUsluga() {
+//		return robaUsluga;
+//	}
+//
+//	public void setRobaUsluga(RobaUsluga robaUsluga) {
+//		this.robaUsluga = robaUsluga;
+//	}
+	
+	
 
 	@Override
 	public String toString() {
 		return "JedinicaMere [idJediniceMere=" + idJediniceMere + ", nazivJediniceMere=" + nazivJediniceMere
-				+ ", skraceniNaziv=" + skraceniNaziv + ", robaUsluga=" + robaUsluga + "]";
-	}	
+				+ ", skraceniNaziv=" + skraceniNaziv + "]";
+	}
+
+	public List<RobaUsluga> getRobaUsluga() {
+		return robaUsluga;
+	}
+
+	public void setRobaUsluga(List<RobaUsluga> robaUsluga) {
+		this.robaUsluga = robaUsluga;
+	}
+
 }
