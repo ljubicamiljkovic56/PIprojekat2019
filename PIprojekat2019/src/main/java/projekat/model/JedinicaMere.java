@@ -1,21 +1,21 @@
 package projekat.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @SuppressWarnings("serial")
 @Entity
@@ -34,9 +34,7 @@ public class JedinicaMere implements Serializable{
 	private String skraceniNaziv;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_robe_usluge",  nullable = true)
-	//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
-	private List<RobaUsluga>robaUsluga;
+	private List<RobaUsluga>robaUsluga = new ArrayList<RobaUsluga>();
 	
 	public JedinicaMere() {
 		super();
@@ -73,16 +71,6 @@ public class JedinicaMere implements Serializable{
 	public void setSkraceniNaziv(String skraceniNaziv) {
 		this.skraceniNaziv = skraceniNaziv;
 	}
-
-//	public RobaUsluga getRobaUsluga() {
-//		return robaUsluga;
-//	}
-//
-//	public void setRobaUsluga(RobaUsluga robaUsluga) {
-//		this.robaUsluga = robaUsluga;
-//	}
-	
-	
 
 	@Override
 	public String toString() {

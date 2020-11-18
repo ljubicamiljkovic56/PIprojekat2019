@@ -25,8 +25,8 @@ public class StavkaOtpremnice implements Serializable{
 	@Column(name = "redni_broj_proizvoda" , columnDefinition = "INT")
 	private int redniBrojProizvoda;
 	
-	@Column(name = "naziv_proizvoda", columnDefinition = "VARCHAR(30)")
-	private String nazivProizvoda;
+//	@Column(name = "naziv_proizvoda", columnDefinition = "VARCHAR(30)")
+//	private String nazivProizvoda;
 	
 	@Column(name = "jedinica_mere", columnDefinition = "CHAR(2)")
 	private String jedinicaMere;
@@ -49,12 +49,12 @@ public class StavkaOtpremnice implements Serializable{
 		super();
 	}
 
-	public StavkaOtpremnice(Long idStavkeOtpremnice, int redniBrojProizvoda, String nazivProizvoda, String jedinicaMere,
+	public StavkaOtpremnice(Long idStavkeOtpremnice, int redniBrojProizvoda, String jedinicaMere,
 			double cena, double kolicina, String napomena, Otpremnica otpremnica) {
 		super();
 		this.idStavkeOtpremnice = idStavkeOtpremnice;
 		this.redniBrojProizvoda = redniBrojProizvoda;
-		this.nazivProizvoda = nazivProizvoda;
+//	this.nazivProizvoda = nazivProizvoda;
 		this.jedinicaMere = jedinicaMere;
 		this.cena = cena;
 		this.kolicina = kolicina;
@@ -83,14 +83,14 @@ public class StavkaOtpremnice implements Serializable{
 	}
 
 
-	public String getNazivProizvoda() {
-		return nazivProizvoda;
-	}
-
-
-	public void setNazivProizvoda(String nazivProizvoda) {
-		this.nazivProizvoda = nazivProizvoda;
-	}
+//	public String getNazivProizvoda() {
+//		return nazivProizvoda;
+//	}
+//
+//
+//	public void setNazivProizvoda(String nazivProizvoda) {
+//		this.nazivProizvoda = nazivProizvoda;
+//	}
 
 
 	public String getJedinicaMere() {
@@ -146,7 +146,7 @@ public class StavkaOtpremnice implements Serializable{
 	@Override
 	public String toString() {
 		return "StavkaOtpremnice [idStavkeOtpremnice=" + idStavkeOtpremnice + ", redniBrojProizvoda="
-				+ redniBrojProizvoda + ", nazivProizvoda=" + nazivProizvoda + ", jedinicaMere=" + jedinicaMere
+				+ redniBrojProizvoda + ", jedinicaMere=" + jedinicaMere
 				+ ", cena=" + cena + ", kolicina=" + kolicina + ", napomena=" + napomena + ", otpremnica=" + otpremnica
 				+ "]";
 	}

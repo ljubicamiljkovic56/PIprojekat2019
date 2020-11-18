@@ -95,8 +95,8 @@ INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('ana', 'ana', 'kori
 INSERT INTO otpremnica(broj_otpremnice, kupac, adresa_isporuke, datum_isporuke, prevoznik, potpis_vozaca, primio_robu, id_fakture) VALUES (1, 'pera', 'Vase Stajica 2, Novi Sad', '2020-10-10', 'MultiExpress', true, true, 1);
 INSERT INTO otpremnica(broj_otpremnice, kupac, adresa_isporuke, datum_isporuke, prevoznik, potpis_vozaca, primio_robu, id_fakture) VALUES (2, 'ana', 'Lazina 12, Novi Sad', '2020-11-11', 'OkExpress', true, true, 2);
 
-INSERT INTO stavka_otpremnice(redni_broj_proizvoda, naziv_proizvoda, jedinica_mere, cena, kolicina, napomena, id_otpremnice) VALUES (1, 'ScreenClean', 3, 200, 1, '', 1);
-INSERT INTO stavka_otpremnice(redni_broj_proizvoda, naziv_proizvoda, jedinica_mere, cena, kolicina, napomena, id_otpremnice) VALUES (2, 'Steinberg antifriz', 5, 310,  1, 'brza isporuka', 2);
+INSERT INTO stavka_otpremnice(redni_broj_proizvoda,  jedinica_mere, cena, kolicina, napomena, id_otpremnice) VALUES (1, 3, 200, 1, '', 1);
+INSERT INTO stavka_otpremnice(redni_broj_proizvoda,  jedinica_mere, cena, kolicina, napomena, id_otpremnice) VALUES (2, 5, 310,  1, 'brza isporuka', 2);
 
 
 INSERT INTO faktura_otpremnice(faktura_id_fakture, otpremnice_id_otpremnice) VALUES (1,1);
