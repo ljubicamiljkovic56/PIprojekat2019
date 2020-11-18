@@ -9,7 +9,7 @@ import projekat.model.RobaUsluga;
 @SuppressWarnings("serial")
 public class JedinicaMereDTO implements Serializable {
 	
-	private int idJediniceMere;
+	private Long idJediniceMere;
 	private String nazivJediniceMere;
 	private String skraceniNaziv;
 	private ArrayList<RobaUsluga> robaUsluga;
@@ -20,7 +20,7 @@ public class JedinicaMereDTO implements Serializable {
 	}
 
 
-	public JedinicaMereDTO(int idJediniceMere, String nazivJediniceMere, String skraceniNaziv,
+	public JedinicaMereDTO(Long idJediniceMere, String nazivJediniceMere, String skraceniNaziv,
 			ArrayList<RobaUsluga> robaUsluga) {
 		super();
 		this.idJediniceMere = idJediniceMere;
@@ -34,16 +34,16 @@ public class JedinicaMereDTO implements Serializable {
 		this.idJediniceMere = jedinicaMere.getIdJediniceMere();
 		this.nazivJediniceMere = jedinicaMere.getNazivJediniceMere();
 		this.skraceniNaziv = jedinicaMere.getSkraceniNaziv();
-		this.robaUsluga = (ArrayList<RobaUsluga>) jedinicaMere.getRobaUsluga();
+		//this.robaUsluga = (ArrayList<RobaUsluga>) jedinicaMere.getRobaUsluga();
 	}
 
 
-	public int getIdJediniceMere() {
+	public Long getIdJediniceMere() {
 		return idJediniceMere;
 	}
 
 
-	public void setIdJediniceMere(int idJediniceMere) {
+	public void setIdJediniceMere(Long idJediniceMere) {
 		this.idJediniceMere = idJediniceMere;
 	}
 

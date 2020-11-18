@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import projekat.dto.ProizvodDTO;
 import projekat.model.Proizvod;
 import projekat.model.RobaUsluga;
-import projekat.model.StavkaFakture;
 import projekat.service.intrfc.ProizvodServiceInterface;
 import projekat.service.intrfc.RobaUslugaServiceInterface;
 
@@ -64,11 +63,11 @@ public class ProizvodController {
 		kupljeni.setOpis(proizvod.getOpis());
 		proizvodServiceInterface.save(kupljeni);
 		
-		RobaUsluga robaUsluga2 = new RobaUsluga();
-		robaUsluga2.setNazivRobeUsluge(naziv_proizvoda);
-		robaUsluga2.setGrupaRobeUsluga(robaUsluga2.getGrupaRobeUsluga());
-		robaUsluga2.setJedinicaMere(robaUsluga2.getJedinicaMere());
-		robaUsluga2.setOpis(robaUsluga2.getOpis());
+		robaUsluga = new RobaUsluga();
+		robaUsluga.setNazivRobeUsluge(naziv_proizvoda);
+		robaUsluga.setGrupaRobeUsluga(robaUsluga.getGrupaRobeUsluga());
+		robaUsluga.setJedinicaMere(robaUsluga.getJedinicaMere());
+		robaUsluga.setOpis(robaUsluga.getOpis());
 		//robaUsluga2.set
 
 		return new ResponseEntity<Void>(HttpStatus.OK);

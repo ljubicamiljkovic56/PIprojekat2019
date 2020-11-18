@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import projekat.dto.JedinicaMereDTO;
 import projekat.model.JedinicaMere;
 import projekat.service.intrfc.JedinicaMereServiceInterface;
 
@@ -26,6 +27,19 @@ public class JedinicaMereController {
 	@GetMapping(path = "/all")
 	public List<JedinicaMere> getAll(){
 		return jedinicaMereServiceInterface.findAll();
+	}
+	
+	@PostMapping(value = "/pojedinacnaJedinicaMere")
+	public ResponseEntity<JedinicaMereDTO> pojedinacnaJedinicaMere(@RequestParam("naziv_jedinice_mere") String nazivJediniceMere) {
+		
+		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivJediniceMere);
+		
+		if(jedinicaMere == null) {
+			return new ResponseEntity<JedinicaMereDTO>(HttpStatus.BAD_REQUEST);
+		}else {
+			return new ResponseEntity<JedinicaMereDTO>(new JedinicaMereDTO(jedinicaMere), HttpStatus.OK);
+		}
+		
 	}
 	
 	@PostMapping(value = "/dodajJedinicuMere")
@@ -55,6 +69,7 @@ public class JedinicaMereController {
 		if(jedinicaMere != null) {
 			jedinicaMere.setNazivJediniceMere(noviNaziv);
 			jedinicaMere.setSkraceniNaziv(skraceniNaziv);
+			jedinicaMere.setRobaUsluga(jedinicaMere.getRobaUsluga());
 			jedinicaMereServiceInterface.save(jedinicaMere);
 			
 			System.out.println("Izmena jedinice mere");
@@ -63,9 +78,24 @@ public class JedinicaMereController {
 		}else {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
-				
-		
+					
+	}
 	
+	@PostMapping(value = "/obrisiJedinicuMere")
+	private ResponseEntity<Void> obrisiJedinicuMere(@RequestParam("naziv_jedinice_mere") String nazivJediniceMere) {
+		
+		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivJediniceMere);
+		
+		if(jedinicaMere == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
+		jedinicaMereServiceInterface.remove(jedinicaMere.getIdJediniceMere());
+		
+		System.out.println("Obrisana je jedinica mere");
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
+		
 	}
 		
 	

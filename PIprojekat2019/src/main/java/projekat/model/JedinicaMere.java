@@ -25,7 +25,7 @@ public class JedinicaMere implements Serializable{
 	@Id
 	@Column(name = "id_jedinice_mere")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int idJediniceMere;
+	private Long idJediniceMere;
 	
 	@Column(name = "naziv_jedinice_mere", columnDefinition = "VARCHAR(20)")
 	private String nazivJediniceMere;
@@ -40,7 +40,7 @@ public class JedinicaMere implements Serializable{
 		super();
 	}
 
-	public JedinicaMere(int idJediniceMere, String nazivJediniceMere, String skraceniNaziv, List<RobaUsluga> robaUsluga) {
+	public JedinicaMere(Long idJediniceMere, String nazivJediniceMere, String skraceniNaziv, List<RobaUsluga> robaUsluga) {
 		super();
 		this.idJediniceMere = idJediniceMere;
 		this.nazivJediniceMere = nazivJediniceMere;
@@ -48,11 +48,11 @@ public class JedinicaMere implements Serializable{
 		this.robaUsluga = robaUsluga;
 	}
 
-	public int getIdJediniceMere() {
+	public Long getIdJediniceMere() {
 		return idJediniceMere;
 	}
 
-	public void setIdJediniceMere(int idJediniceMere) {
+	public void setIdJediniceMere(Long idJediniceMere) {
 		this.idJediniceMere = idJediniceMere;
 	}
 

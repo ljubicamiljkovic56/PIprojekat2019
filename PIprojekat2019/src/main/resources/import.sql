@@ -3,8 +3,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 INSERT INTO pdv_kategorija(naziv_kategorije) VALUES ('PDV kategorija 1');
 INSERT INTO pdv_kategorija(naziv_kategorije) VALUES ('PDV kategorija 2');
 
-INSERT INTO pdv_stopa(datum_vazenja, procenat, kategorija_id) VALUES ('2020-04-20', 8, 1);
-INSERT INTO pdv_stopa(datum_vazenja, procenat, kategorija_id) VALUES ('2020-08-29', 18, 2);
+INSERT INTO pdv_stopa(datum_vazenja, procenat) VALUES ('2020-04-20', 8);
+INSERT INTO pdv_stopa(datum_vazenja, procenat) VALUES ('2020-08-29', 18);
 
 INSERT INTO pdv_kategorija_pdv_stope(pdvkategorija_kategorija_id, pdv_stope_id_stope) VALUES (1,1);
 INSERT INTO pdv_kategorija_pdv_stope(pdvkategorija_kategorija_id, pdv_stope_id_stope) VALUES (2,2);
