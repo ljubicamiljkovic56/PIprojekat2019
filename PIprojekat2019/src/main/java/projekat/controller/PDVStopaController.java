@@ -1,8 +1,9 @@
 package projekat.controller;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,16 +46,18 @@ public class PDVStopaController {
 	}
 	
 	@PostMapping(value = "/dodajPDVStopu")
-	public ResponseEntity<Void> dodajPDVStopu(@RequestParam("procenat") String procenat) {
+	public ResponseEntity<Void> dodajPDVStopu(@RequestParam("procenat") String procenat, @RequestParam("datum_vazenja") String datumVazenja) throws ParseException {
 		
 		double procenatDouble = Double.parseDouble(procenat);
+		String datum = datumVazenja;
 		
 		System.out.println("Procenat: " + procenat);
 		
 		PDVStopa pdvStopa = new PDVStopa();
 		pdvStopa.setProcenat(procenatDouble);
-		java.util.Date utilDate = new java.util.Date();
-	    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = formatter.parse(datum);
+	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		pdvStopa.setDatumVazenja(sqlDate);
 		pdvStopaServiceInterface.save(pdvStopa);
 		
@@ -64,16 +67,19 @@ public class PDVStopaController {
 	}
 	
 	@PostMapping(value = "/izmeniPDVStopu")
-	public ResponseEntity<Void> izmeniPDVStopu(@RequestParam("procenat") String procenat, @RequestParam("novi_procenat") String novi_procenat) {
+	public ResponseEntity<Void> izmeniPDVStopu(@RequestParam("procenat") String procenat, @RequestParam("novi_procenat") String novi_procenat,
+			@RequestParam("datum_vazenja") String datumVazenja) throws ParseException {
 		
 		double procenatDouble = Double.parseDouble(procenat);
 		double noviProcenatDouble = Double.parseDouble(novi_procenat);
+		String datum = datumVazenja;
 		
 		PDVStopa pdvStopa = pdvStopaServiceInterface.findByProcenat(procenatDouble);
 		
 		if(pdvStopa != null) {
-			java.util.Date utilDate = new java.util.Date();
-		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date date = formatter.parse(datum);
+		    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 			pdvStopa.setDatumVazenja(sqlDate);
 			pdvStopa.setProcenat(noviProcenatDouble);
 			pdvStopaServiceInterface.save(pdvStopa);
