@@ -39,11 +39,11 @@ public class RobaUsluga implements Serializable {
 	@JoinColumn(name = "id_jedinice_mere")
 	private JedinicaMere jedinicaMere;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "id_grupe")
 	private GrupaRobeUsluga grupaRobeUsluga;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany//(fetch = FetchType.LAZY)
 	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 
 	public RobaUsluga() {

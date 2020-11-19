@@ -1,9 +1,12 @@
 package projekat.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import projekat.service.intrfc.CenovnikServiceInterface;
 
 
 @CrossOrigin
@@ -11,17 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "api/cenovnici")
 public class CenovnikController {
 	
-//	@Autowired
-//	private CenovnikService cenovnikService;
-//	
-//	@RequestMapping(method = RequestMethod.GET)
-//	public ResponseEntity<List<Cenovnik>> getCenovnici() {
-//
-//		List<Cenovnik> cenovnici = cenovnikService.findAll();
-//
-//		return new ResponseEntity<>(cenovnici, HttpStatus.OK);
-//	}
-//	
-//	
+	@Autowired
+	private CenovnikServiceInterface cenovnikServiceInterface;
+	
+
 
 }

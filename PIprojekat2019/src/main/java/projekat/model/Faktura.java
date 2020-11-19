@@ -49,18 +49,18 @@ public class Faktura implements Serializable{
 	@Column(name = "status_fakture", columnDefinition = "CHAR(1)")
 	private StatusFakture statusFakture;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany//(fetch = FetchType.LAZY)
 	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne//(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_godine")
 	private PoslovnaGodina poslovnaGodina;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne//(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_poslovnog_partnera")
 	private PoslovniPartner poslovniPartner;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne//(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_preduzeca")
 	private Preduzece preduzece;
 	

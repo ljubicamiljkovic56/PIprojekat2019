@@ -21,24 +21,24 @@ import javax.persistence.Table;
 public class GrupaRobeUsluga implements Serializable{
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idGrupe;
 	
 	@Column(name = "naziv_grupe", columnDefinition = "VARCHAR(30)")
 	private String nazivGrupe;
 	
-	@OneToMany(cascade =  CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	private List<RobaUsluga> robaUsluga = new ArrayList<RobaUsluga>();
+//	@OneToMany(cascade =  CascadeType.ALL, fetch = FetchType.LAZY)
+//	private List<RobaUsluga> robaUsluga = new ArrayList<RobaUsluga>();
 	
 	public GrupaRobeUsluga() {
 		super();
 	}
 
-	public GrupaRobeUsluga(Long idGrupe, String nazivGrupe,List<RobaUsluga> robaUsluga) {
+	public GrupaRobeUsluga(Long idGrupe, String nazivGrupe) {
 		super();
 		this.idGrupe = idGrupe;
 		this.nazivGrupe = nazivGrupe;
-		this.robaUsluga = robaUsluga;
+		//this.robaUsluga = robaUsluga;
 	}
 
 	public Long getIdGrupe() {
@@ -58,17 +58,17 @@ public class GrupaRobeUsluga implements Serializable{
 	}
 
 	
-	public List<RobaUsluga> getRobaUsluga() {
-		return robaUsluga;
-	}
-
-	public void setRobaUsluga(List<RobaUsluga> robaUsluga) {
-		this.robaUsluga = robaUsluga;
-	}
+//	public List<RobaUsluga> getRobaUsluga() {
+//		return robaUsluga;
+//	}
+//
+//	public void setRobaUsluga(List<RobaUsluga> robaUsluga) {
+//		this.robaUsluga = robaUsluga;
+//	}
 
 	@Override
 	public String toString() {
-		return "GrupaRobeUsluga [idGrupe=" + idGrupe + ", nazivGrupe=" + nazivGrupe + ", robaUsluga=" + robaUsluga
+		return "GrupaRobeUsluga [idGrupe=" + idGrupe + ", nazivGrupe=" + nazivGrupe 
 				+ "]";
 	}	
 }
