@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,13 +44,15 @@ public class RobaUsluga implements Serializable {
 	
 	@OneToMany//(fetch = FetchType.LAZY)
 	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
+	
+	private List<StavkaOtpremnice> stavkeOtpremnice = new ArrayList<StavkaOtpremnice>(); 
 
 	public RobaUsluga() {
 		super();
 	}
 	
 	public RobaUsluga(Long idRobeUsluge, String nazivRobeUsluge, String opis, boolean roba, JedinicaMere jedinicaMere,
-			GrupaRobeUsluga grupaRobeUsluga, List<StavkaFakture> stavkeFakture) {
+			GrupaRobeUsluga grupaRobeUsluga, List<StavkaFakture> stavkeFakture, List<StavkaOtpremnice> stavkeOtpremnice) {
 		super();
 		this.idRobeUsluge = idRobeUsluge;
 		this.nazivRobeUsluge = nazivRobeUsluge;
@@ -60,6 +61,7 @@ public class RobaUsluga implements Serializable {
 		this.jedinicaMere = jedinicaMere;
 		this.grupaRobeUsluga = grupaRobeUsluga;
 		this.stavkeFakture = stavkeFakture;
+		this.stavkeOtpremnice = stavkeOtpremnice;
 	}
 
 	public Long getIdRobeUsluge() {
@@ -117,11 +119,22 @@ public class RobaUsluga implements Serializable {
 	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
 		this.stavkeFakture = stavkeFakture;
 	}
+	
+
+	public List<StavkaOtpremnice> getStavkeOtpremnice() {
+		return stavkeOtpremnice;
+	}
+
+	public void setStavkeOtpremnice(List<StavkaOtpremnice> stavkeOtpremnice) {
+		this.stavkeOtpremnice = stavkeOtpremnice;
+	}
 
 	@Override
 	public String toString() {
 		return "RobaUsluga [idRobeUsluge=" + idRobeUsluge + ", nazivRobeUsluge=" + nazivRobeUsluge + ", opis=" + opis
 				+ ", roba=" + roba + ", jedinicaMere=" + jedinicaMere + ", grupaRobeUsluga=" + grupaRobeUsluga
-				+ ", stavkeFakture=" + stavkeFakture + "]";
+				+ ", stavkeFakture=" + stavkeFakture + ", stavkeOtpremnice=" + stavkeOtpremnice + "]";
 	}
+
+	
 }

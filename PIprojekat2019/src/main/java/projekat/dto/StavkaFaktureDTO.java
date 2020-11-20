@@ -1,64 +1,32 @@
-package projekat.model;
+package projekat.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import projekat.model.Faktura;
+import projekat.model.Preduzece;
+import projekat.model.RobaUsluga;
+import projekat.model.StavkaFakture;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name = "stavka_fakture")
-public class StavkaFakture implements Serializable {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long idStavke;
-	
-	@Column(name = "kolicina", columnDefinition = "DECIMAL")
-	private double kolicina;
-	
-	@Column(name = "rabat", columnDefinition = "DECIMAL")
-	private double rabat;
-	
-	@Column(name = "jedinicna_cena", columnDefinition = "DECIMAL")
-	private double jedinicnaCena;
-	
-	@Column(name = "pdv_stopa", columnDefinition = "DECIMAL")
-	private double pdvStopa;
-	
-	@Column(name = "osnovica_za_pdv", columnDefinition = "DECIMAL")
-	private double osnovicaZaPDV;
-	
-	@Column(name = "iznos_pdv", columnDefinition = "DECIMAL")
-	private double iznosPDV;
-	
-	@Column(name = "ukupan_iznos", columnDefinition = "DECIMAL")
-	private double ukupanIznos;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_fakture")
-	private Faktura faktura;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_preduzeca")
-	private Preduzece preduzece;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_robe_usluge")
-	private RobaUsluga robaUsluga;
+public class StavkaFaktureDTO implements Serializable {
 
+	private Long idStavke;
+	private double kolicina;
+	private double rabat;
+	private double jedinicnaCena;
+	private double pdvStopa;
+	private double osnovicaZaPDV;
+	private double iznosPDV;
+	private double ukupanIznos;
+	private Faktura faktura;
+	private Preduzece preduzece;
+	private RobaUsluga robaUsluga;
 	
-	public StavkaFakture() {
+	public StavkaFaktureDTO() {
 		super();
 	}
-	
-	public StavkaFakture(Long idStavke, double kolicina, double rabat, double jedinicnaCena, double pdvStopa,
+
+	public StavkaFaktureDTO(Long idStavke, double kolicina, double rabat, double jedinicnaCena, double pdvStopa,
 			double osnovicaZaPDV, double iznosPDV, double ukupanIznos, Faktura faktura, Preduzece preduzece,
 			RobaUsluga robaUsluga) {
 		super();
@@ -73,6 +41,14 @@ public class StavkaFakture implements Serializable {
 		this.faktura = faktura;
 		this.preduzece = preduzece;
 		this.robaUsluga = robaUsluga;
+	}
+	
+	public StavkaFaktureDTO(StavkaFakture stavkaFakture) {
+		this.idStavke = stavkaFakture.getIdStavke();
+		this.kolicina = stavkaFakture.getKolicina();
+		this.rabat = stavkaFakture.getRabat();
+		this.jedinicnaCena = stavkaFakture.getJedinicnaCena();
+		this.pdvStopa = stavkaFakture.getPdvStopa();
 	}
 
 	public Long getIdStavke() {
@@ -162,15 +138,6 @@ public class StavkaFakture implements Serializable {
 	public void setRobaUsluga(RobaUsluga robaUsluga) {
 		this.robaUsluga = robaUsluga;
 	}
-
-	@Override
-	public String toString() {
-		return "StavkaFakture [idStavke=" + idStavke + ", kolicina=" + kolicina + ", rabat=" + rabat
-				+ ", jedinicnaCena=" + jedinicnaCena + ", pdvStopa=" + pdvStopa + ", osnovicaZaPDV=" + osnovicaZaPDV
-				+ ", iznosPDV=" + iznosPDV + ", ukupanIznos=" + ukupanIznos + ", faktura=" + faktura + ", preduzece="
-				+ preduzece + ", robaUsluga=" + robaUsluga + "]";
-	}
 	
 	
-
 }

@@ -6,7 +6,9 @@ import java.util.List;
 
 import projekat.model.GrupaRobeUsluga;
 import projekat.model.JedinicaMere;
+import projekat.model.RobaUsluga;
 import projekat.model.StavkaFakture;
+import projekat.model.StavkaOtpremnice;
 
 @SuppressWarnings("serial")
 public class RobaUslugaDTO implements Serializable {
@@ -17,13 +19,14 @@ public class RobaUslugaDTO implements Serializable {
 	private JedinicaMere jedinicaMere;
 	private GrupaRobeUsluga grupaRobeUsluga;
 	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
+	private List<StavkaOtpremnice> stavkeOtpremnice = new ArrayList<StavkaOtpremnice>();
 	
 	public RobaUslugaDTO() {
 		super();
 	}
 	
 	public RobaUslugaDTO(Long idRobeUsluge, String nazivRobeUsluge, boolean roba, JedinicaMere jedinicaMere,
-			GrupaRobeUsluga grupaRobeUsluga, List<StavkaFakture> stavkeFakture) {
+			GrupaRobeUsluga grupaRobeUsluga, List<StavkaFakture> stavkeFakture, List<StavkaOtpremnice> stavkeOtpremnice) {
 		super();
 		this.idRobeUsluge = idRobeUsluge;
 		this.nazivRobeUsluge = nazivRobeUsluge;
@@ -31,7 +34,19 @@ public class RobaUslugaDTO implements Serializable {
 		this.jedinicaMere = jedinicaMere;
 		this.grupaRobeUsluga = grupaRobeUsluga;
 		this.stavkeFakture = stavkeFakture;
+		this.stavkeOtpremnice = stavkeOtpremnice;
 	}
+	
+	public RobaUslugaDTO(RobaUsluga robaUsluga) {
+		this.idRobeUsluge = robaUsluga.getIdRobeUsluge();
+		this.nazivRobeUsluge = robaUsluga.getNazivRobeUsluge();
+		this.roba = true;
+		this.jedinicaMere = robaUsluga.getJedinicaMere();
+		this.grupaRobeUsluga = robaUsluga.getGrupaRobeUsluga();
+		this.stavkeFakture = robaUsluga.getStavkeFakture();
+		this.stavkeOtpremnice = robaUsluga.getStavkeOtpremnice();
+	}
+	
 	public Long getIdRobeUsluge() {
 		return idRobeUsluge;
 	}
@@ -67,6 +82,14 @@ public class RobaUslugaDTO implements Serializable {
 	}
 	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
 		this.stavkeFakture = stavkeFakture;
+	}
+
+	public List<StavkaOtpremnice> getStavkeOtpremnice() {
+		return stavkeOtpremnice;
+	}
+
+	public void setStavkeOtpremnice(List<StavkaOtpremnice> stavkeOtpremnice) {
+		this.stavkeOtpremnice = stavkeOtpremnice;
 	}
 	
 
