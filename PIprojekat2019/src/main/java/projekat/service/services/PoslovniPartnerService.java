@@ -3,11 +3,13 @@ package projekat.service.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import projekat.model.PoslovniPartner;
 import projekat.repository.PoslovniPartnerRepository;
 import projekat.service.intrfc.PoslovniPartnerServiceInterface;
 
+@Service
 public class PoslovniPartnerService implements PoslovniPartnerServiceInterface {
 	
 	@Autowired

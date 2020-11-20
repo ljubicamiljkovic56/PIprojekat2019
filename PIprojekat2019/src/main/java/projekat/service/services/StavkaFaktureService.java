@@ -3,11 +3,12 @@ package projekat.service.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import projekat.model.StavkaFakture;
 import projekat.repository.StavkaFaktureRepository;
 import projekat.service.intrfc.StavkaFaktureServiceInterface;
-
+@Service
 public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 	
 	@Autowired

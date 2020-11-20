@@ -25,9 +25,6 @@ public class StavkaOtpremnice implements Serializable{
 	@Column(name = "redni_broj_proizvoda" , columnDefinition = "INT")
 	private int redniBrojProizvoda;
 	
-//	@Column(name = "naziv_proizvoda", columnDefinition = "VARCHAR(30)")
-//	private String nazivProizvoda;
-	
 	@Column(name = "jedinica_mere", columnDefinition = "CHAR(2)")
 	private String jedinicaMere;
 	
@@ -54,7 +51,6 @@ public class StavkaOtpremnice implements Serializable{
 		super();
 		this.idStavkeOtpremnice = idStavkeOtpremnice;
 		this.redniBrojProizvoda = redniBrojProizvoda;
-//	this.nazivProizvoda = nazivProizvoda;
 		this.jedinicaMere = jedinicaMere;
 		this.cena = cena;
 		this.kolicina = kolicina;

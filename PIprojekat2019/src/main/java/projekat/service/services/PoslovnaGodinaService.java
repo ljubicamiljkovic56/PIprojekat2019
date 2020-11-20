@@ -3,11 +3,13 @@ package projekat.service.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import projekat.model.PoslovnaGodina;
 import projekat.repository.PoslovnaGodinaRepository;
 import projekat.service.intrfc.PoslovnaGodinaServiceInterface;
 
+@Service
 public class PoslovnaGodinaService implements PoslovnaGodinaServiceInterface {
 	
 	@Autowired

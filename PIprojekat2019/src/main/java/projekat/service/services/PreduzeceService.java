@@ -3,11 +3,13 @@ package projekat.service.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import projekat.model.Preduzece;
 import projekat.repository.PreduzeceRepository;
 import projekat.service.intrfc.PreduzeceServiceInterface;
 
+@Service
 public class PreduzeceService implements PreduzeceServiceInterface {
 	
 	@Autowired

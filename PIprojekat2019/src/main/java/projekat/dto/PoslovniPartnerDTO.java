@@ -25,7 +25,7 @@ public class PoslovniPartnerDTO implements Serializable {
 	private NaseljenoMesto naseljenoMesto;
 	private Preduzece preduzece;
 	
-	private PoslovniPartnerDTO() {
+	public PoslovniPartnerDTO() {
 		super();
 	}
 
@@ -45,6 +45,7 @@ public class PoslovniPartnerDTO implements Serializable {
 		this.preduzece = preduzece;
 	}
 	
+	@SuppressWarnings("static-access")
 	public PoslovniPartnerDTO(PoslovniPartner poslovniPartner) {
 		this.idPoslovnogPartnera = poslovniPartner.getIdPoslovnogPartnera();
 		this.nazivPoslovnogPartnera = poslovniPartner.getNazivPoslovnogPartnera();
@@ -52,7 +53,7 @@ public class PoslovniPartnerDTO implements Serializable {
 		this.telefon = poslovniPartner.getTelefon();
 		this.fax = poslovniPartner.getFax();
 		this.email = poslovniPartner.getEmail();
-		//this.vrstaPartnera = poslovniPartner.getVrstaPartnera();
+		this.vrstaPartnera = vrstaPartnera.KU;
 		this.fakture = poslovniPartner.getFakture();
 		this.naseljenoMesto = poslovniPartner.getNaseljenoMesto();
 		this.preduzece = poslovniPartner.getPreduzece();
