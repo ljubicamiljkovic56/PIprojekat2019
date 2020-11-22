@@ -16,7 +16,7 @@ public class NaseljenoMesto implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idMesta;
+	private Long idMesta;
 	
 	@Column(name = "ptt_broj", columnDefinition = "INT")
 	private int pttBroj;
@@ -34,7 +34,7 @@ public class NaseljenoMesto implements Serializable{
 		super();
 	}
 	
-	public NaseljenoMesto(int idMesta, int pttBroj, String nazivMesta) {
+	public NaseljenoMesto(Long idMesta, int pttBroj, String nazivMesta) {
 		super();
 		this.idMesta = idMesta;
 		this.pttBroj = pttBroj;
@@ -43,11 +43,11 @@ public class NaseljenoMesto implements Serializable{
 		//this.poslovniPartner = poslovniPartner;
 	}
 
-	public int getIdMesta() {
+	public Long getIdMesta() {
 		return idMesta;
 	}
 
-	public void setIdMesta(int idMesta) {
+	public void setIdMesta(Long idMesta) {
 		this.idMesta = idMesta;
 	}
 

@@ -32,11 +32,11 @@ INSERT INTO roba_usluga(naziv_robe_usluge, opis, roba, id_jedinice_mere, id_grup
 INSERT INTO roba_usluga(naziv_robe_usluge, opis, roba, id_jedinice_mere, id_grupe) VALUES ('Asepsol', 'sredstvo za ciscenje', true, 4, 2);
 INSERT INTO roba_usluga(naziv_robe_usluge, opis, roba, id_jedinice_mere, id_grupe) VALUES ('Steinberg antifriz', 'antifriz za auto', true, 5, 2);
 
-INSERT INTO grupa_robe_usluga_roba_usluga(grupa_robe_usluga_id_grupe, roba_usluga_id_robe_usluge) VALUES (1, 1);
-INSERT INTO grupa_robe_usluga_roba_usluga(grupa_robe_usluga_id_grupe, roba_usluga_id_robe_usluge) VALUES (2, 3);
-INSERT INTO grupa_robe_usluga_roba_usluga(grupa_robe_usluga_id_grupe, roba_usluga_id_robe_usluge) VALUES (2, 4);
-INSERT INTO grupa_robe_usluga_roba_usluga(grupa_robe_usluga_id_grupe, roba_usluga_id_robe_usluge) VALUES (2, 5);
-INSERT INTO grupa_robe_usluga_roba_usluga(grupa_robe_usluga_id_grupe, roba_usluga_id_robe_usluge) VALUES (3, 2);
+--INSERT INTO grupa_robe_usluga_roba_usluga(grupa_robe_usluga_id_grupe, roba_usluga_id_robe_usluge) VALUES (1, 1);
+--INSERT INTO grupa_robe_usluga_roba_usluga(grupa_robe_usluga_id_grupe, roba_usluga_id_robe_usluge) VALUES (2, 3);
+--INSERT INTO grupa_robe_usluga_roba_usluga(grupa_robe_usluga_id_grupe, roba_usluga_id_robe_usluge) VALUES (2, 4);
+--INSERT INTO grupa_robe_usluga_roba_usluga(grupa_robe_usluga_id_grupe, roba_usluga_id_robe_usluge) VALUES (2, 5);
+--INSERT INTO grupa_robe_usluga_roba_usluga(grupa_robe_usluga_id_grupe, roba_usluga_id_robe_usluge) VALUES (3, 2);
 
 INSERT INTO cenovnik(datum_pocetka_vazenja) VALUES ('2020-01-01');
 INSERT INTO cenovnik(datum_pocetka_vazenja) VALUES ('2020-03-03');

@@ -44,7 +44,7 @@ public class RobaUslugaDTO implements Serializable {
 		this.jedinicaMere = robaUsluga.getJedinicaMere();
 		this.grupaRobeUsluga = robaUsluga.getGrupaRobeUsluga();
 		this.stavkeFakture = robaUsluga.getStavkeFakture();
-		this.stavkeOtpremnice = robaUsluga.getStavkeOtpremnice();
+		//this.stavkeOtpremnice = robaUsluga.getStavkeOtpremnice();
 	}
 	
 	public Long getIdRobeUsluge() {

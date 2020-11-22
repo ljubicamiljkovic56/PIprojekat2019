@@ -45,7 +45,7 @@ public class RobaUsluga implements Serializable {
 	@OneToMany//(fetch = FetchType.LAZY)
 	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 	
-	private List<StavkaOtpremnice> stavkeOtpremnice = new ArrayList<StavkaOtpremnice>(); 
+	//private List<StavkaOtpremnice> stavkeOtpremnice = new ArrayList<StavkaOtpremnice>(); 
 
 	public RobaUsluga() {
 		super();
@@ -61,7 +61,7 @@ public class RobaUsluga implements Serializable {
 		this.jedinicaMere = jedinicaMere;
 		this.grupaRobeUsluga = grupaRobeUsluga;
 		this.stavkeFakture = stavkeFakture;
-		this.stavkeOtpremnice = stavkeOtpremnice;
+		//this.stavkeOtpremnice = stavkeOtpremnice;
 	}
 
 	public Long getIdRobeUsluge() {
@@ -121,19 +121,19 @@ public class RobaUsluga implements Serializable {
 	}
 	
 
-	public List<StavkaOtpremnice> getStavkeOtpremnice() {
-		return stavkeOtpremnice;
-	}
-
-	public void setStavkeOtpremnice(List<StavkaOtpremnice> stavkeOtpremnice) {
-		this.stavkeOtpremnice = stavkeOtpremnice;
-	}
+//	public List<StavkaOtpremnice> getStavkeOtpremnice() {
+//		return stavkeOtpremnice;
+//	}
+//
+//	public void setStavkeOtpremnice(List<StavkaOtpremnice> stavkeOtpremnice) {
+//		this.stavkeOtpremnice = stavkeOtpremnice;
+//	}
 
 	@Override
 	public String toString() {
 		return "RobaUsluga [idRobeUsluge=" + idRobeUsluge + ", nazivRobeUsluge=" + nazivRobeUsluge + ", opis=" + opis
 				+ ", roba=" + roba + ", jedinicaMere=" + jedinicaMere + ", grupaRobeUsluga=" + grupaRobeUsluga
-				+ ", stavkeFakture=" + stavkeFakture + ", stavkeOtpremnice=" + stavkeOtpremnice + "]";
+				+ ", stavkeFakture=" + stavkeFakture +  "]";
 	}
 
 	
