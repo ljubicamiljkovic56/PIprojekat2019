@@ -23,7 +23,7 @@ public class PoslovniPartner implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idPoslovnogPartnera;
+	private Long idPoslovnogPartnera;
 	
 	@Column(name = "naziv_poslovnog_partnera", columnDefinition = "VARCHAR(20)")
 	private String nazivPoslovnogPartnera;
@@ -60,7 +60,7 @@ public class PoslovniPartner implements Serializable {
 		super();
 	}
 
-	public PoslovniPartner(int idPoslovnogPartnera, String nazivPoslovnogPartnera, String adresa, String telefon,
+	public PoslovniPartner(Long idPoslovnogPartnera, String nazivPoslovnogPartnera, String adresa, String telefon,
 			String fax, String email, VrstaPartnera vrstaPartnera, List<Faktura> fakture, NaseljenoMesto naseljenoMesto,
 			Preduzece preduzece) {
 		super();
@@ -76,11 +76,11 @@ public class PoslovniPartner implements Serializable {
 		this.preduzece = preduzece;
 	}
 
-	public int getIdPoslovnogPartnera() {
+	public Long getIdPoslovnogPartnera() {
 		return idPoslovnogPartnera;
 	}
 
-	public void setIdPoslovnogPartnera(int idPoslovnogPartnera) {
+	public void setIdPoslovnogPartnera(Long idPoslovnogPartnera) {
 		this.idPoslovnogPartnera = idPoslovnogPartnera;
 	}
 

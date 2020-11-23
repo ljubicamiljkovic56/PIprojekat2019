@@ -13,7 +13,7 @@ import projekat.model.Preduzece;
 @SuppressWarnings("serial")
 public class PoslovniPartnerDTO implements Serializable {
 	
-	private int idPoslovnogPartnera;
+	private Long idPoslovnogPartnera;
 	private String nazivPoslovnogPartnera;
 	private String adresa;
 	private String telefon;
@@ -29,7 +29,7 @@ public class PoslovniPartnerDTO implements Serializable {
 		super();
 	}
 
-	public PoslovniPartnerDTO(int idPoslovnogPartnera, String nazivPoslovnogPartnera, String adresa, String telefon,
+	public PoslovniPartnerDTO(Long idPoslovnogPartnera, String nazivPoslovnogPartnera, String adresa, String telefon,
 			String fax, String email, VrstaPartnera vrstaPartnera, List<Faktura> fakture, NaseljenoMesto naseljenoMesto,
 			Preduzece preduzece) {
 		super();
@@ -60,11 +60,11 @@ public class PoslovniPartnerDTO implements Serializable {
 		
 	}
 
-	public int getIdPoslovnogPartnera() {
+	public Long getIdPoslovnogPartnera() {
 		return idPoslovnogPartnera;
 	}
 
-	public void setIdPoslovnogPartnera(int idPoslovnogPartnera) {
+	public void setIdPoslovnogPartnera(Long idPoslovnogPartnera) {
 		this.idPoslovnogPartnera = idPoslovnogPartnera;
 	}
 
