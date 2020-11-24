@@ -30,6 +30,7 @@ public class StavkaCenovnikaDTO implements Serializable {
 		this.idStavke = stavkaCenovnika.getIdStavke();
 		this.cena = stavkaCenovnika.getCena();
 		this.cenovnik = stavkaCenovnika.getCenovnik();
+		this.robaUsluga = stavkaCenovnika.getRobaUsluga();
 	}
 
 	public Long getIdStavke() {

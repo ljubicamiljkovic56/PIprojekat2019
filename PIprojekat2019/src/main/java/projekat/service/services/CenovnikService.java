@@ -1,5 +1,6 @@
 package projekat.service.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ public class CenovnikService implements CenovnikServiceInterface {
 	@Override
 	public void remove(Long id) {
 		cenovnikRepository.delete(id);
+	}
+
+	@Override
+	public Cenovnik findByDatumPocetkaVazenja(Date datumVazenja) {
+		return cenovnikRepository.findByDatumPocetkaVazenja(datumVazenja);
 	}
 
 }

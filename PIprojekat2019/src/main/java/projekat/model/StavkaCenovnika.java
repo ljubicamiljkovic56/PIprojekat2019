@@ -39,11 +39,12 @@ public class StavkaCenovnika implements Serializable {
 		super();
 	}
 	
-	public StavkaCenovnika(Long idStavke, double cena, Cenovnik cenovnik) {
+	public StavkaCenovnika(Long idStavke, double cena, Cenovnik cenovnik, RobaUsluga robaUsluga) {
 		super();
 		this.idStavke = idStavke;
 		this.cena = cena;
 		this.cenovnik = cenovnik;
+		this.robaUsluga = robaUsluga;
 	}
 
 	public Long getIdStavke() {
@@ -70,8 +71,20 @@ public class StavkaCenovnika implements Serializable {
 		this.cenovnik = cenovnik;
 	}
 
+	
+	public RobaUsluga getRobaUsluga() {
+		return robaUsluga;
+	}
+
+	public void setRobaUsluga(RobaUsluga robaUsluga) {
+		this.robaUsluga = robaUsluga;
+	}
+
 	@Override
 	public String toString() {
-		return "StavkaCenovnika [idStavke=" + idStavke + ", cena=" + cena + ", cenovnik=" + cenovnik + "]";
-	}	
+		return "StavkaCenovnika [idStavke=" + idStavke + ", cena=" + cena + ", cenovnik=" + cenovnik + ", robaUsluga="
+				+ robaUsluga + "]";
+	}
+
+	
 }
