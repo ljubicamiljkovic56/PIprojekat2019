@@ -38,8 +38,9 @@ public class Preduzece implements Serializable {
 	@Column(name = "fax", columnDefinition = "VARCHAR(20)")
 	private String fax;
 	
-	@OneToMany
-	private List<PoslovnaGodina> poslovneGodine = new ArrayList<PoslovnaGodina>();
+	@OneToOne
+	@JoinColumn(name = "id_godine")
+	private PoslovnaGodina poslovnaGodina;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JoinColumn(name = "id_mesta")
@@ -48,7 +49,7 @@ public class Preduzece implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<PoslovniPartner> poslovniPartneri = new ArrayList<PoslovniPartner>();
 	
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne
 	@JoinColumn(name = "id_cenovnika")
 	private Cenovnik cenovnik;
 	
@@ -63,7 +64,7 @@ public class Preduzece implements Serializable {
 	}
 
 	public Preduzece(Long idPreduzeca, String nazivPreduzeca, String adresa, String brojTelefona, String fax,
-			List<PoslovnaGodina> poslovneGodine, NaseljenoMesto naseljenoMesto, List<PoslovniPartner> poslovniPartneri,
+			PoslovnaGodina poslovnaGodina, NaseljenoMesto naseljenoMesto, List<PoslovniPartner> poslovniPartneri,
 			Cenovnik cenovnik, List<Faktura> fakture, List<StavkaFakture> stavkeFakture) {
 		super();
 		this.idPreduzeca = idPreduzeca;
@@ -71,7 +72,7 @@ public class Preduzece implements Serializable {
 		this.adresa = adresa;
 		this.brojTelefona = brojTelefona;
 		this.fax = fax;
-		this.poslovneGodine = poslovneGodine;
+		this.poslovnaGodina = poslovnaGodina;
 		this.naseljenoMesto = naseljenoMesto;
 		this.poslovniPartneri = poslovniPartneri;
 		this.cenovnik = cenovnik;
@@ -119,16 +120,26 @@ public class Preduzece implements Serializable {
 		this.fax = fax;
 	}
 
-	public List<PoslovnaGodina> getPoslovneGodine() {
-		return poslovneGodine;
-	}
-
-	public void setPoslovneGodine(List<PoslovnaGodina> poslovneGodine) {
-		this.poslovneGodine = poslovneGodine;
-	}
+//	public List<PoslovnaGodina> getPoslovneGodine() {
+//		return poslovneGodine;
+//	}
+//
+//	public void setPoslovneGodine(List<PoslovnaGodina> poslovneGodine) {
+//		this.poslovneGodine = poslovneGodine;
+//	}
+	
+	
 
 	public NaseljenoMesto getNaseljenoMesto() {
 		return naseljenoMesto;
+	}
+
+	public PoslovnaGodina getPoslovnaGodina() {
+		return poslovnaGodina;
+	}
+
+	public void setPoslovnaGodina(PoslovnaGodina poslovnaGodina) {
+		this.poslovnaGodina = poslovnaGodina;
 	}
 
 	public void setNaseljenoMesto(NaseljenoMesto naseljenoMesto) {
@@ -170,7 +181,7 @@ public class Preduzece implements Serializable {
 	@Override
 	public String toString() {
 		return "Preduzece [idPreduzeca=" + idPreduzeca + ", nazivPreduzeca=" + nazivPreduzeca + ", adresa=" + adresa
-				+ ", brojTelefona=" + brojTelefona + ", fax=" + fax + ", poslovneGodine=" + poslovneGodine
+				+ ", brojTelefona=" + brojTelefona + ", fax=" + fax 
 				+ ", naseljenoMesto=" + naseljenoMesto + ", poslovniPartneri=" + poslovniPartneri + ", cenovnik="
 				+ cenovnik + ", fakture=" + fakture + ", stavkeFakture=" + stavkeFakture + "]";
 	}

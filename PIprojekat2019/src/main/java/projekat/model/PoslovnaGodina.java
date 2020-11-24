@@ -11,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,7 +23,7 @@ import javax.persistence.Table;
 public class PoslovnaGodina implements Serializable{
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idGodine;
 	
 	@Column(name = "godina", columnDefinition = "INT")
@@ -34,7 +33,7 @@ public class PoslovnaGodina implements Serializable{
 	private boolean zakljucena;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_preduzeca")
+	//@JoinColumn(name = "id_preduzeca")
 	private Preduzece preduzece;
 	
 	@OneToMany(fetch = FetchType.LAZY)
@@ -50,7 +49,7 @@ public class PoslovnaGodina implements Serializable{
 		this.godina = godina;
 		this.zakljucena = zakljucena;
 		this.preduzece = preduzece;
-		this.fakture = fakture;
+		//this.fakture = fakture;
 	}
 
 	public Long getIdGodine() {
@@ -85,17 +84,17 @@ public class PoslovnaGodina implements Serializable{
 		this.preduzece = preduzece;
 	}
 
-	public List<Faktura> getFakture() {
-		return fakture;
-	}
-
-	public void setFakture(List<Faktura> fakture) {
-		this.fakture = fakture;
-	}
+//	public List<Faktura> getFakture() {
+//		return fakture;
+//	}
+//
+//	public void setFakture(List<Faktura> fakture) {
+//		this.fakture = fakture;
+//	}
 
 	@Override
 	public String toString() {
 		return "PoslovnaGodina [idGodine=" + idGodine + ", godina=" + godina + ", zakljucena=" + zakljucena
-				+ ", preduzece=" + preduzece + ", fakture=" + fakture + "]";
+				+ ", preduzece=" + preduzece + "]";
 	}
 }

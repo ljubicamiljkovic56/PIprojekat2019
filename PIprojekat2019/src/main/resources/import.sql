@@ -50,8 +50,11 @@ INSERT INTO stavka_cenovnika(cena, id_cenovnika, id_robe_usluge) VALUES (310, 1,
 INSERT INTO naseljeno_mesto(naziv_mesta, ptt_broj) VALUES ('Novi Sad', 21000);
 INSERT INTO naseljeno_mesto(naziv_mesta, ptt_broj) VALUES ('Beograd', 11000);
 
-INSERT INTO preduzece(naziv_preduzeca, adresa, broj_telefona, fax, id_mesta, id_cenovnika) VALUES ('Smart Co.', 'Vasina 12', '021123456', '123456789', 1, 1);
-INSERT INTO preduzece(naziv_preduzeca, adresa, broj_telefona, fax, id_mesta, id_cenovnika) VALUES ('Epic d.o.o.', 'Zemunska 20', '011654321', '987654321', 2, 2);
+INSERT INTO poslovna_godina(godina, zakljucena) VALUES (2020, false);
+INSERT INTO poslovna_godina(godina, zakljucena) VALUES (2020, false);
+
+INSERT INTO preduzece(naziv_preduzeca, adresa, broj_telefona, fax, id_mesta) VALUES ('Smart Co.', 'Vasina 12', '021123456', '123456789', 1);
+INSERT INTO preduzece(naziv_preduzeca, adresa, broj_telefona, fax, id_mesta) VALUES ('Epic d.o.o.', 'Zemunska 20', '011654321', '987654321', 2);
 
 INSERT INTO poslovni_partner(naziv_poslovnog_partnera, adresa, telefon, fax, email, vrsta_partnera, id_mesta, id_preduzeca) VALUES ('Epic d.o.o', 'Zemunska 20', '011654321', '987654321', 'epicdoo@gmail.com', 'KU', 2, 1);
 INSERT INTO poslovni_partner(naziv_poslovnog_partnera, adresa, telefon, fax, email, vrsta_partnera, id_mesta, id_preduzeca) VALUES ('Smart Co.', 'Vasina 12', '021123456', '123456789', 'smartco@gmail.com', 'DO', 1, 2);
@@ -59,8 +62,6 @@ INSERT INTO poslovni_partner(naziv_poslovnog_partnera, adresa, telefon, fax, ema
 INSERT INTO preduzece_poslovni_partneri(preduzece_id_preduzeca, poslovni_partneri_id_poslovnog_partnera) VALUES (1, 1);
 INSERT INTO preduzece_poslovni_partneri(preduzece_id_preduzeca, poslovni_partneri_id_poslovnog_partnera) VALUES (2, 2);
 
-INSERT INTO poslovna_godina(godina, zakljucena, id_preduzeca) VALUES (2020, false, 1);
-INSERT INTO poslovna_godina(godina, zakljucena, id_preduzeca) VALUES (2020, false, 2);
 
 INSERT INTO preduzece_poslovne_godine(preduzece_id_preduzeca, poslovne_godine_id_godine) VALUES (1, 1);
 INSERT INTO preduzece_poslovne_godine(preduzece_id_preduzeca, poslovne_godine_id_godine) VALUES (2, 2);

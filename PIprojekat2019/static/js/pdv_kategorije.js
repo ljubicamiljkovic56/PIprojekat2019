@@ -22,7 +22,7 @@ $(document).ready(function(){
 			kategorijeTable.append(
 				'<tr>' + 
 					'<td>' + it.nazivKategorije + '</td>' +
-					'<td>' + it.pdvStope + '</td>' + 
+					'<td>' + it.pdvStope.idStope + '</td>' + 
 					'<td>' +
 				'</td>' + 
 					'<td>' +

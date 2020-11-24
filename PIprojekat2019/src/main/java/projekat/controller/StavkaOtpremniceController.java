@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import projekat.dto.StavkaOtpremniceDTO;
 import projekat.model.Otpremnica;
 import projekat.model.StavkaOtpremnice;
-import projekat.service.intrfc.JedinicaMereServiceInterface;
 import projekat.service.intrfc.OtpremnicaServiceInterface;
 import projekat.service.intrfc.StavkaOtpremniceServiceInterface;
 
@@ -26,8 +25,8 @@ public class StavkaOtpremniceController {
 	@Autowired
 	private StavkaOtpremniceServiceInterface stavkaOtpremniceServicenterface;
 	
-	@Autowired
-	private JedinicaMereServiceInterface jedinicaMereServiceInterface;
+//	@Autowired
+//	private JedinicaMereServiceInterface jedinicaMereServiceInterface;
 	
 	@Autowired
 	private OtpremnicaServiceInterface otpremnicaServiceInterface;

@@ -1,7 +1,6 @@
 package projekat.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import javax.persistence.Table;
 
@@ -42,8 +40,8 @@ public class RobaUsluga implements Serializable {
 	@JoinColumn(name = "id_grupe")
 	private GrupaRobeUsluga grupaRobeUsluga;
 	
-	@OneToMany//(fetch = FetchType.LAZY)
-	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
+	//@OneToMany//(fetch = FetchType.LAZY)
+	//private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 	
 	//private List<StavkaOtpremnice> stavkeOtpremnice = new ArrayList<StavkaOtpremnice>(); 
 
@@ -60,7 +58,7 @@ public class RobaUsluga implements Serializable {
 		this.roba = roba;
 		this.jedinicaMere = jedinicaMere;
 		this.grupaRobeUsluga = grupaRobeUsluga;
-		this.stavkeFakture = stavkeFakture;
+		//this.stavkeFakture = stavkeFakture;
 		//this.stavkeOtpremnice = stavkeOtpremnice;
 	}
 
@@ -112,13 +110,13 @@ public class RobaUsluga implements Serializable {
 		this.grupaRobeUsluga = grupaRobeUsluga;
 	}
 
-	public List<StavkaFakture> getStavkeFakture() {
-		return stavkeFakture;
-	}
-
-	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
-		this.stavkeFakture = stavkeFakture;
-	}
+//	public List<StavkaFakture> getStavkeFakture() {
+//		return stavkeFakture;
+//	}
+//
+//	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
+//		this.stavkeFakture = stavkeFakture;
+//	}
 	
 
 //	public List<StavkaOtpremnice> getStavkeOtpremnice() {
@@ -133,7 +131,7 @@ public class RobaUsluga implements Serializable {
 	public String toString() {
 		return "RobaUsluga [idRobeUsluge=" + idRobeUsluge + ", nazivRobeUsluge=" + nazivRobeUsluge + ", opis=" + opis
 				+ ", roba=" + roba + ", jedinicaMere=" + jedinicaMere + ", grupaRobeUsluga=" + grupaRobeUsluga
-				+ ", stavkeFakture=" + stavkeFakture +  "]";
+			 +  "]";
 	}
 
 	

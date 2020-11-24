@@ -61,7 +61,7 @@ public class PoslovnaGodinaController {
 		poslovnaGodina.setGodina(godinaInt);
 		poslovnaGodina.setZakljucena(false);
 		poslovnaGodina.setPreduzece(preduzece);
-		poslovnaGodina.setFakture(poslovnaGodina.getFakture());
+	//	poslovnaGodina.setFakture(poslovnaGodina.getFakture());
 		poslovnaGodinaServiceInterface.save(poslovnaGodina);
 		
 		System.out.println("Dodata je nova poslovna godina.");
@@ -87,7 +87,7 @@ public class PoslovnaGodinaController {
 			poslovnaGodina.setPreduzece(preduzece);
 			poslovnaGodina.setZakljucena(false);
 			poslovnaGodina.setPreduzece(preduzece);
-			poslovnaGodina.setFakture(poslovnaGodina.getFakture());
+//			poslovnaGodina.setFakture(poslovnaGodina.getFakture());
 			poslovnaGodinaServiceInterface.save(poslovnaGodina);
 			
 			System.out.println("Izmenjena je poslovna godina.");

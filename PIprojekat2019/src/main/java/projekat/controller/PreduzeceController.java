@@ -65,7 +65,7 @@ public class PreduzeceController {
 		preduzece.setCenovnik(preduzece.getCenovnik());
 		preduzece.setFakture(preduzece.getFakture());
 		preduzece.setStavkeFakture(preduzece.getStavkeFakture());
-		preduzece.setPoslovneGodine(preduzece.getPoslovneGodine());
+		//preduzece.setPoslovneGodine(preduzece.getPoslovneGodine());
 		preduzece.setPoslovniPartneri(preduzece.getPoslovniPartneri());
 		preduzeceServiceInterface.save(preduzece);
 		
@@ -91,7 +91,7 @@ public class PreduzeceController {
 			preduzece.setCenovnik(preduzece.getCenovnik());
 			preduzece.setFakture(preduzece.getFakture());
 			preduzece.setStavkeFakture(preduzece.getStavkeFakture());
-			preduzece.setPoslovneGodine(preduzece.getPoslovneGodine());
+		//	preduzece.setPoslovneGodine(preduzece.getPoslovneGodine());
 			preduzece.setPoslovniPartneri(preduzece.getPoslovniPartneri());
 			preduzeceServiceInterface.save(preduzece);
 			

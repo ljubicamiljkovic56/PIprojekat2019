@@ -56,9 +56,9 @@ public class PreduzeceDTO implements Serializable {
 		this.adresa = preduzece.getAdresa();
 		this.brojTelefona = preduzece.getBrojTelefona();
 		this.fax = preduzece.getFax();
-		this.poslovneGodine = preduzece.getPoslovneGodine();
+		//this.poslovneGodine = preduzece.getPoslovneGodine();
 		this.naseljenoMesto = preduzece.getNaseljenoMesto();
-		this.poslovniPartneri = preduzece.getPoslovniPartneri();
+		//this.poslovniPartneri = preduzece.getPoslovniPartneri();
 		this.cenovnik = preduzece.getCenovnik();
 		this.fakture = preduzece.getFakture();
 		this.stavkeFakture = preduzece.getStavkeFakture();

@@ -15,6 +15,7 @@ public class RobaUslugaDTO implements Serializable {
 	
 	private Long idRobeUsluge;
 	private String nazivRobeUsluge;
+	private String opis;
 	private boolean roba;
 	private JedinicaMere jedinicaMere;
 	private GrupaRobeUsluga grupaRobeUsluga;
@@ -25,11 +26,12 @@ public class RobaUslugaDTO implements Serializable {
 		super();
 	}
 	
-	public RobaUslugaDTO(Long idRobeUsluge, String nazivRobeUsluge, boolean roba, JedinicaMere jedinicaMere,
+	public RobaUslugaDTO(Long idRobeUsluge, String nazivRobeUsluge, boolean roba, String opis, JedinicaMere jedinicaMere,
 			GrupaRobeUsluga grupaRobeUsluga, List<StavkaFakture> stavkeFakture, List<StavkaOtpremnice> stavkeOtpremnice) {
 		super();
 		this.idRobeUsluge = idRobeUsluge;
 		this.nazivRobeUsluge = nazivRobeUsluge;
+		this.opis = opis;
 		this.roba = roba;
 		this.jedinicaMere = jedinicaMere;
 		this.grupaRobeUsluga = grupaRobeUsluga;
@@ -41,9 +43,10 @@ public class RobaUslugaDTO implements Serializable {
 		this.idRobeUsluge = robaUsluga.getIdRobeUsluge();
 		this.nazivRobeUsluge = robaUsluga.getNazivRobeUsluge();
 		this.roba = true;
+		this.opis = robaUsluga.getOpis();
 		this.jedinicaMere = robaUsluga.getJedinicaMere();
 		this.grupaRobeUsluga = robaUsluga.getGrupaRobeUsluga();
-		this.stavkeFakture = robaUsluga.getStavkeFakture();
+	//	this.stavkeFakture = robaUsluga.getStavkeFakture();
 		//this.stavkeOtpremnice = robaUsluga.getStavkeOtpremnice();
 	}
 	
@@ -91,6 +94,16 @@ public class RobaUslugaDTO implements Serializable {
 	public void setStavkeOtpremnice(List<StavkaOtpremnice> stavkeOtpremnice) {
 		this.stavkeOtpremnice = stavkeOtpremnice;
 	}
+
+	public String getOpis() {
+		return opis;
+	}
+
+	public void setOpis(String opis) {
+		this.opis = opis;
+	}
+	
+	
 	
 
 }

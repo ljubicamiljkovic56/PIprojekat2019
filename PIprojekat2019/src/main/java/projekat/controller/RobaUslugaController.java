@@ -69,7 +69,7 @@ public class RobaUslugaController {
 		robaUsluga.setRoba(true);
 		robaUsluga.setGrupaRobeUsluga(grupa);
 		robaUsluga.setJedinicaMere(mera);
-		robaUsluga.setStavkeFakture(robaUsluga.getStavkeFakture());
+	//	robaUsluga.setStavkeFakture(robaUsluga.getStavkeFakture());
 		robaUslugaServiceInterface.save(robaUsluga);
 		
 		System.out.println("Dodata je nova roba");
@@ -89,7 +89,7 @@ public class RobaUslugaController {
 			roba.setOpis(opis);
 			roba.setJedinicaMere(roba.getJedinicaMere());
 			roba.setGrupaRobeUsluga(roba.getGrupaRobeUsluga());
-			roba.setStavkeFakture(roba.getStavkeFakture());
+		//	roba.setStavkeFakture(roba.getStavkeFakture());
 			robaUslugaServiceInterface.save(roba);
 			
 			System.out.println("Izmena robe");
