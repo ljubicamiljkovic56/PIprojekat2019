@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class StavkaFakture implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idStavke;
 	
 	@Column(name = "kolicina", columnDefinition = "DECIMAL")

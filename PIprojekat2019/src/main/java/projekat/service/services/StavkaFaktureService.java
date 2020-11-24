@@ -35,4 +35,9 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 
 	}
 
+	@Override
+	public StavkaFakture findByJedinicnaCena(double jedinicnaCena) {
+		return stavkaFaktureRepository.findByJedinicnaCena(jedinicnaCena);
+	}
+
 }

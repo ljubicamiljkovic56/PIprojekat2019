@@ -24,13 +24,13 @@ public class Faktura implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idFakture;
 	
-	@Column(name="broj_fakture", columnDefinition = "INT")
+	@Column(name = "broj_fakture", columnDefinition = "INT")
 	private int brojFakture;
 	
-	@Column(name="datum_fakture", columnDefinition = "DATE")
+	@Column(name = "datum_fakture", columnDefinition = "DATE")
 	private Date datumFakture;
 	
-	@Column(name="datum_valute", columnDefinition = "DATE")
+	@Column(name = "datum_valute", columnDefinition = "DATE")
 	private Date datumValute;
 	
 	@Column(name = "ukupna_osnovica", columnDefinition = "DECIMAL")

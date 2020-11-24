@@ -60,6 +60,11 @@ public class StavkaCenovnikaController {
 	public ResponseEntity<Void> dodajStavkuCenovnika(@RequestParam("cena") String cena, @RequestParam("roba") String nazivRobe,
 			@RequestParam("datum_vazenja") String datumVazenjaCenovnika) throws ParseException {
 		
+		
+		System.out.println("Cena: " + cena);
+		System.out.println("Naziv robe: " + nazivRobe);
+		System.out.println("Datum vazenja: " + datumVazenjaCenovnika);
+		
 		double cenaDouble = Double.parseDouble(cena);
 		
 		String datum = datumVazenjaCenovnika;

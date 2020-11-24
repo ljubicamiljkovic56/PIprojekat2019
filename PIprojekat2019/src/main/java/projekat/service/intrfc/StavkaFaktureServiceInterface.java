@@ -7,6 +7,8 @@ import projekat.model.StavkaFakture;
 
 public interface StavkaFaktureServiceInterface {
 	
+	StavkaFakture findByJedinicnaCena (double jedinicnaCena);
+	
 	StavkaFakture save(StavkaFakture stavkaFakture);
 
 	StavkaFakture findOne(Long id);
