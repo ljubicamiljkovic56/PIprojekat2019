@@ -24,16 +24,6 @@ public class Cenovnik implements Serializable{
 	@Column(name="datum_pocetka_vazenja", columnDefinition = "DATE")
 	private Date datumPocetkaVazenja;
 	
-//	@OneToMany(mappedBy = "cenovnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	private List<StavkaCenovnika> stavkeCenovnika = new ArrayList<StavkaCenovnika>();
-	
-//	@ManyToOne
-//	@JoinColumn("id_stavke")
-//	private StavkaCenovnika stavkaCenovnika;
-	//@OneToOne(fetch = FetchType.LAZY)
-	//private Preduzece preduzece;
-
-	
 	public Cenovnik() {
 		super();
 	}

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import projekat.dto.PoslovniPartnerDTO;
 import projekat.model.NaseljenoMesto;
 import projekat.model.PoslovniPartner;
-import projekat.model.Preduzece;
 import projekat.service.intrfc.NaseljenoMestoServiceInterface;
 import projekat.service.intrfc.PoslovniPartnerServiceInterface;
 import projekat.service.intrfc.PreduzeceServiceInterface;
@@ -61,7 +60,7 @@ public class PoslovniPartnerController {
 		
 		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
 		
-		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
+		//Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
 		
 		PoslovniPartner partner = new PoslovniPartner();
 		partner.setNazivPoslovnogPartnera(nazivPoslovnogPartnera);
@@ -94,7 +93,7 @@ public class PoslovniPartnerController {
 		
 		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
 		
-		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
+	//	Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
 		
 		if(partner != null) {
 			partner.setNazivPoslovnogPartnera(noviNaziv);

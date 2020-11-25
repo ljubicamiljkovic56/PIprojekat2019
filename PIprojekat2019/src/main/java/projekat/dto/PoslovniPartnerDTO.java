@@ -7,7 +7,6 @@ import java.util.List;
 import projekat.model.Faktura;
 import projekat.model.NaseljenoMesto;
 import projekat.model.PoslovniPartner;
-import projekat.model.Preduzece;
 
 
 @SuppressWarnings("serial")
