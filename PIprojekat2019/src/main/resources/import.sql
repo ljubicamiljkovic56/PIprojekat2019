@@ -53,18 +53,20 @@ INSERT INTO naseljeno_mesto(naziv_mesta, ptt_broj) VALUES ('Beograd', 11000);
 INSERT INTO poslovna_godina(godina, zakljucena) VALUES (2020, false);
 INSERT INTO poslovna_godina(godina, zakljucena) VALUES (2020, false);
 
-INSERT INTO preduzece(naziv_preduzeca, adresa, broj_telefona, fax, id_mesta) VALUES ('Smart Co.', 'Vasina 12', '021123456', '123456789', 1);
-INSERT INTO preduzece(naziv_preduzeca, adresa, broj_telefona, fax, id_mesta) VALUES ('Epic d.o.o.', 'Zemunska 20', '011654321', '987654321', 2);
 
-INSERT INTO poslovni_partner(naziv_poslovnog_partnera, adresa, telefon, fax, email, vrsta_partnera, id_mesta, id_preduzeca) VALUES ('Epic d.o.o', 'Zemunska 20', '011654321', '987654321', 'epicdoo@gmail.com', 'KU', 2, 1);
-INSERT INTO poslovni_partner(naziv_poslovnog_partnera, adresa, telefon, fax, email, vrsta_partnera, id_mesta, id_preduzeca) VALUES ('Smart Co.', 'Vasina 12', '021123456', '123456789', 'smartco@gmail.com', 'DO', 1, 2);
+INSERT INTO poslovni_partner(naziv_poslovnog_partnera, adresa, telefon, fax, email, vrsta_partnera, id_mesta) VALUES ('Epic d.o.o', 'Zemunska 20', '011654321', '987654321', 'epicdoo@gmail.com', 'KU', 2);
+INSERT INTO poslovni_partner(naziv_poslovnog_partnera, adresa, telefon, fax, email, vrsta_partnera, id_mesta) VALUES ('Smart Co.', 'Vasina 12', '021123456', '123456789', 'smartco@gmail.com', 'DO', 1);
 
-INSERT INTO preduzece_poslovni_partneri(preduzece_id_preduzeca, poslovni_partneri_id_poslovnog_partnera) VALUES (1, 1);
-INSERT INTO preduzece_poslovni_partneri(preduzece_id_preduzeca, poslovni_partneri_id_poslovnog_partnera) VALUES (2, 2);
+INSERT INTO preduzece(naziv_preduzeca, adresa, broj_telefona, fax, id_mesta, id_cenovnika, id_godine, id_partnera) VALUES ('Smart Co.', 'Vasina 12', '021123456', '123456789', 1, 1, 1, 1);
+INSERT INTO preduzece(naziv_preduzeca, adresa, broj_telefona, fax, id_mesta, id_cenovnika, id_godine, id_partnera) VALUES ('Epic d.o.o.', 'Zemunska 20', '011654321', '987654321', 2, 2, 2, 2);
 
 
-INSERT INTO preduzece_poslovne_godine(preduzece_id_preduzeca, poslovne_godine_id_godine) VALUES (1, 1);
-INSERT INTO preduzece_poslovne_godine(preduzece_id_preduzeca, poslovne_godine_id_godine) VALUES (2, 2);
+--INSERT INTO preduzece_poslovni_partneri(preduzece_id_preduzeca, poslovni_partneri_id_poslovnog_partnera) VALUES (1, 1);
+--INSERT INTO preduzece_poslovni_partneri(preduzece_id_preduzeca, poslovni_partneri_id_poslovnog_partnera) VALUES (2, 2);
+
+
+--INSERT INTO preduzece_poslovne_godine(preduzece_id_preduzeca, poslovne_godine_id_godine) VALUES (1, 1);
+--INSERT INTO preduzece_poslovne_godine(preduzece_id_preduzeca, poslovne_godine_id_godine) VALUES (2, 2);
 
 INSERT INTO faktura(broj_fakture, datum_fakture, datum_valute, ukupna_osnovica, ukupan_pdv, ukupan_iznos, status_fakture, id_godine, id_poslovnog_partnera, id_preduzeca) VALUES (1, '2020-08-08', '2020-08-08', 310, 10, 320, 'P', 1, 1, 1);
 INSERT INTO faktura(broj_fakture, datum_fakture, datum_valute, ukupna_osnovica, ukupan_pdv, ukupan_iznos, status_fakture, id_godine, id_poslovnog_partnera, id_preduzeca) VALUES (2, '2020-09-09', '2020-09-09', 200, 15, 215, 'F', 1, 1, 1);
@@ -72,14 +74,14 @@ INSERT INTO faktura(broj_fakture, datum_fakture, datum_valute, ukupna_osnovica, 
 INSERT INTO stavka_fakture(kolicina, rabat, jedinicna_cena, pdv_stopa, osnovica_za_pdv, iznos_pdv, ukupan_iznos, id_fakture, id_preduzeca, id_robe_usluge) VALUES (1, 5, 310, 5, 310, 20, 320, 1, 1, 5);
 INSERT INTO stavka_fakture(kolicina, rabat, jedinicna_cena, pdv_stopa, osnovica_za_pdv, iznos_pdv, ukupan_iznos, id_fakture, id_preduzeca, id_robe_usluge) VALUES (1, 5, 200, 5, 200, 15, 215, 2, 1, 3);
 
-INSERT INTO faktura_stavke_fakture(faktura_id_fakture, stavke_fakture_id_stavke) VALUES (1, 1);
-INSERT INTO faktura_stavke_fakture(faktura_id_fakture, stavke_fakture_id_stavke) VALUES (2, 2);
+--INSERT INTO faktura_stavke_fakture(faktura_id_fakture, stavke_fakture_id_stavke) VALUES (1, 1);
+--INSERT INTO faktura_stavke_fakture(faktura_id_fakture, stavke_fakture_id_stavke) VALUES (2, 2);
 
 INSERT INTO poslovna_godina_fakture(poslovna_godina_id_godine, fakture_id_fakture) VALUES (1, 1);
 INSERT INTO poslovna_godina_fakture(poslovna_godina_id_godine, fakture_id_fakture) VALUES (1, 2);
 
-INSERT INTO poslovni_partner_fakture(poslovni_partner_id_poslovnog_partnera, fakture_id_fakture) VALUES (1 ,1);
-INSERT INTO poslovni_partner_fakture(poslovni_partner_id_poslovnog_partnera, fakture_id_fakture) VALUES (1, 2);
+--INSERT INTO poslovni_partner_fakture(poslovni_partner_id_poslovnog_partnera, fakture_id_fakture) VALUES (1 ,1);
+--INSERT INTO poslovni_partner_fakture(poslovni_partner_id_poslovnog_partnera, fakture_id_fakture) VALUES (1, 2);
 
 INSERT INTO preduzece_fakture(preduzece_id_preduzeca, fakture_id_fakture) VALUES (1, 1);
 INSERT INTO preduzece_fakture(preduzece_id_preduzeca, fakture_id_fakture) VALUES (1, 2);
@@ -87,8 +89,8 @@ INSERT INTO preduzece_fakture(preduzece_id_preduzeca, fakture_id_fakture) VALUES
 INSERT INTO preduzece_stavke_fakture(preduzece_id_preduzeca, stavke_fakture_id_stavke) VALUES (1, 1);
 INSERT INTO preduzece_stavke_fakture(preduzece_id_preduzeca, stavke_fakture_id_stavke) VALUES (1, 2);
 
-INSERT INTO roba_usluga_stavke_fakture(roba_usluga_id_robe_usluge, stavke_fakture_id_stavke) VALUES (5, 1);
-INSERT INTO roba_usluga_stavke_fakture(roba_usluga_id_robe_usluge, stavke_fakture_id_stavke) VALUES (3, 2);
+--INSERT INTO roba_usluga_stavke_fakture(roba_usluga_id_robe_usluge, stavke_fakture_id_stavke) VALUES (5, 1);
+--INSERT INTO roba_usluga_stavke_fakture(roba_usluga_id_robe_usluge, stavke_fakture_id_stavke) VALUES (3, 2);
 
 INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('pera', 'pera', 'admin');
 INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('ana', 'ana', 'korisnik');

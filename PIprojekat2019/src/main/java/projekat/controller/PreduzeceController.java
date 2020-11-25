@@ -66,7 +66,7 @@ public class PreduzeceController {
 		preduzece.setFakture(preduzece.getFakture());
 		preduzece.setStavkeFakture(preduzece.getStavkeFakture());
 		//preduzece.setPoslovneGodine(preduzece.getPoslovneGodine());
-		preduzece.setPoslovniPartneri(preduzece.getPoslovniPartneri());
+	//	preduzece.setPoslovniPartneri(preduzece.getPoslovniPartneri());
 		preduzeceServiceInterface.save(preduzece);
 		
 		System.out.println("Dodato je novo preduzece");
@@ -92,7 +92,7 @@ public class PreduzeceController {
 			preduzece.setFakture(preduzece.getFakture());
 			preduzece.setStavkeFakture(preduzece.getStavkeFakture());
 		//	preduzece.setPoslovneGodine(preduzece.getPoslovneGodine());
-			preduzece.setPoslovniPartneri(preduzece.getPoslovniPartneri());
+		//	preduzece.setPoslovniPartneri(preduzece.getPoslovniPartneri());
 			preduzeceServiceInterface.save(preduzece);
 			
 			System.out.println("Izmenjeno je preduzece.");

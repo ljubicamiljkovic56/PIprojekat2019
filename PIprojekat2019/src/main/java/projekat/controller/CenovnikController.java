@@ -66,7 +66,7 @@ public class CenovnikController {
 		
 		Cenovnik cenovnik = new Cenovnik();
 		cenovnik.setDatumPocetkaVazenja(sqlDate);
-		cenovnik.setStavkeCenovnika(cenovnik.getStavkeCenovnika());
+	//	cenovnik.setStavkeCenovnika(cenovnik.getStavkeCenovnika());
 		cenovnikServiceInterface.save(cenovnik);
 		
 		System.out.println("Dodat je novi cenovnik");
@@ -92,7 +92,7 @@ public class CenovnikController {
 	    
 	    if(cenovnik != null) {
 	    	cenovnik.setDatumPocetkaVazenja(sqlDate2);
-	    	cenovnik.setStavkeCenovnika(cenovnik.getStavkeCenovnika());
+	    //	cenovnik.setStavkeCenovnika(cenovnik.getStavkeCenovnika());
 	    	cenovnikServiceInterface.save(cenovnik);
 	    	
 	    	System.out.println("Izmenjen je cenovnik");

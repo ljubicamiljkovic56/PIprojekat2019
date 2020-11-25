@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -46,8 +47,12 @@ public class Preduzece implements Serializable {
 	@JoinColumn(name = "id_mesta")
 	private NaseljenoMesto naseljenoMesto;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	private List<PoslovniPartner> poslovniPartneri = new ArrayList<PoslovniPartner>();
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+//	private List<PoslovniPartner> poslovniPartneri = new ArrayList<PoslovniPartner>();
+	
+	@ManyToOne
+	@JoinColumn(name = "id_partnera")
+	private PoslovniPartner poslovniPartner;
 	
 	@OneToOne
 	@JoinColumn(name = "id_cenovnika")
@@ -64,7 +69,7 @@ public class Preduzece implements Serializable {
 	}
 
 	public Preduzece(Long idPreduzeca, String nazivPreduzeca, String adresa, String brojTelefona, String fax,
-			PoslovnaGodina poslovnaGodina, NaseljenoMesto naseljenoMesto, List<PoslovniPartner> poslovniPartneri,
+			PoslovnaGodina poslovnaGodina, NaseljenoMesto naseljenoMesto, PoslovniPartner poslovniPartner,
 			Cenovnik cenovnik, List<Faktura> fakture, List<StavkaFakture> stavkeFakture) {
 		super();
 		this.idPreduzeca = idPreduzeca;
@@ -74,10 +79,12 @@ public class Preduzece implements Serializable {
 		this.fax = fax;
 		this.poslovnaGodina = poslovnaGodina;
 		this.naseljenoMesto = naseljenoMesto;
-		this.poslovniPartneri = poslovniPartneri;
+	//this.poslovniPartneri = poslovniPartneri;
+		//this.poslovniPartner = poslovniPartner;
 		this.cenovnik = cenovnik;
 		this.fakture = fakture;
 		this.stavkeFakture = stavkeFakture;
+		this.poslovniPartner = poslovniPartner;
 	}
 
 	public Long getIdPreduzeca() {
@@ -146,13 +153,13 @@ public class Preduzece implements Serializable {
 		this.naseljenoMesto = naseljenoMesto;
 	}
 
-	public List<PoslovniPartner> getPoslovniPartneri() {
-		return poslovniPartneri;
-	}
-
-	public void setPoslovniPartneri(List<PoslovniPartner> poslovniPartneri) {
-		this.poslovniPartneri = poslovniPartneri;
-	}
+	/*
+	 * public List<PoslovniPartner> getPoslovniPartneri() { return poslovniPartneri;
+	 * }
+	 * 
+	 * public void setPoslovniPartneri(List<PoslovniPartner> poslovniPartneri) {
+	 * this.poslovniPartneri = poslovniPartneri; }
+	 */
 
 	public Cenovnik getCenovnik() {
 		return cenovnik;
@@ -181,9 +188,11 @@ public class Preduzece implements Serializable {
 	@Override
 	public String toString() {
 		return "Preduzece [idPreduzeca=" + idPreduzeca + ", nazivPreduzeca=" + nazivPreduzeca + ", adresa=" + adresa
-				+ ", brojTelefona=" + brojTelefona + ", fax=" + fax 
-				+ ", naseljenoMesto=" + naseljenoMesto + ", poslovniPartneri=" + poslovniPartneri + ", cenovnik="
-				+ cenovnik + ", fakture=" + fakture + ", stavkeFakture=" + stavkeFakture + "]";
+				+ ", brojTelefona=" + brojTelefona + ", fax=" + fax + ", poslovnaGodina=" + poslovnaGodina
+				+ ", naseljenoMesto=" + naseljenoMesto + ", cenovnik=" + cenovnik + ", fakture=" + fakture
+				+ ", stavkeFakture=" + stavkeFakture + "]";
 	}
+
+	
 
 }

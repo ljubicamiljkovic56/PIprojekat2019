@@ -31,7 +31,7 @@ public class CenovnikDTO implements Serializable {
 	public CenovnikDTO(Cenovnik cenovnik) {
 		this.idCenovnika = cenovnik.getIdCenovnika();
 		this.datumPocetkaVazenja = cenovnik.getDatumPocetkaVazenja();
-		this.stavkeCenovnika = cenovnik.getStavkeCenovnika();
+	//	this.stavkeCenovnika = cenovnik.getStavkeCenovnika();
 	}
 	
 	public Long getIdCenovnika() {

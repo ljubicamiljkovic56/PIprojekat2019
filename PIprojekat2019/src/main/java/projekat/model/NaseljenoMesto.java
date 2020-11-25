@@ -23,12 +23,6 @@ public class NaseljenoMesto implements Serializable{
 	
 	@Column(name = "naziv_mesta", columnDefinition = "VARCHAR(20)")
 	private String nazivMesta;
-	
-	//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	//private Preduzece preduzece;
-	
-	//@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	//private PoslovniPartner poslovniPartner;
 
 	public NaseljenoMesto() {
 		super();
@@ -39,8 +33,6 @@ public class NaseljenoMesto implements Serializable{
 		this.idMesta = idMesta;
 		this.pttBroj = pttBroj;
 		this.nazivMesta = nazivMesta;
-		//this.preduzece = preduzece;
-		//this.poslovniPartner = poslovniPartner;
 	}
 
 	public Long getIdMesta() {
@@ -67,27 +59,9 @@ public class NaseljenoMesto implements Serializable{
 		this.nazivMesta = nazivMesta;
 	}
 
-//	public Preduzece getPreduzece() {
-//		return preduzece;
-//	}
-//
-//	public void setPreduzece(Preduzece preduzece) {
-//		this.preduzece = preduzece;
-//	}
-//
-//	public PoslovniPartner getPoslovniPartner() {
-//		return poslovniPartner;
-//	}
-//
-//	public void setPoslovniPartner(PoslovniPartner poslovniPartner) {
-//		this.poslovniPartner = poslovniPartner;
-//	}
-
 	@Override
 	public String toString() {
 		return "NaseljenoMesto [idMesta=" + idMesta + ", pttBroj=" + pttBroj + ", nazivMesta=" + nazivMesta
 				+  "]";
 	}
-	
-	
 }

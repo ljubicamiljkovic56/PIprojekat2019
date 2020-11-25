@@ -80,16 +80,21 @@ public class RobaUslugaController {
 	
 	@PostMapping(path = "/izmeniRobu")
 	public ResponseEntity<Void> izmeniRobu(@RequestParam("naziv_robe") String nazivRobe, 
-			@RequestParam("novi_naziv") String noviNaziv, @RequestParam("opis") String opis) {
+			@RequestParam("novi_naziv") String noviNaziv, @RequestParam("opis") String opis, @RequestParam("naziv_grupe") String nazivGrupe,
+			@RequestParam("naziv_mere") String nazivMere) {
 		
 		RobaUsluga roba = robaUslugaServiceInterface.findByNazivRobeUsluge(nazivRobe);
+		
+		GrupaRobeUsluga grupa = grupaRobeUslugaServiceInterface.findByNazivGrupe(nazivGrupe);
+		
+		JedinicaMere mera = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivMere);
 		
 		if(roba != null) {
 			roba.setNazivRobeUsluge(noviNaziv);
 			roba.setOpis(opis);
-			roba.setJedinicaMere(roba.getJedinicaMere());
-			roba.setGrupaRobeUsluga(roba.getGrupaRobeUsluga());
-		//	roba.setStavkeFakture(roba.getStavkeFakture());
+			roba.setRoba(true);
+			roba.setGrupaRobeUsluga(grupa);
+			roba.setJedinicaMere(mera);
 			robaUslugaServiceInterface.save(roba);
 			
 			System.out.println("Izmena robe");

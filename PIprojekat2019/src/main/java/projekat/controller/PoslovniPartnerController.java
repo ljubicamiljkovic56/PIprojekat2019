@@ -71,8 +71,8 @@ public class PoslovniPartnerController {
 		partner.setEmail(email);
 		partner.setVrstaPartnera(partner.getVrstaPartnera());
 		partner.setNaseljenoMesto(mesto);
-		partner.setPreduzece(preduzece);
-		partner.setFakture(partner.getFakture());
+	//	partner.setPreduzece(preduzece);
+	//	partner.setFakture(partner.getFakture());
 		
 		poslovniPartnerServiceInterface.save(partner);
 		
@@ -103,8 +103,8 @@ public class PoslovniPartnerController {
 			partner.setFax(fax);
 			partner.setEmail(email);
 			partner.setNaseljenoMesto(mesto);
-			partner.setPreduzece(preduzece);
-			partner.setFakture(partner.getFakture());
+		//	partner.setPreduzece(preduzece);
+	//		partner.setFakture(partner.getFakture());
 			
 			poslovniPartnerServiceInterface.save(partner);
 			

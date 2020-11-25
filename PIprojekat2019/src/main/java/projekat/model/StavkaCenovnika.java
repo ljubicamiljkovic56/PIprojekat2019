@@ -30,7 +30,7 @@ public class StavkaCenovnika implements Serializable {
 	@JoinColumn(name = "id_cenovnika")
 	private Cenovnik cenovnik;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@ManyToOne
 	@JoinColumn(name = "id_robe_usluge")
 	private RobaUsluga robaUsluga;
 	

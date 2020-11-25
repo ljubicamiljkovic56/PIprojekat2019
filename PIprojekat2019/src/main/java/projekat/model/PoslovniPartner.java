@@ -1,7 +1,6 @@
 package projekat.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -40,29 +37,21 @@ public class PoslovniPartner implements Serializable {
 	@Column(name = "email", columnDefinition = "VARCHAR(40)")
 	private String email;
 	
-	private enum VrstaPartnera {KU, DO, KD};
+	//private enum VrstaPartnera {KU, DO, KD};
 	
 	@Column(name = "vrsta_partnera", columnDefinition = "CHAR(2)")
-	private VrstaPartnera vrstaPartnera;
-	
-	@OneToMany(fetch = FetchType.EAGER)
-	private List<Faktura> fakture = new ArrayList<Faktura>();
+	private String vrstaPartnera;
 	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_mesta")
 	private NaseljenoMesto naseljenoMesto;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_preduzeca")
-	private Preduzece preduzece;
 	
 	public PoslovniPartner() {
 		super();
 	}
 
 	public PoslovniPartner(Long idPoslovnogPartnera, String nazivPoslovnogPartnera, String adresa, String telefon,
-			String fax, String email, VrstaPartnera vrstaPartnera, List<Faktura> fakture, NaseljenoMesto naseljenoMesto,
-			Preduzece preduzece) {
+			String fax, String email, String vrstaPartnera, List<Faktura> fakture, NaseljenoMesto naseljenoMesto) {
 		super();
 		this.idPoslovnogPartnera = idPoslovnogPartnera;
 		this.nazivPoslovnogPartnera = nazivPoslovnogPartnera;
@@ -71,9 +60,9 @@ public class PoslovniPartner implements Serializable {
 		this.fax = fax;
 		this.email = email;
 		this.vrstaPartnera = vrstaPartnera;
-		this.fakture = fakture;
+		//this.fakture = fakture;
 		this.naseljenoMesto = naseljenoMesto;
-		this.preduzece = preduzece;
+		//this.preduzece = preduzece;
 	}
 
 	public Long getIdPoslovnogPartnera() {
@@ -124,21 +113,21 @@ public class PoslovniPartner implements Serializable {
 		this.email = email;
 	}
 
-	public VrstaPartnera getVrstaPartnera() {
+	public String getVrstaPartnera() {
 		return vrstaPartnera;
 	}
 
-	public void setVrstaPartnera(VrstaPartnera vrstaPartnera) {
+	public void setVrstaPartnera(String vrstaPartnera) {
 		this.vrstaPartnera = vrstaPartnera;
 	}
 
-	public List<Faktura> getFakture() {
-		return fakture;
-	}
-
-	public void setFakture(List<Faktura> fakture) {
-		this.fakture = fakture;
-	}
+//	public List<Faktura> getFakture() {
+//		return fakture;
+//	}
+//
+//	public void setFakture(List<Faktura> fakture) {
+//		this.fakture = fakture;
+//	}
 
 	public NaseljenoMesto getNaseljenoMesto() {
 		return naseljenoMesto;
@@ -148,20 +137,20 @@ public class PoslovniPartner implements Serializable {
 		this.naseljenoMesto = naseljenoMesto;
 	}
 
-	public Preduzece getPreduzece() {
-		return preduzece;
-	}
-
-	public void setPreduzece(Preduzece preduzece) {
-		this.preduzece = preduzece;
-	}
+//	public Preduzece getPreduzece() {
+//		return preduzece;
+//	}
+//
+//	public void setPreduzece(Preduzece preduzece) {
+//		this.preduzece = preduzece;
+//	}
 
 	@Override
 	public String toString() {
 		return "PoslovniPartner [idPoslovnogPartnera=" + idPoslovnogPartnera + ", nazivPoslovnogPartnera="
 				+ nazivPoslovnogPartnera + ", adresa=" + adresa + ", telefon=" + telefon + ", fax=" + fax + ", email="
-				+ email + ", vrstaPartnera=" + vrstaPartnera + ", fakture=" + fakture + ", naseljenoMesto="
-				+ naseljenoMesto + ", preduzece=" + preduzece + "]";
+				+ email + ", vrstaPartnera=" + vrstaPartnera + ", naseljenoMesto=" + naseljenoMesto + "]";
 	}
-		
+
+
 }

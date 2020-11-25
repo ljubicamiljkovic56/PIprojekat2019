@@ -19,19 +19,18 @@ public class PoslovniPartnerDTO implements Serializable {
 	private String telefon;
 	private String fax;
 	private String email;
-	private enum VrstaPartnera {KU, DO, KD};
-	private VrstaPartnera vrstaPartnera;
+	//private enum VrstaPartnera {KU, DO, KD};
+	private String vrstaPartnera;
 	private List<Faktura> fakture = new ArrayList<Faktura>();
 	private NaseljenoMesto naseljenoMesto;
-	private Preduzece preduzece;
+	//private Preduzece preduzece;
 	
 	public PoslovniPartnerDTO() {
 		super();
 	}
 
 	public PoslovniPartnerDTO(Long idPoslovnogPartnera, String nazivPoslovnogPartnera, String adresa, String telefon,
-			String fax, String email, VrstaPartnera vrstaPartnera, List<Faktura> fakture, NaseljenoMesto naseljenoMesto,
-			Preduzece preduzece) {
+			String fax, String email, String vrstaPartnera, List<Faktura> fakture, NaseljenoMesto naseljenoMesto) {
 		super();
 		this.idPoslovnogPartnera = idPoslovnogPartnera;
 		this.nazivPoslovnogPartnera = nazivPoslovnogPartnera;
@@ -42,10 +41,9 @@ public class PoslovniPartnerDTO implements Serializable {
 		this.vrstaPartnera = vrstaPartnera;
 		this.fakture = fakture;
 		this.naseljenoMesto = naseljenoMesto;
-		this.preduzece = preduzece;
+		//this.preduzece = preduzece;
 	}
 	
-	@SuppressWarnings("static-access")
 	public PoslovniPartnerDTO(PoslovniPartner poslovniPartner) {
 		this.idPoslovnogPartnera = poslovniPartner.getIdPoslovnogPartnera();
 		this.nazivPoslovnogPartnera = poslovniPartner.getNazivPoslovnogPartnera();
@@ -53,10 +51,10 @@ public class PoslovniPartnerDTO implements Serializable {
 		this.telefon = poslovniPartner.getTelefon();
 		this.fax = poslovniPartner.getFax();
 		this.email = poslovniPartner.getEmail();
-		this.vrstaPartnera = vrstaPartnera.KU;
-		this.fakture = poslovniPartner.getFakture();
+		this.vrstaPartnera = poslovniPartner.getVrstaPartnera();
+		//this.fakture = poslovniPartner.getFakture();
 		this.naseljenoMesto = poslovniPartner.getNaseljenoMesto();
-		this.preduzece = poslovniPartner.getPreduzece();
+	//	this.preduzece = poslovniPartner.getPreduzece();
 		
 	}
 
@@ -108,16 +106,26 @@ public class PoslovniPartnerDTO implements Serializable {
 		this.email = email;
 	}
 
-	public VrstaPartnera getVrstaPartnera() {
-		return vrstaPartnera;
-	}
-
-	public void setVrstaPartnera(VrstaPartnera vrstaPartnera) {
-		this.vrstaPartnera = vrstaPartnera;
-	}
+//	public VrstaPartnera getVrstaPartnera() {
+//		return vrstaPartnera;
+//	}
+//
+//	public void setVrstaPartnera(VrstaPartnera vrstaPartnera) {
+//		this.vrstaPartnera = vrstaPartnera;
+//	}
+	
+	
 
 	public List<Faktura> getFakture() {
 		return fakture;
+	}
+
+	public String getVrstaPartnera() {
+		return vrstaPartnera;
+	}
+
+	public void setVrstaPartnera(String vrstaPartnera) {
+		this.vrstaPartnera = vrstaPartnera;
 	}
 
 	public void setFakture(List<Faktura> fakture) {
@@ -132,12 +140,12 @@ public class PoslovniPartnerDTO implements Serializable {
 		this.naseljenoMesto = naseljenoMesto;
 	}
 
-	public Preduzece getPreduzece() {
-		return preduzece;
-	}
-
-	public void setPreduzece(Preduzece preduzece) {
-		this.preduzece = preduzece;
-	}
+//	public Preduzece getPreduzece() {
+//		return preduzece;
+//	}
+//
+//	public void setPreduzece(Preduzece preduzece) {
+//		this.preduzece = preduzece;
+//	}
 
 }

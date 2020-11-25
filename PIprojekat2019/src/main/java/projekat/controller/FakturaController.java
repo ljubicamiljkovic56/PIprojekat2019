@@ -113,8 +113,8 @@ public class FakturaController {
 		faktura.setUkupnaOsnovica(ukupnaOsnovicaDouble);
 		faktura.setUkupanPDV(ukupanPdvDouble);
 		faktura.setUkupanIznos(ukupanIznosDouble);
-	//	faktura.setStatusFakture();
-		faktura.setStavkeFakture(faktura.getStavkeFakture());
+		//faktura.setStatusFakture('F);
+	//	faktura.setStavkeFakture(faktura.getStavkeFakture());
 		faktura.setPoslovnaGodina(poslovnaGodina2);
 		faktura.setPoslovniPartner(partner);
 		faktura.setPreduzece(preduzece);
@@ -172,7 +172,7 @@ public class FakturaController {
 			faktura.setPoslovnaGodina(poslovnaGodina2);
 			faktura.setPoslovniPartner(partner);
 			faktura.setPreduzece(preduzece);
-			faktura.setStavkeFakture(faktura.getStavkeFakture());
+	//		faktura.setStavkeFakture(faktura.getStavkeFakture());
 			
 			fakturaServiceInterface.save(faktura);
 			

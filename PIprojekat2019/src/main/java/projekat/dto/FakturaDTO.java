@@ -22,8 +22,8 @@ public class FakturaDTO implements Serializable {
 	private double ukupnaOsnovica;
 	private double ukupanPDV;
 	private double ukupanIznos;
-	private enum StatusFakture {F, P};
-	private StatusFakture statusFakture;
+	//private enum StatusFakture {F, P};
+	private String statusFakture;
 	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 	private PoslovnaGodina poslovnaGodina;
 	private PoslovniPartner poslovniPartner;
@@ -37,7 +37,7 @@ public class FakturaDTO implements Serializable {
 
 
 	public FakturaDTO(Long idFakture, int brojFakture, Date datumFakture, Date datumValute, double ukupnaOsnovica,
-			double ukupanPDV, double ukupanIznos, StatusFakture statusFakture, List<StavkaFakture> stavkeFakture,
+			double ukupanPDV, double ukupanIznos, String statusFakture, List<StavkaFakture> stavkeFakture,
 			PoslovnaGodina poslovnaGodina, PoslovniPartner poslovniPartner, Preduzece preduzece,
 			List<Otpremnica> otpremnice) {
 		super();
@@ -57,7 +57,7 @@ public class FakturaDTO implements Serializable {
 	}
 
 	
-	@SuppressWarnings("static-access")
+	//@SuppressWarnings("static-access")
 	public FakturaDTO(Faktura faktura) {
 		this.idFakture = faktura.getIdFakture();
 		this.brojFakture = faktura.getBrojFakture();
@@ -66,7 +66,7 @@ public class FakturaDTO implements Serializable {
 		this.ukupnaOsnovica = faktura.getUkupnaOsnovica();
 		this.ukupanPDV = faktura.getUkupanPDV();
 		this.ukupanIznos = faktura.getUkupanIznos();
-		this.statusFakture = statusFakture.P;
+		this.statusFakture = faktura.getStatusFakture();
 	}
 
 	public Long getIdFakture() {
@@ -139,18 +139,30 @@ public class FakturaDTO implements Serializable {
 	}
 
 
-	public StatusFakture getStatusFakture() {
-		return statusFakture;
-	}
-
-
-	public void setStatusFakture(StatusFakture statusFakture) {
-		this.statusFakture = statusFakture;
-	}
+//	public StatusFakture getStatusFakture() {
+//		return statusFakture;
+//	}
+//
+//
+//	public void setStatusFakture(StatusFakture statusFakture) {
+//		this.statusFakture = statusFakture;
+//	}
+	
+	
 
 
 	public List<StavkaFakture> getStavkeFakture() {
 		return stavkeFakture;
+	}
+
+
+	public String getStatusFakture() {
+		return statusFakture;
+	}
+
+
+	public void setStatusFakture(String statusFakture) {
+		this.statusFakture = statusFakture;
 	}
 
 

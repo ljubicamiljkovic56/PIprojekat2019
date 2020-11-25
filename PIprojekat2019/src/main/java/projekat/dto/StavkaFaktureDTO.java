@@ -18,7 +18,7 @@ public class StavkaFaktureDTO implements Serializable {
 	private double osnovicaZaPDV;
 	private double iznosPDV;
 	private double ukupanIznos;
-	private Faktura faktura;
+	//private Faktura faktura;
 	private Preduzece preduzece;
 	private RobaUsluga robaUsluga;
 	
@@ -38,7 +38,7 @@ public class StavkaFaktureDTO implements Serializable {
 		this.osnovicaZaPDV = osnovicaZaPDV;
 		this.iznosPDV = iznosPDV;
 		this.ukupanIznos = ukupanIznos;
-		this.faktura = faktura;
+	//	this.faktura = faktura;
 		this.preduzece = preduzece;
 		this.robaUsluga = robaUsluga;
 	}
@@ -115,13 +115,13 @@ public class StavkaFaktureDTO implements Serializable {
 		this.ukupanIznos = ukupanIznos;
 	}
 
-	public Faktura getFaktura() {
-		return faktura;
-	}
-
-	public void setFaktura(Faktura faktura) {
-		this.faktura = faktura;
-	}
+//	public Faktura getFaktura() {
+//		return faktura;
+//	}
+//
+//	public void setFaktura(Faktura faktura) {
+//		this.faktura = faktura;
+//	}
 
 	public Preduzece getPreduzece() {
 		return preduzece;

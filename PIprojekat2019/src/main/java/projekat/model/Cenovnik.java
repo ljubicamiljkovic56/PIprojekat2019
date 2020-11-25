@@ -2,17 +2,12 @@ package projekat.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -29,9 +24,12 @@ public class Cenovnik implements Serializable{
 	@Column(name="datum_pocetka_vazenja", columnDefinition = "DATE")
 	private Date datumPocetkaVazenja;
 	
-	@OneToMany(mappedBy = "cenovnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<StavkaCenovnika> stavkeCenovnika = new ArrayList<StavkaCenovnika>();
+//	@OneToMany(mappedBy = "cenovnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	private List<StavkaCenovnika> stavkeCenovnika = new ArrayList<StavkaCenovnika>();
 	
+//	@ManyToOne
+//	@JoinColumn("id_stavke")
+//	private StavkaCenovnika stavkaCenovnika;
 	//@OneToOne(fetch = FetchType.LAZY)
 	//private Preduzece preduzece;
 
@@ -44,7 +42,7 @@ public class Cenovnik implements Serializable{
 		super();
 		this.idCenovnika = idCenovnika;
 		this.datumPocetkaVazenja = datumPocetkaVazenja;
-		this.stavkeCenovnika = stavkeCenovnika;
+		//this.stavkeCenovnika = stavkeCenovnika;
 		//this.preduzece = preduzece;
 	}
 
@@ -64,27 +62,9 @@ public class Cenovnik implements Serializable{
 		this.datumPocetkaVazenja = datumPocetkaVazenja;
 	}
 
-	public List<StavkaCenovnika> getStavkeCenovnika() {
-		return stavkeCenovnika;
-	}
-
-	public void setStavkeCenovnika(List<StavkaCenovnika> stavkeCenovnika) {
-		this.stavkeCenovnika = stavkeCenovnika;
-	}
-
-//	public Preduzece getPreduzece() {
-//		return preduzece;
-//	}
-//
-//	public void setPreduzece(Preduzece preduzece) {
-//		this.preduzece = preduzece;
-//	}
-
 	@Override
 	public String toString() {
-		return "Cenovnik [idCenovnika=" + idCenovnika + ", datumPocetkaVazenja=" + datumPocetkaVazenja
-				+ ", stavkeCenovnika=" + stavkeCenovnika +  "]";
+		return "Cenovnik [idCenovnika=" + idCenovnika + ", datumPocetkaVazenja=" + datumPocetkaVazenja + "]";
 	}
-
 	
 }
