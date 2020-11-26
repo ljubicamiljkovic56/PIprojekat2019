@@ -28,7 +28,7 @@ public class FakturaDTO implements Serializable {
 	private PoslovnaGodina poslovnaGodina;
 	private PoslovniPartner poslovniPartner;
 	private Preduzece preduzece;
-	private List<Otpremnica> otpremnice = new ArrayList<Otpremnica>();
+	//private List<Otpremnica> otpremnice = new ArrayList<Otpremnica>();
 	
 
 	public FakturaDTO() {
@@ -53,7 +53,7 @@ public class FakturaDTO implements Serializable {
 		this.poslovnaGodina = poslovnaGodina;
 		this.poslovniPartner = poslovniPartner;
 		this.preduzece = preduzece;
-		this.otpremnice = otpremnice;
+		//this.otpremnice = otpremnice;
 	}
 
 	
@@ -201,13 +201,13 @@ public class FakturaDTO implements Serializable {
 	}
 
 
-	public List<Otpremnica> getOtpremnice() {
-		return otpremnice;
-	}
-
-
-	public void setOtpremnice(List<Otpremnica> otpremnice) {
-		this.otpremnice = otpremnice;
-	}	
-	
+//	public List<Otpremnica> getOtpremnice() {
+//		return otpremnice;
+//	}
+//
+//
+//	public void setOtpremnice(List<Otpremnica> otpremnice) {
+//		this.otpremnice = otpremnice;
+//	}	
+//	
 }

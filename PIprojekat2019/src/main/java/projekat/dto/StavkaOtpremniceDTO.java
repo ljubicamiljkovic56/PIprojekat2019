@@ -1,8 +1,6 @@
 package projekat.dto;
 
 import java.io.Serializable;
-
-import projekat.model.Otpremnica;
 import projekat.model.StavkaOtpremnice;
 
 @SuppressWarnings("serial")
@@ -14,14 +12,13 @@ public class StavkaOtpremniceDTO implements Serializable {
 	private double cena;
 	private double kolicina;
 	private String napomena;
-	private Otpremnica otpremnica;
 	
 	public StavkaOtpremniceDTO() {
 		super();
 	}
 
 	public StavkaOtpremniceDTO(Long idStavkeOtpremnice, int redniBrojProizvoda, String jedinicaMere, double cena,
-			double kolicina, String napomena, Otpremnica otpremnica) {
+			double kolicina, String napomena) {
 		super();
 		this.idStavkeOtpremnice = idStavkeOtpremnice;
 		this.redniBrojProizvoda = redniBrojProizvoda;
@@ -29,7 +26,6 @@ public class StavkaOtpremniceDTO implements Serializable {
 		this.cena = cena;
 		this.kolicina = kolicina;
 		this.napomena = napomena;
-		this.otpremnica = otpremnica;
 	}
 	
 	public StavkaOtpremniceDTO(StavkaOtpremnice stavkaOtpremnice) {
@@ -39,7 +35,6 @@ public class StavkaOtpremniceDTO implements Serializable {
 		this.cena = stavkaOtpremnice.getCena();
 		this.kolicina = stavkaOtpremnice.getKolicina();
 		this.napomena = stavkaOtpremnice.getNapomena();
-		this.otpremnica = stavkaOtpremnice.getOtpremnica();
 	}
 
 	public Long getIdStavkeOtpremnice() {
@@ -88,14 +83,6 @@ public class StavkaOtpremniceDTO implements Serializable {
 
 	public void setNapomena(String napomena) {
 		this.napomena = napomena;
-	}
-
-	public Otpremnica getOtpremnica() {
-		return otpremnica;
-	}
-
-	public void setOtpremnica(Otpremnica otpremnica) {
-		this.otpremnica = otpremnica;
 	}
 		
 }

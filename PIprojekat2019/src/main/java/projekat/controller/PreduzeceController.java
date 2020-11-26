@@ -63,8 +63,8 @@ public class PreduzeceController {
 		preduzece.setFax(fax);
 		preduzece.setNaseljenoMesto(mesto);
 		preduzece.setCenovnik(preduzece.getCenovnik());
-		preduzece.setFakture(preduzece.getFakture());
-		preduzece.setStavkeFakture(preduzece.getStavkeFakture());
+	//	preduzece.setFakture(preduzece.getFakture());
+	//	preduzece.setStavkeFakture(preduzece.getStavkeFakture());
 		//preduzece.setPoslovneGodine(preduzece.getPoslovneGodine());
 	//	preduzece.setPoslovniPartneri(preduzece.getPoslovniPartneri());
 		preduzeceServiceInterface.save(preduzece);
@@ -89,8 +89,8 @@ public class PreduzeceController {
 			preduzece.setFax(fax);
 			preduzece.setNaseljenoMesto(preduzece.getNaseljenoMesto());
 			preduzece.setCenovnik(preduzece.getCenovnik());
-			preduzece.setFakture(preduzece.getFakture());
-			preduzece.setStavkeFakture(preduzece.getStavkeFakture());
+			//preduzece.setFakture(preduzece.getFakture());
+			//preduzece.setStavkeFakture(preduzece.getStavkeFakture());
 		//	preduzece.setPoslovneGodine(preduzece.getPoslovneGodine());
 		//	preduzece.setPoslovniPartneri(preduzece.getPoslovniPartneri());
 			preduzeceServiceInterface.save(preduzece);

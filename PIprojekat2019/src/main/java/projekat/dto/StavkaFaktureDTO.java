@@ -2,7 +2,6 @@ package projekat.dto;
 
 import java.io.Serializable;
 
-import projekat.model.Faktura;
 import projekat.model.Preduzece;
 import projekat.model.RobaUsluga;
 import projekat.model.StavkaFakture;
@@ -18,7 +17,6 @@ public class StavkaFaktureDTO implements Serializable {
 	private double osnovicaZaPDV;
 	private double iznosPDV;
 	private double ukupanIznos;
-	//private Faktura faktura;
 	private Preduzece preduzece;
 	private RobaUsluga robaUsluga;
 	
@@ -27,7 +25,7 @@ public class StavkaFaktureDTO implements Serializable {
 	}
 
 	public StavkaFaktureDTO(Long idStavke, double kolicina, double rabat, double jedinicnaCena, double pdvStopa,
-			double osnovicaZaPDV, double iznosPDV, double ukupanIznos, Faktura faktura, Preduzece preduzece,
+			double osnovicaZaPDV, double iznosPDV, double ukupanIznos, Preduzece preduzece,
 			RobaUsluga robaUsluga) {
 		super();
 		this.idStavke = idStavke;
@@ -38,7 +36,6 @@ public class StavkaFaktureDTO implements Serializable {
 		this.osnovicaZaPDV = osnovicaZaPDV;
 		this.iznosPDV = iznosPDV;
 		this.ukupanIznos = ukupanIznos;
-	//	this.faktura = faktura;
 		this.preduzece = preduzece;
 		this.robaUsluga = robaUsluga;
 	}
@@ -49,6 +46,8 @@ public class StavkaFaktureDTO implements Serializable {
 		this.rabat = stavkaFakture.getRabat();
 		this.jedinicnaCena = stavkaFakture.getJedinicnaCena();
 		this.pdvStopa = stavkaFakture.getPdvStopa();
+		this.preduzece = stavkaFakture.getPreduzece();
+		this.robaUsluga = stavkaFakture.getRobaUsluga();
 	}
 
 	public Long getIdStavke() {
@@ -114,14 +113,6 @@ public class StavkaFaktureDTO implements Serializable {
 	public void setUkupanIznos(double ukupanIznos) {
 		this.ukupanIznos = ukupanIznos;
 	}
-
-//	public Faktura getFaktura() {
-//		return faktura;
-//	}
-//
-//	public void setFaktura(Faktura faktura) {
-//		this.faktura = faktura;
-//	}
 
 	public Preduzece getPreduzece() {
 		return preduzece;

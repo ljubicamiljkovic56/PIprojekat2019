@@ -2,7 +2,6 @@ package projekat.dto;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import projekat.model.Faktura;
@@ -20,8 +19,8 @@ public class OtpremnicaDTO implements Serializable {
 	private String prevoznik;
 	private boolean potpisVozaca;
 	private boolean primioRobu;
-	private List<StavkaOtpremnice> stavkeOtpremnice = new ArrayList<StavkaOtpremnice>();
 	private Faktura faktura;
+	private StavkaOtpremnice stavkaOtpremnice;
 	
 	public OtpremnicaDTO() {
 		super();
@@ -29,7 +28,7 @@ public class OtpremnicaDTO implements Serializable {
 
 	public OtpremnicaDTO(Long idOtpremnice, int brojOtpremnice, String kupac, String adresaIsporuke, Date datumIsporuke,
 			String prevoznik, boolean potpisVozaca, boolean primioRobu, List<StavkaOtpremnice> stavkeOtpremnice,
-			Faktura faktura) {
+			Faktura faktura, StavkaOtpremnice stavkaOtpremnice) {
 		super();
 		this.idOtpremnice = idOtpremnice;
 		this.brojOtpremnice = brojOtpremnice;
@@ -39,8 +38,8 @@ public class OtpremnicaDTO implements Serializable {
 		this.prevoznik = prevoznik;
 		this.potpisVozaca = potpisVozaca;
 		this.primioRobu = primioRobu;
-		this.stavkeOtpremnice = stavkeOtpremnice;
 		this.faktura = faktura;
+		this.stavkaOtpremnice = stavkaOtpremnice;
 	}
 	
 	public OtpremnicaDTO(Otpremnica otpremnica) {
@@ -52,8 +51,8 @@ public class OtpremnicaDTO implements Serializable {
 		this.prevoznik = otpremnica.getPrevoznik();
 		this.potpisVozaca = true;
 		this.primioRobu = true;
-		this.stavkeOtpremnice = otpremnica.getStavkeOtpremnice();
-		this.faktura = otpremnica.getFaktura();
+	//	this.faktura = otpremnica.getFaktura();
+		this.stavkaOtpremnice = otpremnica.getStavkaOtpremnice();
 	}
 
 	public Long getIdOtpremnice() {
@@ -120,20 +119,20 @@ public class OtpremnicaDTO implements Serializable {
 		this.primioRobu = primioRobu;
 	}
 
-	public List<StavkaOtpremnice> getStavkeOtpremnice() {
-		return stavkeOtpremnice;
-	}
-
-	public void setStavkeOtpremnice(List<StavkaOtpremnice> stavkeOtpremnice) {
-		this.stavkeOtpremnice = stavkeOtpremnice;
-	}
-
 	public Faktura getFaktura() {
 		return faktura;
 	}
 
 	public void setFaktura(Faktura faktura) {
 		this.faktura = faktura;
+	}
+
+	public StavkaOtpremnice getStavkaOtpremnice() {
+		return stavkaOtpremnice;
+	}
+
+	public void setStavkaOtpremnice(StavkaOtpremnice stavkaOtpremnice) {
+		this.stavkaOtpremnice = stavkaOtpremnice;
 	}
 	
 	

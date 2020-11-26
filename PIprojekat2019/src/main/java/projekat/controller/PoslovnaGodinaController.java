@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import projekat.dto.PoslovnaGodinaDTO;
 import projekat.model.PoslovnaGodina;
-import projekat.model.Preduzece;
 import projekat.service.intrfc.PoslovnaGodinaServiceInterface;
-import projekat.service.intrfc.PreduzeceServiceInterface;
-
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/poslovnegodine")
@@ -26,8 +23,8 @@ public class PoslovnaGodinaController {
 	@Autowired
 	private PoslovnaGodinaServiceInterface poslovnaGodinaServiceInterface;
 	
-	@Autowired
-	private PreduzeceServiceInterface preduzeceServiceInterface;
+	//@Autowired
+	//private PreduzeceServiceInterface preduzeceServiceInterface;
 	
 	@GetMapping(path = "/all")
 	public List<PoslovnaGodina> getAll() {
@@ -55,13 +52,11 @@ public class PoslovnaGodinaController {
 		
 		int godinaInt = Integer.parseInt(godina);
 		
-		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
+	//	Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
 		
 		PoslovnaGodina poslovnaGodina = new PoslovnaGodina();
 		poslovnaGodina.setGodina(godinaInt);
 		poslovnaGodina.setZakljucena(false);
-		poslovnaGodina.setPreduzece(preduzece);
-	//	poslovnaGodina.setFakture(poslovnaGodina.getFakture());
 		poslovnaGodinaServiceInterface.save(poslovnaGodina);
 		
 		System.out.println("Dodata je nova poslovna godina.");
@@ -80,14 +75,11 @@ public class PoslovnaGodinaController {
 		
 		PoslovnaGodina poslovnaGodina = poslovnaGodinaServiceInterface.findByGodina(godinaInt);
 		
-		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
+//		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
 		
 		if(poslovnaGodina != null) {
 			poslovnaGodina.setGodina(godinaInt2);
-			poslovnaGodina.setPreduzece(preduzece);
 			poslovnaGodina.setZakljucena(false);
-			poslovnaGodina.setPreduzece(preduzece);
-//			poslovnaGodina.setFakture(poslovnaGodina.getFakture());
 			poslovnaGodinaServiceInterface.save(poslovnaGodina);
 			
 			System.out.println("Izmenjena je poslovna godina.");

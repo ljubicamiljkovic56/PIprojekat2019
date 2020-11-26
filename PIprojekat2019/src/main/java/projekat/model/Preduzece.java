@@ -1,9 +1,6 @@
 package projekat.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -47,10 +42,7 @@ public class Preduzece implements Serializable {
 	@JoinColumn(name = "id_mesta")
 	private NaseljenoMesto naseljenoMesto;
 	
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-//	private List<PoslovniPartner> poslovniPartneri = new ArrayList<PoslovniPartner>();
-	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "id_partnera")
 	private PoslovniPartner poslovniPartner;
 	
@@ -58,11 +50,11 @@ public class Preduzece implements Serializable {
 	@JoinColumn(name = "id_cenovnika")
 	private Cenovnik cenovnik;
 	
-	@OneToMany
-	private List<Faktura> fakture = new ArrayList<Faktura>();
+	//@OneToMany
+	//private List<Faktura> fakture = new ArrayList<Faktura>();
 	
-	@OneToMany
-	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
+//	@OneToMany
+//	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 	
 	public Preduzece() {
 		super();
@@ -70,7 +62,7 @@ public class Preduzece implements Serializable {
 
 	public Preduzece(Long idPreduzeca, String nazivPreduzeca, String adresa, String brojTelefona, String fax,
 			PoslovnaGodina poslovnaGodina, NaseljenoMesto naseljenoMesto, PoslovniPartner poslovniPartner,
-			Cenovnik cenovnik, List<Faktura> fakture, List<StavkaFakture> stavkeFakture) {
+			Cenovnik cenovnik) {
 		super();
 		this.idPreduzeca = idPreduzeca;
 		this.nazivPreduzeca = nazivPreduzeca;
@@ -79,11 +71,7 @@ public class Preduzece implements Serializable {
 		this.fax = fax;
 		this.poslovnaGodina = poslovnaGodina;
 		this.naseljenoMesto = naseljenoMesto;
-	//this.poslovniPartneri = poslovniPartneri;
-		//this.poslovniPartner = poslovniPartner;
 		this.cenovnik = cenovnik;
-		this.fakture = fakture;
-		this.stavkeFakture = stavkeFakture;
 		this.poslovniPartner = poslovniPartner;
 	}
 
@@ -126,17 +114,7 @@ public class Preduzece implements Serializable {
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
-
-//	public List<PoslovnaGodina> getPoslovneGodine() {
-//		return poslovneGodine;
-//	}
-//
-//	public void setPoslovneGodine(List<PoslovnaGodina> poslovneGodine) {
-//		this.poslovneGodine = poslovneGodine;
-//	}
 	
-	
-
 	public NaseljenoMesto getNaseljenoMesto() {
 		return naseljenoMesto;
 	}
@@ -153,14 +131,6 @@ public class Preduzece implements Serializable {
 		this.naseljenoMesto = naseljenoMesto;
 	}
 
-	/*
-	 * public List<PoslovniPartner> getPoslovniPartneri() { return poslovniPartneri;
-	 * }
-	 * 
-	 * public void setPoslovniPartneri(List<PoslovniPartner> poslovniPartneri) {
-	 * this.poslovniPartneri = poslovniPartneri; }
-	 */
-
 	public Cenovnik getCenovnik() {
 		return cenovnik;
 	}
@@ -169,28 +139,20 @@ public class Preduzece implements Serializable {
 		this.cenovnik = cenovnik;
 	}
 
-	public List<Faktura> getFakture() {
-		return fakture;
+	public PoslovniPartner getPoslovniPartner() {
+		return poslovniPartner;
 	}
 
-	public void setFakture(List<Faktura> fakture) {
-		this.fakture = fakture;
-	}
-
-	public List<StavkaFakture> getStavkeFakture() {
-		return stavkeFakture;
-	}
-
-	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
-		this.stavkeFakture = stavkeFakture;
+	public void setPoslovniPartner(PoslovniPartner poslovniPartner) {
+		this.poslovniPartner = poslovniPartner;
 	}
 
 	@Override
 	public String toString() {
 		return "Preduzece [idPreduzeca=" + idPreduzeca + ", nazivPreduzeca=" + nazivPreduzeca + ", adresa=" + adresa
 				+ ", brojTelefona=" + brojTelefona + ", fax=" + fax + ", poslovnaGodina=" + poslovnaGodina
-				+ ", naseljenoMesto=" + naseljenoMesto + ", cenovnik=" + cenovnik + ", fakture=" + fakture
-				+ ", stavkeFakture=" + stavkeFakture + "]";
+				+ ", naseljenoMesto=" + naseljenoMesto + ", poslovniPartner=" + poslovniPartner + ", cenovnik="
+				+ cenovnik + "]";
 	}
 
 	

@@ -1,14 +1,13 @@
 package projekat.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -41,15 +40,15 @@ public class StavkaFakture implements Serializable {
 	@Column(name = "ukupan_iznos", columnDefinition = "DECIMAL")
 	private double ukupanIznos;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_fakture")
-	private Faktura faktura;
+//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinColumn(name = "id_fakture")
+//	private Faktura faktura;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "id_preduzeca")
 	private Preduzece preduzece;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "id_robe_usluge")
 	private RobaUsluga robaUsluga;
 
@@ -70,7 +69,7 @@ public class StavkaFakture implements Serializable {
 		this.osnovicaZaPDV = osnovicaZaPDV;
 		this.iznosPDV = iznosPDV;
 		this.ukupanIznos = ukupanIznos;
-		this.faktura = faktura;
+		//this.faktura = faktura;
 		this.preduzece = preduzece;
 		this.robaUsluga = robaUsluga;
 	}
@@ -139,13 +138,13 @@ public class StavkaFakture implements Serializable {
 		this.ukupanIznos = ukupanIznos;
 	}
 
-	public Faktura getFaktura() {
-		return faktura;
-	}
-
-	public void setFaktura(Faktura faktura) {
-		this.faktura = faktura;
-	}
+//	public Faktura getFaktura() {
+//		return faktura;
+//	}
+//
+//	public void setFaktura(Faktura faktura) {
+//		this.faktura = faktura;
+//	}
 
 	public Preduzece getPreduzece() {
 		return preduzece;
@@ -167,7 +166,7 @@ public class StavkaFakture implements Serializable {
 	public String toString() {
 		return "StavkaFakture [idStavke=" + idStavke + ", kolicina=" + kolicina + ", rabat=" + rabat
 				+ ", jedinicnaCena=" + jedinicnaCena + ", pdvStopa=" + pdvStopa + ", osnovicaZaPDV=" + osnovicaZaPDV
-				+ ", iznosPDV=" + iznosPDV + ", ukupanIznos=" + ukupanIznos + ", faktura=" + faktura + ", preduzece="
+				+ ", iznosPDV=" + iznosPDV + ", ukupanIznos=" + ukupanIznos + ", preduzece="
 				+ preduzece + ", robaUsluga=" + robaUsluga + "]";
 	}
 	

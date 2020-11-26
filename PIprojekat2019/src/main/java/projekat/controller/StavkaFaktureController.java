@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import projekat.dto.StavkaFaktureDTO;
-import projekat.model.Faktura;
 import projekat.model.RobaUsluga;
 import projekat.model.StavkaFakture;
-import projekat.service.intrfc.FakturaServiceInterface;
 import projekat.service.intrfc.RobaUslugaServiceInterface;
 import projekat.service.intrfc.StavkaFaktureServiceInterface;
 
@@ -28,8 +26,8 @@ public class StavkaFaktureController {
 	@Autowired
 	private StavkaFaktureServiceInterface stavkaFaktureServiceInterface;
 	
-	@Autowired
-	private FakturaServiceInterface fakturaServiceInterface;
+	//@Autowired
+	//private FakturaServiceInterface fakturaServiceInterface;
 	
 	@Autowired
 	private RobaUslugaServiceInterface robaUslugaServiceInterface;
@@ -80,9 +78,9 @@ public class StavkaFaktureController {
 		double osnovicaZaPDVDouble = Double.parseDouble(osnovicaZaPDV);
 		double iznosPDVDouble = Double.parseDouble(iznosPDV);
 		
-		int brojFaktureInt = Integer.parseInt(brojFakture);
+		//int brojFaktureInt = Integer.parseInt(brojFakture);
 		
-		Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
+	//	Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
 		
 		RobaUsluga robaUsluga = robaUslugaServiceInterface.findByNazivRobeUsluge(roba); 
 		
@@ -93,7 +91,7 @@ public class StavkaFaktureController {
 		stavkaFakture.setPdvStopa(pdvStopaDouble);
 		stavkaFakture.setOsnovicaZaPDV(osnovicaZaPDVDouble);
 		stavkaFakture.setIznosPDV(iznosPDVDouble);
-		stavkaFakture.setFaktura(faktura);
+	//	stavkaFakture.setFaktura(faktura);
 		stavkaFakture.setRobaUsluga(robaUsluga);
 		stavkaFaktureServiceInterface.save(stavkaFakture);
 		
@@ -123,9 +121,9 @@ public class StavkaFaktureController {
 		double osnovicaZaPDVDouble = Double.parseDouble(osnovicaZaPDV);
 		double iznosPDVDouble = Double.parseDouble(iznosPDV);
 		
-		int brojFaktureInt = Integer.parseInt(brojFakture);
+	//	int brojFaktureInt = Integer.parseInt(brojFakture);
 		
-		Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
+		//Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
 		
 		RobaUsluga robaUsluga = robaUslugaServiceInterface.findByNazivRobeUsluge(roba); 
 		
@@ -136,7 +134,7 @@ public class StavkaFaktureController {
 			stavkaFakture.setPdvStopa(pdvStopaDouble);
 			stavkaFakture.setOsnovicaZaPDV(osnovicaZaPDVDouble);
 			stavkaFakture.setIznosPDV(iznosPDVDouble);
-			stavkaFakture.setFaktura(faktura);
+		//	stavkaFakture.setFaktura(faktura);
 			stavkaFakture.setRobaUsluga(robaUsluga);
 			
 			stavkaFaktureServiceInterface.save(stavkaFakture);

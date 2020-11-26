@@ -2,15 +2,11 @@ package projekat.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -38,16 +34,12 @@ public class StavkaOtpremnice implements Serializable{
 	private String napomena;
 	
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_otpremnice")
-	private Otpremnica otpremnica;
-
 	public StavkaOtpremnice() {
 		super();
 	}
 
 	public StavkaOtpremnice(Long idStavkeOtpremnice, int redniBrojProizvoda, String jedinicaMere,
-			double cena, double kolicina, String napomena, Otpremnica otpremnica) {
+			double cena, double kolicina, String napomena) {
 		super();
 		this.idStavkeOtpremnice = idStavkeOtpremnice;
 		this.redniBrojProizvoda = redniBrojProizvoda;
@@ -55,7 +47,6 @@ public class StavkaOtpremnice implements Serializable{
 		this.cena = cena;
 		this.kolicina = kolicina;
 		this.napomena = napomena;
-		this.otpremnica = otpremnica;
 	}
 
 
@@ -77,17 +68,6 @@ public class StavkaOtpremnice implements Serializable{
 	public void setRedniBrojProizvoda(int redniBrojProizvoda) {
 		this.redniBrojProizvoda = redniBrojProizvoda;
 	}
-
-
-//	public String getNazivProizvoda() {
-//		return nazivProizvoda;
-//	}
-//
-//
-//	public void setNazivProizvoda(String nazivProizvoda) {
-//		this.nazivProizvoda = nazivProizvoda;
-//	}
-
 
 	public String getJedinicaMere() {
 		return jedinicaMere;
@@ -128,22 +108,11 @@ public class StavkaOtpremnice implements Serializable{
 		this.napomena = napomena;
 	}
 
-
-	public Otpremnica getOtpremnica() {
-		return otpremnica;
-	}
-
-
-	public void setOtpremnica(Otpremnica otpremnica) {
-		this.otpremnica = otpremnica;
-	}
-
-
 	@Override
 	public String toString() {
 		return "StavkaOtpremnice [idStavkeOtpremnice=" + idStavkeOtpremnice + ", redniBrojProizvoda="
 				+ redniBrojProizvoda + ", jedinicaMere=" + jedinicaMere
-				+ ", cena=" + cena + ", kolicina=" + kolicina + ", napomena=" + napomena + ", otpremnica=" + otpremnica
+				+ ", cena=" + cena + ", kolicina=" + kolicina + ", napomena=" + napomena
 				+ "]";
 	}
 	

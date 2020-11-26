@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import projekat.dto.StavkaOtpremniceDTO;
-import projekat.model.Otpremnica;
 import projekat.model.StavkaOtpremnice;
-import projekat.service.intrfc.OtpremnicaServiceInterface;
 import projekat.service.intrfc.StavkaOtpremniceServiceInterface;
 
 @CrossOrigin
@@ -28,8 +26,8 @@ public class StavkaOtpremniceController {
 //	@Autowired
 //	private JedinicaMereServiceInterface jedinicaMereServiceInterface;
 	
-	@Autowired
-	private OtpremnicaServiceInterface otpremnicaServiceInterface;
+	//@Autowired
+	//private OtpremnicaServiceInterface otpremnicaServiceInterface;
 	
 	@GetMapping(path = "/all")
 	public List<StavkaOtpremnice> getAll() {
@@ -70,9 +68,9 @@ public class StavkaOtpremniceController {
 		double cenaDouble = Double.parseDouble(cena);
 		double kolicinaDouble = Double.parseDouble(kolicina);
 		
-		int brojOtpremniceInt = Integer.parseInt(brojOtpremnice);
+		//int brojOtpremniceInt = Integer.parseInt(brojOtpremnice);
 		
-		Otpremnica otpremnica = otpremnicaServiceInterface.findByBrojOtpremnice(brojOtpremniceInt);
+	//	Otpremnica otpremnica = otpremnicaServiceInterface.findByBrojOtpremnice(brojOtpremniceInt);
 		
 		StavkaOtpremnice stavkaOtpremnice = new StavkaOtpremnice();
 		stavkaOtpremnice.setRedniBrojProizvoda(redniBrojProizvodaInt);
@@ -80,7 +78,7 @@ public class StavkaOtpremniceController {
 		stavkaOtpremnice.setCena(cenaDouble);
 		stavkaOtpremnice.setKolicina(kolicinaDouble);
 		stavkaOtpremnice.setNapomena(napomena);
-		stavkaOtpremnice.setOtpremnica(otpremnica);
+	//	stavkaOtpremnice.setOtpremnica(otpremnica);
 		stavkaOtpremniceServicenterface.save(stavkaOtpremnice);
 		
 		System.out.println("Dodata je stavka otpremnice.");
@@ -104,9 +102,9 @@ public class StavkaOtpremniceController {
 		double cenaDouble = Double.parseDouble(cena);
 		double kolicinaDouble = Double.parseDouble(kolicina);
 		
-		int brojOtpremniceInt = Integer.parseInt(brojOtpremnice);
+	//	int brojOtpremniceInt = Integer.parseInt(brojOtpremnice);
 		
-		Otpremnica otpremnica = otpremnicaServiceInterface.findByBrojOtpremnice(brojOtpremniceInt);
+	//	Otpremnica otpremnica = otpremnicaServiceInterface.findByBrojOtpremnice(brojOtpremniceInt);
 		
 		if(stavkaOtpremnice != null) {
 			stavkaOtpremnice.setRedniBrojProizvoda(noviBrojInt);
@@ -114,7 +112,7 @@ public class StavkaOtpremniceController {
 			stavkaOtpremnice.setCena(cenaDouble);
 			stavkaOtpremnice.setKolicina(kolicinaDouble);
 			stavkaOtpremnice.setNapomena(napomena);
-			stavkaOtpremnice.setOtpremnica(otpremnica);
+			//stavkaOtpremnice.setOtpremnica(otpremnica);
 			stavkaOtpremniceServicenterface.save(stavkaOtpremnice);
 			
 			System.out.println("Izmenjena je stavka otpremnice.");

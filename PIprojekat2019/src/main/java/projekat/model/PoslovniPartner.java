@@ -62,7 +62,6 @@ public class PoslovniPartner implements Serializable {
 		this.vrstaPartnera = vrstaPartnera;
 		//this.fakture = fakture;
 		this.naseljenoMesto = naseljenoMesto;
-		//this.preduzece = preduzece;
 	}
 
 	public Long getIdPoslovnogPartnera() {
@@ -136,14 +135,6 @@ public class PoslovniPartner implements Serializable {
 	public void setNaseljenoMesto(NaseljenoMesto naseljenoMesto) {
 		this.naseljenoMesto = naseljenoMesto;
 	}
-
-//	public Preduzece getPreduzece() {
-//		return preduzece;
-//	}
-//
-//	public void setPreduzece(Preduzece preduzece) {
-//		this.preduzece = preduzece;
-//	}
 
 	@Override
 	public String toString() {

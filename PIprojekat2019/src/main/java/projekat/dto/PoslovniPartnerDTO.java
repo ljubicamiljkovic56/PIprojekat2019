@@ -22,7 +22,6 @@ public class PoslovniPartnerDTO implements Serializable {
 	private String vrstaPartnera;
 	private List<Faktura> fakture = new ArrayList<Faktura>();
 	private NaseljenoMesto naseljenoMesto;
-	//private Preduzece preduzece;
 	
 	public PoslovniPartnerDTO() {
 		super();
@@ -40,7 +39,6 @@ public class PoslovniPartnerDTO implements Serializable {
 		this.vrstaPartnera = vrstaPartnera;
 		this.fakture = fakture;
 		this.naseljenoMesto = naseljenoMesto;
-		//this.preduzece = preduzece;
 	}
 	
 	public PoslovniPartnerDTO(PoslovniPartner poslovniPartner) {
@@ -53,7 +51,6 @@ public class PoslovniPartnerDTO implements Serializable {
 		this.vrstaPartnera = poslovniPartner.getVrstaPartnera();
 		//this.fakture = poslovniPartner.getFakture();
 		this.naseljenoMesto = poslovniPartner.getNaseljenoMesto();
-	//	this.preduzece = poslovniPartner.getPreduzece();
 		
 	}
 
@@ -105,16 +102,6 @@ public class PoslovniPartnerDTO implements Serializable {
 		this.email = email;
 	}
 
-//	public VrstaPartnera getVrstaPartnera() {
-//		return vrstaPartnera;
-//	}
-//
-//	public void setVrstaPartnera(VrstaPartnera vrstaPartnera) {
-//		this.vrstaPartnera = vrstaPartnera;
-//	}
-	
-	
-
 	public List<Faktura> getFakture() {
 		return fakture;
 	}
@@ -138,13 +125,5 @@ public class PoslovniPartnerDTO implements Serializable {
 	public void setNaseljenoMesto(NaseljenoMesto naseljenoMesto) {
 		this.naseljenoMesto = naseljenoMesto;
 	}
-
-//	public Preduzece getPreduzece() {
-//		return preduzece;
-//	}
-//
-//	public void setPreduzece(Preduzece preduzece) {
-//		this.preduzece = preduzece;
-//	}
 
 }

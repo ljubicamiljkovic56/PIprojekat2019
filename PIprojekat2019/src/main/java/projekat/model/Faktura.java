@@ -2,7 +2,6 @@ package projekat.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -46,23 +44,23 @@ public class Faktura implements Serializable{
 	@Column(name = "status_fakture", columnDefinition = "CHAR(1)")
 	private String statusFakture;
 	
-	//@OneToMany//(fetch = FetchType.LAZY)
-	//private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
+	@OneToOne
+	@JoinColumn(name = "id_stavke_fakture")
+	private StavkaFakture stavkaFakture;
 	
-	@ManyToOne//(cascade = CascadeType.ALL)
+	@OneToOne//(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_godine")
 	private PoslovnaGodina poslovnaGodina;
 	
-	@ManyToOne//(cascade = CascadeType.ALL)
+	@OneToOne//(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_poslovnog_partnera")
 	private PoslovniPartner poslovniPartner;
 	
-	@ManyToOne//(cascade = CascadeType.ALL)
+	@OneToOne//(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_preduzeca")
 	private Preduzece preduzece;
 	
-	@OneToMany
-	private List<Otpremnica> otpremnice = new ArrayList<Otpremnica>();
+	
 	
 	public Faktura() {
 		super();
@@ -85,7 +83,7 @@ public class Faktura implements Serializable{
 		this.poslovnaGodina = poslovnaGodina;
 		this.poslovniPartner = poslovniPartner;
 		this.preduzece = preduzece;
-		this.otpremnice = otpremnice;
+		//this.otpremnice = otpremnice;
 	}
 
 	public Long getIdFakture() {
@@ -144,20 +142,6 @@ public class Faktura implements Serializable{
 		this.ukupanIznos = ukupanIznos;
 	}
 
-//	public StatusFakture getStatusFakture() {
-//		return statusFakture;
-//	}
-//
-//	public void setStatusFakture(StatusFakture statusFakture) {
-//		this.statusFakture = statusFakture;
-//	}
-
-	
-	
-//	public List<StavkaFakture> getStavkeFakture() {
-//		return stavkeFakture;
-//	}
-
 	public String getStatusFakture() {
 		return statusFakture;
 	}
@@ -165,10 +149,6 @@ public class Faktura implements Serializable{
 	public void setStatusFakture(String statusFakture) {
 		this.statusFakture = statusFakture;
 	}
-
-//	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
-//		this.stavkeFakture = stavkeFakture;
-//	}
 
 	public PoslovnaGodina getPoslovnaGodina() {
 		return poslovnaGodina;
@@ -194,21 +174,21 @@ public class Faktura implements Serializable{
 		this.preduzece = preduzece;
 	}
 
-	public List<Otpremnica> getOtpremnice() {
-		return otpremnice;
+	public StavkaFakture getStavkaFakture() {
+		return stavkaFakture;
 	}
 
-	public void setOtpremnice(List<Otpremnica> otpremnice) {
-		this.otpremnice = otpremnice;
+	public void setStavkaFakture(StavkaFakture stavkaFakture) {
+		this.stavkaFakture = stavkaFakture;
 	}
 
 	@Override
 	public String toString() {
 		return "Faktura [idFakture=" + idFakture + ", brojFakture=" + brojFakture + ", datumFakture=" + datumFakture
 				+ ", datumValute=" + datumValute + ", ukupnaOsnovica=" + ukupnaOsnovica + ", ukupanPDV=" + ukupanPDV
-				+ ", ukupanIznos=" + ukupanIznos + ", statusFakture=" + statusFakture + ", poslovnaGodina="
-				+ poslovnaGodina + ", poslovniPartner=" + poslovniPartner + ", preduzece=" + preduzece + ", otpremnice="
-				+ otpremnice + "]";
+				+ ", ukupanIznos=" + ukupanIznos + ", statusFakture=" + statusFakture + ", stavkaFakture="
+				+ stavkaFakture + ", poslovnaGodina=" + poslovnaGodina + ", poslovniPartner=" + poslovniPartner
+				+ ", preduzece=" + preduzece + "]";
 	}
 
 	

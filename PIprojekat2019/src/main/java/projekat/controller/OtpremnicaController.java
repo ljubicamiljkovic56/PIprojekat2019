@@ -86,7 +86,7 @@ public class OtpremnicaController {
 	    otpremnica.setPrevoznik(prevoznik);
 	    otpremnica.setPotpisVozaca(false);
 	    otpremnica.setPrimioRobu(false);
-	    otpremnica.setStavkeOtpremnice(otpremnica.getStavkeOtpremnice());
+	//    otpremnica.setStavkeOtpremnice(otpremnica.getStavkeOtpremnice());
 	    otpremnica.setFaktura(faktura);
 	    otpremnicaServiceInterface.save(otpremnica);
 	    
@@ -127,7 +127,7 @@ public class OtpremnicaController {
 			otpremnica.setPotpisVozaca(true);
 			otpremnica.setPrimioRobu(true);
 			otpremnica.setFaktura(faktura);
-			otpremnica.setStavkeOtpremnice(otpremnica.getStavkeOtpremnice());
+		//	otpremnica.setStavkeOtpremnice(otpremnica.getStavkeOtpremnice());
 			
 			System.out.println("Izmenjena je otpremnica.");
 			

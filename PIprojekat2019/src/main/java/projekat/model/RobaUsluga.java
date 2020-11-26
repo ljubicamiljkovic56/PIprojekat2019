@@ -32,16 +32,13 @@ public class RobaUsluga implements Serializable {
 	@Column(name = "roba", columnDefinition = "TINYINT(1)")
 	private boolean roba;
 	
-	@ManyToOne//(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "id_jedinice_mere")
 	private JedinicaMere jedinicaMere;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_grupe")
 	private GrupaRobeUsluga grupaRobeUsluga;
-	
-	//@OneToMany//(fetch = FetchType.LAZY)
-	//private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 	
 	//private List<StavkaOtpremnice> stavkeOtpremnice = new ArrayList<StavkaOtpremnice>(); 
 
@@ -58,7 +55,6 @@ public class RobaUsluga implements Serializable {
 		this.roba = roba;
 		this.jedinicaMere = jedinicaMere;
 		this.grupaRobeUsluga = grupaRobeUsluga;
-		//this.stavkeFakture = stavkeFakture;
 		//this.stavkeOtpremnice = stavkeOtpremnice;
 	}
 
@@ -109,15 +105,6 @@ public class RobaUsluga implements Serializable {
 	public void setGrupaRobeUsluga(GrupaRobeUsluga grupaRobeUsluga) {
 		this.grupaRobeUsluga = grupaRobeUsluga;
 	}
-
-//	public List<StavkaFakture> getStavkeFakture() {
-//		return stavkeFakture;
-//	}
-//
-//	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
-//		this.stavkeFakture = stavkeFakture;
-//	}
-	
 
 //	public List<StavkaOtpremnice> getStavkeOtpremnice() {
 //		return stavkeOtpremnice;

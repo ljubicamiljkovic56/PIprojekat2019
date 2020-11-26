@@ -21,9 +21,6 @@ public class GrupaRobeUsluga implements Serializable{
 	@Column(name = "naziv_grupe", columnDefinition = "VARCHAR(30)")
 	private String nazivGrupe;
 	
-//	@OneToMany(cascade =  CascadeType.ALL, fetch = FetchType.LAZY)
-//	private List<RobaUsluga> robaUsluga = new ArrayList<RobaUsluga>();
-	
 	public GrupaRobeUsluga() {
 		super();
 	}
@@ -32,7 +29,6 @@ public class GrupaRobeUsluga implements Serializable{
 		super();
 		this.idGrupe = idGrupe;
 		this.nazivGrupe = nazivGrupe;
-		//this.robaUsluga = robaUsluga;
 	}
 
 	public Long getIdGrupe() {
@@ -50,15 +46,6 @@ public class GrupaRobeUsluga implements Serializable{
 	public void setNazivGrupe(String nazivGrupe) {
 		this.nazivGrupe = nazivGrupe;
 	}
-
-	
-//	public List<RobaUsluga> getRobaUsluga() {
-//		return robaUsluga;
-//	}
-//
-//	public void setRobaUsluga(List<RobaUsluga> robaUsluga) {
-//		this.robaUsluga = robaUsluga;
-//	}
 
 	@Override
 	public String toString() {
