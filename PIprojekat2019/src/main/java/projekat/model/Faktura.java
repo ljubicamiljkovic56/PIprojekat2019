@@ -2,7 +2,6 @@ package projekat.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -67,9 +66,8 @@ public class Faktura implements Serializable{
 	}
 
 	public Faktura(Long idFakture, int brojFakture, Date datumFakture, Date datumValute, double ukupnaOsnovica,
-			double ukupanPDV, double ukupanIznos, String statusFakture, List<StavkaFakture> stavkeFakture,
-			PoslovnaGodina poslovnaGodina, PoslovniPartner poslovniPartner, Preduzece preduzece,
-			List<Otpremnica> otpremnice) {
+			double ukupanPDV, double ukupanIznos, String statusFakture, StavkaFakture stavkaFakture,
+			PoslovnaGodina poslovnaGodina, PoslovniPartner poslovniPartner, Preduzece preduzece) {
 		super();
 		this.idFakture = idFakture;
 		this.brojFakture = brojFakture;
@@ -79,11 +77,10 @@ public class Faktura implements Serializable{
 		this.ukupanPDV = ukupanPDV;
 		this.ukupanIznos = ukupanIznos;
 		this.statusFakture = statusFakture;
-	//	this.stavkeFakture = stavkeFakture;
+		this.stavkaFakture = stavkaFakture;
 		this.poslovnaGodina = poslovnaGodina;
 		this.poslovniPartner = poslovniPartner;
 		this.preduzece = preduzece;
-		//this.otpremnice = otpremnice;
 	}
 
 	public Long getIdFakture() {

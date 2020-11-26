@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import projekat.dto.StavkaFaktureDTO;
+import projekat.model.Preduzece;
 import projekat.model.RobaUsluga;
 import projekat.model.StavkaFakture;
+import projekat.service.intrfc.PreduzeceServiceInterface;
 import projekat.service.intrfc.RobaUslugaServiceInterface;
 import projekat.service.intrfc.StavkaFaktureServiceInterface;
 
@@ -26,11 +28,11 @@ public class StavkaFaktureController {
 	@Autowired
 	private StavkaFaktureServiceInterface stavkaFaktureServiceInterface;
 	
-	//@Autowired
-	//private FakturaServiceInterface fakturaServiceInterface;
-	
 	@Autowired
 	private RobaUslugaServiceInterface robaUslugaServiceInterface;
+	
+	@Autowired
+	private PreduzeceServiceInterface preduzeceServiceInterface;
 	
 	@GetMapping(path = "/all")
 	public List<StavkaFakture> getAll(){
@@ -56,7 +58,7 @@ public class StavkaFaktureController {
 	public ResponseEntity<Void> dodajStavkuFakture(@RequestParam("kolicina") String kolicina,
 			@RequestParam("rabat") String rabat, @RequestParam("jedinicna_cena") String jedinicnaCena, 
 			@RequestParam("pdv_stopa") String pdvStopa, @RequestParam("osnovica_pdv") String osnovicaZaPDV, 
-			@RequestParam("iznos_pdv") String iznosPDV, @RequestParam("broj_fakture") String brojFakture,
+			@RequestParam("iznos_pdv") String iznosPDV, @RequestParam("ukupan_iznos") String ukupanIznos,
 			@RequestParam("naziv_preduzeca") String nazivPreduzeca, @RequestParam("roba") String roba) {
 		
 		System.out.println("Kolicina: " + kolicina);
@@ -65,7 +67,7 @@ public class StavkaFaktureController {
 		System.out.println("PDV stopa: " + pdvStopa);
 		System.out.println("Osnovica za pdv: " + osnovicaZaPDV);
 		System.out.println("Iznos pdv: " + iznosPDV);
-		System.out.println("Broj fakture: " + brojFakture);
+		System.out.println("Ukupan iznos: " + ukupanIznos);
 		System.out.println("Naziv preduzeca: " + nazivPreduzeca);
 		System.out.println("Roba: " + roba);
 		
@@ -77,11 +79,9 @@ public class StavkaFaktureController {
 		double pdvStopaDouble = Double.parseDouble(pdvStopa);
 		double osnovicaZaPDVDouble = Double.parseDouble(osnovicaZaPDV);
 		double iznosPDVDouble = Double.parseDouble(iznosPDV);
+		double ukupanIznosDouble = Double.parseDouble(ukupanIznos);
 		
-		//int brojFaktureInt = Integer.parseInt(brojFakture);
-		
-	//	Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
-		
+		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
 		RobaUsluga robaUsluga = robaUslugaServiceInterface.findByNazivRobeUsluge(roba); 
 		
 		StavkaFakture stavkaFakture = new StavkaFakture();
@@ -91,7 +91,8 @@ public class StavkaFaktureController {
 		stavkaFakture.setPdvStopa(pdvStopaDouble);
 		stavkaFakture.setOsnovicaZaPDV(osnovicaZaPDVDouble);
 		stavkaFakture.setIznosPDV(iznosPDVDouble);
-	//	stavkaFakture.setFaktura(faktura);
+		stavkaFakture.setUkupanIznos(ukupanIznosDouble);
+		stavkaFakture.setPreduzece(preduzece);
 		stavkaFakture.setRobaUsluga(robaUsluga);
 		stavkaFaktureServiceInterface.save(stavkaFakture);
 		
@@ -106,7 +107,7 @@ public class StavkaFaktureController {
 			@RequestParam("kolicina") String kolicina,
 			@RequestParam("rabat") String rabat, @RequestParam("nova_cena") String novaJedinicnaCena, 
 			@RequestParam("pdv_stopa") String pdvStopa, @RequestParam("osnovica_pdv") String osnovicaZaPDV, 
-			@RequestParam("iznos_pdv") String iznosPDV, @RequestParam("broj_fakture") String brojFakture,
+			@RequestParam("iznos_pdv") String iznosPDV, @RequestParam("ukupan_iznos") String ukupanIznos,
 			@RequestParam("naziv_preduzeca") String nazivPreduzeca, @RequestParam("roba") String roba) {
 		
 		double jedinicnaCenaDouble = Double.parseDouble(jedinicnaCena);
@@ -120,10 +121,9 @@ public class StavkaFaktureController {
 		double pdvStopaDouble = Double.parseDouble(pdvStopa);
 		double osnovicaZaPDVDouble = Double.parseDouble(osnovicaZaPDV);
 		double iznosPDVDouble = Double.parseDouble(iznosPDV);
+		double ukupanIznosDouble = Double.parseDouble(ukupanIznos);
 		
-	//	int brojFaktureInt = Integer.parseInt(brojFakture);
-		
-		//Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
+		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
 		
 		RobaUsluga robaUsluga = robaUslugaServiceInterface.findByNazivRobeUsluge(roba); 
 		
@@ -134,7 +134,8 @@ public class StavkaFaktureController {
 			stavkaFakture.setPdvStopa(pdvStopaDouble);
 			stavkaFakture.setOsnovicaZaPDV(osnovicaZaPDVDouble);
 			stavkaFakture.setIznosPDV(iznosPDVDouble);
-		//	stavkaFakture.setFaktura(faktura);
+			stavkaFakture.setUkupanIznos(ukupanIznosDouble);
+			stavkaFakture.setPreduzece(preduzece);
 			stavkaFakture.setRobaUsluga(robaUsluga);
 			
 			stavkaFaktureServiceInterface.save(stavkaFakture);

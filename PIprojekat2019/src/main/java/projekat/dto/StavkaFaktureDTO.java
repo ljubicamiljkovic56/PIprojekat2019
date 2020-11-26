@@ -46,6 +46,9 @@ public class StavkaFaktureDTO implements Serializable {
 		this.rabat = stavkaFakture.getRabat();
 		this.jedinicnaCena = stavkaFakture.getJedinicnaCena();
 		this.pdvStopa = stavkaFakture.getPdvStopa();
+		this.osnovicaZaPDV = stavkaFakture.getOsnovicaZaPDV();
+		this.iznosPDV = stavkaFakture.getIznosPDV();
+		this.ukupanIznos = stavkaFakture.getIznosPDV();
 		this.preduzece = stavkaFakture.getPreduzece();
 		this.robaUsluga = stavkaFakture.getRobaUsluga();
 	}

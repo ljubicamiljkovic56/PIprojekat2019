@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Izmeni stavku fakture</title>
+<script src="js/jquery-3.3.1.js"></script>
+<script src="js/izmeni_stavku_fakture.js"></script>
+<link rel="shortcut icon" href="favicon.ico">
+</head>
+<body>
+<h3>Izmena stavke fakture</h3>
+<form id="stavkaForm">
+	<table>
+		<tr><td align="right">Kolicina:</td><td><input type="text" id="kolicinaInput"/></td></tr>
+		<tr><td align="right">Rabat:</td><td><input type="text" id="rabatInput"/></td></tr>
+		<tr><td align="right">Jedinicna cena:</td><td><input type="text" id="jedinicna_cenaInput"/></td></tr>
+		<tr><td align="right">Nova jedinicna cena:</td><td><input type="text" id="nova_cenaInput"/></td></tr>
+		<tr><td align="right">PDV stopa:</td><td><input type="text" id="pdv_stopaInput"/></td></tr>
+		<tr><td align="right">Osnovica za PDV:</td><td><input type="text" id="osnovica_pdvInput"/></td></tr>
+		<tr><td align="right">Iznos pdv:</td><td><input type="text" id="iznos_pdvInput"/></td></tr>
+		<tr><td align="right">Ukupan iznos:</td><td><input type="text" id="ukupan_iznosInput"/></td></tr>
+		<tr><td align="right">Naziv preduzeca:</td><td><input type="text" id="naziv_preduzecaInput"/></td></tr>
+		<tr><td align="right">Naziv robe:</td><td><input type="text" id="robaInput"/></td></tr>
+		<tr><td/><td><input type="submit" value="Izmeni stavku fakture" id="stavkaSubmit"></td></tr>
+	</table>
+</form>
+
+	<p><a href="stavke_fakture.html">Nazad na sve stavke fakture</a></p>
+	<p><a href="login.html">Nazad na login</a><p>
+	<p><a href="index.html">Nazad na index stranu</a></p>
+</body>
+</html>

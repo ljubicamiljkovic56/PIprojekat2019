@@ -40,10 +40,6 @@ public class StavkaFakture implements Serializable {
 	@Column(name = "ukupan_iznos", columnDefinition = "DECIMAL")
 	private double ukupanIznos;
 	
-//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "id_fakture")
-//	private Faktura faktura;
-	
 	@OneToOne
 	@JoinColumn(name = "id_preduzeca")
 	private Preduzece preduzece;
@@ -58,7 +54,7 @@ public class StavkaFakture implements Serializable {
 	}
 	
 	public StavkaFakture(Long idStavke, double kolicina, double rabat, double jedinicnaCena, double pdvStopa,
-			double osnovicaZaPDV, double iznosPDV, double ukupanIznos, Faktura faktura, Preduzece preduzece,
+			double osnovicaZaPDV, double iznosPDV, double ukupanIznos, Preduzece preduzece,
 			RobaUsluga robaUsluga) {
 		super();
 		this.idStavke = idStavke;
@@ -69,7 +65,6 @@ public class StavkaFakture implements Serializable {
 		this.osnovicaZaPDV = osnovicaZaPDV;
 		this.iznosPDV = iznosPDV;
 		this.ukupanIznos = ukupanIznos;
-		//this.faktura = faktura;
 		this.preduzece = preduzece;
 		this.robaUsluga = robaUsluga;
 	}
@@ -137,14 +132,6 @@ public class StavkaFakture implements Serializable {
 	public void setUkupanIznos(double ukupanIznos) {
 		this.ukupanIznos = ukupanIznos;
 	}
-
-//	public Faktura getFaktura() {
-//		return faktura;
-//	}
-//
-//	public void setFaktura(Faktura faktura) {
-//		this.faktura = faktura;
-//	}
 
 	public Preduzece getPreduzece() {
 		return preduzece;
