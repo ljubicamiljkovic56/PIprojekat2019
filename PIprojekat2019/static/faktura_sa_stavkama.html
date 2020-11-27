@@ -5,10 +5,34 @@
 <title>Faktura sa stavkama</title>
 <script src="js/jquery-3.3.1.js"></script>
 <script src="js/faktura_sa_stavkama.js"></script>
+<script src="js/faktura_sa_stavkama_table.js"></script>
 </head>
 <body>
 <h3>Faktura sa stavkama</h3>
-
+	<table border="1" id="faktureTable">
+		<tr bgcolor="lightblue">
+			<th><a>Id fakture</a></th>
+			<th><a>Broj fakture</a></th>
+			<th><a>Datum fakture</a></th>
+			<th><a>Datum valute</a></th>
+			<th><a>Ukupna osnovica</a></th>
+			<th><a>Ukupan PDV</a></th>
+			<th><a>Ukupan iznos</a></th>
+			<th><a>Status fakture</a></th>
+			<th><a>ID stavke</a></th>
+			<th><a>Kolicina</a></th>
+			<th><a>Rabat</a></th>
+			<th><a>Jedinicna cena</a></th>
+			<th><a>PDV stopa</a></th>
+			<th><a>Osnovica za pdv</a></th>
+			<th><a>Iznos PDV</a></th>
+			<th><a>Ukupan iznos stavke</a></th>
+			<th><a>ID godine</a></th>
+			<th><a>Godina</a></th>
+			<th><a>Zakljucena</a></th>
+			<th/>
+		</tr>
+	</table>
 <br>
 <br>
 <p><input type="submit" value="Generisi xml fakturu sa stavkama" id="xmlFakturaSubmit"></p>

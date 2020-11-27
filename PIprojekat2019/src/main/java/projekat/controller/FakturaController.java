@@ -1,8 +1,14 @@
 package projekat.controller;
 
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -211,5 +217,84 @@ public class FakturaController {
 		System.out.println("Obrisana je faktura.");
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@GetMapping(path = "/fakturaSaStavkamaTabela")
+	public List<Faktura> fakturaSaStavkamaTabela() {
+		
+		List<Faktura> fakture = new ArrayList<Faktura>();
+		try {
+			
+			Connection conn = null;
+			Statement stmt = null;
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pi", "root", "root");
+			
+			stmt = conn.createStatement();
+			String query = "SELECT * FROM faktura, stavka_fakture, poslovna_godina, poslovni_partner, preduzece WHERE faktura.id_stavke_fakture = stavka_fakture.id_stavke "
+					+ "AND faktura.id_godine = poslovna_godina.id_godine AND faktura.id_poslovnog_partnera = poslovni_partner.id_poslovnog_partnera AND faktura.id_preduzeca = preduzece.id_preduzeca";
+			
+			ResultSet rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				Long idFakture = rset.getLong("id_fakture");
+				int brojFakture = rset.getInt("broj_fakture");
+				Date datumFakture = rset.getDate("datum_fakture");
+				Date datumValute = rset.getDate("datum_valute");
+				double ukupnaOsnovica = rset.getDouble("ukupna_osnovica");
+				double ukupanPDV = rset.getDouble("ukupan_pdv");
+				double ukupanIznos = rset.getDouble("ukupan_iznos");
+				String statusFakture = rset.getString("status_fakture");
+				
+				Long idStavkeFakture = rset.getLong("id_stavke_fakture");
+				double kolicina =  rset.getDouble("kolicina");
+				double rabat = rset.getDouble("rabat");
+				double jedinicnaCena = rset.getDouble("jedinicna_cena");
+				double pdvStopa = rset.getDouble("pdv_stopa");
+				double osnovicaZaPDV = rset.getDouble("osnovica_za_pdv");
+				double iznosPDV = rset.getDouble("iznos_pdv");
+				double ukupanIznosStavke = rset.getDouble("ukupan_iznos");
+			//	Long idPreduzeca = rset.getLong("id_preduzeca");
+			//	Long idRobeUsluge = rset.getLong("id_robe_usluge");
+				
+				Long idGodine = rset.getLong("id_godine");
+				int godina = rset.getInt("godina");
+				
+				Faktura faktura = new Faktura();
+				faktura.setIdFakture(idFakture);
+				faktura.setBrojFakture(brojFakture);
+				faktura.setDatumFakture(datumFakture);
+				faktura.setDatumValute(datumValute);
+				faktura.setUkupnaOsnovica(ukupnaOsnovica);
+				faktura.setUkupanPDV(ukupanPDV);
+				faktura.setUkupanIznos(ukupanIznos);
+				faktura.setStatusFakture(statusFakture);
+				
+				StavkaFakture stavkaFakture = new StavkaFakture();
+				stavkaFakture.setIdStavke(idStavkeFakture);
+				stavkaFakture.setKolicina(kolicina);
+				stavkaFakture.setRabat(rabat);
+				stavkaFakture.setJedinicnaCena(jedinicnaCena);
+				stavkaFakture.setPdvStopa(pdvStopa);
+				stavkaFakture.setOsnovicaZaPDV(osnovicaZaPDV);
+				stavkaFakture.setIznosPDV(iznosPDV);
+				stavkaFakture.setUkupanIznos(ukupanIznosStavke);
+				
+				PoslovnaGodina poslovnaGodina = new PoslovnaGodina();
+				poslovnaGodina.setIdGodine(idGodine);
+				poslovnaGodina.setGodina(godina);
+				faktura.setStavkaFakture(stavkaFakture);
+				faktura.setPoslovnaGodina(poslovnaGodina);
+				fakture.add(faktura);
+				
+				
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return fakture;
+		
+		
 	}
 }
