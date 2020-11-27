@@ -25,13 +25,13 @@ public class Preduzece implements Serializable {
 	@Column(name = "naziv_preduzeca", columnDefinition = "VARCHAR(20)")
 	private String nazivPreduzeca;
 	
-	@Column(name = "adresa", columnDefinition = "VARCHAR(20)")
+	@Column(name = "adresa_preduzeca", columnDefinition = "VARCHAR(20)")
 	private String adresa;
 	
 	@Column(name = "broj_telefona", columnDefinition = "VARCHAR(20)")
 	private String brojTelefona;
 	
-	@Column(name = "fax", columnDefinition = "VARCHAR(20)")
+	@Column(name = "fax_preduzeca", columnDefinition = "VARCHAR(20)")
 	private String fax;
 	
 	@OneToOne

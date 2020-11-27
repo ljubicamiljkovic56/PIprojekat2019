@@ -19,11 +19,12 @@ import projekat.model.Faktura;
 import projekat.model.PoslovnaGodina;
 import projekat.model.PoslovniPartner;
 import projekat.model.Preduzece;
-
+import projekat.model.StavkaFakture;
 import projekat.service.intrfc.FakturaServiceInterface;
 import projekat.service.intrfc.PoslovnaGodinaServiceInterface;
 import projekat.service.intrfc.PoslovniPartnerServiceInterface;
 import projekat.service.intrfc.PreduzeceServiceInterface;
+import projekat.service.intrfc.StavkaFaktureServiceInterface;
 
 
 
@@ -44,6 +45,9 @@ public class FakturaController {
 	
 	@Autowired
 	private PreduzeceServiceInterface preduzeceServiceInterface;
+	
+	@Autowired
+	private StavkaFaktureServiceInterface stavkaFaktureServiceInterface;
 	
 	@GetMapping(path = "/all")
 	public List<Faktura> getAll() {
@@ -68,7 +72,8 @@ public class FakturaController {
 	public ResponseEntity<Void> dodajFakturu(@RequestParam("broj_fakture") String brojFakture, 
 			@RequestParam("datum_fakture") String datumFakture, @RequestParam("datum_valute") String datumValute,
 			@RequestParam("ukupna_osnovica") String ukupnaOsnovica, @RequestParam("ukupan_pdv") String ukupanPdv, 
-			@RequestParam("ukupan_iznos") String ukupanIznos, @RequestParam("status_fakture") String statusFakture, @RequestParam("poslovna_godina") String poslovnaGodina,
+			@RequestParam("ukupan_iznos") String ukupanIznos, @RequestParam("status_fakture") String statusFakture, 
+			@RequestParam("jedinicna_cena") String stavkaFakture, @RequestParam("poslovna_godina") String poslovnaGodina,
 			@RequestParam("poslovni_partner") String nazivPoslovnogPartnera, @RequestParam("preduzece") String nazivPreduzeca) throws ParseException {
 		
 		System.out.println("Broj fakture: " + brojFakture);
@@ -99,6 +104,9 @@ public class FakturaController {
 	    double ukupanIznosDouble = Double.parseDouble(ukupanIznos);
 	    
 	    int godinaInt = Integer.parseInt(poslovnaGodina);
+	    int jedinicnaCena = Integer.parseInt(stavkaFakture);
+	    
+	    StavkaFakture stavkaFakture2 = stavkaFaktureServiceInterface.findByJedinicnaCena(jedinicnaCena);
 	    
 	    PoslovnaGodina poslovnaGodina2 = poslovnaGodinaServiceInterface.findByGodina(godinaInt);
 	    
@@ -113,8 +121,8 @@ public class FakturaController {
 		faktura.setUkupnaOsnovica(ukupnaOsnovicaDouble);
 		faktura.setUkupanPDV(ukupanPdvDouble);
 		faktura.setUkupanIznos(ukupanIznosDouble);
-		//faktura.setStatusFakture('F);
-	//	faktura.setStavkeFakture(faktura.getStavkeFakture());
+		faktura.setStatusFakture(statusFakture);
+		faktura.setStavkaFakture(stavkaFakture2);
 		faktura.setPoslovnaGodina(poslovnaGodina2);
 		faktura.setPoslovniPartner(partner);
 		faktura.setPreduzece(preduzece);
