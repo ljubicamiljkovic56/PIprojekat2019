@@ -17,8 +17,6 @@ import projekat.model.NaseljenoMesto;
 import projekat.model.PoslovniPartner;
 import projekat.service.intrfc.NaseljenoMestoServiceInterface;
 import projekat.service.intrfc.PoslovniPartnerServiceInterface;
-import projekat.service.intrfc.PreduzeceServiceInterface;
-
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/poslovnipartneri")
@@ -31,8 +29,6 @@ public class PoslovniPartnerController {
 	@Autowired
 	private NaseljenoMestoServiceInterface naseljenoMestoServiceInterface;
 	
-	@Autowired
-	private PreduzeceServiceInterface preduzeceServiceInterface;
 	
 	@GetMapping(path = "/all")
 	public List<PoslovniPartner> getAll(){
@@ -55,12 +51,11 @@ public class PoslovniPartnerController {
 	@PostMapping(path = "/dodajPoslovnogPartnera")
 	public ResponseEntity<Void> dodajPoslovnogPartnera(@RequestParam("naziv_poslovnog_partnera") String nazivPoslovnogPartnera,
 			@RequestParam("adresa") String adresa, @RequestParam("telefon") String telefon,
-			@RequestParam("fax") String fax, @RequestParam("email") String email, 
-			@RequestParam("mesto") String nazivMesta, @RequestParam("preduzece") String nazivPreduzeca) {
+			@RequestParam("fax") String fax, @RequestParam("email") String email, @RequestParam("vrsta_partnera") String vrstaPartnera,
+			@RequestParam("mesto") String nazivMesta) {
 		
 		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
 		
-		//Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
 		
 		PoslovniPartner partner = new PoslovniPartner();
 		partner.setNazivPoslovnogPartnera(nazivPoslovnogPartnera);
@@ -68,10 +63,8 @@ public class PoslovniPartnerController {
 		partner.setTelefon(telefon);
 		partner.setFax(fax);
 		partner.setEmail(email);
-		partner.setVrstaPartnera(partner.getVrstaPartnera());
+		partner.setVrstaPartnera(vrstaPartnera);
 		partner.setNaseljenoMesto(mesto);
-	//	partner.setPreduzece(preduzece);
-	//	partner.setFakture(partner.getFakture());
 		
 		poslovniPartnerServiceInterface.save(partner);
 		
@@ -85,15 +78,13 @@ public class PoslovniPartnerController {
 	public ResponseEntity<Void> izmeniPoslovnogPartnera(@RequestParam("naziv_poslovnog_partnera") String nazivPoslovnogPartnera,
 			@RequestParam("novi_naziv") String noviNaziv,
 			@RequestParam("adresa") String adresa, @RequestParam("telefon") String telefon,
-			@RequestParam("fax") String fax, @RequestParam("email") String email, 
-			@RequestParam("mesto") String nazivMesta, @RequestParam("preduzece") String nazivPreduzeca){
+			@RequestParam("fax") String fax, @RequestParam("email") String email, @RequestParam("vrsta_partnera") String vrstaPartnera,
+			@RequestParam("mesto") String nazivMesta){
 		
 		
 		PoslovniPartner partner = poslovniPartnerServiceInterface.findByNazivPoslovnogPartnera(nazivPoslovnogPartnera);
 		
 		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
-		
-	//	Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
 		
 		if(partner != null) {
 			partner.setNazivPoslovnogPartnera(noviNaziv);
@@ -101,9 +92,8 @@ public class PoslovniPartnerController {
 			partner.setTelefon(telefon);
 			partner.setFax(fax);
 			partner.setEmail(email);
+			partner.setVrstaPartnera(vrstaPartnera);
 			partner.setNaseljenoMesto(mesto);
-		//	partner.setPreduzece(preduzece);
-	//		partner.setFakture(partner.getFakture());
 			
 			poslovniPartnerServiceInterface.save(partner);
 			
