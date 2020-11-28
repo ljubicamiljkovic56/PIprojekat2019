@@ -5,11 +5,37 @@
 <title>Dnevnik izlaznih faktura</title>
 <script src="js/jquery-3.3.1.js"></script>
 <script src="js/generisi_kif.js"></script>
+<script src="js/dnevnik_kif_tabela.js"></script>
 </head>
 <body>
 <h3>Dnevnik izlaznih faktura - KIF</h3>
-<label>Datum fakture: </label><br><input type="date" id="datum_faktureInput"/><input type="submit" value="Generisi xml kif" id="xmlKifSubmit">
+<label>Datum fakture: </label><br><input type="date" id="datum_fakture_tabelaInput"/><input type="submit" value="Prikazi fakture" id="fakturaSubmit">
+<table border="1" id="dnevnikTable">
+		<tr bgcolor="lightblue">
+			<th><a>ID fakture</a></th>
+			<th><a>Broj fakture</a></th>
+			<th><a>Datum fakture</a></th>
+			<th><a>Datum valute</a></th>
+			<th><a>Ukupna osnovica</a></th>
+			<th><a>Ukupan PDV</a></th>
+			<th><a>Ukupan iznos</a></th>
+			<th><a>Status fakture</a></th>
+			<th><a>ID stavke</a></th>
+			<th><a>Kolicina</a></th>
+			<th><a>Rabat</a></th>
+			<th><a>Jedinicna cena</a></th>
+			<th><a>PDV stopa</a></th>
+			<th><a>Osnovica za pdv</a></th>
+			<th><a>Iznos PDV</a></th>
+			<th><a>Ukupan iznos stavke</a></th>
+			<th><a>ID godine</a></th>
+			<th><a>Godina</a></th>
+			<th><a>Zakljucena</a></th>
+			<th/>
+		</tr>
+	</table>
 
+<label>Datum fakture: </label><br><input type="date" id="datum_faktureInput"/><input type="submit" value="Generisi xml kif" id="xmlKifSubmit">
 <br>
 <br>
 <p><a href="faktura_sa_stavkama.html">Nazad na fakture sa stavkama</a></p>
