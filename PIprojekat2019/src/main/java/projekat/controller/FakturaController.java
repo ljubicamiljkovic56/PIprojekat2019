@@ -187,7 +187,6 @@ public class FakturaController {
 			faktura.setPoslovnaGodina(poslovnaGodina2);
 			faktura.setPoslovniPartner(partner);
 			faktura.setPreduzece(preduzece);
-	//		faktura.setStavkeFakture(faktura.getStavkeFakture());
 			
 			fakturaServiceInterface.save(faktura);
 			

@@ -31,7 +31,7 @@ public class PoslovnaGodinaDTO implements Serializable {
 	public PoslovnaGodinaDTO(PoslovnaGodina poslovnaGodina) {
 		this.idGodine = poslovnaGodina.getIdGodine();
 		this.godina = poslovnaGodina.getGodina();
-		this.zakljucena = false;
+		this.zakljucena = poslovnaGodina.isZakljucena();
 	}
 
 	public Long getIdGodine() {

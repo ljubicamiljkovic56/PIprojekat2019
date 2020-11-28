@@ -23,9 +23,6 @@ public class PoslovnaGodinaController {
 	@Autowired
 	private PoslovnaGodinaServiceInterface poslovnaGodinaServiceInterface;
 	
-	//@Autowired
-	//private PreduzeceServiceInterface preduzeceServiceInterface;
-	
 	@GetMapping(path = "/all")
 	public List<PoslovnaGodina> getAll() {
 		return poslovnaGodinaServiceInterface.findAll();
@@ -48,11 +45,9 @@ public class PoslovnaGodinaController {
 	}
 	
 	@PostMapping(path = "/dodajGodinu")
-	public ResponseEntity<Void> dodajGodinu(@RequestParam("godina") String godina, @RequestParam("preduzece") String nazivPreduzeca) {
+	public ResponseEntity<Void> dodajGodinu(@RequestParam("godina") String godina) {
 		
 		int godinaInt = Integer.parseInt(godina);
-		
-	//	Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
 		
 		PoslovnaGodina poslovnaGodina = new PoslovnaGodina();
 		poslovnaGodina.setGodina(godinaInt);
@@ -67,15 +62,12 @@ public class PoslovnaGodinaController {
 	}
 	
 	@PostMapping(path = "/izmeniGodinu")
-	public ResponseEntity<Void> izmeniGodinu(@RequestParam("godina") String godina, @RequestParam("godina2") String godina2,
-			@RequestParam("preduzece") String nazivPreduzeca) {
+	public ResponseEntity<Void> izmeniGodinu(@RequestParam("godina") String godina, @RequestParam("godina2") String godina2) {
 	
 		int godinaInt = Integer.parseInt(godina);
 		int godinaInt2 = Integer.parseInt(godina2);
 		
 		PoslovnaGodina poslovnaGodina = poslovnaGodinaServiceInterface.findByGodina(godinaInt);
-		
-//		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
 		
 		if(poslovnaGodina != null) {
 			poslovnaGodina.setGodina(godinaInt2);

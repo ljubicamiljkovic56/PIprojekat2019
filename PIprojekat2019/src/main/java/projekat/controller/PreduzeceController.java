@@ -1,5 +1,7 @@
 package projekat.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import projekat.dto.PreduzeceDTO;
+import projekat.model.Cenovnik;
 import projekat.model.NaseljenoMesto;
+import projekat.model.PoslovnaGodina;
+import projekat.model.PoslovniPartner;
 import projekat.model.Preduzece;
+import projekat.service.intrfc.CenovnikServiceInterface;
 import projekat.service.intrfc.NaseljenoMestoServiceInterface;
+import projekat.service.intrfc.PoslovnaGodinaServiceInterface;
+import projekat.service.intrfc.PoslovniPartnerServiceInterface;
 import projekat.service.intrfc.PreduzeceServiceInterface;
 
 @CrossOrigin
@@ -28,6 +36,15 @@ public class PreduzeceController {
 	
 	@Autowired
 	private NaseljenoMestoServiceInterface naseljenoMestoServiceInterface;
+	
+	@Autowired
+	private PoslovnaGodinaServiceInterface poslovnaGodinaServiceInterface;
+	
+	@Autowired
+	private PoslovniPartnerServiceInterface poslovniPartnerServiceInterface;
+	
+	@Autowired
+	private CenovnikServiceInterface cenovnikServiceInterface;
 	
 	@GetMapping(path = "/all")
 	public List<Preduzece> getAll() {
@@ -51,22 +68,35 @@ public class PreduzeceController {
 	
 	@PostMapping(path = "/dodajPreduzece")
 	public ResponseEntity<Void> dodajPreduzece(@RequestParam("naziv_preduzeca") String nazivPreduzeca,
-			@RequestParam("adresa") String adresa, @RequestParam("broj_telefona") String brojTelefona, @RequestParam("fax") String fax,
-			@RequestParam("naziv_mesta") String nazivMesta) {
+			@RequestParam("adresa_preduzeca") String adresa, @RequestParam("broj_telefona") String brojTelefona, @RequestParam("fax_preduzeca") String fax,
+			@RequestParam("godina") String godina,
+			@RequestParam("naziv_mesta") String nazivMesta, @RequestParam("naziv_poslovnog_partnera") String nazivPartnera,
+			@RequestParam("datum_vazenja") String datumCenovnika) throws ParseException {
+		
+		int godinaInt = Integer.parseInt(godina);
+		
+		PoslovnaGodina poslovnaGodina = poslovnaGodinaServiceInterface.findByGodina(godinaInt);
 		
 		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
+		
+		PoslovniPartner poslovniPartner = poslovniPartnerServiceInterface.findByNazivPoslovnogPartnera(nazivPartnera);
+		
+		String datum = datumCenovnika;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = formatter.parse(datum);
+	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+		
+		Cenovnik cenovnik = cenovnikServiceInterface.findByDatumPocetkaVazenja(sqlDate);
 		
 		Preduzece preduzece = new Preduzece();
 		preduzece.setNazivPreduzeca(nazivPreduzeca);
 		preduzece.setAdresa(adresa);
 		preduzece.setBrojTelefona(brojTelefona);
 		preduzece.setFax(fax);
+		preduzece.setPoslovnaGodina(poslovnaGodina);
 		preduzece.setNaseljenoMesto(mesto);
-		preduzece.setCenovnik(preduzece.getCenovnik());
-	//	preduzece.setFakture(preduzece.getFakture());
-	//	preduzece.setStavkeFakture(preduzece.getStavkeFakture());
-		//preduzece.setPoslovneGodine(preduzece.getPoslovneGodine());
-	//	preduzece.setPoslovniPartneri(preduzece.getPoslovniPartneri());
+		preduzece.setPoslovniPartner(poslovniPartner);
+		preduzece.setCenovnik(cenovnik);
 		preduzeceServiceInterface.save(preduzece);
 		
 		System.out.println("Dodato je novo preduzece");
@@ -77,22 +107,39 @@ public class PreduzeceController {
 	
 	@PostMapping(path = "/izmeniPreduzece")
 	public ResponseEntity<Void> izmeniPreduzece(@RequestParam("naziv_preduzeca") String nazivPreduzeca,
-			@RequestParam("novi_naziv") String noviNaziv, @RequestParam("adresa") String adresa,
-			@RequestParam("broj_telefona") String brojTelefona, @RequestParam("fax") String fax) {
+			@RequestParam("novi_naziv") String noviNaziv, @RequestParam("adresa_preduzeca") String adresa,
+			@RequestParam("broj_telefona") String brojTelefona, @RequestParam("fax_preduzeca") String fax,
+			@RequestParam("godina") String godina,
+			@RequestParam("naziv_mesta") String nazivMesta, @RequestParam("naziv_poslovnog_partnera") String nazivPartnera,
+			@RequestParam("datum_vazenja") String datumCenovnika) throws ParseException {
 		
+	
 		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
+		
+		int godinaInt = Integer.parseInt(godina);
+		
+		PoslovnaGodina poslovnaGodina = poslovnaGodinaServiceInterface.findByGodina(godinaInt);
+		
+		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
+		
+		PoslovniPartner poslovniPartner = poslovniPartnerServiceInterface.findByNazivPoslovnogPartnera(nazivPartnera);
+		
+		String datum = datumCenovnika;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = formatter.parse(datum);
+	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+		
+		Cenovnik cenovnik = cenovnikServiceInterface.findByDatumPocetkaVazenja(sqlDate);
 		
 		if(preduzece != null) {
 			preduzece.setNazivPreduzeca(noviNaziv);
 			preduzece.setAdresa(adresa);
 			preduzece.setBrojTelefona(brojTelefona);
 			preduzece.setFax(fax);
-			preduzece.setNaseljenoMesto(preduzece.getNaseljenoMesto());
-			preduzece.setCenovnik(preduzece.getCenovnik());
-			//preduzece.setFakture(preduzece.getFakture());
-			//preduzece.setStavkeFakture(preduzece.getStavkeFakture());
-		//	preduzece.setPoslovneGodine(preduzece.getPoslovneGodine());
-		//	preduzece.setPoslovniPartneri(preduzece.getPoslovniPartneri());
+			preduzece.setPoslovnaGodina(poslovnaGodina);
+			preduzece.setNaseljenoMesto(mesto);
+			preduzece.setPoslovniPartner(poslovniPartner);
+			preduzece.setCenovnik(cenovnik);
 			preduzeceServiceInterface.save(preduzece);
 			
 			System.out.println("Izmenjeno je preduzece.");

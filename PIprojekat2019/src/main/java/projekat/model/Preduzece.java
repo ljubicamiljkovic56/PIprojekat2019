@@ -50,11 +50,6 @@ public class Preduzece implements Serializable {
 	@JoinColumn(name = "id_cenovnika")
 	private Cenovnik cenovnik;
 	
-	//@OneToMany
-	//private List<Faktura> fakture = new ArrayList<Faktura>();
-	
-//	@OneToMany
-//	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 	
 	public Preduzece() {
 		super();

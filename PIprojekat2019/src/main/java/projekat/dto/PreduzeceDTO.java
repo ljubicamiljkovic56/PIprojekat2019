@@ -1,7 +1,6 @@
 package projekat.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import projekat.model.Cenovnik;
@@ -20,12 +19,10 @@ public class PreduzeceDTO implements Serializable {
 	private String adresa;
 	private String brojTelefona;
 	private String fax;
-	private List<PoslovnaGodina> poslovneGodine = new ArrayList<PoslovnaGodina>();
+	private PoslovnaGodina poslovnaGodina;
 	private NaseljenoMesto naseljenoMesto;
 	private PoslovniPartner poslovniPartner;
 	private Cenovnik cenovnik;
-	private List<Faktura> fakture = new ArrayList<Faktura>();
-	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 	
 	
 	public PreduzeceDTO() {
@@ -34,7 +31,7 @@ public class PreduzeceDTO implements Serializable {
 
 
 	public PreduzeceDTO(Long idPreduzeca, String nazivPreduzeca, String adresa, String brojTelefona, String fax,
-			List<PoslovnaGodina> poslovneGodine, NaseljenoMesto naseljenoMesto, PoslovniPartner poslovniPartner,
+			PoslovnaGodina poslovnaGodina, NaseljenoMesto naseljenoMesto, PoslovniPartner poslovniPartner,
 			Cenovnik cenovnik, List<Faktura> fakture, List<StavkaFakture> stavkeFakture) {
 		super();
 		this.idPreduzeca = idPreduzeca;
@@ -42,11 +39,9 @@ public class PreduzeceDTO implements Serializable {
 		this.adresa = adresa;
 		this.brojTelefona = brojTelefona;
 		this.fax = fax;
-		this.poslovneGodine = poslovneGodine;
+		this.poslovnaGodina = poslovnaGodina;
 		this.naseljenoMesto = naseljenoMesto;
 		this.cenovnik = cenovnik;
-		this.fakture = fakture;
-		this.stavkeFakture = stavkeFakture;
 		this.poslovniPartner = poslovniPartner;
 	}
 	
@@ -56,9 +51,10 @@ public class PreduzeceDTO implements Serializable {
 		this.adresa = preduzece.getAdresa();
 		this.brojTelefona = preduzece.getBrojTelefona();
 		this.fax = preduzece.getFax();
+		this.poslovnaGodina = preduzece.getPoslovnaGodina();
 		this.naseljenoMesto = preduzece.getNaseljenoMesto();
-		this.cenovnik = preduzece.getCenovnik();
 		this.poslovniPartner = preduzece.getPoslovniPartner();
+		this.cenovnik = preduzece.getCenovnik();
 	}
 
 
@@ -112,15 +108,7 @@ public class PreduzeceDTO implements Serializable {
 	}
 
 
-	public List<PoslovnaGodina> getPoslovneGodine() {
-		return poslovneGodine;
-	}
-
-
-	public void setPoslovneGodine(List<PoslovnaGodina> poslovneGodine) {
-		this.poslovneGodine = poslovneGodine;
-	}
-
+	
 
 	public NaseljenoMesto getNaseljenoMesto() {
 		return naseljenoMesto;
@@ -130,16 +118,6 @@ public class PreduzeceDTO implements Serializable {
 	public void setNaseljenoMesto(NaseljenoMesto naseljenoMesto) {
 		this.naseljenoMesto = naseljenoMesto;
 	}
-
-
-//	public List<PoslovniPartner> getPoslovniPartneri() {
-//		return poslovniPartneri;
-//	}
-//
-//
-//	public void setPoslovniPartneri(List<PoslovniPartner> poslovniPartneri) {
-//		this.poslovniPartneri = poslovniPartneri;
-//	}
 
 
 	public Cenovnik getCenovnik() {
@@ -152,23 +130,15 @@ public class PreduzeceDTO implements Serializable {
 	}
 
 
-	public List<Faktura> getFakture() {
-		return fakture;
+
+
+	public PoslovnaGodina getPoslovnaGodina() {
+		return poslovnaGodina;
 	}
 
 
-	public void setFakture(List<Faktura> fakture) {
-		this.fakture = fakture;
-	}
-
-
-	public List<StavkaFakture> getStavkeFakture() {
-		return stavkeFakture;
-	}
-
-
-	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
-		this.stavkeFakture = stavkeFakture;
+	public void setPoslovnaGodina(PoslovnaGodina poslovnaGodina) {
+		this.poslovnaGodina = poslovnaGodina;
 	}
 
 

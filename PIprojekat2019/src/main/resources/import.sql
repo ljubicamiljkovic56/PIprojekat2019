@@ -51,14 +51,16 @@ INSERT INTO naseljeno_mesto(naziv_mesta, ptt_broj) VALUES ('Novi Sad', 21000);
 INSERT INTO naseljeno_mesto(naziv_mesta, ptt_broj) VALUES ('Beograd', 11000);
 
 INSERT INTO poslovna_godina(godina, zakljucena) VALUES (2020, false);
-INSERT INTO poslovna_godina(godina, zakljucena) VALUES (2020, false);
+INSERT INTO poslovna_godina(godina, zakljucena) VALUES (2018, true);
+INSERT INTO poslovna_godina(godina, zakljucena) VALUES (2019, true);
+
 
 
 INSERT INTO poslovni_partner(naziv_poslovnog_partnera, adresa, telefon, fax, email, vrsta_partnera, id_mesta) VALUES ('Epic d.o.o', 'Zemunska 20', '011654321', '987654321', 'epicdoo@gmail.com', 'KU', 2);
 INSERT INTO poslovni_partner(naziv_poslovnog_partnera, adresa, telefon, fax, email, vrsta_partnera, id_mesta) VALUES ('Smart Co.', 'Vasina 12', '021123456', '123456789', 'smartco@gmail.com', 'DO', 1);
 
 INSERT INTO preduzece(naziv_preduzeca, adresa_preduzeca, broj_telefona, fax_preduzeca, id_mesta, id_cenovnika, id_godine, id_partnera) VALUES ('Smart Co.', 'Vasina 12', '021123456', '123456789', 1, 1, 1, 1);
-INSERT INTO preduzece(naziv_preduzeca, adresa_preduzeca, broj_telefona, fax_preduzeca, id_mesta, id_cenovnika, id_godine, id_partnera) VALUES ('Epic d.o.o.', 'Zemunska 20', '011654321', '987654321', 2, 2, 2, 2);
+INSERT INTO preduzece(naziv_preduzeca, adresa_preduzeca, broj_telefona, fax_preduzeca, id_mesta, id_cenovnika, id_godine, id_partnera) VALUES ('Epic d.o.o.', 'Zemunska 20', '011654321', '987654321', 2, 2, 1, 2);
 
 
 --INSERT INTO preduzece_poslovni_partneri(preduzece_id_preduzeca, poslovni_partneri_id_poslovnog_partnera) VALUES (1, 1);
@@ -80,7 +82,8 @@ INSERT INTO faktura(broj_fakture, datum_fakture, datum_valute, ukupna_osnovica, 
 --INSERT INTO faktura_stavke_fakture(faktura_id_fakture, stavke_fakture_id_stavke) VALUES (2, 2);
 
 INSERT INTO poslovna_godina_fakture(poslovna_godina_id_godine, fakture_id_fakture) VALUES (1, 1);
-INSERT INTO poslovna_godina_fakture(poslovna_godina_id_godine, fakture_id_fakture) VALUES (1, 2);
+INSERT INTO poslovna_godina_fakture(poslovna_godina_id_godine, fakture_id_fakture) VALUES (2, 2);
+INSERT INTO poslovna_godina_fakture(poslovna_godina_id_godine, fakture_id_fakture) VALUES (3, 3);
 
 --INSERT INTO poslovni_partner_fakture(poslovni_partner_id_poslovnog_partnera, fakture_id_fakture) VALUES (1 ,1);
 --INSERT INTO poslovni_partner_fakture(poslovni_partner_id_poslovnog_partnera, fakture_id_fakture) VALUES (1, 2);
