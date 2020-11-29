@@ -28,7 +28,7 @@ $(document).ready(function(){
 					'<td>' + it.ukupanPDV + '</td>' + 
 					'<td>' + it.ukupanIznos + '</td>' + 
 					'<td>' + it.statusFakture + '</td>' + 
-					'<td>' + it.stavkaFakture + '</td>' + 
+					'<td>' + it.stavkaFakture.idStavke + '</td>' + 
 					'<td>' + it.poslovnaGodina.godina + '</td>' + 
 					'<td>' + it.poslovniPartner.nazivPoslovnogPartnera + '</td>' + 
 					'<td>' + it.preduzece.nazivPreduzeca + '</td>' + 
