@@ -226,6 +226,39 @@ public class FakturaController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	
+	@PostMapping(path = "/stornirajFakturu")
+	public ResponseEntity<Void> stornirajFakturu(@RequestParam("broj_fakture") String brojFakture) {
+		
+		int brojFaktureInt = Integer.parseInt(brojFakture);
+		
+		Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
+		
+		if(faktura != null) {
+			faktura.setBrojFakture(faktura.getBrojFakture());
+			faktura.setDatumFakture(faktura.getDatumFakture());
+			faktura.setDatumValute(faktura.getDatumValute());
+			faktura.setUkupnaOsnovica(faktura.getUkupnaOsnovica());
+			faktura.setUkupanPDV(faktura.getUkupanPDV());
+			faktura.setUkupanIznos(faktura.getUkupanIznos());
+			faktura.setStatusFakture("S");
+			faktura.setStavkaFakture(faktura.getStavkaFakture());
+			faktura.setPoslovnaGodina(faktura.getPoslovnaGodina());
+			faktura.setPoslovniPartner(faktura.getPoslovniPartner());
+			faktura.setPreduzece(faktura.getPreduzece());
+			fakturaServiceInterface.save(faktura);
+			
+			System.out.println("Faktura stornirana");
+
+			return new ResponseEntity<Void>(HttpStatus.OK);
+			
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
+		
+	}
+	
 	@GetMapping(path = "/fakturaSaStavkamaTabela")
 	public List<Faktura> fakturaSaStavkamaTabela() {
 		
