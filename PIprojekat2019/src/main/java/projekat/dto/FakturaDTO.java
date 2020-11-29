@@ -2,11 +2,7 @@ package projekat.dto;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
 import projekat.model.Faktura;
-import projekat.model.Otpremnica;
 import projekat.model.PoslovnaGodina;
 import projekat.model.PoslovniPartner;
 import projekat.model.Preduzece;
@@ -22,13 +18,11 @@ public class FakturaDTO implements Serializable {
 	private double ukupnaOsnovica;
 	private double ukupanPDV;
 	private double ukupanIznos;
-	//private enum StatusFakture {F, P};
 	private String statusFakture;
-	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
+	private StavkaFakture stavkaFakture;
 	private PoslovnaGodina poslovnaGodina;
 	private PoslovniPartner poslovniPartner;
 	private Preduzece preduzece;
-	//private List<Otpremnica> otpremnice = new ArrayList<Otpremnica>();
 	
 
 	public FakturaDTO() {
@@ -37,9 +31,8 @@ public class FakturaDTO implements Serializable {
 
 
 	public FakturaDTO(Long idFakture, int brojFakture, Date datumFakture, Date datumValute, double ukupnaOsnovica,
-			double ukupanPDV, double ukupanIznos, String statusFakture, List<StavkaFakture> stavkeFakture,
-			PoslovnaGodina poslovnaGodina, PoslovniPartner poslovniPartner, Preduzece preduzece,
-			List<Otpremnica> otpremnice) {
+			double ukupanPDV, double ukupanIznos, String statusFakture, StavkaFakture stavkaFakture,
+			PoslovnaGodina poslovnaGodina, PoslovniPartner poslovniPartner, Preduzece preduzece) {
 		super();
 		this.idFakture = idFakture;
 		this.brojFakture = brojFakture;
@@ -49,15 +42,13 @@ public class FakturaDTO implements Serializable {
 		this.ukupanPDV = ukupanPDV;
 		this.ukupanIznos = ukupanIznos;
 		this.statusFakture = statusFakture;
-		this.stavkeFakture = stavkeFakture;
+		this.stavkaFakture = stavkaFakture;
 		this.poslovnaGodina = poslovnaGodina;
 		this.poslovniPartner = poslovniPartner;
 		this.preduzece = preduzece;
-		//this.otpremnice = otpremnice;
 	}
 
 	
-	//@SuppressWarnings("static-access")
 	public FakturaDTO(Faktura faktura) {
 		this.idFakture = faktura.getIdFakture();
 		this.brojFakture = faktura.getBrojFakture();
@@ -67,6 +58,10 @@ public class FakturaDTO implements Serializable {
 		this.ukupanPDV = faktura.getUkupanPDV();
 		this.ukupanIznos = faktura.getUkupanIznos();
 		this.statusFakture = faktura.getStatusFakture();
+		this.stavkaFakture = faktura.getStavkaFakture();
+		this.poslovnaGodina = faktura.getPoslovnaGodina();
+		this.poslovniPartner = faktura.getPoslovniPartner();
+		this.preduzece = faktura.getPreduzece();
 	}
 
 	public Long getIdFakture() {
@@ -138,24 +133,6 @@ public class FakturaDTO implements Serializable {
 		this.ukupanIznos = ukupanIznos;
 	}
 
-
-//	public StatusFakture getStatusFakture() {
-//		return statusFakture;
-//	}
-//
-//
-//	public void setStatusFakture(StatusFakture statusFakture) {
-//		this.statusFakture = statusFakture;
-//	}
-	
-	
-
-
-	public List<StavkaFakture> getStavkeFakture() {
-		return stavkeFakture;
-	}
-
-
 	public String getStatusFakture() {
 		return statusFakture;
 	}
@@ -163,11 +140,6 @@ public class FakturaDTO implements Serializable {
 
 	public void setStatusFakture(String statusFakture) {
 		this.statusFakture = statusFakture;
-	}
-
-
-	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
-		this.stavkeFakture = stavkeFakture;
 	}
 
 
@@ -201,13 +173,14 @@ public class FakturaDTO implements Serializable {
 	}
 
 
-//	public List<Otpremnica> getOtpremnice() {
-//		return otpremnice;
-//	}
-//
-//
-//	public void setOtpremnice(List<Otpremnica> otpremnice) {
-//		this.otpremnice = otpremnice;
-//	}	
-//	
+	public StavkaFakture getStavkaFakture() {
+		return stavkaFakture;
+	}
+
+
+	public void setStavkaFakture(StavkaFakture stavkaFakture) {
+		this.stavkaFakture = stavkaFakture;
+	}
+
+	
 }

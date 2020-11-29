@@ -80,7 +80,7 @@ public class FakturaController {
 			@RequestParam("datum_fakture") String datumFakture, @RequestParam("datum_valute") String datumValute,
 			@RequestParam("ukupna_osnovica") String ukupnaOsnovica, @RequestParam("ukupan_pdv") String ukupanPdv, 
 			@RequestParam("ukupan_iznos") String ukupanIznos, @RequestParam("status_fakture") String statusFakture, 
-			@RequestParam("jedinicna_cena") String stavkaFakture, @RequestParam("poslovna_godina") String poslovnaGodina,
+			@RequestParam("stavka_fakture") String stavkaFakture, @RequestParam("poslovna_godina") String poslovnaGodina,
 			@RequestParam("poslovni_partner") String nazivPoslovnogPartnera, @RequestParam("preduzece") String nazivPreduzeca) throws ParseException {
 		
 		System.out.println("Broj fakture: " + brojFakture);
@@ -90,6 +90,7 @@ public class FakturaController {
 		System.out.println("Ukupan pdv: " + ukupanPdv);
 		System.out.println("Ukupan iznos: " + ukupanIznos);
 		System.out.println("Status fakture: " + statusFakture);
+		System.out.println("Stavka fakture: " + stavkaFakture);
 		System.out.println("Poslovna godina: " + poslovnaGodina);
 		System.out.println("Poslovni partner: " + nazivPoslovnogPartnera);
 		System.out.println("Preduzece: " + nazivPreduzeca);
@@ -171,6 +172,10 @@ public class FakturaController {
 	    
 	    int godinaInt = Integer.parseInt(poslovnaGodina);
 	    
+	    int stavkaFaktureInt = Integer.parseInt(stavkaFakture);
+	    
+	    StavkaFakture stavkaFakture2 = stavkaFaktureServiceInterface.findByJedinicnaCena(stavkaFaktureInt);
+	    
 	    PoslovnaGodina poslovnaGodina2 = poslovnaGodinaServiceInterface.findByGodina(godinaInt);
 	    
 	    PoslovniPartner partner = poslovniPartnerServiceInterface.findByNazivPoslovnogPartnera(nazivPoslovnogPartnera);
@@ -184,6 +189,8 @@ public class FakturaController {
 			faktura.setUkupnaOsnovica(ukupnaOsnovicaDouble);
 			faktura.setUkupanPDV(ukupanPdvDouble);
 			faktura.setUkupanIznos(ukupanIznosDouble);
+			faktura.setStatusFakture(statusFakture);
+			faktura.setStavkaFakture(stavkaFakture2);
 			faktura.setPoslovnaGodina(poslovnaGodina2);
 			faktura.setPoslovniPartner(partner);
 			faktura.setPreduzece(preduzece);
