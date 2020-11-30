@@ -21,7 +21,7 @@ public class StavkaOtpremnice implements Serializable{
 	@Column(name = "redni_broj_proizvoda" , columnDefinition = "INT")
 	private int redniBrojProizvoda;
 	
-	@Column(name = "jedinica_mere", columnDefinition = "CHAR(2)")
+	@Column(name = "jedinica_mere", columnDefinition = "CHAR(5)")
 	private String jedinicaMere;
 	
 	@Column(name = "cena", columnDefinition = "DECIMAL")

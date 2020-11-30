@@ -100,8 +100,8 @@ INSERT INTO poslovna_godina_fakture(poslovna_godina_id_godine, fakture_id_faktur
 INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('pera', 'pera', 'admin');
 INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('ana', 'ana', 'korisnik');
 
-INSERT INTO stavka_otpremnice(redni_broj_proizvoda,  jedinica_mere, cena, kolicina, napomena) VALUES (1, 3, 200, 1, '');
-INSERT INTO stavka_otpremnice(redni_broj_proizvoda,  jedinica_mere, cena, kolicina, napomena) VALUES (2, 5, 310,  1, 'brza isporuka');
+INSERT INTO stavka_otpremnice(redni_broj_proizvoda,  jedinica_mere, cena, kolicina, napomena) VALUES (1, 'ml', 200, 1, '');
+INSERT INTO stavka_otpremnice(redni_broj_proizvoda,  jedinica_mere, cena, kolicina, napomena) VALUES (2, 'kg', 310,  1, 'brza isporuka');
 
 INSERT INTO otpremnica(broj_otpremnice, kupac, adresa_isporuke, datum_isporuke, prevoznik, potpis_vozaca, primio_robu, id_stavke_otpremnice, id_fakture) VALUES (1, 'pera', 'Vase Stajica 2, Novi Sad', '2020-10-10', 'MultiExpress', true, true, 1, 1);
 INSERT INTO otpremnica(broj_otpremnice, kupac, adresa_isporuke, datum_isporuke, prevoznik, potpis_vozaca, primio_robu, id_stavke_otpremnice, id_fakture) VALUES (2, 'ana', 'Lazina 12, Novi Sad', '2020-11-11', 'OkExpress', true, true, 2, 2);

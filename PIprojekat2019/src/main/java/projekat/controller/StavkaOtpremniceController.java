@@ -23,11 +23,6 @@ public class StavkaOtpremniceController {
 	@Autowired
 	private StavkaOtpremniceServiceInterface stavkaOtpremniceServicenterface;
 	
-//	@Autowired
-//	private JedinicaMereServiceInterface jedinicaMereServiceInterface;
-	
-	//@Autowired
-	//private OtpremnicaServiceInterface otpremnicaServiceInterface;
 	
 	@GetMapping(path = "/all")
 	public List<StavkaOtpremnice> getAll() {
@@ -52,25 +47,18 @@ public class StavkaOtpremniceController {
 	@PostMapping(path = "/dodajStavkuOtpremnice")
 	public ResponseEntity<Void> dodajStavkuOtpremnice(@RequestParam("redni_broj_proizvoda") String redniBrojProizvoda,
 			@RequestParam("jedinica_mere") String nazivJediniceMere, @RequestParam("cena") String cena,
-			@RequestParam("kolicina") String kolicina, @RequestParam("napomena") String napomena, @RequestParam("otpremnica") String brojOtpremnice){
+			@RequestParam("kolicina") String kolicina, @RequestParam("napomena") String napomena){
 		
 		System.out.println("Redni broj proizvoda: " + redniBrojProizvoda);
 		System.out.println("Jedinica mere: " + nazivJediniceMere);
 		System.out.println("Cena: " + cena);
 		System.out.println("Kolicina: " + kolicina);
 		System.out.println("Napomena: " + napomena);
-		System.out.println("Otpremnica: " + brojOtpremnice);
 		
 		int redniBrojProizvodaInt = Integer.parseInt(redniBrojProizvoda);
 		
-	//	JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivJediniceMere);
-		
 		double cenaDouble = Double.parseDouble(cena);
 		double kolicinaDouble = Double.parseDouble(kolicina);
-		
-		//int brojOtpremniceInt = Integer.parseInt(brojOtpremnice);
-		
-	//	Otpremnica otpremnica = otpremnicaServiceInterface.findByBrojOtpremnice(brojOtpremniceInt);
 		
 		StavkaOtpremnice stavkaOtpremnice = new StavkaOtpremnice();
 		stavkaOtpremnice.setRedniBrojProizvoda(redniBrojProizvodaInt);
@@ -78,7 +66,6 @@ public class StavkaOtpremniceController {
 		stavkaOtpremnice.setCena(cenaDouble);
 		stavkaOtpremnice.setKolicina(kolicinaDouble);
 		stavkaOtpremnice.setNapomena(napomena);
-	//	stavkaOtpremnice.setOtpremnica(otpremnica);
 		stavkaOtpremniceServicenterface.save(stavkaOtpremnice);
 		
 		System.out.println("Dodata je stavka otpremnice.");
@@ -87,11 +74,11 @@ public class StavkaOtpremniceController {
 		
 	}
 	
-	@PostMapping(path =  "/izmeniStavkuOptremnice")
+	@PostMapping(path =  "/izmeniStavkuOtpremnice")
 	public ResponseEntity<Void> izmeniStavkuOtpremnice(@RequestParam("redni_broj_proizvoda") String redniBrojProizvoda,
 			@RequestParam("novi_broj") String noviBroj,
 			@RequestParam("jedinica_mere") String nazivJediniceMere, @RequestParam("cena") String cena,
-			@RequestParam("kolicina") String kolicina, @RequestParam("napomena") String napomena, @RequestParam("otpremnica") String brojOtpremnice) {
+			@RequestParam("kolicina") String kolicina, @RequestParam("napomena") String napomena) {
 			
 		int redniBrojProizvodaInt = Integer.parseInt(redniBrojProizvoda);
 		
@@ -102,17 +89,12 @@ public class StavkaOtpremniceController {
 		double cenaDouble = Double.parseDouble(cena);
 		double kolicinaDouble = Double.parseDouble(kolicina);
 		
-	//	int brojOtpremniceInt = Integer.parseInt(brojOtpremnice);
-		
-	//	Otpremnica otpremnica = otpremnicaServiceInterface.findByBrojOtpremnice(brojOtpremniceInt);
-		
 		if(stavkaOtpremnice != null) {
 			stavkaOtpremnice.setRedniBrojProizvoda(noviBrojInt);
 			stavkaOtpremnice.setJedinicaMere(nazivJediniceMere);
 			stavkaOtpremnice.setCena(cenaDouble);
 			stavkaOtpremnice.setKolicina(kolicinaDouble);
 			stavkaOtpremnice.setNapomena(napomena);
-			//stavkaOtpremnice.setOtpremnica(otpremnica);
 			stavkaOtpremniceServicenterface.save(stavkaOtpremnice);
 			
 			System.out.println("Izmenjena je stavka otpremnice.");
