@@ -2,8 +2,6 @@ package projekat.dto;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
-
 import projekat.model.Faktura;
 import projekat.model.Otpremnica;
 import projekat.model.StavkaOtpremnice;
@@ -27,7 +25,7 @@ public class OtpremnicaDTO implements Serializable {
 	}
 
 	public OtpremnicaDTO(Long idOtpremnice, int brojOtpremnice, String kupac, String adresaIsporuke, Date datumIsporuke,
-			String prevoznik, boolean potpisVozaca, boolean primioRobu, List<StavkaOtpremnice> stavkeOtpremnice,
+			String prevoznik, boolean potpisVozaca, boolean primioRobu,
 			Faktura faktura, StavkaOtpremnice stavkaOtpremnice) {
 		super();
 		this.idOtpremnice = idOtpremnice;
@@ -51,7 +49,7 @@ public class OtpremnicaDTO implements Serializable {
 		this.prevoznik = otpremnica.getPrevoznik();
 		this.potpisVozaca = true;
 		this.primioRobu = true;
-	//	this.faktura = otpremnica.getFaktura();
+		this.faktura = otpremnica.getFaktura();
 		this.stavkaOtpremnice = otpremnica.getStavkaOtpremnice();
 	}
 

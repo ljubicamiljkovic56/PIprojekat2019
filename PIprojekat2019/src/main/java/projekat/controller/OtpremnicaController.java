@@ -1,11 +1,8 @@
 package projekat.controller;
 
-
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import projekat.dto.OtpremnicaDTO;
 import projekat.model.Faktura;
 import projekat.model.Otpremnica;
+import projekat.model.StavkaOtpremnice;
 import projekat.service.intrfc.FakturaServiceInterface;
 import projekat.service.intrfc.OtpremnicaServiceInterface;
+import projekat.service.intrfc.StavkaOtpremniceServiceInterface;
 
 
 
@@ -34,6 +33,9 @@ public class OtpremnicaController {
 	
 	@Autowired
 	private FakturaServiceInterface fakturaServiceInterface;
+	
+	@Autowired
+	private StavkaOtpremniceServiceInterface stavkaOtpremniceServiceInterface;
 	
 	@GetMapping(path = "/all")
 	public List<Otpremnica> getAll() {
@@ -58,14 +60,15 @@ public class OtpremnicaController {
 	public ResponseEntity<Void> dodajOtpremnicu(@RequestParam("broj_otpremnice") String brojOtpremnice, 
 			@RequestParam("kupac") String kupac, @RequestParam("adresa_isporuke") String adresaIsporuke, 
 			@RequestParam("datum_isporuke") String datumIsporuke, @RequestParam("prevoznik") String prevoznik,
-			@RequestParam("faktura") String brojFakture) throws ParseException {
+			@RequestParam("faktura") String brojFakture, @RequestParam("redni_broj_proizvoda") String stavkaOtpremnice) throws ParseException {
 		
 		System.out.println("Broj otpremnice: " + brojOtpremnice);
-		System.out.println("Kupaac: " + kupac);
+		System.out.println("Kupac: " + kupac);
 		System.out.println("Adresa isporuke: " + adresaIsporuke);
 		System.out.println("Datum isporuke: " + datumIsporuke);
 		System.out.println("Prevoznik: " + prevoznik);
 		System.out.println("Faktura: " +  brojFakture);
+		System.out.println("Stavka otpremnice: " + stavkaOtpremnice);
 		
 		int brojOtpremniceInt = Integer.parseInt(brojOtpremnice);
 		
@@ -76,7 +79,12 @@ public class OtpremnicaController {
 	    
 	    int brojFaktureInt = Integer.parseInt(brojFakture);
 	    
+	    
 	    Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
+	    
+	    int stavkaOtpremniceInt = Integer.parseInt(stavkaOtpremnice);
+	    
+	    StavkaOtpremnice stavkaOtpremnice2 = stavkaOtpremniceServiceInterface.findByRedniBrojProizvoda(stavkaOtpremniceInt);
 	    
 	    Otpremnica otpremnica = new Otpremnica();
 	    otpremnica.setBrojOtpremnice(brojOtpremniceInt);
@@ -86,8 +94,8 @@ public class OtpremnicaController {
 	    otpremnica.setPrevoznik(prevoznik);
 	    otpremnica.setPotpisVozaca(false);
 	    otpremnica.setPrimioRobu(false);
-	//    otpremnica.setStavkeOtpremnice(otpremnica.getStavkeOtpremnice());
 	    otpremnica.setFaktura(faktura);
+	    otpremnica.setStavkaOtpremnice(stavkaOtpremnice2);
 	    otpremnicaServiceInterface.save(otpremnica);
 	    
 	    System.out.println("Dodata je nova otpremnica");
@@ -101,7 +109,7 @@ public class OtpremnicaController {
 			@RequestParam("novi_broj") String noviBroj,
 			@RequestParam("kupac") String kupac, @RequestParam("adresa_isporuke") String adresaIsporuke, 
 			@RequestParam("datum_isporuke") String datumIsporuke, @RequestParam("prevoznik") String prevoznik,
-			@RequestParam("faktura") String brojFakture) throws ParseException {
+			@RequestParam("faktura") String brojFakture, @RequestParam("redni_broj_proizvoda") String stavkaOtpremnice) throws ParseException {
 		
 		
 		int brojOtpremniceInt = Integer.parseInt(brojOtpremnice);
@@ -117,7 +125,11 @@ public class OtpremnicaController {
 	    int brojFaktureInt = Integer.parseInt(brojFakture);
 	    
 	    Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
+	    
+	    int stavkaOtpremniceInt = Integer.parseInt(stavkaOtpremnice);
 		
+	    StavkaOtpremnice stavkaOtpremnice2 = stavkaOtpremniceServiceInterface.findByRedniBrojProizvoda(stavkaOtpremniceInt);
+	    
 		if(otpremnica != null) {
 			otpremnica.setBrojOtpremnice(noviBrojInt);
 			otpremnica.setKupac(kupac);
@@ -127,7 +139,8 @@ public class OtpremnicaController {
 			otpremnica.setPotpisVozaca(true);
 			otpremnica.setPrimioRobu(true);
 			otpremnica.setFaktura(faktura);
-		//	otpremnica.setStavkeOtpremnice(otpremnica.getStavkeOtpremnice());
+			otpremnica.setStavkaOtpremnice(stavkaOtpremnice2);
+			otpremnicaServiceInterface.save(otpremnica);
 			
 			System.out.println("Izmenjena je otpremnica.");
 			
