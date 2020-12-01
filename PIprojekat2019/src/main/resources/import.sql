@@ -70,9 +70,9 @@ INSERT INTO preduzece(naziv_preduzeca, adresa_preduzeca, broj_telefona, fax_pred
 --INSERT INTO preduzece_poslovne_godine(preduzece_id_preduzeca, poslovne_godine_id_godine) VALUES (1, 1);
 --INSERT INTO preduzece_poslovne_godine(preduzece_id_preduzeca, poslovne_godine_id_godine) VALUES (2, 2);
 
-INSERT INTO stavka_fakture(kolicina, rabat, jedinicna_cena, pdv_stopa, osnovica_za_pdv, iznos_pdv, ukupan_iznos, id_robe_usluge, id_preduzeca) VALUES (1, 5, 310, 5, 310, 20, 320, 5, 1);
-INSERT INTO stavka_fakture(kolicina, rabat, jedinicna_cena, pdv_stopa, osnovica_za_pdv, iznos_pdv, ukupan_iznos, id_robe_usluge, id_preduzeca) VALUES (1, 5, 200, 5, 200, 15, 215, 3, 2);
-INSERT INTO stavka_fakture(kolicina, rabat, jedinicna_cena, pdv_stopa, osnovica_za_pdv, iznos_pdv, ukupan_iznos, id_robe_usluge, id_preduzeca) VALUES (1, 5, 580, 5, 580, 20, 600, 4, 2);
+INSERT INTO stavka_fakture(kolicina, rabat, jedinicna_cena, pdv_stopa, osnovica_za_pdv, iznos_pdv, ukupan_iznos, id_robe_usluge, id_preduzeca) VALUES (1, 15.5, 310, 5, 295, 15, 310, 5, 1);
+INSERT INTO stavka_fakture(kolicina, rabat, jedinicna_cena, pdv_stopa, osnovica_za_pdv, iznos_pdv, ukupan_iznos, id_robe_usluge, id_preduzeca) VALUES (1, 10, 200, 5, 190, 10, 200, 3, 2);
+INSERT INTO stavka_fakture(kolicina, rabat, jedinicna_cena, pdv_stopa, osnovica_za_pdv, iznos_pdv, ukupan_iznos, id_robe_usluge, id_preduzeca) VALUES (1, 30, 600, 5, 570, 29, 600, 4, 2);
 
 INSERT INTO faktura(broj_fakture, datum_fakture, datum_valute, ukupna_osnovica, ukupan_pdv, ukupan_iznos, status_fakture, id_godine, id_poslovnog_partnera, id_preduzeca, id_stavke_fakture) VALUES (1, '2020-08-08', '2020-08-08', 310, 10, 320, 'P', 1, 1, 1, 1);
 INSERT INTO faktura(broj_fakture, datum_fakture, datum_valute, ukupna_osnovica, ukupan_pdv, ukupan_iznos, status_fakture, id_godine, id_poslovnog_partnera, id_preduzeca, id_stavke_fakture) VALUES (2, '2020-09-09', '2020-09-09', 200, 15, 215, 'F', 1, 1, 1, 2);
@@ -99,12 +99,19 @@ INSERT INTO poslovna_godina_fakture(poslovna_godina_id_godine, fakture_id_faktur
 
 INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('pera', 'pera', 'admin');
 INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('ana', 'ana', 'korisnik');
+INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('mile', 'mile', 'korisnik');
 
 INSERT INTO stavka_otpremnice(redni_broj_proizvoda,  jedinica_mere, cena, kolicina, napomena) VALUES (3, 'ml', 200, 1, '');
 INSERT INTO stavka_otpremnice(redni_broj_proizvoda,  jedinica_mere, cena, kolicina, napomena) VALUES (5, 'kg', 310,  1, 'brza isporuka');
 
 INSERT INTO otpremnica(broj_otpremnice, kupac, adresa_isporuke, datum_isporuke, prevoznik, potpis_vozaca, primio_robu, id_stavke_otpremnice, id_fakture) VALUES (1, 'pera', 'Vase Stajica 2, Novi Sad', '2020-10-10', 'MultiExpress', true, true, 1, 1);
 INSERT INTO otpremnica(broj_otpremnice, kupac, adresa_isporuke, datum_isporuke, prevoznik, potpis_vozaca, primio_robu, id_stavke_otpremnice, id_fakture) VALUES (2, 'ana', 'Lazina 12, Novi Sad', '2020-11-11', 'OkExpress', true, true, 2, 2);
+
+INSERT INTO kupljeni_proizvod(naziv, cena, opis, kolicina, kupac) VALUES ('Steinberg antifriz', 310, 'antifriz za auto', 1, 'pera');
+INSERT INTO kupljeni_proizvod(naziv, cena, opis, kolicina, kupac) VALUES ('ScreenClean', 200, 'sprej za ciscenje monitora', 1, 'ana');
+
+INSERT INTO narudzbenica(naziv_robe, jedinica_mere, kolicina, cena, iznos) VALUES ('Steinberg antifriz', 'kg', 1, 310, 310);
+INSERT INTO narudzbenica(naziv_robe, jedinica_mere, kolicina, cena, iznos) VALUES ('ScreenClean', 'ml', 1, 200, 200);
 
 --INSERT INTO faktura_otpremnice(faktura_id_fakture, otpremnice_id_otpremnice) VALUES (1,1);
 --INSERT INTO faktura_otpremnice(faktura_id_fakture, otpremnice_id_otpremnice) VALUES (2,2);
