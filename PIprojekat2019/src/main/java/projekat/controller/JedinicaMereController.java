@@ -69,7 +69,6 @@ public class JedinicaMereController {
 		if(jedinicaMere != null) {
 			jedinicaMere.setNazivJediniceMere(noviNaziv);
 			jedinicaMere.setSkraceniNaziv(skraceniNaziv);
-			jedinicaMere.setRobaUsluga(jedinicaMere.getRobaUsluga());
 			jedinicaMereServiceInterface.save(jedinicaMere);
 			
 			System.out.println("Izmena jedinice mere");

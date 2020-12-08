@@ -1,0 +1,68 @@
+body {
+	background-image: url("wavegreen.png");
+}
+
+.pageHead {
+	margin-top: 100px;
+	margin-bottom: 40px;
+	text-align: center;
+	color: green;
+}
+
+.pagination{
+	float:right;
+}
+
+.btn-pagination-previous{
+  border-color: white;
+  margin-right:5px;
+}
+
+.btn-pagination-next{
+  border-color: white;
+  margin-left:5px;
+}
+
+.pagination-numbering {
+	display: inline-flex;
+	align-items: center;
+	color: green;
+}
+
+.search-inputs{
+	text-align: right;
+}
+
+table {
+	margin-top: 50px;
+}
+
+table tr.highlighted{
+	color: #212529;
+  	background-color: rgba(0, 0, 0, 0.075);
+}
+
+table tr:not(.header){
+	cursor:pointer;
+}
+
+toolbar {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.toolbar > button {
+	margin-right: 3px;
+}
+
+
+td.idCell{
+ 	visibility: hidden; 
+ 	max-width: 0px;
+}
+
+.center{
+	margin:auto;
+}

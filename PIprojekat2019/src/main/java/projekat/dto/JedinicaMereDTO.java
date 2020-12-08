@@ -1,18 +1,14 @@
 package projekat.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import projekat.model.JedinicaMere;
-import projekat.model.RobaUsluga;
-
 @SuppressWarnings("serial")
 public class JedinicaMereDTO implements Serializable {
 	
 	private Long idJediniceMere;
 	private String nazivJediniceMere;
 	private String skraceniNaziv;
-	private ArrayList<RobaUsluga> robaUsluga;
 	
 	
 	public JedinicaMereDTO() {
@@ -20,13 +16,11 @@ public class JedinicaMereDTO implements Serializable {
 	}
 
 
-	public JedinicaMereDTO(Long idJediniceMere, String nazivJediniceMere, String skraceniNaziv,
-			ArrayList<RobaUsluga> robaUsluga) {
+	public JedinicaMereDTO(Long idJediniceMere, String nazivJediniceMere, String skraceniNaziv) {
 		super();
 		this.idJediniceMere = idJediniceMere;
 		this.nazivJediniceMere = nazivJediniceMere;
 		this.skraceniNaziv = skraceniNaziv;
-		this.robaUsluga = robaUsluga;
 	}
 	
 	
@@ -65,16 +59,6 @@ public class JedinicaMereDTO implements Serializable {
 
 	public void setSkraceniNaziv(String skraceniNaziv) {
 		this.skraceniNaziv = skraceniNaziv;
-	}
-
-
-	public ArrayList<RobaUsluga> getRobaUsluga() {
-		return robaUsluga;
-	}
-
-
-	public void setRobaUsluga(ArrayList<RobaUsluga> robaUsluga) {
-		this.robaUsluga = robaUsluga;
 	}
 
 }
