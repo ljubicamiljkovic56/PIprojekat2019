@@ -61,19 +61,19 @@ public class FakturaController {
 		return fakturaServiceInterface.findAll();
 	}
 	
-	@PostMapping(path = "/pojedinacnaFaktura")
-	public ResponseEntity<FakturaDTO> pojedinacnaFaktura(@RequestParam("broj_fakture") String brojFakture) {
-		
-		int brojFaktureInt = Integer.parseInt(brojFakture);
-		
-		Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
-		
-		if(faktura == null) {
-			return new ResponseEntity<FakturaDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<FakturaDTO>(new FakturaDTO(faktura), HttpStatus.OK);
-		}
-	}
+//	@PostMapping(path = "/pojedinacnaFaktura")
+//	public ResponseEntity<FakturaDTO> pojedinacnaFaktura(@RequestParam("broj_fakture") String brojFakture) {
+//		
+//		int brojFaktureInt = Integer.parseInt(brojFakture);
+//		
+//		Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
+//		
+//		if(faktura == null) {
+//			return new ResponseEntity<FakturaDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//		//	return new ResponseEntity<FakturaDTO>(new FakturaDTO(faktura), HttpStatus.OK);
+//		}
+//	}
 	
 	@PostMapping(path =  "/dodajFakturu")
 	public ResponseEntity<Void> dodajFakturu(@RequestParam("broj_fakture") String brojFakture, 

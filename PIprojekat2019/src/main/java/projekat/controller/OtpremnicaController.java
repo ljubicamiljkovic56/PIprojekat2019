@@ -61,19 +61,19 @@ public class OtpremnicaController {
 		return otpremnicaServiceInterface.findAll();
 	}
 	
-	@PostMapping(path = "/pojedinacnaOtpremnica")
-	public ResponseEntity<OtpremnicaDTO> pojedinacnaOtpremnica(@RequestParam("broj_otpremnice") String brojOtpremnice) {
-		
-		int brojOtpremniceInt = Integer.parseInt(brojOtpremnice);
-		
-		Otpremnica otpremnica = otpremnicaServiceInterface.findByBrojOtpremnice(brojOtpremniceInt);
-		
-		if(otpremnica == null) {
-			return new ResponseEntity<OtpremnicaDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<OtpremnicaDTO>(new OtpremnicaDTO(otpremnica), HttpStatus.OK);
-		}
-	}
+//	@PostMapping(path = "/pojedinacnaOtpremnica")
+//	public ResponseEntity<OtpremnicaDTO> pojedinacnaOtpremnica(@RequestParam("broj_otpremnice") String brojOtpremnice) {
+//		
+//		int brojOtpremniceInt = Integer.parseInt(brojOtpremnice);
+//		
+//		Otpremnica otpremnica = otpremnicaServiceInterface.findByBrojOtpremnice(brojOtpremniceInt);
+//		
+//		if(otpremnica == null) {
+//			return new ResponseEntity<OtpremnicaDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<OtpremnicaDTO>(new OtpremnicaDTO(otpremnica), HttpStatus.OK);
+//		}
+//	}
 	
 	@PostMapping(path = "/dodajOtpremnicu")
 	public ResponseEntity<Void> dodajOtpremnicu(@RequestParam("broj_otpremnice") String brojOtpremnice, 

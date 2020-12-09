@@ -1,11 +1,7 @@
 package projekat.dto;
 
-import java.io.Serializable;
 
-import projekat.model.NaseljenoMesto;
-
-@SuppressWarnings("serial")
-public class NaseljenoMestoDTO implements Serializable {
+public class NaseljenoMestoDTO {
 
 	private Long idMesta;
 	private int pttBroj;
@@ -22,11 +18,11 @@ public class NaseljenoMestoDTO implements Serializable {
 		this.nazivMesta = nazivMesta;
 	}
 	
-	public NaseljenoMestoDTO(NaseljenoMesto naseljenoMesto) {
-		this.idMesta = naseljenoMesto.getIdMesta();
-		this.pttBroj = naseljenoMesto.getPttBroj();
-		this.nazivMesta = naseljenoMesto.getNazivMesta();
-	}
+//	public NaseljenoMestoDTO(NaseljenoMesto naseljenoMesto) {
+//		this.idMesta = naseljenoMesto.getIdMesta();
+//		this.pttBroj = naseljenoMesto.getPttBroj();
+//		this.nazivMesta = naseljenoMesto.getNazivMesta();
+//	}
 
 	public Long getIdMesta() {
 		return idMesta;

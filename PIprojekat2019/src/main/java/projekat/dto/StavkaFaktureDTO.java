@@ -1,13 +1,6 @@
 package projekat.dto;
 
-import java.io.Serializable;
-
-import projekat.model.Preduzece;
-import projekat.model.RobaUsluga;
-import projekat.model.StavkaFakture;
-
-@SuppressWarnings("serial")
-public class StavkaFaktureDTO implements Serializable {
+public class StavkaFaktureDTO {
 
 	private Long idStavke;
 	private double kolicina;
@@ -17,16 +10,18 @@ public class StavkaFaktureDTO implements Serializable {
 	private double osnovicaZaPDV;
 	private double iznosPDV;
 	private double ukupanIznos;
-	private Preduzece preduzece;
-	private RobaUsluga robaUsluga;
+	private Long idPreduzeca;
+	private Long idFakture;
+	private Long idRobeUsluge;
 	
 	public StavkaFaktureDTO() {
 		super();
 	}
 
+	
 	public StavkaFaktureDTO(Long idStavke, double kolicina, double rabat, double jedinicnaCena, double pdvStopa,
-			double osnovicaZaPDV, double iznosPDV, double ukupanIznos, Preduzece preduzece,
-			RobaUsluga robaUsluga) {
+			double osnovicaZaPDV, double iznosPDV, double ukupanIznos, Long idPreduzeca, Long idFakture,
+			Long idRobeUsluge) {
 		super();
 		this.idStavke = idStavke;
 		this.kolicina = kolicina;
@@ -36,22 +31,23 @@ public class StavkaFaktureDTO implements Serializable {
 		this.osnovicaZaPDV = osnovicaZaPDV;
 		this.iznosPDV = iznosPDV;
 		this.ukupanIznos = ukupanIznos;
-		this.preduzece = preduzece;
-		this.robaUsluga = robaUsluga;
+		this.idPreduzeca = idPreduzeca;
+		this.idFakture = idFakture;
+		this.idRobeUsluge = idRobeUsluge;
 	}
-	
-	public StavkaFaktureDTO(StavkaFakture stavkaFakture) {
-		this.idStavke = stavkaFakture.getIdStavke();
-		this.kolicina = stavkaFakture.getKolicina();
-		this.rabat = stavkaFakture.getRabat();
-		this.jedinicnaCena = stavkaFakture.getJedinicnaCena();
-		this.pdvStopa = stavkaFakture.getPdvStopa();
-		this.osnovicaZaPDV = stavkaFakture.getOsnovicaZaPDV();
-		this.iznosPDV = stavkaFakture.getIznosPDV();
-		this.ukupanIznos = stavkaFakture.getIznosPDV();
-		this.preduzece = stavkaFakture.getPreduzece();
-		this.robaUsluga = stavkaFakture.getRobaUsluga();
-	}
+
+//	public StavkaFaktureDTO(StavkaFakture stavkaFakture) {
+//		this.idStavke = stavkaFakture.getIdStavke();
+//		this.kolicina = stavkaFakture.getKolicina();
+//		this.rabat = stavkaFakture.getRabat();
+//		this.jedinicnaCena = stavkaFakture.getJedinicnaCena();
+//		this.pdvStopa = stavkaFakture.getPdvStopa();
+//		this.osnovicaZaPDV = stavkaFakture.getOsnovicaZaPDV();
+//		this.iznosPDV = stavkaFakture.getIznosPDV();
+//		this.ukupanIznos = stavkaFakture.getIznosPDV();
+//		this.preduzece = stavkaFakture.getPreduzece();
+//		this.robaUsluga = stavkaFakture.getRobaUsluga();
+//	}
 
 	public Long getIdStavke() {
 		return idStavke;
@@ -117,21 +113,34 @@ public class StavkaFaktureDTO implements Serializable {
 		this.ukupanIznos = ukupanIznos;
 	}
 
-	public Preduzece getPreduzece() {
-		return preduzece;
+
+	public Long getIdPreduzeca() {
+		return idPreduzeca;
 	}
 
-	public void setPreduzece(Preduzece preduzece) {
-		this.preduzece = preduzece;
+
+	public void setIdPreduzeca(Long idPreduzeca) {
+		this.idPreduzeca = idPreduzeca;
 	}
 
-	public RobaUsluga getRobaUsluga() {
-		return robaUsluga;
+
+	public Long getIdFakture() {
+		return idFakture;
 	}
 
-	public void setRobaUsluga(RobaUsluga robaUsluga) {
-		this.robaUsluga = robaUsluga;
+
+	public void setIdFakture(Long idFakture) {
+		this.idFakture = idFakture;
 	}
-	
+
+
+	public Long getIdRobeUsluge() {
+		return idRobeUsluge;
+	}
+
+
+	public void setIdRobeUsluge(Long idRobeUsluge) {
+		this.idRobeUsluge = idRobeUsluge;
+	}
 	
 }

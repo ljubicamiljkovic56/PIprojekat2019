@@ -31,19 +31,19 @@ public class PDVStopaController {
 		return pdvStopaServiceInterface.findAll();
 	}
 	
-	@PostMapping(value = "/pojedinacnaPDVStopa")
-	public ResponseEntity<PDVStopaDTO> pojedinacnaPDVStopa(@RequestParam("procenat") String procenat) {
-		
-		double procenatDouble = Double.parseDouble(procenat);
-		
-		PDVStopa pdvStopa = pdvStopaServiceInterface.findByProcenat(procenatDouble);
-		
-		if(pdvStopa == null) {
-			return new ResponseEntity<PDVStopaDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<PDVStopaDTO>(new PDVStopaDTO(pdvStopa), HttpStatus.OK);
-		}
-	}
+//	@PostMapping(value = "/pojedinacnaPDVStopa")
+//	public ResponseEntity<PDVStopaDTO> pojedinacnaPDVStopa(@RequestParam("procenat") String procenat) {
+//		
+//		double procenatDouble = Double.parseDouble(procenat);
+//		
+//		PDVStopa pdvStopa = pdvStopaServiceInterface.findByProcenat(procenatDouble);
+//		
+//		if(pdvStopa == null) {
+//			return new ResponseEntity<PDVStopaDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<PDVStopaDTO>(new PDVStopaDTO(pdvStopa), HttpStatus.OK);
+//		}
+//	}
 	
 	@PostMapping(value = "/dodajPDVStopu")
 	public ResponseEntity<Void> dodajPDVStopu(@RequestParam("procenat") String procenat, @RequestParam("datum_vazenja") String datumVazenja) throws ParseException {

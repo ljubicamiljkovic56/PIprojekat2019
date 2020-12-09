@@ -40,18 +40,18 @@ public class RobaUslugaController {
 		return robaUslugaServiceInterface.findAll();
 	}
 	
-	@PostMapping(path = "/pojedinacnaRoba")
-	public ResponseEntity<RobaUslugaDTO> pojedinacnaRoba(@RequestParam("naziv_robe") String nazivRobe) {
-		
-		RobaUsluga roba = robaUslugaServiceInterface.findByNazivRobeUsluge(nazivRobe);
-		
-		if(roba == null) {
-			return new ResponseEntity<RobaUslugaDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<RobaUslugaDTO>(new RobaUslugaDTO(roba), HttpStatus.OK);
-		}
-		
-	}
+//	@PostMapping(path = "/pojedinacnaRoba")
+//	public ResponseEntity<RobaUslugaDTO> pojedinacnaRoba(@RequestParam("naziv_robe") String nazivRobe) {
+//		
+//		RobaUsluga roba = robaUslugaServiceInterface.findByNazivRobeUsluge(nazivRobe);
+//		
+//		if(roba == null) {
+//			return new ResponseEntity<RobaUslugaDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<RobaUslugaDTO>(new RobaUslugaDTO(roba), HttpStatus.OK);
+//		}
+//		
+//	}
 	
 	@PostMapping(path = "/dodajRobu")
 	public ResponseEntity<Void> dodajRobu(@RequestParam("naziv_robe") String nazivRobe, 

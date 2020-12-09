@@ -31,18 +31,18 @@ public class PDVKategorijaController {
 	}
 
 	
-	@PostMapping(value = "/pojedinacnaKategorija")
-	public ResponseEntity<PDVKategorijaDTO> pojedinacnaKategorija(@RequestParam("naziv_kategorije") String nazivKategorije) {
-		
-		PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findByNazivKategorije(nazivKategorije);
-		
-		if(pdvKategorija == null) {
-			return new ResponseEntity<PDVKategorijaDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<PDVKategorijaDTO>(new PDVKategorijaDTO(pdvKategorija), HttpStatus.OK);
-		}
-		
-	}
+//	@PostMapping(value = "/pojedinacnaKategorija")
+//	public ResponseEntity<PDVKategorijaDTO> pojedinacnaKategorija(@RequestParam("naziv_kategorije") String nazivKategorije) {
+//		
+//		PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findByNazivKategorije(nazivKategorije);
+//		
+//		if(pdvKategorija == null) {
+//			return new ResponseEntity<PDVKategorijaDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<PDVKategorijaDTO>(new PDVKategorijaDTO(pdvKategorija), HttpStatus.OK);
+//		}
+//		
+//	}
 	
 	@PostMapping(value = "/dodajKategoriju")
 	public ResponseEntity<Void> dodajKategoriju(@RequestParam("naziv_kategorije") String nazivKategorije) {

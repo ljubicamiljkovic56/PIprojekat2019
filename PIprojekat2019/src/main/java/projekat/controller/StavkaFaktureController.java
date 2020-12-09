@@ -39,21 +39,21 @@ public class StavkaFaktureController {
 		return stavkaFaktureServiceInterface.findAll();
 	}
 	
-	@PostMapping(path = "/pojedinacnaStavkaFakture")
-	public ResponseEntity<StavkaFaktureDTO> pojedinacnaStavkaFakture(@RequestParam("jedinicna_cena") String jedinicnaCena) {
-		
-		double jedinicnaCenaDouble = Double.parseDouble(jedinicnaCena);
-		
-		StavkaFakture stavkaFakture = stavkaFaktureServiceInterface.findByJedinicnaCena(jedinicnaCenaDouble);
-		
-		if(stavkaFakture == null) {
-			return new ResponseEntity<StavkaFaktureDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<StavkaFaktureDTO>(new StavkaFaktureDTO(stavkaFakture), HttpStatus.OK);
-		}
-		
-	}
-	
+//	@PostMapping(path = "/pojedinacnaStavkaFakture")
+//	public ResponseEntity<StavkaFaktureDTO> pojedinacnaStavkaFakture(@RequestParam("jedinicna_cena") String jedinicnaCena) {
+//		
+//		double jedinicnaCenaDouble = Double.parseDouble(jedinicnaCena);
+//		
+//		StavkaFakture stavkaFakture = stavkaFaktureServiceInterface.findByJedinicnaCena(jedinicnaCenaDouble);
+//		
+//		if(stavkaFakture == null) {
+//			return new ResponseEntity<StavkaFaktureDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<StavkaFaktureDTO>(new StavkaFaktureDTO(stavkaFakture), HttpStatus.OK);
+//		}
+//		
+//	}
+//	
 	@PostMapping(path = "/dodajStavkuFakture")
 	public ResponseEntity<Void> dodajStavkuFakture(@RequestParam("kolicina") String kolicina,
 			@RequestParam("rabat") String rabat, @RequestParam("jedinicna_cena") String jedinicnaCena, 

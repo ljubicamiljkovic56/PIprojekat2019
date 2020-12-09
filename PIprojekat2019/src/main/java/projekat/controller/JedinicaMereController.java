@@ -29,18 +29,18 @@ public class JedinicaMereController {
 		return jedinicaMereServiceInterface.findAll();
 	}
 	
-	@PostMapping(value = "/pojedinacnaJedinicaMere")
-	public ResponseEntity<JedinicaMereDTO> pojedinacnaJedinicaMere(@RequestParam("naziv_jedinice_mere") String nazivJediniceMere) {
-		
-		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivJediniceMere);
-		
-		if(jedinicaMere == null) {
-			return new ResponseEntity<JedinicaMereDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<JedinicaMereDTO>(new JedinicaMereDTO(jedinicaMere), HttpStatus.OK);
-		}
-		
-	}
+//	@PostMapping(value = "/pojedinacnaJedinicaMere")
+//	public ResponseEntity<JedinicaMereDTO> pojedinacnaJedinicaMere(@RequestParam("naziv_jedinice_mere") String nazivJediniceMere) {
+//		
+//		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivJediniceMere);
+//		
+//		if(jedinicaMere == null) {
+//			return new ResponseEntity<JedinicaMereDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<JedinicaMereDTO>(new JedinicaMereDTO(jedinicaMere), HttpStatus.OK);
+//		}
+//		
+//	}
 	
 	@PostMapping(value = "/dodajJedinicuMere")
 	private ResponseEntity<Void> dodajJedinicuMere(@RequestParam("naziv_jedinice_mere") String nazivJediniceMere, @RequestParam("skraceni_naziv") String skraceniNaziv){

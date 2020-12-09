@@ -30,18 +30,18 @@ public class NaseljenoMestoController {
 		return naseljenoMestoServiceInterface.findAll();
 	}
 	
-	@PostMapping(path = "/pojedinacnoMesto")
-	public ResponseEntity<NaseljenoMestoDTO> pojedinacnoMesto(@RequestParam("naziv_mesta") String nazivMesta) {
-		
-		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
-		
-		if(mesto == null) {
-			return new ResponseEntity<NaseljenoMestoDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<NaseljenoMestoDTO>(new NaseljenoMestoDTO(mesto), HttpStatus.OK);
-		}
-		
-	}
+//	@PostMapping(path = "/pojedinacnoMesto")
+//	public ResponseEntity<NaseljenoMestoDTO> pojedinacnoMesto(@RequestParam("naziv_mesta") String nazivMesta) {
+//		
+//		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
+//		
+//		if(mesto == null) {
+//			return new ResponseEntity<NaseljenoMestoDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<NaseljenoMestoDTO>(new NaseljenoMestoDTO(mesto), HttpStatus.OK);
+//		}
+//		
+//	}
 	
 	@PostMapping(path = "/dodajMesto")
 	public ResponseEntity<Void> dodajMesto(@RequestParam("naziv_mesta") String nazivMesta, @RequestParam("ptt_broj") String pttBroj) {

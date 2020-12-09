@@ -31,18 +31,18 @@ public class GrupaRobeUslugaController {
 	}
 	
 	
-	@PostMapping(value = "/pojedinacnaGrupa")
-	private ResponseEntity<GrupaRobeUslugaDTO> pojedinacnaGrupa(@RequestParam("naziv_grupe") String nazivGrupe) {
-		
-		GrupaRobeUsluga grupaRobeUsluga = grupaRobeUslugaServiceInterface.findByNazivGrupe(nazivGrupe);
-		
-		if(grupaRobeUsluga == null) {
-			return new ResponseEntity<GrupaRobeUslugaDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<GrupaRobeUslugaDTO>(new GrupaRobeUslugaDTO(grupaRobeUsluga), HttpStatus.OK);
-		}
-		
-	}
+//	@PostMapping(value = "/pojedinacnaGrupa")
+//	private ResponseEntity<GrupaRobeUslugaDTO> pojedinacnaGrupa(@RequestParam("naziv_grupe") String nazivGrupe) {
+//		
+//		GrupaRobeUsluga grupaRobeUsluga = grupaRobeUslugaServiceInterface.findByNazivGrupe(nazivGrupe);
+//		
+//		if(grupaRobeUsluga == null) {
+//			return new ResponseEntity<GrupaRobeUslugaDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<GrupaRobeUslugaDTO>(new GrupaRobeUslugaDTO(grupaRobeUsluga), HttpStatus.OK);
+//		}
+//		
+//	}
 	
 	@PostMapping(value = "/dodajGrupu")
 	private ResponseEntity<Void> dodajGrupu(@RequestParam("naziv_grupe") String nazivGrupe) {

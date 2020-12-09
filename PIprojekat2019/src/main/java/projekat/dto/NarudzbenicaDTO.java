@@ -1,12 +1,6 @@
 package projekat.dto;
 
-import java.io.Serializable;
-
-import projekat.model.Faktura;
-import projekat.model.Narudzbenica;
-
-@SuppressWarnings("serial")
-public class NarudzbenicaDTO implements Serializable {
+public class NarudzbenicaDTO {
 
 	private Long id;
 	private String nazivRobe;
@@ -14,14 +8,16 @@ public class NarudzbenicaDTO implements Serializable {
 	private double kolicina;
 	private double cena;
 	private double iznos;
-	private Faktura faktura;
+	private Long idPreduzeca;
+	private Long idPoslovnogPartnera;
+	private Long idGodine;
 	
 	public NarudzbenicaDTO() {
 		super();
 	}
 	
 	public NarudzbenicaDTO(Long id, String nazivRobe, String jedinicaMere, double kolicina, double cena, double iznos,
-			Faktura faktura) {
+			Long idPreduzeca, Long idPoslovnogPartnera, Long idGodine) {
 		super();
 		this.id = id;
 		this.nazivRobe = nazivRobe;
@@ -29,15 +25,12 @@ public class NarudzbenicaDTO implements Serializable {
 		this.kolicina = kolicina;
 		this.cena = cena;
 		this.iznos = iznos;
-		this.faktura = faktura;
+		this.idPreduzeca = idPreduzeca;
+		this.idPoslovnogPartnera = idPoslovnogPartnera;
+		this.idGodine = idGodine;
 	}
-	
-	public NarudzbenicaDTO(Narudzbenica narudzbenica) {
-		this.id = narudzbenica.getId();
 
-		this.faktura = getFaktura();
-	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -74,12 +67,28 @@ public class NarudzbenicaDTO implements Serializable {
 	public void setIznos(double iznos) {
 		this.iznos = iznos;
 	}
-	public Faktura getFaktura() {
-		return faktura;
+
+	public Long getIdPreduzeca() {
+		return idPreduzeca;
 	}
-	public void setFaktura(Faktura faktura) {
-		this.faktura = faktura;
+
+	public void setIdPreduzeca(Long idPreduzeca) {
+		this.idPreduzeca = idPreduzeca;
 	}
-	
-	
+
+	public Long getIdPoslovnogPartnera() {
+		return idPoslovnogPartnera;
+	}
+
+	public void setIdPoslovnogPartnera(Long idPoslovnogPartnera) {
+		this.idPoslovnogPartnera = idPoslovnogPartnera;
+	}
+
+	public Long getIdGodine() {
+		return idGodine;
+	}
+
+	public void setIdGodine(Long idGodine) {
+		this.idGodine = idGodine;
+	}	
 }

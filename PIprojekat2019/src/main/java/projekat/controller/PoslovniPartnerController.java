@@ -35,18 +35,18 @@ public class PoslovniPartnerController {
 		return poslovniPartnerServiceInterface.findAll();
 	}
 	
-	@PostMapping(path = "/pojedinacanPrikaz")
-	public ResponseEntity<PoslovniPartnerDTO> pojedinacanPrikaz(@RequestParam("naziv_poslovnog_partnera") String nazivPoslovnogPartnera) {
-		
-		PoslovniPartner partner = poslovniPartnerServiceInterface.findByNazivPoslovnogPartnera(nazivPoslovnogPartnera);
-		
-		if(partner == null) {
-			return new ResponseEntity<PoslovniPartnerDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<PoslovniPartnerDTO>(new PoslovniPartnerDTO(partner), HttpStatus.OK);
-		}
-		
-	}
+//	@PostMapping(path = "/pojedinacanPrikaz")
+//	public ResponseEntity<PoslovniPartnerDTO> pojedinacanPrikaz(@RequestParam("naziv_poslovnog_partnera") String nazivPoslovnogPartnera) {
+//		
+//		PoslovniPartner partner = poslovniPartnerServiceInterface.findByNazivPoslovnogPartnera(nazivPoslovnogPartnera);
+//		
+//		if(partner == null) {
+//			return new ResponseEntity<PoslovniPartnerDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<PoslovniPartnerDTO>(new PoslovniPartnerDTO(partner), HttpStatus.OK);
+//		}
+//		
+//	}
 	
 	@PostMapping(path = "/dodajPoslovnogPartnera")
 	public ResponseEntity<Void> dodajPoslovnogPartnera(@RequestParam("naziv_poslovnog_partnera") String nazivPoslovnogPartnera,

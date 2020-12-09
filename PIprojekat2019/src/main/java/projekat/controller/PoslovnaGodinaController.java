@@ -28,21 +28,21 @@ public class PoslovnaGodinaController {
 		return poslovnaGodinaServiceInterface.findAll();
 	}
 	
-	@PostMapping(path = "/pojedinacnaGodina")
-	public ResponseEntity<PoslovnaGodinaDTO> pojedinacnaGodina(@RequestParam("godina") String godina) {
-		
-		int godinaInt = Integer.parseInt(godina);
-		
-		PoslovnaGodina poslovnaGodina = poslovnaGodinaServiceInterface.findByGodina(godinaInt);
-		
-		if(poslovnaGodina == null) {
-			return new ResponseEntity<PoslovnaGodinaDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<PoslovnaGodinaDTO>(new PoslovnaGodinaDTO(poslovnaGodina), HttpStatus.OK);
-		}
-		
-		
-	}
+//	@PostMapping(path = "/pojedinacnaGodina")
+//	public ResponseEntity<PoslovnaGodinaDTO> pojedinacnaGodina(@RequestParam("godina") String godina) {
+//		
+//		int godinaInt = Integer.parseInt(godina);
+//		
+//		PoslovnaGodina poslovnaGodina = poslovnaGodinaServiceInterface.findByGodina(godinaInt);
+//		
+//		if(poslovnaGodina == null) {
+//			return new ResponseEntity<PoslovnaGodinaDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<PoslovnaGodinaDTO>(new PoslovnaGodinaDTO(poslovnaGodina), HttpStatus.OK);
+//		}
+//		
+//		
+//	}
 	
 	@PostMapping(path = "/dodajGodinu")
 	public ResponseEntity<Void> dodajGodinu(@RequestParam("godina") String godina) {

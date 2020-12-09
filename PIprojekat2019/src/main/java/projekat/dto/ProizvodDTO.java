@@ -1,11 +1,8 @@
 package projekat.dto;
 
-import java.io.Serializable;
-
 import projekat.model.Proizvod;
 
-@SuppressWarnings("serial")
-public class ProizvodDTO implements Serializable {
+public class ProizvodDTO {
 
 	private Long id;
 	private String naziv;

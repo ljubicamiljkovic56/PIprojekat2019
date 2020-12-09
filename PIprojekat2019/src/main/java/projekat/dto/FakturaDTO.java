@@ -1,15 +1,8 @@
 package projekat.dto;
 
-import java.io.Serializable;
 import java.sql.Date;
-import projekat.model.Faktura;
-import projekat.model.PoslovnaGodina;
-import projekat.model.PoslovniPartner;
-import projekat.model.Preduzece;
-import projekat.model.StavkaFakture;
 
-@SuppressWarnings("serial")
-public class FakturaDTO implements Serializable {
+public class FakturaDTO {
 	
 	private Long idFakture;
 	private int brojFakture;
@@ -19,10 +12,10 @@ public class FakturaDTO implements Serializable {
 	private double ukupanPDV;
 	private double ukupanIznos;
 	private String statusFakture;
-	private StavkaFakture stavkaFakture;
-	private PoslovnaGodina poslovnaGodina;
-	private PoslovniPartner poslovniPartner;
-	private Preduzece preduzece;
+	private Long idGodine;
+	private Long idPreduzeca;
+	private Long idPoslovnogPartnera;
+	private Long idNarudzbenice;
 	
 
 	public FakturaDTO() {
@@ -30,9 +23,10 @@ public class FakturaDTO implements Serializable {
 	}
 
 
+	
 	public FakturaDTO(Long idFakture, int brojFakture, Date datumFakture, Date datumValute, double ukupnaOsnovica,
-			double ukupanPDV, double ukupanIznos, String statusFakture, StavkaFakture stavkaFakture,
-			PoslovnaGodina poslovnaGodina, PoslovniPartner poslovniPartner, Preduzece preduzece) {
+			double ukupanPDV, double ukupanIznos, String statusFakture, Long idGodine, Long idPreduzeca,
+			Long idPoslovnogPartnera, Long idNarudzbenice) {
 		super();
 		this.idFakture = idFakture;
 		this.brojFakture = brojFakture;
@@ -42,27 +36,28 @@ public class FakturaDTO implements Serializable {
 		this.ukupanPDV = ukupanPDV;
 		this.ukupanIznos = ukupanIznos;
 		this.statusFakture = statusFakture;
-		this.stavkaFakture = stavkaFakture;
-		this.poslovnaGodina = poslovnaGodina;
-		this.poslovniPartner = poslovniPartner;
-		this.preduzece = preduzece;
+		this.idGodine = idGodine;
+		this.idPreduzeca = idPreduzeca;
+		this.idPoslovnogPartnera = idPoslovnogPartnera;
+		this.idNarudzbenice = idNarudzbenice;
 	}
 
-	
-	public FakturaDTO(Faktura faktura) {
-		this.idFakture = faktura.getIdFakture();
-		this.brojFakture = faktura.getBrojFakture();
-		this.datumFakture = faktura.getDatumFakture();
-		this.datumValute = faktura.getDatumValute();
-		this.ukupnaOsnovica = faktura.getUkupnaOsnovica();
-		this.ukupanPDV = faktura.getUkupanPDV();
-		this.ukupanIznos = faktura.getUkupanIznos();
-		this.statusFakture = faktura.getStatusFakture();
-	//	this.stavkaFakture = faktura.getStavkaFakture();
-		this.poslovnaGodina = faktura.getPoslovnaGodina();
-		this.poslovniPartner = faktura.getPoslovniPartner();
-		this.preduzece = faktura.getPreduzece();
-	}
+
+
+//	public FakturaDTO(Faktura faktura) {
+//		this.idFakture = faktura.getIdFakture();
+//		this.brojFakture = faktura.getBrojFakture();
+//		this.datumFakture = faktura.getDatumFakture();
+//		this.datumValute = faktura.getDatumValute();
+//		this.ukupnaOsnovica = faktura.getUkupnaOsnovica();
+//		this.ukupanPDV = faktura.getUkupanPDV();
+//		this.ukupanIznos = faktura.getUkupanIznos();
+//		this.statusFakture = faktura.getStatusFakture();
+//	//	this.stavkaFakture = faktura.getStavkaFakture();
+//		this.poslovnaGodina = faktura.getPoslovnaGodina();
+//		this.poslovniPartner = faktura.getPoslovniPartner();
+//		this.preduzece = faktura.getPreduzece();
+//	}
 
 	public Long getIdFakture() {
 		return idFakture;
@@ -142,45 +137,36 @@ public class FakturaDTO implements Serializable {
 		this.statusFakture = statusFakture;
 	}
 
-
-	public PoslovnaGodina getPoslovnaGodina() {
-		return poslovnaGodina;
+	public Long getIdGodine() {
+		return idGodine;
 	}
 
-
-	public void setPoslovnaGodina(PoslovnaGodina poslovnaGodina) {
-		this.poslovnaGodina = poslovnaGodina;
+	public void setIdGodine(Long idGodine) {
+		this.idGodine = idGodine;
 	}
 
-
-	public PoslovniPartner getPoslovniPartner() {
-		return poslovniPartner;
+	public Long getIdPreduzeca() {
+		return idPreduzeca;
 	}
 
-
-	public void setPoslovniPartner(PoslovniPartner poslovniPartner) {
-		this.poslovniPartner = poslovniPartner;
+	public void setIdPreduzeca(Long idPreduzeca) {
+		this.idPreduzeca = idPreduzeca;
 	}
 
-
-	public Preduzece getPreduzece() {
-		return preduzece;
+	public Long getIdPoslovnogPartnera() {
+		return idPoslovnogPartnera;
 	}
 
-
-	public void setPreduzece(Preduzece preduzece) {
-		this.preduzece = preduzece;
+	public void setIdPoslovnogPartnera(Long idPoslovnogPartnera) {
+		this.idPoslovnogPartnera = idPoslovnogPartnera;
 	}
 
-
-	public StavkaFakture getStavkaFakture() {
-		return stavkaFakture;
+	public Long getIdNarudzbenice() {
+		return idNarudzbenice;
 	}
 
-
-	public void setStavkaFakture(StavkaFakture stavkaFakture) {
-		this.stavkaFakture = stavkaFakture;
+	public void setIdNarudzbenice(Long idNarudzbenice) {
+		this.idNarudzbenice = idNarudzbenice;
 	}
-
 	
 }

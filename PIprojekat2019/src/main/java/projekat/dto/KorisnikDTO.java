@@ -1,9 +1,6 @@
 package projekat.dto;
 
-import java.io.Serializable;
-
-@SuppressWarnings("serial")
-public class KorisnikDTO implements Serializable{
+public class KorisnikDTO {
 	
 	private Long idKorisnik;
 	private String username;

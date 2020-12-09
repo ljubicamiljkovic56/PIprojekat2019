@@ -42,20 +42,20 @@ public class StavkaCenovnikaController {
 		return stavkaCenovnikaServiceInterface.findAll();
 	}
 	
-	@PostMapping(path = "/pojedinacnaStavkaCenovnika")
-	public ResponseEntity<StavkaCenovnikaDTO> pojedinacnaStavkaCenovnika(@RequestParam("cena") String cena) {
-		
-		double cenaDouble = Double.parseDouble(cena);
-		
-		StavkaCenovnika stavkaCenovnika = stavkaCenovnikaServiceInterface.findByCena(cenaDouble);
-		
-		if(stavkaCenovnika == null) {
-			return new ResponseEntity<StavkaCenovnikaDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<StavkaCenovnikaDTO>(new StavkaCenovnikaDTO(stavkaCenovnika), HttpStatus.OK);
-		}
-	}
-	
+//	@PostMapping(path = "/pojedinacnaStavkaCenovnika")
+//	public ResponseEntity<StavkaCenovnikaDTO> pojedinacnaStavkaCenovnika(@RequestParam("cena") String cena) {
+//		
+//		double cenaDouble = Double.parseDouble(cena);
+//		
+//		StavkaCenovnika stavkaCenovnika = stavkaCenovnikaServiceInterface.findByCena(cenaDouble);
+//		
+//		if(stavkaCenovnika == null) {
+//			return new ResponseEntity<StavkaCenovnikaDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<StavkaCenovnikaDTO>(new StavkaCenovnikaDTO(stavkaCenovnika), HttpStatus.OK);
+//		}
+//	}
+//	
 	@PostMapping(path = "/dodajStavkuCenovnika")
 	public ResponseEntity<Void> dodajStavkuCenovnika(@RequestParam("cena") String cena, @RequestParam("roba") String nazivRobe,
 			@RequestParam("datum_vazenja") String datumVazenjaCenovnika) throws ParseException {

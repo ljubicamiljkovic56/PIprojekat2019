@@ -1,10 +1,7 @@
 package projekat.dto;
 
-import java.io.Serializable;
 
-import projekat.model.JedinicaMere;
-@SuppressWarnings("serial")
-public class JedinicaMereDTO implements Serializable {
+public class JedinicaMereDTO {
 	
 	private Long idJediniceMere;
 	private String nazivJediniceMere;
@@ -24,12 +21,12 @@ public class JedinicaMereDTO implements Serializable {
 	}
 	
 	
-	public JedinicaMereDTO(JedinicaMere jedinicaMere) {
-		this.idJediniceMere = jedinicaMere.getIdJediniceMere();
-		this.nazivJediniceMere = jedinicaMere.getNazivJediniceMere();
-		this.skraceniNaziv = jedinicaMere.getSkraceniNaziv();
-		//this.robaUsluga = (ArrayList<RobaUsluga>) jedinicaMere.getRobaUsluga();
-	}
+//	public JedinicaMereDTO(JedinicaMere jedinicaMere) {
+//		this.idJediniceMere = jedinicaMere.getIdJediniceMere();
+//		this.nazivJediniceMere = jedinicaMere.getNazivJediniceMere();
+//		this.skraceniNaziv = jedinicaMere.getSkraceniNaziv();
+//		//this.robaUsluga = (ArrayList<RobaUsluga>) jedinicaMere.getRobaUsluga();
+//	}
 
 
 	public Long getIdJediniceMere() {

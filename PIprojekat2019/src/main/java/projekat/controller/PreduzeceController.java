@@ -52,17 +52,17 @@ public class PreduzeceController {
 	}
 	
 	
-	@PostMapping(path = "/pojedinacnoPreduzece")
-	public ResponseEntity<PreduzeceDTO> pojedinacnoPreduzece(@RequestParam("naziv_preduzeca") String nazivPreduzeca){
-		
-		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
-		
-		if(preduzece == null) {
-			return new ResponseEntity<PreduzeceDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<PreduzeceDTO>(new PreduzeceDTO(preduzece), HttpStatus.OK);
-		}
-	}
+//	@PostMapping(path = "/pojedinacnoPreduzece")
+//	public ResponseEntity<PreduzeceDTO> pojedinacnoPreduzece(@RequestParam("naziv_preduzeca") String nazivPreduzeca){
+//		
+//		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
+//		
+//		if(preduzece == null) {
+//			return new ResponseEntity<PreduzeceDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<PreduzeceDTO>(new PreduzeceDTO(preduzece), HttpStatus.OK);
+//		}
+//	}
 	
 	
 	

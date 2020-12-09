@@ -1,13 +1,7 @@
 package projekat.dto;
-
-import java.io.Serializable;
 import java.sql.Date;
-import projekat.model.Faktura;
-import projekat.model.Otpremnica;
-import projekat.model.StavkaOtpremnice;
 
-@SuppressWarnings("serial")
-public class OtpremnicaDTO implements Serializable {
+public class OtpremnicaDTO {
 	
 	private Long idOtpremnice;
 	private int brojOtpremnice;
@@ -17,16 +11,15 @@ public class OtpremnicaDTO implements Serializable {
 	private String prevoznik;
 	private boolean potpisVozaca;
 	private boolean primioRobu;
-	private Faktura faktura;
-	private StavkaOtpremnice stavkaOtpremnice;
+	private Long idFakture;
+	private Long idNarudzbenice;
 	
 	public OtpremnicaDTO() {
 		super();
 	}
-
+	
 	public OtpremnicaDTO(Long idOtpremnice, int brojOtpremnice, String kupac, String adresaIsporuke, Date datumIsporuke,
-			String prevoznik, boolean potpisVozaca, boolean primioRobu,
-			Faktura faktura, StavkaOtpremnice stavkaOtpremnice) {
+			String prevoznik, boolean potpisVozaca, boolean primioRobu, Long idFakture, Long idNarudzbenice) {
 		super();
 		this.idOtpremnice = idOtpremnice;
 		this.brojOtpremnice = brojOtpremnice;
@@ -36,22 +29,24 @@ public class OtpremnicaDTO implements Serializable {
 		this.prevoznik = prevoznik;
 		this.potpisVozaca = potpisVozaca;
 		this.primioRobu = primioRobu;
-		this.faktura = faktura;
-		this.stavkaOtpremnice = stavkaOtpremnice;
+		this.idFakture = idFakture;
+		this.idNarudzbenice = idNarudzbenice;
 	}
-	
-	public OtpremnicaDTO(Otpremnica otpremnica) {
-		this.idOtpremnice = otpremnica.getIdOtpremnice();
-		this.brojOtpremnice = otpremnica.getBrojOtpremnice();
-		this.kupac = otpremnica.getKupac();
-		this.adresaIsporuke = otpremnica.getAdresaIsporuke();
-		this.datumIsporuke = otpremnica.getDatumIsporuke();
-		this.prevoznik = otpremnica.getPrevoznik();
-		this.potpisVozaca = true;
-		this.primioRobu = true;
-		this.faktura = otpremnica.getFaktura();
-	//	this.stavkaOtpremnice = otpremnica.getStavkaOtpremnice();
-	}
+
+
+
+//	public OtpremnicaDTO(Otpremnica otpremnica) {
+//		this.idOtpremnice = otpremnica.getIdOtpremnice();
+//		this.brojOtpremnice = otpremnica.getBrojOtpremnice();
+//		this.kupac = otpremnica.getKupac();
+//		this.adresaIsporuke = otpremnica.getAdresaIsporuke();
+//		this.datumIsporuke = otpremnica.getDatumIsporuke();
+//		this.prevoznik = otpremnica.getPrevoznik();
+//		this.potpisVozaca = true;
+//		this.primioRobu = true;
+//		this.faktura = otpremnica.getFaktura();
+//	//	this.stavkaOtpremnice = otpremnica.getStavkaOtpremnice();
+//	}
 
 	public Long getIdOtpremnice() {
 		return idOtpremnice;
@@ -117,21 +112,19 @@ public class OtpremnicaDTO implements Serializable {
 		this.primioRobu = primioRobu;
 	}
 
-	public Faktura getFaktura() {
-		return faktura;
+	public Long getIdFakture() {
+		return idFakture;
 	}
 
-	public void setFaktura(Faktura faktura) {
-		this.faktura = faktura;
+	public void setIdFakture(Long idFakture) {
+		this.idFakture = idFakture;
 	}
 
-	public StavkaOtpremnice getStavkaOtpremnice() {
-		return stavkaOtpremnice;
+	public Long getIdNarudzbenice() {
+		return idNarudzbenice;
 	}
 
-	public void setStavkaOtpremnice(StavkaOtpremnice stavkaOtpremnice) {
-		this.stavkaOtpremnice = stavkaOtpremnice;
+	public void setIdNarudzbenice(Long idNarudzbenice) {
+		this.idNarudzbenice = idNarudzbenice;
 	}
-	
-	
 }

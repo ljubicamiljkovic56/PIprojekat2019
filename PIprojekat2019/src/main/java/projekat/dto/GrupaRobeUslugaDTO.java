@@ -1,56 +1,59 @@
 package projekat.dto;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import projekat.model.GrupaRobeUsluga;
-import projekat.model.RobaUsluga;
-
-@SuppressWarnings("serial")
-public class GrupaRobeUslugaDTO implements Serializable {
+public class GrupaRobeUslugaDTO {
 	
 	private Long idGrupe;
 	private String nazivGrupe;
-	private List<RobaUsluga> robaUsluga = new ArrayList<RobaUsluga>();
+	private Long idPDVKategorija;
 	
 	public GrupaRobeUslugaDTO() {
 		super();
 	}
 	
-	
-	public GrupaRobeUslugaDTO(Long idGrupe, String nazivGrupe, List<RobaUsluga> robaUsluga) {
+
+	public GrupaRobeUslugaDTO(Long idGrupe, String nazivGrupe, Long idPDVKategorija) {
 		super();
 		this.idGrupe = idGrupe;
 		this.nazivGrupe = nazivGrupe;
-		this.robaUsluga = robaUsluga;
+		this.idPDVKategorija = idPDVKategorija;
 	}
-	
-	public GrupaRobeUslugaDTO(GrupaRobeUsluga grupaRobe) {
-		this.idGrupe = grupaRobe.getIdGrupe();
-		this.nazivGrupe = grupaRobe.getNazivGrupe();
-	//	this.robaUsluga = grupaRobe.getRobaUsluga();
-	}
-
 
 
 	public Long getIdGrupe() {
 		return idGrupe;
 	}
+
+
 	public void setIdGrupe(Long idGrupe) {
 		this.idGrupe = idGrupe;
 	}
+
+
 	public String getNazivGrupe() {
 		return nazivGrupe;
 	}
+
+
 	public void setNazivGrupe(String nazivGrupe) {
 		this.nazivGrupe = nazivGrupe;
 	}
-	public List<RobaUsluga> getRobaUsluga() {
-		return robaUsluga;
+
+
+	public Long getIdPDVKategorija() {
+		return idPDVKategorija;
 	}
-	public void setRobaUsluga(List<RobaUsluga> robaUsluga) {
-		this.robaUsluga = robaUsluga;
+
+
+	public void setIdPDVKategorija(Long idPDVKategorija) {
+		this.idPDVKategorija = idPDVKategorija;
 	}
+
+
+
+//	public GrupaRobeUslugaDTO(GrupaRobeUsluga grupaRobe) {
+//		this.idGrupe = grupaRobe.getIdGrupe();
+//		this.nazivGrupe = grupaRobe.getNazivGrupe();
+//	}
+
 
 }

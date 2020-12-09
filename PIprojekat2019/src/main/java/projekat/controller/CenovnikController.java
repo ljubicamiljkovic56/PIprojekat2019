@@ -34,23 +34,23 @@ public class CenovnikController {
 	}
 	
 	
-	@PostMapping(path = "/pojedinacanCenovnik")
-	public ResponseEntity<CenovnikDTO> pojedinacanCenovnik(@RequestParam("datum_vazenja") String datumVazenja) throws ParseException {
-		
-		String datum = datumVazenja;
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = formatter.parse(datum);
-	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-		
-		Cenovnik cenovnik = cenovnikServiceInterface.findByDatumPocetkaVazenja(sqlDate);
-		
-		if(cenovnik == null) {
-			return new ResponseEntity<CenovnikDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<CenovnikDTO>(new CenovnikDTO(cenovnik), HttpStatus.OK);
-		}
-		
-	}
+//	@PostMapping(path = "/pojedinacanCenovnik")
+//	public ResponseEntity<CenovnikDTO> pojedinacanCenovnik(@RequestParam("datum_vazenja") String datumVazenja) throws ParseException {
+//		
+//		String datum = datumVazenja;
+//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//		java.util.Date date = formatter.parse(datum);
+//	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+//		
+//		Cenovnik cenovnik = cenovnikServiceInterface.findByDatumPocetkaVazenja(sqlDate);
+//		
+//		if(cenovnik == null) {
+//			return new ResponseEntity<CenovnikDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<CenovnikDTO>(new CenovnikDTO(cenovnik), HttpStatus.OK);
+//		}
+//		
+//	}
 
 	
 	@PostMapping(path = "/dodajCenovnik")

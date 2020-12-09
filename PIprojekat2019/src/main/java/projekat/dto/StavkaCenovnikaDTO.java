@@ -1,37 +1,31 @@
 package projekat.dto;
 
-import java.io.Serializable;
-
-import projekat.model.Cenovnik;
-import projekat.model.RobaUsluga;
-import projekat.model.StavkaCenovnika;
-
-@SuppressWarnings("serial")
-public class StavkaCenovnikaDTO implements Serializable {
+public class StavkaCenovnikaDTO {
 	
 	private Long idStavke;
 	private double cena;
-	private Cenovnik cenovnik;
-	private RobaUsluga robaUsluga;
+	private Long idCenovnika;
+	private Long idRobeUsluge;
 	
 	public StavkaCenovnikaDTO() {
 		super();
-	}
-	
-	public StavkaCenovnikaDTO(Long idStavke, double cena, Cenovnik cenovnik, RobaUsluga robaUsluga) {
+	}	
+
+	public StavkaCenovnikaDTO(Long idStavke, double cena, Long idCenovnika, Long idRobeUsluge) {
 		super();
 		this.idStavke = idStavke;
 		this.cena = cena;
-		this.cenovnik = cenovnik;
-		this.robaUsluga = robaUsluga;
+		this.idCenovnika = idCenovnika;
+		this.idRobeUsluge = idRobeUsluge;
 	}
-	
-	public StavkaCenovnikaDTO(StavkaCenovnika stavkaCenovnika) {
-		this.idStavke = stavkaCenovnika.getIdStavke();
-		this.cena = stavkaCenovnika.getCena();
-		this.cenovnik = stavkaCenovnika.getCenovnik();
-		this.robaUsluga = stavkaCenovnika.getRobaUsluga();
-	}
+
+
+//	public StavkaCenovnikaDTO(StavkaCenovnika stavkaCenovnika) {
+//		this.idStavke = stavkaCenovnika.getIdStavke();
+//		this.cena = stavkaCenovnika.getCena();
+//		this.cenovnik = stavkaCenovnika.getCenovnik();
+//		this.robaUsluga = stavkaCenovnika.getRobaUsluga();
+//	}
 
 	public Long getIdStavke() {
 		return idStavke;
@@ -49,20 +43,19 @@ public class StavkaCenovnikaDTO implements Serializable {
 		this.cena = cena;
 	}
 
-	public Cenovnik getCenovnik() {
-		return cenovnik;
+	public Long getIdCenovnika() {
+		return idCenovnika;
 	}
 
-	public void setCenovnik(Cenovnik cenovnik) {
-		this.cenovnik = cenovnik;
+	public void setIdCenovnika(Long idCenovnika) {
+		this.idCenovnika = idCenovnika;
 	}
 
-	public RobaUsluga getRobaUsluga() {
-		return robaUsluga;
+	public Long getIdRobeUsluge() {
+		return idRobeUsluge;
 	}
 
-	public void setRobaUsluga(RobaUsluga robaUsluga) {
-		this.robaUsluga = robaUsluga;
+	public void setIdRobeUsluge(Long idRobeUsluge) {
+		this.idRobeUsluge = idRobeUsluge;
 	}
-
 }

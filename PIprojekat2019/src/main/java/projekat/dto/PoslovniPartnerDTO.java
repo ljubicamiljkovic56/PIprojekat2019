@@ -1,16 +1,7 @@
 package projekat.dto;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import projekat.model.Faktura;
-import projekat.model.NaseljenoMesto;
-import projekat.model.PoslovniPartner;
-
-
-@SuppressWarnings("serial")
-public class PoslovniPartnerDTO implements Serializable {
+public class PoslovniPartnerDTO {
 	
 	private Long idPoslovnogPartnera;
 	private String nazivPoslovnogPartnera;
@@ -18,17 +9,18 @@ public class PoslovniPartnerDTO implements Serializable {
 	private String telefon;
 	private String fax;
 	private String email;
-	//private enum VrstaPartnera {KU, DO, KD};
 	private String vrstaPartnera;
-	private List<Faktura> fakture = new ArrayList<Faktura>();
-	private NaseljenoMesto naseljenoMesto;
+	private Long idMesta;
+	private Long idPreduzeca;
 	
 	public PoslovniPartnerDTO() {
 		super();
 	}
 
+	
+	
 	public PoslovniPartnerDTO(Long idPoslovnogPartnera, String nazivPoslovnogPartnera, String adresa, String telefon,
-			String fax, String email, String vrstaPartnera, List<Faktura> fakture, NaseljenoMesto naseljenoMesto) {
+			String fax, String email, String vrstaPartnera, Long idMesta, Long idPreduzeca) {
 		super();
 		this.idPoslovnogPartnera = idPoslovnogPartnera;
 		this.nazivPoslovnogPartnera = nazivPoslovnogPartnera;
@@ -37,22 +29,24 @@ public class PoslovniPartnerDTO implements Serializable {
 		this.fax = fax;
 		this.email = email;
 		this.vrstaPartnera = vrstaPartnera;
-		this.fakture = fakture;
-		this.naseljenoMesto = naseljenoMesto;
+		this.idMesta = idMesta;
+		this.idPreduzeca = idPreduzeca;
 	}
-	
-	public PoslovniPartnerDTO(PoslovniPartner poslovniPartner) {
-		this.idPoslovnogPartnera = poslovniPartner.getIdPoslovnogPartnera();
-		this.nazivPoslovnogPartnera = poslovniPartner.getNazivPoslovnogPartnera();
-		this.adresa = poslovniPartner.getAdresa();
-		this.telefon = poslovniPartner.getTelefon();
-		this.fax = poslovniPartner.getFax();
-		this.email = poslovniPartner.getEmail();
-		this.vrstaPartnera = poslovniPartner.getVrstaPartnera();
-		//this.fakture = poslovniPartner.getFakture();
-		this.naseljenoMesto = poslovniPartner.getNaseljenoMesto();
-		
-	}
+
+
+
+//	public PoslovniPartnerDTO(PoslovniPartner poslovniPartner) {
+//		this.idPoslovnogPartnera = poslovniPartner.getIdPoslovnogPartnera();
+//		this.nazivPoslovnogPartnera = poslovniPartner.getNazivPoslovnogPartnera();
+//		this.adresa = poslovniPartner.getAdresa();
+//		this.telefon = poslovniPartner.getTelefon();
+//		this.fax = poslovniPartner.getFax();
+//		this.email = poslovniPartner.getEmail();
+//		this.vrstaPartnera = poslovniPartner.getVrstaPartnera();
+//		//this.fakture = poslovniPartner.getFakture();
+//		this.naseljenoMesto = poslovniPartner.getNaseljenoMesto();
+//		
+//	}
 
 	public Long getIdPoslovnogPartnera() {
 		return idPoslovnogPartnera;
@@ -102,10 +96,6 @@ public class PoslovniPartnerDTO implements Serializable {
 		this.email = email;
 	}
 
-	public List<Faktura> getFakture() {
-		return fakture;
-	}
-
 	public String getVrstaPartnera() {
 		return vrstaPartnera;
 	}
@@ -114,16 +104,19 @@ public class PoslovniPartnerDTO implements Serializable {
 		this.vrstaPartnera = vrstaPartnera;
 	}
 
-	public void setFakture(List<Faktura> fakture) {
-		this.fakture = fakture;
+	public Long getIdMesta() {
+		return idMesta;
 	}
 
-	public NaseljenoMesto getNaseljenoMesto() {
-		return naseljenoMesto;
+	public void setIdMesta(Long idMesta) {
+		this.idMesta = idMesta;
 	}
 
-	public void setNaseljenoMesto(NaseljenoMesto naseljenoMesto) {
-		this.naseljenoMesto = naseljenoMesto;
+	public Long getIdPreduzeca() {
+		return idPreduzeca;
 	}
 
+	public void setIdPreduzeca(Long idPreduzeca) {
+		this.idPreduzeca = idPreduzeca;
+	}
 }

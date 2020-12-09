@@ -29,20 +29,20 @@ public class StavkaOtpremniceController {
 		return stavkaOtpremniceServicenterface.findAll();
 	}
 	
-	@PostMapping(path = "/pojedinacnaStavkaOtpremnice")
-	public ResponseEntity<StavkaOtpremniceDTO> pojedinacnaStavkaOtpremnice(@RequestParam("redni_broj_proizvoda") String redniBrojProizvoda) {
-
-		int redniBrojProizvodaInt = Integer.parseInt(redniBrojProizvoda);
-		
-		StavkaOtpremnice stavkaOtpremnice = stavkaOtpremniceServicenterface.findByRedniBrojProizvoda(redniBrojProizvodaInt);
-		
-		if(stavkaOtpremnice == null) {
-			return new ResponseEntity<StavkaOtpremniceDTO>(HttpStatus.BAD_REQUEST);
-		}else {
-			return new ResponseEntity<StavkaOtpremniceDTO>(new StavkaOtpremniceDTO(stavkaOtpremnice), HttpStatus.OK);
-		}
-		
-	}
+//	@PostMapping(path = "/pojedinacnaStavkaOtpremnice")
+//	public ResponseEntity<StavkaOtpremniceDTO> pojedinacnaStavkaOtpremnice(@RequestParam("redni_broj_proizvoda") String redniBrojProizvoda) {
+//
+//		int redniBrojProizvodaInt = Integer.parseInt(redniBrojProizvoda);
+//		
+//		StavkaOtpremnice stavkaOtpremnice = stavkaOtpremniceServicenterface.findByRedniBrojProizvoda(redniBrojProizvodaInt);
+//		
+//		if(stavkaOtpremnice == null) {
+//			return new ResponseEntity<StavkaOtpremniceDTO>(HttpStatus.BAD_REQUEST);
+//		}else {
+//			return new ResponseEntity<StavkaOtpremniceDTO>(new StavkaOtpremniceDTO(stavkaOtpremnice), HttpStatus.OK);
+//		}
+//		
+//	}
 	
 	@PostMapping(path = "/dodajStavkuOtpremnice")
 	public ResponseEntity<Void> dodajStavkuOtpremnice(@RequestParam("redni_broj_proizvoda") String redniBrojProizvoda,

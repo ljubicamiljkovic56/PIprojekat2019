@@ -1,38 +1,30 @@
 package projekat.dto;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import projekat.model.Faktura;
-import projekat.model.PoslovnaGodina;
-
-@SuppressWarnings("serial")
-public class PoslovnaGodinaDTO implements Serializable {
+public class PoslovnaGodinaDTO {
 	
 	private Long idGodine;
 	private int godina;
 	private boolean zakljucena;
-	private List<Faktura> fakture = new ArrayList<Faktura>();
+	private Long idPreduzeca;
 	
 	public PoslovnaGodinaDTO() {
 		super();
 	}
 
-	public PoslovnaGodinaDTO(Long idGodine, int godina, boolean zakljucena,
-			List<Faktura> fakture) {
+	public PoslovnaGodinaDTO(Long idGodine, int godina, boolean zakljucena, Long idPreduzeca) {
 		super();
 		this.idGodine = idGodine;
 		this.godina = godina;
 		this.zakljucena = zakljucena;
-		this.fakture = fakture;
+		this.idPreduzeca = idPreduzeca;
 	}
-	
-	public PoslovnaGodinaDTO(PoslovnaGodina poslovnaGodina) {
-		this.idGodine = poslovnaGodina.getIdGodine();
-		this.godina = poslovnaGodina.getGodina();
-		this.zakljucena = poslovnaGodina.isZakljucena();
-	}
+
+
+//	public PoslovnaGodinaDTO(PoslovnaGodina poslovnaGodina) {
+//		this.idGodine = poslovnaGodina.getIdGodine();
+//		this.godina = poslovnaGodina.getGodina();
+//		this.zakljucena = poslovnaGodina.isZakljucena();
+//	}
 
 	public Long getIdGodine() {
 		return idGodine;
@@ -58,12 +50,12 @@ public class PoslovnaGodinaDTO implements Serializable {
 		this.zakljucena = zakljucena;
 	}
 
-	public List<Faktura> getFakture() {
-		return fakture;
+	public Long getIdPreduzeca() {
+		return idPreduzeca;
 	}
 
-	public void setFakture(List<Faktura> fakture) {
-		this.fakture = fakture;
+	public void setIdPreduzeca(Long idPreduzeca) {
+		this.idPreduzeca = idPreduzeca;
 	}
 	
 }

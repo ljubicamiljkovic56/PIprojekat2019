@@ -1,10 +1,6 @@
 package projekat.dto;
 
-import java.io.Serializable;
-import projekat.model.StavkaOtpremnice;
-
-@SuppressWarnings("serial")
-public class StavkaOtpremniceDTO implements Serializable {
+public class StavkaOtpremniceDTO {
 	
 	private Long idStavkeOtpremnice;
 	private int redniBrojProizvoda;
@@ -12,13 +8,15 @@ public class StavkaOtpremniceDTO implements Serializable {
 	private double cena;
 	private double kolicina;
 	private String napomena;
+	private Long idOtpremnice;
+	private Long idRobeUsluge;
 	
 	public StavkaOtpremniceDTO() {
 		super();
 	}
 
 	public StavkaOtpremniceDTO(Long idStavkeOtpremnice, int redniBrojProizvoda, String jedinicaMere, double cena,
-			double kolicina, String napomena) {
+			double kolicina, String napomena, Long idOtpremnice, Long idRobeUsluge) {
 		super();
 		this.idStavkeOtpremnice = idStavkeOtpremnice;
 		this.redniBrojProizvoda = redniBrojProizvoda;
@@ -26,16 +24,20 @@ public class StavkaOtpremniceDTO implements Serializable {
 		this.cena = cena;
 		this.kolicina = kolicina;
 		this.napomena = napomena;
+		this.idOtpremnice = idOtpremnice;
+		this.idRobeUsluge = idRobeUsluge;
 	}
-	
-	public StavkaOtpremniceDTO(StavkaOtpremnice stavkaOtpremnice) {
-		this.idStavkeOtpremnice = stavkaOtpremnice.getIdStavkeOtpremnice();
-		this.redniBrojProizvoda = stavkaOtpremnice.getRedniBrojProizvoda();
-		this.jedinicaMere = stavkaOtpremnice.getJedinicaMere();
-		this.cena = stavkaOtpremnice.getCena();
-		this.kolicina = stavkaOtpremnice.getKolicina();
-		this.napomena = stavkaOtpremnice.getNapomena();
-	}
+
+
+
+//	public StavkaOtpremniceDTO(StavkaOtpremnice stavkaOtpremnice) {
+//		this.idStavkeOtpremnice = stavkaOtpremnice.getIdStavkeOtpremnice();
+//		this.redniBrojProizvoda = stavkaOtpremnice.getRedniBrojProizvoda();
+//		this.jedinicaMere = stavkaOtpremnice.getJedinicaMere();
+//		this.cena = stavkaOtpremnice.getCena();
+//		this.kolicina = stavkaOtpremnice.getKolicina();
+//		this.napomena = stavkaOtpremnice.getNapomena();
+//	}
 
 	public Long getIdStavkeOtpremnice() {
 		return idStavkeOtpremnice;
@@ -84,5 +86,20 @@ public class StavkaOtpremniceDTO implements Serializable {
 	public void setNapomena(String napomena) {
 		this.napomena = napomena;
 	}
-		
+
+	public Long getIdOtpremnice() {
+		return idOtpremnice;
+	}
+
+	public void setIdOtpremnice(Long idOtpremnice) {
+		this.idOtpremnice = idOtpremnice;
+	}
+
+	public Long getIdRobeUsluge() {
+		return idRobeUsluge;
+	}
+
+	public void setIdRobeUsluge(Long idRobeUsluge) {
+		this.idRobeUsluge = idRobeUsluge;
+	}
 }
