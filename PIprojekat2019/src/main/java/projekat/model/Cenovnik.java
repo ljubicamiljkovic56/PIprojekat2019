@@ -1,20 +1,26 @@
 package projekat.model;
 
-import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "cenovnik")
-public class Cenovnik implements Serializable{
+public class Cenovnik {
 	
 
 	@Id
@@ -24,17 +30,27 @@ public class Cenovnik implements Serializable{
 	@Column(name="datum_pocetka_vazenja", columnDefinition = "DATE")
 	private Date datumPocetkaVazenja;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_preduzeca")
+	private Preduzece preduzece;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<StavkaCenovnika> stavkeCenovnika = new ArrayList<StavkaCenovnika>();
+	
 	public Cenovnik() {
 		super();
 	}
-	
-	public Cenovnik(Long idCenovnika, Date datumPocetkaVazenja, List<StavkaCenovnika> stavkeCenovnika) {
+
+	public Cenovnik(Long idCenovnika, Date datumPocetkaVazenja, Preduzece preduzece,
+			List<StavkaCenovnika> stavkeCenovnika) {
 		super();
 		this.idCenovnika = idCenovnika;
 		this.datumPocetkaVazenja = datumPocetkaVazenja;
-		//this.stavkeCenovnika = stavkeCenovnika;
-		//this.preduzece = preduzece;
+		this.preduzece = preduzece;
+		this.stavkeCenovnika = stavkeCenovnika;
 	}
+
 
 	public Long getIdCenovnika() {
 		return idCenovnika;
@@ -52,9 +68,28 @@ public class Cenovnik implements Serializable{
 		this.datumPocetkaVazenja = datumPocetkaVazenja;
 	}
 
+	public Preduzece getPreduzece() {
+		return preduzece;
+	}
+
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
+	}
+
+	public List<StavkaCenovnika> getStavkeCenovnika() {
+		return stavkeCenovnika;
+	}
+
+	public void setStavkeCenovnika(List<StavkaCenovnika> stavkeCenovnika) {
+		this.stavkeCenovnika = stavkeCenovnika;
+	}
+
 	@Override
 	public String toString() {
-		return "Cenovnik [idCenovnika=" + idCenovnika + ", datumPocetkaVazenja=" + datumPocetkaVazenja + "]";
+		return "Cenovnik [idCenovnika=" + idCenovnika + ", datumPocetkaVazenja=" + datumPocetkaVazenja + ", preduzece="
+				+ preduzece + ", stavkeCenovnika=" + stavkeCenovnika + "]";
 	}
+	
+	
 	
 }

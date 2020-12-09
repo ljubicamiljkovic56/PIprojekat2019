@@ -1,7 +1,5 @@
 package projekat.model;
 
-import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "stavka_cenovnika")
-public class StavkaCenovnika implements Serializable {
+public class StavkaCenovnika {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +26,7 @@ public class StavkaCenovnika implements Serializable {
 	@JoinColumn(name = "id_cenovnika")
 	private Cenovnik cenovnik;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_robe_usluge")
 	private RobaUsluga robaUsluga;
 	

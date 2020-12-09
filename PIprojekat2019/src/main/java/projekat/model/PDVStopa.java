@@ -1,26 +1,23 @@
 package projekat.model;
 
-import java.io.Serializable;
 import java.sql.Date;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "pdv_stopa")
-public class PDVStopa implements Serializable {
+public class PDVStopa {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idStope;
 	
 	@Column(name = "datum_vazenja", columnDefinition = "DATE")
@@ -29,16 +26,15 @@ public class PDVStopa implements Serializable {
 	@Column(name = "procenat", columnDefinition = "DOUBLE")
 	private double procenat;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	//@JoinColumn(name = "kategorija_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "kategorija_id")
 	private PDVKategorija pdvKategorija;
 	
 	public PDVStopa() {
 		super();
 	}
 
-	public PDVStopa(Long idStope, Date datumVazenja, double procenat,
-			PDVKategorija pdvKategorija) {
+	public PDVStopa(Long idStope, Date datumVazenja, double procenat, PDVKategorija pdvKategorija) {
 		super();
 		this.idStope = idStope;
 		this.datumVazenja = datumVazenja;
@@ -53,7 +49,6 @@ public class PDVStopa implements Serializable {
 	public void setIdStope(Long idStope) {
 		this.idStope = idStope;
 	}
-
 
 	public Date getDatumVazenja() {
 		return datumVazenja;
@@ -81,7 +76,8 @@ public class PDVStopa implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PDVStopa [idStope=" + idStope + ", datumVazenja="
-				+ datumVazenja + ", procenat=" + procenat + ", pdvKategorija=" + pdvKategorija + "]";
-	}	
+		return "PDVStopa [idStope=" + idStope + ", datumVazenja=" + datumVazenja + ", procenat=" + procenat
+				+ ", pdvKategorija=" + pdvKategorija + "]";
+	}
+
 }

@@ -1,25 +1,29 @@
 package projekat.model;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@SuppressWarnings("serial")
+
+
 @Entity
 @Table(name = "jedinica_mere")
-public class JedinicaMere implements Serializable{
+public class JedinicaMere {
 	
 	@Id
 	@Column(name = "id_jedinice_mere")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idJediniceMere;
 	
 	@Column(name = "naziv_jedinice_mere", columnDefinition = "VARCHAR(20)")
@@ -28,18 +32,20 @@ public class JedinicaMere implements Serializable{
 	@Column(name = "skraceni_naziv", columnDefinition = "CHAR(5)")
 	private String skraceniNaziv;
 	
-//	@OneToMany(cascade = CascadeType.ALL)
-//	private List<RobaUsluga>robaUsluga = new ArrayList<RobaUsluga>();
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<RobaUsluga> roba = new ArrayList<RobaUsluga>();
 	
 	public JedinicaMere() {
 		super();
 	}
 
-	public JedinicaMere(Long idJediniceMere, String nazivJediniceMere, String skraceniNaziv) {
+	public JedinicaMere(Long idJediniceMere, String nazivJediniceMere, String skraceniNaziv, List<RobaUsluga> roba) {
 		super();
 		this.idJediniceMere = idJediniceMere;
 		this.nazivJediniceMere = nazivJediniceMere;
 		this.skraceniNaziv = skraceniNaziv;
+		this.roba = roba;
 	}
 
 	public Long getIdJediniceMere() {
@@ -66,11 +72,18 @@ public class JedinicaMere implements Serializable{
 		this.skraceniNaziv = skraceniNaziv;
 	}
 
+	public List<RobaUsluga> getRoba() {
+		return roba;
+	}
+
+	public void setRoba(List<RobaUsluga> roba) {
+		this.roba = roba;
+	}
 
 	@Override
 	public String toString() {
 		return "JedinicaMere [idJediniceMere=" + idJediniceMere + ", nazivJediniceMere=" + nazivJediniceMere
-				+ ", skraceniNaziv=" + skraceniNaziv + "]";
+				+ ", skraceniNaziv=" + skraceniNaziv + ", roba=" + roba + "]";
 	}
 
 }

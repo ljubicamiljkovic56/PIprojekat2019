@@ -1,22 +1,25 @@
 package projekat.model;
-
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@SuppressWarnings("serial")
+
 @Entity
 @Table(name = "roba_usluga")
-public class RobaUsluga implements Serializable {
+public class RobaUsluga {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,14 +43,16 @@ public class RobaUsluga implements Serializable {
 	@JoinColumn(name = "id_grupe")
 	private GrupaRobeUsluga grupaRobeUsluga;
 	
-	//private List<StavkaOtpremnice> stavkeOtpremnice = new ArrayList<StavkaOtpremnice>(); 
-
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<StavkaCenovnika> stavkeCenovnika = new ArrayList<StavkaCenovnika>();
+	
 	public RobaUsluga() {
 		super();
 	}
-	
+
 	public RobaUsluga(Long idRobeUsluge, String nazivRobeUsluge, String opis, boolean roba, JedinicaMere jedinicaMere,
-			GrupaRobeUsluga grupaRobeUsluga, List<StavkaFakture> stavkeFakture, List<StavkaOtpremnice> stavkeOtpremnice) {
+			GrupaRobeUsluga grupaRobeUsluga, List<StavkaCenovnika> stavkeCenovnika) {
 		super();
 		this.idRobeUsluge = idRobeUsluge;
 		this.nazivRobeUsluge = nazivRobeUsluge;
@@ -55,7 +60,7 @@ public class RobaUsluga implements Serializable {
 		this.roba = roba;
 		this.jedinicaMere = jedinicaMere;
 		this.grupaRobeUsluga = grupaRobeUsluga;
-		//this.stavkeOtpremnice = stavkeOtpremnice;
+		this.stavkeCenovnika = stavkeCenovnika;
 	}
 
 	public Long getIdRobeUsluge() {
@@ -106,19 +111,19 @@ public class RobaUsluga implements Serializable {
 		this.grupaRobeUsluga = grupaRobeUsluga;
 	}
 
-//	public List<StavkaOtpremnice> getStavkeOtpremnice() {
-//		return stavkeOtpremnice;
-//	}
-//
-//	public void setStavkeOtpremnice(List<StavkaOtpremnice> stavkeOtpremnice) {
-//		this.stavkeOtpremnice = stavkeOtpremnice;
-//	}
+	public List<StavkaCenovnika> getStavkeCenovnika() {
+		return stavkeCenovnika;
+	}
+
+	public void setStavkeCenovnika(List<StavkaCenovnika> stavkeCenovnika) {
+		this.stavkeCenovnika = stavkeCenovnika;
+	}
 
 	@Override
 	public String toString() {
 		return "RobaUsluga [idRobeUsluge=" + idRobeUsluge + ", nazivRobeUsluge=" + nazivRobeUsluge + ", opis=" + opis
 				+ ", roba=" + roba + ", jedinicaMere=" + jedinicaMere + ", grupaRobeUsluga=" + grupaRobeUsluga
-			 +  "]";
+				+ ", stavkeCenovnika=" + stavkeCenovnika + "]";
 	}
 
 	

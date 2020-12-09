@@ -1,6 +1,4 @@
 package projekat.model;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,32 +12,40 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@SuppressWarnings("serial")
+
 @Entity
 @Table(name = "pdv_kategorija")
-public class PDVKategorija implements Serializable{
+public class PDVKategorija {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "kategorija_id")
 	private Long idKategorije;
 	
 	@Column(name = "naziv_kategorije", columnDefinition = "VARCHAR(20)")
 	private String nazivKategorije;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<PDVStopa> pdvStope = new ArrayList<PDVStopa>();
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<GrupaRobeUsluga> grupeRobe = new ArrayList<GrupaRobeUsluga>();
 	
 	public PDVKategorija() {
 		super();
 	}
 
-	public PDVKategorija(Long idKategorije, String nazivKategorije, List<PDVStopa> pdvStope) {
+	public PDVKategorija(Long idKategorije, String nazivKategorije, List<PDVStopa> pdvStope,
+			List<GrupaRobeUsluga> grupeRobe) {
 		super();
 		this.idKategorije = idKategorije;
 		this.nazivKategorije = nazivKategorije;
 		this.pdvStope = pdvStope;
+		this.grupeRobe = grupeRobe;
 	}
 
 	public Long getIdKategorije() {
@@ -66,9 +72,20 @@ public class PDVKategorija implements Serializable{
 		this.pdvStope = pdvStope;
 	}
 
+	public List<GrupaRobeUsluga> getGrupeRobe() {
+		return grupeRobe;
+	}
+
+	public void setGrupeRobe(List<GrupaRobeUsluga> grupeRobe) {
+		this.grupeRobe = grupeRobe;
+	}
+
 	@Override
 	public String toString() {
 		return "PDVKategorija [idKategorije=" + idKategorije + ", nazivKategorije=" + nazivKategorije + ", pdvStope="
-				+ pdvStope + "]";
-	}	
+				+ pdvStope + ", grupeRobe=" + grupeRobe + "]";
+	}
+
+	
+
 }
