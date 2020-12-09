@@ -58,7 +58,7 @@ public class FakturaDTO implements Serializable {
 		this.ukupanPDV = faktura.getUkupanPDV();
 		this.ukupanIznos = faktura.getUkupanIznos();
 		this.statusFakture = faktura.getStatusFakture();
-		this.stavkaFakture = faktura.getStavkaFakture();
+	//	this.stavkaFakture = faktura.getStavkaFakture();
 		this.poslovnaGodina = faktura.getPoslovnaGodina();
 		this.poslovniPartner = faktura.getPoslovniPartner();
 		this.preduzece = faktura.getPreduzece();

@@ -1,58 +1,76 @@
 package projekat.model;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@SuppressWarnings("serial")
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "narudzbenica")
-public class Narudzbenica implements Serializable {
+public class Narudzbenica {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "narudzbenica_id")
 	private Long id;
 	
-	@Column(name = "naziv_robe", columnDefinition = "VARCHAR(30)")
-	private String nazivRobe;
+	@Column(name = "broj_narudzbenice", columnDefinition = "INT")
+	private int brojNarudzbenice;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_preduzeca")
+	private Preduzece preduzece;
 	
-	@Column(name = "jedinica_mere", columnDefinition = "CHAR(5)")
-	private String jedinicaMere;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_poslovnog_partnera")
+	private PoslovniPartner poslovniPartner;
 	
-	@Column(name = "kolicina", columnDefinition = "DECIMAL")
-	private double kolicina;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_godine")
+	private PoslovnaGodina poslovnaGodina;
 	
-	@Column(name = "cena", columnDefinition = "DECIMAL")
-	private double cena;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<StavkaNarudzbenice> stavkeNarudzbenice = new ArrayList<StavkaNarudzbenice>();
 	
-	@Column(name = "iznos", columnDefinition = "DECIMAL")
-	private double iznos;
 	
-	@OneToOne
-	@JoinColumn(name = "id_fakture")
-	private Faktura faktura;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Faktura> fakture = new ArrayList<Faktura>();
+	
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Otpremnica> otpremnice = new ArrayList<Otpremnica>();
 	
 	public Narudzbenica() {
 		super();
 	}
 
-	public Narudzbenica(Long id, String nazivRobe, String jedinicaMere, double kolicina, double cena, double iznos, Faktura faktura) {
+	public Narudzbenica(Long id, int brojNarudzbenice, Preduzece preduzece, PoslovniPartner poslovniPartner,
+			PoslovnaGodina poslovnaGodina, List<StavkaNarudzbenice> stavkeNarudzbenice, List<Faktura> fakture,
+			List<Otpremnica> otpremnice) {
 		super();
 		this.id = id;
-		this.nazivRobe = nazivRobe;
-		this.jedinicaMere = jedinicaMere;
-		this.kolicina = kolicina;
-		this.cena = cena;
-		this.iznos = iznos;
-		this.faktura = faktura;
+		this.brojNarudzbenice = brojNarudzbenice;
+		this.preduzece = preduzece;
+		this.poslovniPartner = poslovniPartner;
+		this.poslovnaGodina = poslovnaGodina;
+		this.stavkeNarudzbenice = stavkeNarudzbenice;
+		this.fakture = fakture;
+		this.otpremnice = otpremnice;
 	}
 
 	public Long getId() {
@@ -63,60 +81,68 @@ public class Narudzbenica implements Serializable {
 		this.id = id;
 	}
 
-	public String getNazivRobe() {
-		return nazivRobe;
+	public int getBrojNarudzbenice() {
+		return brojNarudzbenice;
 	}
 
-	public void setNazivRobe(String nazivRobe) {
-		this.nazivRobe = nazivRobe;
+	public void setBrojNarudzbenice(int brojNarudzbenice) {
+		this.brojNarudzbenice = brojNarudzbenice;
 	}
 
-	public String getJedinicaMere() {
-		return jedinicaMere;
+	public Preduzece getPreduzece() {
+		return preduzece;
 	}
 
-	public void setJedinicaMere(String jedinicaMere) {
-		this.jedinicaMere = jedinicaMere;
+	public void setPreduzece(Preduzece preduzece) {
+		this.preduzece = preduzece;
 	}
 
-	public double getKolicina() {
-		return kolicina;
+	public PoslovniPartner getPoslovniPartner() {
+		return poslovniPartner;
 	}
 
-	public void setKolicina(double kolicina) {
-		this.kolicina = kolicina;
+	public void setPoslovniPartner(PoslovniPartner poslovniPartner) {
+		this.poslovniPartner = poslovniPartner;
 	}
 
-	public double getCena() {
-		return cena;
+	public PoslovnaGodina getPoslovnaGodina() {
+		return poslovnaGodina;
 	}
 
-	public void setCena(double cena) {
-		this.cena = cena;
+	public void setPoslovnaGodina(PoslovnaGodina poslovnaGodina) {
+		this.poslovnaGodina = poslovnaGodina;
 	}
 
-	public double getIznos() {
-		return iznos;
+	public List<StavkaNarudzbenice> getStavkeNarudzbenice() {
+		return stavkeNarudzbenice;
 	}
 
-	public void setIznos(double iznos) {
-		this.iznos = iznos;
+	public void setStavkeNarudzbenice(List<StavkaNarudzbenice> stavkeNarudzbenice) {
+		this.stavkeNarudzbenice = stavkeNarudzbenice;
 	}
 
-	
-	public Faktura getFaktura() {
-		return faktura;
+	public List<Faktura> getFakture() {
+		return fakture;
 	}
 
-	public void setFaktura(Faktura faktura) {
-		this.faktura = faktura;
+	public void setFakture(List<Faktura> fakture) {
+		this.fakture = fakture;
+	}
+
+	public List<Otpremnica> getOtpremnice() {
+		return otpremnice;
+	}
+
+	public void setOtpremnice(List<Otpremnica> otpremnice) {
+		this.otpremnice = otpremnice;
 	}
 
 	@Override
 	public String toString() {
-		return "Narudzbenica [id=" + id + ", nazivRobe=" + nazivRobe + ", jedinicaMere=" + jedinicaMere + ", kolicina="
-				+ kolicina + ", cena=" + cena + ", iznos=" + iznos + ", faktura=" + faktura + "]";
+		return "Narudzbenica [id=" + id + ", brojNarudzbenice=" + brojNarudzbenice + ", preduzece=" + preduzece
+				+ ", poslovniPartner=" + poslovniPartner + ", poslovnaGodina=" + poslovnaGodina
+				+ ", stavkeNarudzbenice=" + stavkeNarudzbenice + ", fakture=" + fakture + ", otpremnice=" + otpremnice
+				+ "]";
 	}
-
 	
 }

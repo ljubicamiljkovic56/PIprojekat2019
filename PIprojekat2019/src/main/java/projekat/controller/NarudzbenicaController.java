@@ -115,13 +115,7 @@ public class NarudzbenicaController {
 				faktura.setPoslovnaGodina(poslovnaGodina);
 			
 				Narudzbenica narudzbenica = new Narudzbenica();
-				narudzbenica.setId(id);
-				narudzbenica.setNazivRobe(nazivRobe);
-				narudzbenica.setJedinicaMere(jedinica_mere);
-				narudzbenica.setCena(cena);
-				narudzbenica.setKolicina(kolicina);
-				narudzbenica.setIznos(iznos);
-				narudzbenica.setFaktura(faktura);
+
 				
 
 				narudzbenice.add(narudzbenica);
@@ -194,7 +188,6 @@ public class NarudzbenicaController {
 		faktura.setUkupanPDV(ukupanPdvDouble);
 		faktura.setUkupanIznos(ukupanIznosDouble);
 		faktura.setStatusFakture(statusFakture);
-		faktura.setStavkaFakture(stavkaFakture2);
 		faktura.setPoslovnaGodina(poslovnaGodina2);
 		faktura.setPoslovniPartner(partner);
 		faktura.setPreduzece(preduzece);
@@ -205,12 +198,6 @@ public class NarudzbenicaController {
 		double iznosDouble = Double.parseDouble(iznos);
 		
 		Narudzbenica narudzbenica = new Narudzbenica();
-		narudzbenica.setNazivRobe(nazivRobe);
-		narudzbenica.setJedinicaMere(jedinicaMere);
-		narudzbenica.setCena(cenaDouble);
-		narudzbenica.setKolicina(kolicinaDouble);
-		narudzbenica.setIznos(iznosDouble);
-		narudzbenica.setFaktura(faktura);
 		narudzbenicaServiceInterface.save(narudzbenica);
 		
 		System.out.println("Dodata je faktura sa narudzbenicom");

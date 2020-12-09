@@ -130,7 +130,7 @@ public class FakturaController {
 		faktura.setUkupanPDV(ukupanPdvDouble);
 		faktura.setUkupanIznos(ukupanIznosDouble);
 		faktura.setStatusFakture(statusFakture);
-		faktura.setStavkaFakture(stavkaFakture2);
+//		faktura.setStavkaFakture(stavkaFakture2);
 		faktura.setPoslovnaGodina(poslovnaGodina2);
 		faktura.setPoslovniPartner(partner);
 		faktura.setPreduzece(preduzece);
@@ -190,7 +190,7 @@ public class FakturaController {
 			faktura.setUkupanPDV(ukupanPdvDouble);
 			faktura.setUkupanIznos(ukupanIznosDouble);
 			faktura.setStatusFakture(statusFakture);
-			faktura.setStavkaFakture(stavkaFakture2);
+		//	faktura.setStavkaFakture(stavkaFakture2);
 			faktura.setPoslovnaGodina(poslovnaGodina2);
 			faktura.setPoslovniPartner(partner);
 			faktura.setPreduzece(preduzece);
@@ -242,7 +242,7 @@ public class FakturaController {
 			faktura.setUkupanPDV(faktura.getUkupanPDV());
 			faktura.setUkupanIznos(faktura.getUkupanIznos());
 			faktura.setStatusFakture("S");
-			faktura.setStavkaFakture(faktura.getStavkaFakture());
+		//	faktura.setStavkaFakture(faktura.getStavkaFakture());
 			faktura.setPoslovnaGodina(faktura.getPoslovnaGodina());
 			faktura.setPoslovniPartner(faktura.getPoslovniPartner());
 			faktura.setPreduzece(faktura.getPreduzece());
@@ -322,7 +322,7 @@ public class FakturaController {
 				PoslovnaGodina poslovnaGodina = new PoslovnaGodina();
 				poslovnaGodina.setIdGodine(idGodine);
 				poslovnaGodina.setGodina(godina);
-				faktura.setStavkaFakture(stavkaFakture);
+			//	faktura.setStavkaFakture(stavkaFakture);
 				faktura.setPoslovnaGodina(poslovnaGodina);
 				fakture.add(faktura);
 				
@@ -402,7 +402,7 @@ public class FakturaController {
 				PoslovnaGodina poslovnaGodina = new PoslovnaGodina();
 				poslovnaGodina.setIdGodine(idGodine);
 				poslovnaGodina.setGodina(godina);
-				faktura.setStavkaFakture(stavkaFakture);
+			//	faktura.setStavkaFakture(stavkaFakture);
 				faktura.setPoslovnaGodina(poslovnaGodina);
 				fakture.add(faktura);
 			}

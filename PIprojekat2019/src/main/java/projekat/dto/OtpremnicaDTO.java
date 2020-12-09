@@ -50,7 +50,7 @@ public class OtpremnicaDTO implements Serializable {
 		this.potpisVozaca = true;
 		this.primioRobu = true;
 		this.faktura = otpremnica.getFaktura();
-		this.stavkaOtpremnice = otpremnica.getStavkaOtpremnice();
+	//	this.stavkaOtpremnice = otpremnica.getStavkaOtpremnice();
 	}
 
 	public Long getIdOtpremnice() {

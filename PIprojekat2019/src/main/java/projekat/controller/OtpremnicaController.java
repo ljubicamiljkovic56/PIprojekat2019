@@ -114,7 +114,7 @@ public class OtpremnicaController {
 	    otpremnica.setPotpisVozaca(false);
 	    otpremnica.setPrimioRobu(false);
 	    otpremnica.setFaktura(faktura);
-	    otpremnica.setStavkaOtpremnice(stavkaOtpremnice2);
+	//    otpremnica.setStavkaOtpremnice(stavkaOtpremnice2);
 	    otpremnicaServiceInterface.save(otpremnica);
 	    
 	    System.out.println("Dodata je nova otpremnica");
@@ -158,7 +158,7 @@ public class OtpremnicaController {
 			otpremnica.setPotpisVozaca(true);
 			otpremnica.setPrimioRobu(true);
 			otpremnica.setFaktura(faktura);
-			otpremnica.setStavkaOtpremnice(stavkaOtpremnice2);
+		//	otpremnica.setStavkaOtpremnice(stavkaOtpremnice2);
 			otpremnicaServiceInterface.save(otpremnica);
 			
 			System.out.println("Izmenjena je otpremnica.");
@@ -255,7 +255,7 @@ public class OtpremnicaController {
 				faktura.setUkupanIznos(ukupanIznos);
 				faktura.setStatusFakture(statusFakture);
 				
-				otpremnica.setStavkaOtpremnice(stavkaOtpremnice);
+			//	otpremnica.setStavkaOtpremnice(stavkaOtpremnice);
 				otpremnica.setFaktura(faktura);
 				
 				otpremnice.add(otpremnica);
@@ -445,7 +445,7 @@ public class OtpremnicaController {
 		otpremnica.setPotpisVozaca(true);
 		otpremnica.setPrimioRobu(true);
 		otpremnica.setFaktura(faktura);
-		otpremnica.setStavkaOtpremnice(stavkaOtpremnice2);
+	//	otpremnica.setStavkaOtpremnice(stavkaOtpremnice2);
 		otpremnicaServiceInterface.save(otpremnica);
 	    
 	    System.out.println("Dodata je nova otpremnica sa fakturom");

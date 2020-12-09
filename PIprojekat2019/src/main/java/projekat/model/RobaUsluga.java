@@ -47,12 +47,25 @@ public class RobaUsluga {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<StavkaCenovnika> stavkeCenovnika = new ArrayList<StavkaCenovnika>();
 	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<StavkaOtpremnice> stavkeOtpremnice = new ArrayList<StavkaOtpremnice>();
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<StavkaNarudzbenice> stavkeNarudzbenice = new ArrayList<StavkaNarudzbenice>();
+	
 	public RobaUsluga() {
 		super();
 	}
 
 	public RobaUsluga(Long idRobeUsluge, String nazivRobeUsluge, String opis, boolean roba, JedinicaMere jedinicaMere,
-			GrupaRobeUsluga grupaRobeUsluga, List<StavkaCenovnika> stavkeCenovnika) {
+			GrupaRobeUsluga grupaRobeUsluga, List<StavkaCenovnika> stavkeCenovnika, List<StavkaFakture> stavkeFakture,
+			List<StavkaOtpremnice> stavkeOtpremnice, List<StavkaNarudzbenice> stavkeNarudzbenice) {
 		super();
 		this.idRobeUsluge = idRobeUsluge;
 		this.nazivRobeUsluge = nazivRobeUsluge;
@@ -61,6 +74,9 @@ public class RobaUsluga {
 		this.jedinicaMere = jedinicaMere;
 		this.grupaRobeUsluga = grupaRobeUsluga;
 		this.stavkeCenovnika = stavkeCenovnika;
+		this.stavkeFakture = stavkeFakture;
+		this.stavkeOtpremnice = stavkeOtpremnice;
+		this.stavkeNarudzbenice = stavkeNarudzbenice;
 	}
 
 	public Long getIdRobeUsluge() {
@@ -119,12 +135,36 @@ public class RobaUsluga {
 		this.stavkeCenovnika = stavkeCenovnika;
 	}
 
+	public List<StavkaFakture> getStavkeFakture() {
+		return stavkeFakture;
+	}
+
+	public void setStavkeFakture(List<StavkaFakture> stavkeFakture) {
+		this.stavkeFakture = stavkeFakture;
+	}
+
+	public List<StavkaOtpremnice> getStavkeOtpremnice() {
+		return stavkeOtpremnice;
+	}
+
+	public void setStavkeOtpremnice(List<StavkaOtpremnice> stavkeOtpremnice) {
+		this.stavkeOtpremnice = stavkeOtpremnice;
+	}
+
+	public List<StavkaNarudzbenice> getStavkeNarudzbenice() {
+		return stavkeNarudzbenice;
+	}
+
+	public void setStavkeNarudzbenice(List<StavkaNarudzbenice> stavkeNarudzbenice) {
+		this.stavkeNarudzbenice = stavkeNarudzbenice;
+	}
+
 	@Override
 	public String toString() {
 		return "RobaUsluga [idRobeUsluge=" + idRobeUsluge + ", nazivRobeUsluge=" + nazivRobeUsluge + ", opis=" + opis
 				+ ", roba=" + roba + ", jedinicaMere=" + jedinicaMere + ", grupaRobeUsluga=" + grupaRobeUsluga
-				+ ", stavkeCenovnika=" + stavkeCenovnika + "]";
+				+ ", stavkeCenovnika=" + stavkeCenovnika + ", stavkeFakture=" + stavkeFakture + ", stavkeOtpremnice="
+				+ stavkeOtpremnice + ", stavkeNarudzbenice=" + stavkeNarudzbenice + "]";
 	}
-
 	
 }

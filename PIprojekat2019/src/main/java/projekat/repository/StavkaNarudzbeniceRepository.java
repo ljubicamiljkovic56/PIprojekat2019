@@ -5,12 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import projekat.model.PDVStopa;
+import projekat.model.StavkaNarudzbenice;
 @Repository
-public interface PDVStopaRepository extends JpaRepository<PDVStopa, Long> {
+public interface StavkaNarudzbeniceRepository extends JpaRepository<StavkaNarudzbenice, Long> {
 	
-	PDVStopa findByProcenat (double procenat);
-	
-	List<PDVStopa> findAll();
+	List<StavkaNarudzbenice> findAll();
 
 }

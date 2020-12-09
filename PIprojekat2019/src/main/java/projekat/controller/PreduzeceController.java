@@ -93,10 +93,6 @@ public class PreduzeceController {
 		preduzece.setAdresa(adresa);
 		preduzece.setBrojTelefona(brojTelefona);
 		preduzece.setFax(fax);
-		preduzece.setPoslovnaGodina(poslovnaGodina);
-		preduzece.setNaseljenoMesto(mesto);
-		preduzece.setPoslovniPartner(poslovniPartner);
-		preduzece.setCenovnik(cenovnik);
 		preduzeceServiceInterface.save(preduzece);
 		
 		System.out.println("Dodato je novo preduzece");
@@ -136,10 +132,6 @@ public class PreduzeceController {
 			preduzece.setAdresa(adresa);
 			preduzece.setBrojTelefona(brojTelefona);
 			preduzece.setFax(fax);
-			preduzece.setPoslovnaGodina(poslovnaGodina);
-			preduzece.setNaseljenoMesto(mesto);
-			preduzece.setPoslovniPartner(poslovniPartner);
-			preduzece.setCenovnik(cenovnik);
 			preduzeceServiceInterface.save(preduzece);
 			
 			System.out.println("Izmenjeno je preduzece.");

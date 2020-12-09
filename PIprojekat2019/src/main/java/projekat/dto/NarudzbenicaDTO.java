@@ -34,11 +34,7 @@ public class NarudzbenicaDTO implements Serializable {
 	
 	public NarudzbenicaDTO(Narudzbenica narudzbenica) {
 		this.id = narudzbenica.getId();
-		this.nazivRobe = narudzbenica.getNazivRobe();
-		this.jedinicaMere = narudzbenica.getJedinicaMere();
-		this.kolicina = narudzbenica.getKolicina();
-		this.cena = narudzbenica.getCena();
-		this.iznos = narudzbenica.getIznos();
+
 		this.faktura = getFaktura();
 	}
 	

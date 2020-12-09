@@ -21,11 +21,6 @@ public class NarudzbenicaService implements NarudzbenicaServiceInterface {
 	}
 
 	@Override
-	public Narudzbenica findByNazivRobe(String nazivRobe) {
-		return narudzbenicaRepository.findByNazivRobe(nazivRobe);
-	}
-
-	@Override
 	public Narudzbenica findOne(Long id) {
 		return narudzbenicaRepository.findOne(id);
 	}
@@ -40,5 +35,7 @@ public class NarudzbenicaService implements NarudzbenicaServiceInterface {
 		narudzbenicaRepository.delete(id);
 
 	}
+
+	
 
 }

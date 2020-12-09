@@ -1,21 +1,26 @@
 package projekat.model;
 
-import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@SuppressWarnings("serial")
 @Entity
 @Table(name = "otpremnica")
-public class Otpremnica implements Serializable {
+public class Otpremnica {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,23 +48,27 @@ public class Otpremnica implements Serializable {
 	private boolean primioRobu;
 
 	
-	@OneToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_fakture")
 	private Faktura faktura;
 	
-	@OneToOne
-	@JoinColumn(name = "id_stavke_otpremnice")
-	private StavkaOtpremnice stavkaOtpremnice;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_narudzbenice")
+	private Narudzbenica narudzbenica;
 	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<StavkaOtpremnice> stavkeOtpremnice = new ArrayList<StavkaOtpremnice>();
 	
 	
 	public Otpremnica() {
 		super();
 	}
 
+
 	public Otpremnica(Long idOtpremnice, int brojOtpremnice, String kupac, String adresaIsporuke, Date datumIsporuke,
-			String prevoznik, boolean potpisVozaca, boolean primioRobu,
-			Faktura faktura, StavkaOtpremnice stavkaOtpremnice) {
+			String prevoznik, boolean potpisVozaca, boolean primioRobu, Faktura faktura, Narudzbenica narudzbenica,
+			List<StavkaOtpremnice> stavkeOtpremnice) {
 		super();
 		this.idOtpremnice = idOtpremnice;
 		this.brojOtpremnice = brojOtpremnice;
@@ -70,68 +79,85 @@ public class Otpremnica implements Serializable {
 		this.potpisVozaca = potpisVozaca;
 		this.primioRobu = primioRobu;
 		this.faktura = faktura;
-		this.stavkaOtpremnice = stavkaOtpremnice;
+		this.narudzbenica = narudzbenica;
+		this.stavkeOtpremnice = stavkeOtpremnice;
 	}
+
 
 	public Long getIdOtpremnice() {
 		return idOtpremnice;
 	}
 
+
 	public void setIdOtpremnice(Long idOtpremnice) {
 		this.idOtpremnice = idOtpremnice;
 	}
+
 
 	public int getBrojOtpremnice() {
 		return brojOtpremnice;
 	}
 
+
 	public void setBrojOtpremnice(int brojOtpremnice) {
 		this.brojOtpremnice = brojOtpremnice;
 	}
+
 
 	public String getKupac() {
 		return kupac;
 	}
 
+
 	public void setKupac(String kupac) {
 		this.kupac = kupac;
 	}
+
 
 	public String getAdresaIsporuke() {
 		return adresaIsporuke;
 	}
 
+
 	public void setAdresaIsporuke(String adresaIsporuke) {
 		this.adresaIsporuke = adresaIsporuke;
 	}
+
 
 	public Date getDatumIsporuke() {
 		return datumIsporuke;
 	}
 
+
 	public void setDatumIsporuke(Date datumIsporuke) {
 		this.datumIsporuke = datumIsporuke;
 	}
+
 
 	public String getPrevoznik() {
 		return prevoznik;
 	}
 
+
 	public void setPrevoznik(String prevoznik) {
 		this.prevoznik = prevoznik;
 	}
+
 
 	public boolean isPotpisVozaca() {
 		return potpisVozaca;
 	}
 
+
 	public void setPotpisVozaca(boolean potpisVozaca) {
 		this.potpisVozaca = potpisVozaca;
 	}
 
+
 	public boolean isPrimioRobu() {
 		return primioRobu;
 	}
+
 
 	public void setPrimioRobu(boolean primioRobu) {
 		this.primioRobu = primioRobu;
@@ -142,27 +168,37 @@ public class Otpremnica implements Serializable {
 		return faktura;
 	}
 
+
 	public void setFaktura(Faktura faktura) {
 		this.faktura = faktura;
 	}
 
 
-
-	public StavkaOtpremnice getStavkaOtpremnice() {
-		return stavkaOtpremnice;
+	public Narudzbenica getNarudzbenica() {
+		return narudzbenica;
 	}
 
-	public void setStavkaOtpremnice(StavkaOtpremnice stavkaOtpremnice) {
-		this.stavkaOtpremnice = stavkaOtpremnice;
+
+	public void setNarudzbenica(Narudzbenica narudzbenica) {
+		this.narudzbenica = narudzbenica;
 	}
+
+
+	public List<StavkaOtpremnice> getStavkeOtpremnice() {
+		return stavkeOtpremnice;
+	}
+
+
+	public void setStavkeOtpremnice(List<StavkaOtpremnice> stavkeOtpremnice) {
+		this.stavkeOtpremnice = stavkeOtpremnice;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Otpremnica [idOtpremnice=" + idOtpremnice + ", brojOtpremnice=" + brojOtpremnice + ", kupac=" + kupac
 				+ ", adresaIsporuke=" + adresaIsporuke + ", datumIsporuke=" + datumIsporuke + ", prevoznik=" + prevoznik
-				+ ", potpisVozaca=" + potpisVozaca + ", primioRobu=" + primioRobu + ", stavkaOtpremnice="
-				+ stavkaOtpremnice + "]";
+				+ ", potpisVozaca=" + potpisVozaca + ", primioRobu=" + primioRobu + ", faktura=" + faktura
+				+ ", narudzbenica=" + narudzbenica + ", stavkeOtpremnice=" + stavkeOtpremnice + "]";
 	}
-	
-	
 }
