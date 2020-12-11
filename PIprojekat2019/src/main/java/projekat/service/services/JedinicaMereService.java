@@ -26,12 +26,6 @@ public class JedinicaMereService implements JedinicaMereServiceInterface {
 	}
 
 	@Override
-	public void add(JedinicaMere jedinicaMere) {
-		jedinicaMereRepository.save(jedinicaMere);
-
-	}
-
-	@Override
 	public JedinicaMere save(JedinicaMere jedinicaMere) {
 		return jedinicaMereRepository.save(jedinicaMere);
 		

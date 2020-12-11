@@ -9,8 +9,6 @@ public interface JedinicaMereServiceInterface {
 	JedinicaMere findByNazivJediniceMere (String nazivJediniceMere);
 	
 	JedinicaMere findBySkraceniNaziv (String skraceniNaziv);
-	
-	void add(JedinicaMere jedinicaMere);
 
 	JedinicaMere save(JedinicaMere jedinicaMere);
 

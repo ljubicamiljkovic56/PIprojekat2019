@@ -4,7 +4,6 @@ import java.util.List;
 
 import projekat.model.Narudzbenica;
 
-
 public interface NarudzbenicaServiceInterface {
 	
 	Narudzbenica save(Narudzbenica narudzbenica);

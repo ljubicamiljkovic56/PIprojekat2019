@@ -9,8 +9,6 @@ public interface KorisnikServiceInterface {
 	Korisnik findByUsername(String username);
 
 	Korisnik findByUsernameAndPassword(String username, String password);
-	
-	void add(Korisnik korisnik);
 
 	Korisnik save(Korisnik korisnik);
 

@@ -4,8 +4,6 @@ import java.util.List;
 
 import projekat.model.RobaUsluga;
 
-
-
 public interface RobaUslugaServiceInterface {
 	
 	RobaUsluga save(RobaUsluga robaUsluga);

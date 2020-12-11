@@ -21,11 +21,6 @@ public class PDVStopaService implements PDVStopaServiceInterface {
 	}
 
 	@Override
-	public void add(PDVStopa pdvStopa) {
-		pdvStopaRepository.save(pdvStopa);
-	}
-
-	@Override
 	public PDVStopa save(PDVStopa pdvStopa) {
 		return pdvStopaRepository.save(pdvStopa);
 	}

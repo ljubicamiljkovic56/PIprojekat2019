@@ -5,7 +5,6 @@ import java.util.List;
 import projekat.model.Proizvod;
 
 public interface ProizvodServiceInterface {
-
 	
 	Proizvod save(Proizvod proizvod);
     

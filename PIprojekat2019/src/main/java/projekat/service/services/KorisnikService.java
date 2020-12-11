@@ -26,12 +26,6 @@ public class KorisnikService implements KorisnikServiceInterface {
 	}
 
 	@Override
-	public void add(Korisnik korisnik) {
-		korisnikRepository.save(korisnik);
-
-	}
-
-	@Override
 	public Korisnik save(Korisnik korisnik) {
 		return korisnikRepository.save(korisnik);
 	}

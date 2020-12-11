@@ -21,12 +21,6 @@ public class GrupaRobeUslugaService implements GrupaRobeUslugaServiceInterface {
 	}
 
 	@Override
-	public void add(GrupaRobeUsluga grupaRobe) {
-		grupaRobeUslugaRepository.save(grupaRobe);
-
-	}
-
-	@Override
 	public GrupaRobeUsluga save(GrupaRobeUsluga grupaRobe) {
 		return grupaRobeUslugaRepository.save(grupaRobe);
 	}

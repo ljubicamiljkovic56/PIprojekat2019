@@ -7,8 +7,6 @@ import projekat.model.PDVStopa;
 public interface PDVStopaServiceInterface {
 	
 	PDVStopa findByProcenat(double procenat);
-	
-	void add(PDVStopa pdvStopa);
 
 	PDVStopa save(PDVStopa pdvStopa);
 

@@ -4,8 +4,6 @@ import java.util.List;
 
 import projekat.model.Preduzece;
 
-
-
 public interface PreduzeceServiceInterface {
 	
 	Preduzece findByNazivPreduzeca (String nazivPreduzeca);

@@ -21,12 +21,6 @@ public class PDVKategorijaService implements PDVKategorijaServiceInterface {
 	}
 
 	@Override
-	public void add(PDVKategorija pdvKategorija) {
-		pdvKategorijaRepository.save(pdvKategorija);
-
-	}
-
-	@Override
 	public PDVKategorija save(PDVKategorija pdvKategorija) {
 		return pdvKategorijaRepository.save(pdvKategorija);
 	}

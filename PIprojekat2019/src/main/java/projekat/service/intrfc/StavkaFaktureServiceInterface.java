@@ -4,7 +4,6 @@ import java.util.List;
 
 import projekat.model.StavkaFakture;
 
-
 public interface StavkaFaktureServiceInterface {
 	
 	StavkaFakture findByJedinicnaCena (double jedinicnaCena);

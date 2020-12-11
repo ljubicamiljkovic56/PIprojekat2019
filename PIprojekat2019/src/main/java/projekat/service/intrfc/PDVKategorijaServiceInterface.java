@@ -4,13 +4,9 @@ import java.util.List;
 
 import projekat.model.PDVKategorija;
 
-
-
 public interface PDVKategorijaServiceInterface {
 	
 	PDVKategorija findByNazivKategorije(String nazivKategorije);
-	
-	void add(PDVKategorija pdvKategorija);
 
 	PDVKategorija save(PDVKategorija pdvKategorija);
 

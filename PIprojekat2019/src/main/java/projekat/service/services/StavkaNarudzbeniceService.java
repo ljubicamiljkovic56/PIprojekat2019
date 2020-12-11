@@ -19,6 +19,21 @@ public class StavkaNarudzbeniceService implements StavkaNarudzbeniceServiceInter
 	public List<StavkaNarudzbenice> findAll() {
 		return stavkaNarudzbeniceRepository.findAll();
 	}
+
+	@Override
+	public StavkaNarudzbenice save(StavkaNarudzbenice stavkaNarudzbenice) {
+		return stavkaNarudzbeniceRepository.save(stavkaNarudzbenice);
+	}
+
+	@Override
+	public StavkaNarudzbenice findOne(Long id) {
+		return stavkaNarudzbeniceRepository.findOne(id);
+	}
+
+	@Override
+	public void remove(Long id) {
+		stavkaNarudzbeniceRepository.delete(id);
+	}
 	
 	
 

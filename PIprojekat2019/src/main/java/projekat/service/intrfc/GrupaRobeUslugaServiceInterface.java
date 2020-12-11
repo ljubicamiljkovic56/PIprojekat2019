@@ -7,8 +7,6 @@ import projekat.model.GrupaRobeUsluga;
 public interface GrupaRobeUslugaServiceInterface {
 	
 	GrupaRobeUsluga findByNazivGrupe (String nazivGrupe);
-	
-	void add(GrupaRobeUsluga grupaRobe);
 
 	GrupaRobeUsluga save(GrupaRobeUsluga grupaRobe);
 

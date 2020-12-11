@@ -4,7 +4,6 @@ import java.util.List;
 
 import projekat.model.PoslovniPartner;
 
-
 public interface PoslovniPartnerServiceInterface {
 	
 	PoslovniPartner findByNazivPoslovnogPartnera (String nazivPoslovnogPartnera);
