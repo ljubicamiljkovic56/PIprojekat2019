@@ -22,7 +22,10 @@ public class PreduzeceToPreduzeceDTO implements Converter<Preduzece, PreduzeceDT
 		preduzeceDTO.setAdresa(preduzece.getAdresa());
 		preduzeceDTO.setBrojTelefona(preduzece.getBrojTelefona());
 		preduzeceDTO.setFax(preduzece.getFax());
-		preduzeceDTO.setIdMesta(preduzece.getNaseljenoMesto().getIdMesta());
+		
+		if(preduzece.getNaseljenoMesto() != null) {
+			preduzeceDTO.setIdMesta(preduzece.getNaseljenoMesto().getIdMesta());
+		}
 		
 		return preduzeceDTO;
 	}

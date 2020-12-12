@@ -17,7 +17,10 @@ public class GrupaRobeUslugaToGrupaRobeUslugaDTO implements Converter<GrupaRobeU
 
 		grupaRobeUslugaDto.setIdGrupe(source.getIdGrupe());
 		grupaRobeUslugaDto.setNazivGrupe(source.getNazivGrupe());
-		grupaRobeUslugaDto.setIdPDVKategorija(source.getPdvKategorija().getIdKategorije());
+		
+		if(source.getPdvKategorija() != null) {
+			grupaRobeUslugaDto.setIdPDVKategorija(source.getPdvKategorija().getIdKategorije());
+		}
 
 		return grupaRobeUslugaDto;
 	}

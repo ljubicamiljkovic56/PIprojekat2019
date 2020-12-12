@@ -21,8 +21,15 @@ public class RobaUslugaToRobaUslugaDTO implements Converter<RobaUsluga, RobaUslu
 		robaUslugaDTO.setNazivRobeUsluge(source.getNazivRobeUsluge());
 		robaUslugaDTO.setOpis(source.getOpis());
 		robaUslugaDTO.setRoba(source.isRoba());
-		robaUslugaDTO.setIdJedinicaMere(source.getJedinicaMere().getIdJediniceMere());
-		robaUslugaDTO.setIdGrupeRobeUsluga(source.getGrupaRobeUsluga().getIdGrupe());
+		
+		if(source.getJedinicaMere() != null) {
+			robaUslugaDTO.setIdJedinicaMere(source.getJedinicaMere().getIdJediniceMere());
+		}
+		
+		if(source.getGrupaRobeUsluga() != null) {
+			robaUslugaDTO.setIdGrupeRobeUsluga(source.getGrupaRobeUsluga().getIdGrupe());
+		}
+
 		
 		return robaUslugaDTO;
 	}

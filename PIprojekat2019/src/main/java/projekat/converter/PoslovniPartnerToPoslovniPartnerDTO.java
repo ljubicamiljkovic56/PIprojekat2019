@@ -24,9 +24,14 @@ public class PoslovniPartnerToPoslovniPartnerDTO implements Converter<PoslovniPa
 		poslovniPartnerDto.setFax(source.getFax());
 		poslovniPartnerDto.setEmail(source.getEmail());
 		poslovniPartnerDto.setVrstaPartnera(source.getVrstaPartnera());
-		poslovniPartnerDto.setIdMesta(source.getNaseljenoMesto().getIdMesta());
-		poslovniPartnerDto.setIdPreduzeca(source.getPreduzece().getIdPreduzeca());
-
+		
+		if(source.getNaseljenoMesto() != null) {
+			poslovniPartnerDto.setIdMesta(source.getNaseljenoMesto().getIdMesta());
+		}
+		
+		if(source.getPreduzece() != null) {
+			poslovniPartnerDto.setIdPreduzeca(source.getPreduzece().getIdPreduzeca());
+		}
 		return poslovniPartnerDto;
 	}
 	
