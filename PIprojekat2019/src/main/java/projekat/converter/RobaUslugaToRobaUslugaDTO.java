@@ -14,20 +14,20 @@ public class RobaUslugaToRobaUslugaDTO implements Converter<RobaUsluga, RobaUslu
 	
 	
 	@Override
-	public RobaUslugaDTO convert(RobaUsluga source) {
+	public RobaUslugaDTO convert(RobaUsluga roba) {
 		RobaUslugaDTO robaUslugaDTO = new RobaUslugaDTO();
 		
-		robaUslugaDTO.setIdRobeUsluge(source.getIdRobeUsluge());
-		robaUslugaDTO.setNazivRobeUsluge(source.getNazivRobeUsluge());
-		robaUslugaDTO.setOpis(source.getOpis());
-		robaUslugaDTO.setRoba(source.isRoba());
+		robaUslugaDTO.setIdRobeUsluge(roba.getIdRobeUsluge());
+		robaUslugaDTO.setNazivRobeUsluge(roba.getNazivRobeUsluge());
+		robaUslugaDTO.setOpis(roba.getOpis());
+		robaUslugaDTO.setRoba(roba.isRoba());
 		
-		if(source.getJedinicaMere() != null) {
-			robaUslugaDTO.setIdJedinicaMere(source.getJedinicaMere().getIdJediniceMere());
+		if(roba.getJedinicaMere() != null) {
+			robaUslugaDTO.setIdJedinicaMere(roba.getJedinicaMere().getIdJediniceMere());
 		}
 		
-		if(source.getGrupaRobeUsluga() != null) {
-			robaUslugaDTO.setIdGrupeRobeUsluga(source.getGrupaRobeUsluga().getIdGrupe());
+		if(roba.getGrupaRobeUsluga() != null) {
+			robaUslugaDTO.setIdGrupeRobeUsluga(roba.getGrupaRobeUsluga().getIdGrupe());
 		}
 
 		

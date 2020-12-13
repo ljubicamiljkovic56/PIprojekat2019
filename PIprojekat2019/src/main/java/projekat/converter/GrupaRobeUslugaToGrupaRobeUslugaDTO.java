@@ -12,14 +12,14 @@ import projekat.model.GrupaRobeUsluga;
 public class GrupaRobeUslugaToGrupaRobeUslugaDTO implements Converter<GrupaRobeUsluga, GrupaRobeUslugaDTO> {
 	
 	@Override
-	public GrupaRobeUslugaDTO convert(GrupaRobeUsluga source) {
+	public GrupaRobeUslugaDTO convert(GrupaRobeUsluga grupa) {
 		GrupaRobeUslugaDTO grupaRobeUslugaDto = new GrupaRobeUslugaDTO();
 
-		grupaRobeUslugaDto.setIdGrupe(source.getIdGrupe());
-		grupaRobeUslugaDto.setNazivGrupe(source.getNazivGrupe());
+		grupaRobeUslugaDto.setIdGrupe(grupa.getIdGrupe());
+		grupaRobeUslugaDto.setNazivGrupe(grupa.getNazivGrupe());
 		
-		if(source.getPdvKategorija() != null) {
-			grupaRobeUslugaDto.setIdPDVKategorija(source.getPdvKategorija().getIdKategorije());
+		if(grupa.getPdvKategorija() != null) {
+			grupaRobeUslugaDto.setIdPDVKategorija(grupa.getPdvKategorija().getIdKategorije());
 		}
 
 		return grupaRobeUslugaDto;

@@ -13,13 +13,13 @@ import projekat.model.NaseljenoMesto;
 public class NaseljenoMestoToNaseljenoMestoDTO implements Converter<NaseljenoMesto, NaseljenoMestoDTO> {
 
 	@Override
-	public NaseljenoMestoDTO convert(NaseljenoMesto source) {
+	public NaseljenoMestoDTO convert(NaseljenoMesto mesto) {
 		
 		NaseljenoMestoDTO mestoDto = new NaseljenoMestoDTO();
 		
-		mestoDto.setIdMesta(source.getIdMesta());
-		mestoDto.setNazivMesta(source.getNazivMesta());
-		mestoDto.setPttBroj(source.getPttBroj());
+		mestoDto.setIdMesta(mesto.getIdMesta());
+		mestoDto.setNazivMesta(mesto.getNazivMesta());
+		mestoDto.setPttBroj(mesto.getPttBroj());
 		
 		return mestoDto;
 	}

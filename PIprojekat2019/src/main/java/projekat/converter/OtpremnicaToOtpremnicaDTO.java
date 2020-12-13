@@ -13,25 +13,25 @@ import projekat.model.Otpremnica;
 public class OtpremnicaToOtpremnicaDTO implements Converter<Otpremnica, OtpremnicaDTO> {
 	
 	@Override
-	public OtpremnicaDTO convert(Otpremnica source) {
+	public OtpremnicaDTO convert(Otpremnica otp) {
 		
 		OtpremnicaDTO otpremnicaDTO = new OtpremnicaDTO();
 		
-		otpremnicaDTO.setIdOtpremnice(source.getIdOtpremnice());
-		otpremnicaDTO.setBrojOtpremnice(source.getBrojOtpremnice());
-		otpremnicaDTO.setKupac(source.getKupac());
-		otpremnicaDTO.setAdresaIsporuke(source.getAdresaIsporuke());
-		otpremnicaDTO.setDatumIsporuke(source.getDatumIsporuke());
-		otpremnicaDTO.setPrevoznik(source.getPrevoznik());
-		otpremnicaDTO.setPotpisVozaca(source.isPotpisVozaca());
-		otpremnicaDTO.setPrimioRobu(source.isPrimioRobu());
+		otpremnicaDTO.setIdOtpremnice(otp.getIdOtpremnice());
+		otpremnicaDTO.setBrojOtpremnice(otp.getBrojOtpremnice());
+		otpremnicaDTO.setKupac(otp.getKupac());
+		otpremnicaDTO.setAdresaIsporuke(otp.getAdresaIsporuke());
+		otpremnicaDTO.setDatumIsporuke(otp.getDatumIsporuke());
+		otpremnicaDTO.setPrevoznik(otp.getPrevoznik());
+		otpremnicaDTO.setPotpisVozaca(otp.isPotpisVozaca());
+		otpremnicaDTO.setPrimioRobu(otp.isPrimioRobu());
 		
-		if(source.getFaktura() != null) {
-			otpremnicaDTO.setIdFakture(source.getFaktura().getIdFakture());
+		if(otp.getFaktura() != null) {
+			otpremnicaDTO.setIdFakture(otp.getFaktura().getIdFakture());
 		}
 		
-		if(source.getNarudzbenica() != null) {
-			otpremnicaDTO.setIdNarudzbenice(source.getNarudzbenica().getId());
+		if(otp.getNarudzbenica() != null) {
+			otpremnicaDTO.setIdNarudzbenice(otp.getNarudzbenica().getId());
 		}
 		
 		return otpremnicaDTO;

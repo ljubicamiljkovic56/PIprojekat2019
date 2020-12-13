@@ -13,15 +13,15 @@ import projekat.model.Cenovnik;
 public class CenovnikToCenovnikDTO implements Converter<Cenovnik, CenovnikDTO> {
 	
 	@Override
-	public CenovnikDTO convert(Cenovnik source) {
+	public CenovnikDTO convert(Cenovnik cenovnik) {
 		
 		CenovnikDTO cenovnikDTO = new CenovnikDTO();
 		
-		cenovnikDTO.setIdCenovnika(source.getIdCenovnika());
-		cenovnikDTO.setDatumPocetkaVazenja(source.getDatumPocetkaVazenja());
+		cenovnikDTO.setIdCenovnika(cenovnik.getIdCenovnika());
+		cenovnikDTO.setDatumPocetkaVazenja(cenovnik.getDatumPocetkaVazenja());
 		
-		if(source.getPreduzece() != null) {
-			cenovnikDTO.setIdPreduzeca(source.getPreduzece().getIdPreduzeca());
+		if(cenovnik.getPreduzece() != null) {
+			cenovnikDTO.setIdPreduzeca(cenovnik.getPreduzece().getIdPreduzeca());
 		}
 		
 		return cenovnikDTO;

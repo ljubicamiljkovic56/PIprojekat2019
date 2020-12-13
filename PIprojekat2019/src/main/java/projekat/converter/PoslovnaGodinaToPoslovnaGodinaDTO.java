@@ -13,16 +13,16 @@ import projekat.model.PoslovnaGodina;
 public class PoslovnaGodinaToPoslovnaGodinaDTO implements Converter<PoslovnaGodina, PoslovnaGodinaDTO> {
 	
 	@Override
-	public PoslovnaGodinaDTO convert(PoslovnaGodina source) {
+	public PoslovnaGodinaDTO convert(PoslovnaGodina pGodina) {
 		
 		PoslovnaGodinaDTO poslovnaGodinaDTO = new PoslovnaGodinaDTO();
 		
-		poslovnaGodinaDTO.setIdGodine(source.getIdGodine());
-		poslovnaGodinaDTO.setGodina(source.getGodina());
-		poslovnaGodinaDTO.setZakljucena(source.isZakljucena());
+		poslovnaGodinaDTO.setIdGodine(pGodina.getIdGodine());
+		poslovnaGodinaDTO.setGodina(pGodina.getGodina());
+		poslovnaGodinaDTO.setZakljucena(pGodina.isZakljucena());
 		
-		if(source.getPreduzece() != null) {
-			poslovnaGodinaDTO.setIdPreduzeca(source.getPreduzece().getIdPreduzeca());
+		if(pGodina.getPreduzece() != null) {
+			poslovnaGodinaDTO.setIdPreduzeca(pGodina.getPreduzece().getIdPreduzeca());
 		}
 		
 		

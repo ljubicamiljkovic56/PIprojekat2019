@@ -13,24 +13,24 @@ import projekat.model.PoslovniPartner;
 public class PoslovniPartnerToPoslovniPartnerDTO implements Converter<PoslovniPartner, PoslovniPartnerDTO> {
 	
 	@Override
-	public PoslovniPartnerDTO convert(PoslovniPartner source) {
+	public PoslovniPartnerDTO convert(PoslovniPartner partner) {
 		
 		PoslovniPartnerDTO poslovniPartnerDto = new PoslovniPartnerDTO();
 		
-		poslovniPartnerDto.setIdPoslovnogPartnera(source.getIdPoslovnogPartnera());
-		poslovniPartnerDto.setNazivPoslovnogPartnera(source.getNazivPoslovnogPartnera());
-		poslovniPartnerDto.setAdresa(source.getAdresa());
-		poslovniPartnerDto.setTelefon(source.getTelefon());
-		poslovniPartnerDto.setFax(source.getFax());
-		poslovniPartnerDto.setEmail(source.getEmail());
-		poslovniPartnerDto.setVrstaPartnera(source.getVrstaPartnera());
+		poslovniPartnerDto.setIdPoslovnogPartnera(partner.getIdPoslovnogPartnera());
+		poslovniPartnerDto.setNazivPoslovnogPartnera(partner.getNazivPoslovnogPartnera());
+		poslovniPartnerDto.setAdresa(partner.getAdresa());
+		poslovniPartnerDto.setTelefon(partner.getTelefon());
+		poslovniPartnerDto.setFax(partner.getFax());
+		poslovniPartnerDto.setEmail(partner.getEmail());
+		poslovniPartnerDto.setVrstaPartnera(partner.getVrstaPartnera());
 		
-		if(source.getNaseljenoMesto() != null) {
-			poslovniPartnerDto.setIdMesta(source.getNaseljenoMesto().getIdMesta());
+		if(partner.getNaseljenoMesto() != null) {
+			poslovniPartnerDto.setIdMesta(partner.getNaseljenoMesto().getIdMesta());
 		}
 		
-		if(source.getPreduzece() != null) {
-			poslovniPartnerDto.setIdPreduzeca(source.getPreduzece().getIdPreduzeca());
+		if(partner.getPreduzece() != null) {
+			poslovniPartnerDto.setIdPreduzeca(partner.getPreduzece().getIdPreduzeca());
 		}
 		return poslovniPartnerDto;
 	}

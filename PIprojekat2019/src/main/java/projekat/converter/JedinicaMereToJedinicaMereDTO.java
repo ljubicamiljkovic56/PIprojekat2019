@@ -13,13 +13,13 @@ import projekat.model.JedinicaMere;
 public class JedinicaMereToJedinicaMereDTO implements Converter<JedinicaMere, JedinicaMereDTO> {
 	
 	@Override
-	public JedinicaMereDTO convert(JedinicaMere source) {
+	public JedinicaMereDTO convert(JedinicaMere jedinica) {
 		
 		JedinicaMereDTO jedinicaMereDto = new JedinicaMereDTO();
 		
-		jedinicaMereDto.setIdJediniceMere(source.getIdJediniceMere());
-		jedinicaMereDto.setNazivJediniceMere(source.getNazivJediniceMere());
-		jedinicaMereDto.setSkraceniNaziv(source.getSkraceniNaziv());
+		jedinicaMereDto.setIdJediniceMere(jedinica.getIdJediniceMere());
+		jedinicaMereDto.setNazivJediniceMere(jedinica.getNazivJediniceMere());
+		jedinicaMereDto.setSkraceniNaziv(jedinica.getSkraceniNaziv());
 		
 		return jedinicaMereDto;
 	}

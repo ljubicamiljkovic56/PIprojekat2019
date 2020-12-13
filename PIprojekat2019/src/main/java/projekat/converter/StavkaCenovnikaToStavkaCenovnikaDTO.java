@@ -13,19 +13,19 @@ import projekat.model.StavkaCenovnika;
 public class StavkaCenovnikaToStavkaCenovnikaDTO implements Converter<StavkaCenovnika, StavkaCenovnikaDTO> {
 
 	@Override
-	public StavkaCenovnikaDTO convert(StavkaCenovnika source) {
+	public StavkaCenovnikaDTO convert(StavkaCenovnika stavkaC) {
 		
 		StavkaCenovnikaDTO stavkaCenovnikaDTO = new StavkaCenovnikaDTO();
 
-		stavkaCenovnikaDTO.setIdCenovnika(source.getIdStavke());
-		stavkaCenovnikaDTO.setCena(source.getCena());
+		stavkaCenovnikaDTO.setIdCenovnika(stavkaC.getIdStavke());
+		stavkaCenovnikaDTO.setCena(stavkaC.getCena());
 		
-		if(source.getCenovnik() != null) {
-			stavkaCenovnikaDTO.setIdCenovnika(source.getCenovnik().getIdCenovnika());
+		if(stavkaC.getCenovnik() != null) {
+			stavkaCenovnikaDTO.setIdCenovnika(stavkaC.getCenovnik().getIdCenovnika());
 		}
 		
-		if(source.getRobaUsluga() != null) {
-			stavkaCenovnikaDTO.setIdRobeUsluge(source.getRobaUsluga().getIdRobeUsluge());
+		if(stavkaC.getRobaUsluga() != null) {
+			stavkaCenovnikaDTO.setIdRobeUsluge(stavkaC.getRobaUsluga().getIdRobeUsluge());
 		}
 		return stavkaCenovnikaDTO;
 	}
