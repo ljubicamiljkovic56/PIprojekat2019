@@ -16,15 +16,15 @@ public class PoslovnaGodinaDTOtoPoslovnaGodina implements Converter<PoslovnaGodi
 	private PreduzeceServiceInterface preduzeceServiceInterface;
 	
 	@Override
-	public PoslovnaGodina convert(PoslovnaGodinaDTO source) {
+	public PoslovnaGodina convert(PoslovnaGodinaDTO godinaDTO) {
 		
 		PoslovnaGodina godina = new PoslovnaGodina();
 		
-		godina.setIdGodine(source.getIdGodine());
-		godina.setGodina(source.getGodina());
-		godina.setZakljucena(source.isZakljucena());
+		godina.setIdGodine(godinaDTO.getIdGodine());
+		godina.setGodina(godinaDTO.getGodina());
+		godina.setZakljucena(godinaDTO.isZakljucena());
 		
-		Preduzece preduzece = preduzeceServiceInterface.findOne(source.getIdPreduzeca());
+		Preduzece preduzece = preduzeceServiceInterface.findOne(godinaDTO.getIdPreduzeca());
 		if(preduzece != null) {
 			godina.setPreduzece(preduzece);
 		}

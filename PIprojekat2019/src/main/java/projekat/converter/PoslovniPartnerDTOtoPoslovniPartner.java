@@ -21,24 +21,24 @@ public class PoslovniPartnerDTOtoPoslovniPartner implements Converter<PoslovniPa
 	private PreduzeceServiceInterface preduzeceServiceInterface;
 	
 	@Override
-	public PoslovniPartner convert(PoslovniPartnerDTO source) {
+	public PoslovniPartner convert(PoslovniPartnerDTO partnerDTO) {
 		
 		PoslovniPartner partner = new PoslovniPartner();
 		
-		partner.setIdPoslovnogPartnera(source.getIdPoslovnogPartnera());
-		partner.setNazivPoslovnogPartnera(source.getNazivPoslovnogPartnera());
-		partner.setAdresa(source.getAdresa());
-		partner.setTelefon(source.getTelefon());
-		partner.setFax(source.getFax());
-		partner.setEmail(source.getEmail());
-		partner.setVrstaPartnera(source.getVrstaPartnera());
+		partner.setIdPoslovnogPartnera(partnerDTO.getIdPoslovnogPartnera());
+		partner.setNazivPoslovnogPartnera(partnerDTO.getNazivPoslovnogPartnera());
+		partner.setAdresa(partnerDTO.getAdresa());
+		partner.setTelefon(partnerDTO.getTelefon());
+		partner.setFax(partnerDTO.getFax());
+		partner.setEmail(partnerDTO.getEmail());
+		partner.setVrstaPartnera(partnerDTO.getVrstaPartnera());
 		
-		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findOne(source.getIdMesta());
+		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findOne(partnerDTO.getIdMesta());
 		if(mesto != null) {
 			partner.setNaseljenoMesto(mesto);
 		}
 		
-		Preduzece preduzece = preduzeceServiceInterface.findOne(source.getIdPreduzeca());
+		Preduzece preduzece = preduzeceServiceInterface.findOne(partnerDTO.getIdPreduzeca());
 		if(preduzece != null) {
 			partner.setPreduzece(preduzece);
 		}

@@ -21,19 +21,19 @@ public class StavkaCenovnikaDTOtoStavkaCenovnika implements Converter<StavkaCeno
 	private RobaUslugaServiceInterface robaUslugaServiceInterface;
 	
 	@Override
-	public StavkaCenovnika convert(StavkaCenovnikaDTO source) {
+	public StavkaCenovnika convert(StavkaCenovnikaDTO stDTO) {
 		
 		StavkaCenovnika stavkaCenovnika = new StavkaCenovnika();
 		
-		stavkaCenovnika.setIdStavke(source.getIdStavke());
-		stavkaCenovnika.setCena(source.getCena());
+		stavkaCenovnika.setIdStavke(stDTO.getIdStavke());
+		stavkaCenovnika.setCena(stDTO.getCena());
 		
-		Cenovnik cenovnik = cenovnikServiceInterface.findOne(source.getIdCenovnika());
+		Cenovnik cenovnik = cenovnikServiceInterface.findOne(stDTO.getIdCenovnika());
 		if(cenovnik != null) {
 			stavkaCenovnika.setCenovnik(cenovnik);
 		}
 		
-		RobaUsluga roba = robaUslugaServiceInterface.findOne(source.getIdRobeUsluge());
+		RobaUsluga roba = robaUslugaServiceInterface.findOne(stDTO.getIdRobeUsluge());
 		if(roba != null) {
 			stavkaCenovnika.setRobaUsluga(roba);
 		}

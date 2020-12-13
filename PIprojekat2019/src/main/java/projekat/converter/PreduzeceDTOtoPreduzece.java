@@ -16,17 +16,17 @@ public class PreduzeceDTOtoPreduzece implements Converter<PreduzeceDTO, Preduzec
 	private NaseljenoMestoServiceInterface naseljenoMestoServiceInterface;
 	
 	@Override
-	public Preduzece convert(PreduzeceDTO source) {
+	public Preduzece convert(PreduzeceDTO preduzeceDTO) {
 		
 		Preduzece preduzece = new Preduzece();
 		
-		preduzece.setIdPreduzeca(source.getIdPreduzeca());
-		preduzece.setNazivPreduzeca(source.getNazivPreduzeca());
-		preduzece.setAdresa(source.getAdresa());
-		preduzece.setBrojTelefona(source.getBrojTelefona());
-		preduzece.setFax(source.getFax());
+		preduzece.setIdPreduzeca(preduzeceDTO.getIdPreduzeca());
+		preduzece.setNazivPreduzeca(preduzeceDTO.getNazivPreduzeca());
+		preduzece.setAdresa(preduzeceDTO.getAdresa());
+		preduzece.setBrojTelefona(preduzeceDTO.getBrojTelefona());
+		preduzece.setFax(preduzeceDTO.getFax());
 		
-		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findOne(source.getIdMesta());
+		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findOne(preduzeceDTO.getIdMesta());
 		if(mesto != null) {
 			preduzece.setNaseljenoMesto(mesto);
 		}

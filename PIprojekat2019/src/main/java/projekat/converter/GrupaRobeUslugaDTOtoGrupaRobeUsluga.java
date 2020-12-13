@@ -16,13 +16,13 @@ public class GrupaRobeUslugaDTOtoGrupaRobeUsluga implements Converter<GrupaRobeU
 	private PDVKategorijaServiceInterface pdvKategorijaServiceInterface;
 
 	@Override
-	public GrupaRobeUsluga convert(GrupaRobeUslugaDTO source) {
+	public GrupaRobeUsluga convert(GrupaRobeUslugaDTO grupaDTO) {
 		
         GrupaRobeUsluga grupaRobe = new GrupaRobeUsluga();
         
-        grupaRobe.setIdGrupe(source.getIdGrupe());
-        grupaRobe.setNazivGrupe(source.getNazivGrupe());
-        PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findOne(source.getIdPDVKategorija());
+        grupaRobe.setIdGrupe(grupaDTO.getIdGrupe());
+        grupaRobe.setNazivGrupe(grupaDTO.getNazivGrupe());
+        PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findOne(grupaDTO.getIdPDVKategorija());
         if(pdvKategorija != null){
             grupaRobe.setPdvKategorija(pdvKategorija);
         }

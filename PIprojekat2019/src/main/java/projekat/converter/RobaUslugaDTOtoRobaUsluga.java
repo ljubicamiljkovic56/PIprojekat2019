@@ -20,21 +20,21 @@ public class RobaUslugaDTOtoRobaUsluga implements Converter<RobaUslugaDTO, RobaU
 	private GrupaRobeUslugaServiceInterface grupaRobeUslugaServiceInterface;
 	
 	@Override
-	public RobaUsluga convert(RobaUslugaDTO source) {
+	public RobaUsluga convert(RobaUslugaDTO robaDTO) {
 		
 		RobaUsluga robaUsluga = new RobaUsluga();
 		
-		robaUsluga.setIdRobeUsluge(source.getIdRobeUsluge());
-		robaUsluga.setNazivRobeUsluge(source.getNazivRobeUsluge());
-		robaUsluga.setOpis(source.getOpis());
-		robaUsluga.setRoba(source.isRoba());
+		robaUsluga.setIdRobeUsluge(robaDTO.getIdRobeUsluge());
+		robaUsluga.setNazivRobeUsluge(robaDTO.getNazivRobeUsluge());
+		robaUsluga.setOpis(robaDTO.getOpis());
+		robaUsluga.setRoba(robaDTO.isRoba());
 		
-		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findOne(source.getIdJedinicaMere());
+		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findOne(robaDTO.getIdJedinicaMere());
 		if(jedinicaMere != null) {
 			robaUsluga.setJedinicaMere(jedinicaMere);
 		}
 		
-		GrupaRobeUsluga grupaRobe = grupaRobeUslugaServiceInterface.findOne(source.getIdGrupeRobeUsluga());
+		GrupaRobeUsluga grupaRobe = grupaRobeUslugaServiceInterface.findOne(robaDTO.getIdGrupeRobeUsluga());
 		if(grupaRobe != null) {
 			robaUsluga.setGrupaRobeUsluga(grupaRobe);
 		}

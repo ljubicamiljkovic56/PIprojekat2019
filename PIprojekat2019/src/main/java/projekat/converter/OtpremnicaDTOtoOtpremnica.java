@@ -21,25 +21,25 @@ public class OtpremnicaDTOtoOtpremnica implements Converter<OtpremnicaDTO, Otpre
 	private NarudzbenicaServiceInterface narudzbenicaServiceInterface;
 	
 	@Override
-	public Otpremnica convert(OtpremnicaDTO source) {
+	public Otpremnica convert(OtpremnicaDTO otpDTO) {
 		
 		Otpremnica otpremnica = new Otpremnica();
 		
-		otpremnica.setIdOtpremnice(source.getIdOtpremnice());
-		otpremnica.setBrojOtpremnice(source.getBrojOtpremnice());
-		otpremnica.setKupac(source.getKupac());
-		otpremnica.setAdresaIsporuke(source.getAdresaIsporuke());
-		otpremnica.setDatumIsporuke(source.getDatumIsporuke());
-		otpremnica.setPrevoznik(source.getPrevoznik());
-		otpremnica.setPotpisVozaca(source.isPotpisVozaca());
-		otpremnica.setPrimioRobu(source.isPrimioRobu());
+		otpremnica.setIdOtpremnice(otpDTO.getIdOtpremnice());
+		otpremnica.setBrojOtpremnice(otpDTO.getBrojOtpremnice());
+		otpremnica.setKupac(otpDTO.getKupac());
+		otpremnica.setAdresaIsporuke(otpDTO.getAdresaIsporuke());
+		otpremnica.setDatumIsporuke(otpDTO.getDatumIsporuke());
+		otpremnica.setPrevoznik(otpDTO.getPrevoznik());
+		otpremnica.setPotpisVozaca(otpDTO.isPotpisVozaca());
+		otpremnica.setPrimioRobu(otpDTO.isPrimioRobu());
 		
-		Faktura faktura = fakturaServiceInterface.findOne(source.getIdFakture());
+		Faktura faktura = fakturaServiceInterface.findOne(otpDTO.getIdFakture());
 		if(faktura != null) {
 			otpremnica.setFaktura(faktura);
 		}
 		
-		Narudzbenica narudzbenica = narudzbenicaServiceInterface.findOne(source.getIdNarudzbenice());
+		Narudzbenica narudzbenica = narudzbenicaServiceInterface.findOne(otpDTO.getIdNarudzbenice());
 		if(narudzbenica != null) {
 			otpremnica.setNarudzbenica(narudzbenica);
 		}
