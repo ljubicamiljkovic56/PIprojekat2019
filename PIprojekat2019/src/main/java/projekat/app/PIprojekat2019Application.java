@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableAutoConfiguration
 //@EnableAutoConfiguration(exclude = JpaRepositoriesAutoConfiguration.class)
-@ComponentScan(basePackages= {"projekat.model", "projekat.controller", "projekat.service.intrfc", "projekat.service.services", "projekat.repository", "projekat.dto"})
+@ComponentScan(basePackages= {"projekat.model", "projekat.controller", "projekat.service.intrfc", "projekat.service.services", "projekat.repository", "projekat.dto", "projekat.converter"})
 @EntityScan(basePackages = {"projekat.model"})
 @EnableJpaRepositories("projekat.repository")
 public class PIprojekat2019Application extends SpringBootServletInitializer {
