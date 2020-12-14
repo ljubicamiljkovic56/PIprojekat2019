@@ -131,7 +131,7 @@ function dodajJedinicuMere(){
 				$("#skraceniNazivInput").val("");
 			}
 	});
-	
+
 //	var nazivJediniceMereInput = $('#nazivJediniceMereInput');
 //	var skraceniNazivInput = $('#skraceniNazivInput');
 //
