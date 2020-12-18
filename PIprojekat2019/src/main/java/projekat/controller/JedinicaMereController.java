@@ -5,24 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import projekat.converter.JedinicaMereDTOtoJedinicaMere;
-import projekat.converter.JedinicaMereToJedinicaMereDTO;
-import projekat.dto.JedinicaMereDTO;
 import projekat.model.JedinicaMere;
 import projekat.service.intrfc.JedinicaMereServiceInterface;
-import projekat.service.services.JedinicaMereService;
 
 @CrossOrigin
 @RestController
@@ -46,19 +39,6 @@ public class JedinicaMereController {
 	public List<JedinicaMere> getAll(){
 		return jedinicaMereServiceInterface.findAll();
 	}
-	
-//	@PostMapping(value = "/pojedinacnaJedinicaMere")
-//	public ResponseEntity<JedinicaMereDTO> pojedinacnaJedinicaMere(@RequestParam("naziv_jedinice_mere") String nazivJediniceMere) {
-//		
-//		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivJediniceMere);
-//		
-//		if(jedinicaMere == null) {
-//			return new ResponseEntity<JedinicaMereDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<JedinicaMereDTO>(new JedinicaMereDTO(jedinicaMere), HttpStatus.OK);
-//		}
-//		
-//	}
 	
 //	@RequestMapping(method = RequestMethod.POST, consumes = "application/json", path = "/saveJedinicaMere")
 //	public ResponseEntity<JedinicaMereDTO> saveJedinicaMere(@Validated @RequestBody JedinicaMereDTO jedinicaMereDTO) {
@@ -118,29 +98,9 @@ public class JedinicaMereController {
 //		}
 //					
 //	}
-//	
-//	@PostMapping(value = "/obrisiJedinicuMere")
-//	private ResponseEntity<Void> obrisiJedinicuMere(@RequestParam("naziv_jedinice_mere") String nazivJediniceMere) {
-//		
-//		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivJediniceMere);
-//		
-//		if(jedinicaMere == null) {
-//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//		jedinicaMereServiceInterface.remove(jedinicaMere.getIdJediniceMere());
-//		
-//		System.out.println("Obrisana je jedinica mere");
-//		
-//		return new ResponseEntity<Void>(HttpStatus.OK);
-//		
-//	}
-//		
+
 	@DeleteMapping(value = "/obrisiJedinicuMere/{id}")
 	private ResponseEntity<Void> obrisiJedinicuMere(@PathVariable("id") long id){
-		  
-	
-		//Long id = Long.parseLong(idString);
 		
 		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findOne(id);
 		
