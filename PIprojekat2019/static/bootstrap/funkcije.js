@@ -28,3 +28,28 @@ function getNameOfSelectedEntity(){
     	return name;
     }  
 }
+
+function getNameOfSelectedEntityJedinica(){
+	var row = $(".highlighted");
+    var name = row.find(".nazivJediniceMere").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}
+
+function getIdOfSelectedEntityJedinica(){
+	var row = $(".highlighted");
+    var id = row.find(".idJediniceMere").html();
+    console.log(id);
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}

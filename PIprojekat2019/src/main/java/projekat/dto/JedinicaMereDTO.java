@@ -1,5 +1,6 @@
 package projekat.dto;
 
+import projekat.model.JedinicaMere;
 
 public class JedinicaMereDTO {
 	
@@ -25,7 +26,7 @@ public class JedinicaMereDTO {
 //		this.idJediniceMere = jedinicaMere.getIdJediniceMere();
 //		this.nazivJediniceMere = jedinicaMere.getNazivJediniceMere();
 //		this.skraceniNaziv = jedinicaMere.getSkraceniNaziv();
-//		//this.robaUsluga = (ArrayList<RobaUsluga>) jedinicaMere.getRobaUsluga();
+////		//this.robaUsluga = (ArrayList<RobaUsluga>) jedinicaMere.getRobaUsluga();
 //	}
 
 

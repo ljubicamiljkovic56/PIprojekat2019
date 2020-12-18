@@ -2,13 +2,15 @@ package projekat.service.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import projekat.model.JedinicaMere;
 import projekat.repository.JedinicaMereRepository;
 import projekat.service.intrfc.JedinicaMereServiceInterface;
-
+@Transactional
 @Service
 public class JedinicaMereService implements JedinicaMereServiceInterface {
 	

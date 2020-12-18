@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import projekat.converter.JedinicaMereToJedinicaMereDTO;
 import projekat.dto.JedinicaMereDTO;
 import projekat.model.JedinicaMere;
 import projekat.service.intrfc.JedinicaMereServiceInterface;
+import projekat.service.services.JedinicaMereService;
 
 @CrossOrigin
 @RestController
@@ -29,11 +32,14 @@ public class JedinicaMereController {
 	@Autowired
 	private JedinicaMereServiceInterface jedinicaMereServiceInterface;
 	
-	@Autowired
-	private JedinicaMereToJedinicaMereDTO toJedinicaMereDTO;
-	
-	@Autowired
-	private JedinicaMereDTOtoJedinicaMere toJedinicaMere;
+//	@Autowired
+//	private JedinicaMereService jedinicaMereService;
+//	
+//	@Autowired
+//	private JedinicaMereToJedinicaMereDTO toJedinicaMereDTO;
+//	
+//	@Autowired
+//	private JedinicaMereDTOtoJedinicaMere toJedinicaMere;
 	
 	
 	@GetMapping(path = "/all")
@@ -54,35 +60,43 @@ public class JedinicaMereController {
 //		
 //	}
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<JedinicaMereDTO> saveJedinicaMere(@Validated @RequestBody JedinicaMereDTO jedinicaMereDTO) {
-		
-		System.out.println("Dodajem novu jedinicu mere...");
-		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.save(toJedinicaMere.convert(jedinicaMereDTO));
-		System.out.println("Naziv jedinicaMereDTO: " + jedinicaMereDTO.getNazivJediniceMere());
-		System.out.println("Skraceni naziv: " + jedinicaMereDTO.getSkraceniNaziv());
-		System.out.println(jedinicaMere);
-		System.out.println("Naziv jedinicaMere: " + jedinicaMere.getNazivJediniceMere());
-		System.out.println("Skraceni naziv: " + jedinicaMere.getSkraceniNaziv());
-		return new ResponseEntity<>(toJedinicaMereDTO.convert(jedinicaMere), HttpStatus.OK);
-	}
-	
-//	@PostMapping(value = "/dodajJedinicuMere")
-//	private ResponseEntity<Void> dodajJedinicuMere(@RequestParam("naziv_jedinice_mere") String nazivJediniceMere, @RequestParam("skraceni_naziv") String skraceniNaziv){
+//	@RequestMapping(method = RequestMethod.POST, consumes = "application/json", path = "/saveJedinicaMere")
+//	public ResponseEntity<JedinicaMereDTO> saveJedinicaMere(@Validated @RequestBody JedinicaMereDTO jedinicaMereDTO) {
 //		
-//		System.out.println("Naziv jedinice mere: " + nazivJediniceMere);
-//		System.out.println("Skraceni naziv: " + skraceniNaziv);
+//		System.out.println("Dodajem novu jedinicu mere...");
+//		System.out.println(jedinicaMereDTO.toString());
+//		JedinicaMere konvertovano = toJedinicaMere.convert(jedinicaMereDTO);
+//		System.out.println("Konvertovano "+ konvertovano + " " + konvertovano.getNazivJediniceMere()+ " " +konvertovano.getSkraceniNaziv());
 //		
-//		JedinicaMere jedinicaMere = new JedinicaMere();
-//		jedinicaMere.setNazivJediniceMere(nazivJediniceMere);
-//		jedinicaMere.setSkraceniNaziv(skraceniNaziv);
-//		jedinicaMereServiceInterface.save(jedinicaMere);
+//		JedinicaMere jedinicaMere = jedinicaMereService.save(toJedinicaMere.convert(jedinicaMereDTO));
 //		
-//		System.out.println("Dodata je nova jedinica mere");
-//
-//		return new ResponseEntity<Void>(HttpStatus.OK);
+//		System.out.println("Naziv jedinicaMereDTO: " + jedinicaMereDTO.getNazivJediniceMere());
+//		System.out.println("Skraceni naziv: " + jedinicaMereDTO.getSkraceniNaziv());
+//		System.out.println(jedinicaMere);
+//		System.out.println("Naziv jedinicaMere: " + jedinicaMere.getNazivJediniceMere());
+//		System.out.println("Skraceni naziv: " + jedinicaMere.getSkraceniNaziv());
 //		
+//		return new ResponseEntity<>(toJedinicaMereDTO.convert(jedinicaMere), HttpStatus.OK);
 //	}
+//	
+	
+	//moj nacin slanja, bez converter klasa
+	@PostMapping(value = "/dodajJedinicuMere")
+	private ResponseEntity<Void> dodajJedinicuMere(@RequestParam("naziv_jedinice_mere") String nazivJediniceMere, @RequestParam("skraceni_naziv") String skraceniNaziv){
+		
+		System.out.println("Naziv jedinice mere: " + nazivJediniceMere);
+		System.out.println("Skraceni naziv: " + skraceniNaziv);
+		
+		JedinicaMere jedinicaMere = new JedinicaMere();
+		jedinicaMere.setNazivJediniceMere(nazivJediniceMere);
+		jedinicaMere.setSkraceniNaziv(skraceniNaziv);
+		jedinicaMereServiceInterface.save(jedinicaMere);
+		
+		System.out.println("Dodata je nova jedinica mere");
+
+		return new ResponseEntity<Void>(HttpStatus.OK);
+		
+	}
 //	
 //	@PostMapping(value = "/izmeniJedinicuMere")
 //	private ResponseEntity<Void> izmeniJedinicuMere(@RequestParam("naziv_jedinice_mere") String nazivJediniceMere, 
@@ -122,5 +136,23 @@ public class JedinicaMereController {
 //		
 //	}
 //		
+	@DeleteMapping(value = "/obrisiJedinicuMere/{id}")
+	private ResponseEntity<Void> obrisiJedinicuMere(@PathVariable("id") long id){
+		  
 	
+		//Long id = Long.parseLong(idString);
+		
+		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findOne(id);
+		
+		if(jedinicaMere == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
+		jedinicaMereServiceInterface.remove(jedinicaMere.getIdJediniceMere());
+		
+		System.out.println("Obrisana je jedinica mere");
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
+		
+	}
 }
