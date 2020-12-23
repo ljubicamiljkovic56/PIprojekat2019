@@ -58,7 +58,7 @@ toolbar {
 }
 
 
-td.idJediniceMere{
+td.idJediniceMere, td.idKategorije{
  	visibility: hidden; 
  	max-width: 0px;
 }

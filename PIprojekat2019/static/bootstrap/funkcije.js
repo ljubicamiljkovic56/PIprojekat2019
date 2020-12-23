@@ -53,3 +53,27 @@ function getIdOfSelectedEntityJedinica(){
     	return id;
     }  
 }
+
+function getIdOfSelectedEntityKategorija(){
+	var row = $(".highlighted");
+    var id = row.find(".idKategorije").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityKategorija(){
+	var row = $(".highlighted");
+    var name = row.find(".nazivKategorije").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}

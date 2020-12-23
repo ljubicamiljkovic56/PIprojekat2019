@@ -52,7 +52,7 @@ function getJediniceMere() {
 	});
 	
 	$(document).on("click", '#edit', function(event){
-		console.log(getIdOfSelectedEntity());
+		console.log(getIdOfSelectedEntityJedinica());
 	});
 	
 	$(document).on("click", '#delete', function(event){
@@ -106,12 +106,13 @@ function dobaviJediniceMere() {
 	 });
 }
 function dodajJedinicuMere(){
+	var nazivJediniceMereInput = $('#nazivJediniceMereInput');
+	var skraceniNazivInput = $('#skraceniNazivInput');
+	
 	$('#doAdd').on('click', function(event){
-		var nazivJediniceMereInput = $('#nazivJediniceMereInput');
-		var skraceniNazivInput = $('#skraceniNazivInput');
-		
 		var naziv_jedinice_mere = nazivJediniceMereInput.val();
 		var skraceni_naziv = skraceniNazivInput.val();
+		
 		console.log('naziv_jedinice_mere: ' + naziv_jedinice_mere)
 		console.log('skraceni_naziv: ' + skraceni_naziv);
 		
@@ -119,13 +120,14 @@ function dodajJedinicuMere(){
 			'naziv_jedinice_mere': naziv_jedinice_mere,
 			'skraceni_naziv': skraceni_naziv	
 		}
-
 		$.post("http://localhost:8080/api/jedinicemere/dodajJedinicuMere", params, function(data) {
 			console.log('ispis...')
 			
 			alert('Dodata je nova jedinica mere')
 			
 			dobaviJediniceMere();
+			nazivJediniceMereInput.val("");
+			skraceniNazivInput.val("");
 			//window.location.href = "jedinice_mere.html";
 		});
 		console.log('slanje poruke');
@@ -163,7 +165,6 @@ function dodajJedinicuMere(){
 //			}
 //	});
 }
-
 
 function obrisiJedinicuMere(){
 	var id = getIdOfSelectedEntityJedinica();

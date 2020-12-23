@@ -1,7 +1,5 @@
 package projekat.dto;
 
-import projekat.model.JedinicaMere;
-
 public class JedinicaMereDTO {
 	
 	private Long idJediniceMere;

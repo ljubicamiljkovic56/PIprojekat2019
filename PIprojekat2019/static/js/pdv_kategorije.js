@@ -56,11 +56,11 @@ function getPDVKategorije(){
 	});
 	
 	$(document).on("click", '#edit', function(event){
-		console.log(getIdOfSelectedEntity());
+		console.log(getIdOfSelectedEntityKategorija());
 	});
 	
 	$(document).on("click", '#delete', function(event){
-		var name = getNameOfSelectedEntity();
+		var name = getNameOfSelectedEntityKategorija();
 		if(name!=null){
 			$('#deletePromptText').text("Obrisati: " + name);
 			$('#deletePromptModal').modal('show');
@@ -92,9 +92,9 @@ function dobaviPDVKategorije() {
 					newRow = 
 						"<tr>" 
 							+ "<td class=\"nazivKategorije\">" + data[i].nazivKategorije + "</td>"
-//							+ "<td class=\"skraceniNaziv\">" + data[i].skraceniNaziv + "</td>"
-//							+ "<td class=\"idCell\">" + data[i].id + "</td>" +
-//						"</tr>"
+							+ "<td class=\"idKategorije\" style:display:none>" + data[i].idKategorije + "</td>" +
+							
+						"</tr>"
 					$("#dataTableBody").append(newRow);
 				}
 			});
@@ -108,39 +108,62 @@ function dobaviPDVKategorije() {
 	 });
 }
 function dodajPDVKategoriju(){
-	var nazivKategorijeInput = $('#nazivKategorijeInput');
-	
-	var naziv_kategorije = naziv_kategorije.val();
-	
-	console.log('naziv_kategorije: ' + naziv_kategorije);
-	
-	var kategorija = {
-			"naziv_kategorije": naziv_kategorije
-	};
-	console.log(kategorija);
-	console.log(JSON.stringify(kategorija));
-	$.ajax({
-			url: "/api/pdvkategorije/",
-			type: "POST",
-			data: JSON.stringify(kategorija),
-			contentType: "application/json",
-			datatype: "json",
-			success: function(data) {
-				dobaviPDVKategorije();
-				$("#nazivKategorijeInput").val("");
-			}
-	});
+//	var nazivKategorijeInput = $('#nazivKategorijeInput');
+//	
+//	var naziv_kategorije = naziv_kategorije.val();
+//	
+//	console.log('naziv_kategorije: ' + naziv_kategorije);
+//	
+//	var kategorija = {
+//			"naziv_kategorije": naziv_kategorije
+//	};
+//	console.log(kategorija);
+//	console.log(JSON.stringify(kategorija));
+//	$.ajax({
+//			url: "/api/pdvkategorije/",
+//			type: "POST",
+//			data: JSON.stringify(kategorija),
+//			contentType: "application/json",
+//			datatype: "json",
+//			success: function(data) {
+//				dobaviPDVKategorije();
+//				$("#nazivKategorijeInput").val("");
+//			}
+//	});
 
+	var nazivKategorijeInput = $('#nazivKategorijeInput');
+
+	
+	$('#doAdd').on('click', function(event){
+		var naziv_kategorije = nazivKategorijeInput.val();
+		
+		console.log('naziv_kategorije: ' + naziv_kategorije)
+		
+		var params = {
+			'naziv_kategorije': naziv_kategorije
+		}
+		$.post("http://localhost:8080/api/pdvkategorije/dodajKategoriju", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Dodata je nova pdv kategorija')
+			
+			dobaviPDVKategorije();
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+	});
 }
 
 
 function obrisiPDVKategoriju(){
-	var id = getIdOfSelectedEntity();
+	var id = getIdOfSelectedEntityKategorija();
 	$.ajax({
-    	url: "http://localhost:8080/api/pdvkategorije/" + id,
+    	url: "http://localhost:8080/api/pdvkategorije/obrisiKategoriju/" + id,
     	type: "DELETE",
     	success: function(){
-    		dobaviJediniceMere();
+    		dobaviPDVKategorije();
         }
 	});
 }
