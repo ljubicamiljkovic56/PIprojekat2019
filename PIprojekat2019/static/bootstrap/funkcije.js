@@ -77,3 +77,27 @@ function getNameOfSelectedEntityKategorija(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityMesto(){
+	var row = $(".highlighted");
+    var id = row.find(".idMesta").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityMesto(){
+	var row = $(".highlighted");
+    var name = row.find(".nazivMesta").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}

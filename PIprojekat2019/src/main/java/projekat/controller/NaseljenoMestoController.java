@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import projekat.dto.NaseljenoMestoDTO;
 import projekat.model.NaseljenoMesto;
 import projekat.service.intrfc.NaseljenoMestoServiceInterface;
 
@@ -49,7 +49,6 @@ public class NaseljenoMestoController {
 		System.out.println("Naziv naseljenog mesta: " + nazivMesta);
 		System.out.println("Ptt broj naseljnog mesta: " + pttBroj);
 		
-		
 		int pttBrojInt = Integer.parseInt(pttBroj);
 		
 		NaseljenoMesto mesto = new NaseljenoMesto();
@@ -85,20 +84,19 @@ public class NaseljenoMestoController {
 		
 	}
 	
-	@PostMapping(path = "/obrisiMesto")
-	public ResponseEntity<Void> obrisiMesto(@RequestParam("naziv_mesta") String nazivMesta) {
+	@DeleteMapping(value = "/obrisiMesto/{id}")
+	public ResponseEntity<Void> obrisiMesto(@PathVariable("id") long id){
 		
-		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
+		NaseljenoMesto naseljenoMesto = naseljenoMestoServiceInterface.findOne(id);
 		
-		if(mesto == null) {
+		if(naseljenoMesto == null) {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
 		
-		naseljenoMestoServiceInterface.remove(mesto.getIdMesta());
+		naseljenoMestoServiceInterface.remove(naseljenoMesto.getIdMesta());
 		
-		System.out.println("Obrisano je naseljeno mesto.");
-
+		System.out.println("Obrisano je mesto");
+		
 		return new ResponseEntity<Void>(HttpStatus.OK);
-		
 	}
 }

@@ -1,41 +1,3 @@
-//var kategorije = []
-//
-//$(document).ready(function(){
-//	var kategorijeTable = $('#kategorijeTable');
-//	
-//	function getKategorije(){
-//	$.get("http://localhost:8080/api/pdvkategorije/all", function(data){
-//			console.log(data);
-//			
-//			kategorije = data;
-//			
-//			populateTable(kategorije);	
-//
-//		});
-//	}
-//	
-//	function populateTable(kategorijeForTable){
-//		
-//		console.log('tabela?')
-//	
-//		for(it of kategorijeForTable){
-//			kategorijeTable.append(
-//				'<tr>' + 
-//					'<td>' + it.nazivKategorije + '</td>' +
-//					'<td>' + it.pdvStope.idStope + '</td>' + 
-//					'<td>' +
-//				'</td>' + 
-//					'<td>' +
-//					'</td>' + 
-//				'</tr>'
-//			)
-//		}
-//	};
-//	
-//
-//	getKategorije();
-//	console.log('dobavljene pdv kategorije?');
-//});
 function getPDVKategorije(){
 	dobaviPDVKategorije();
 	
@@ -108,31 +70,7 @@ function dobaviPDVKategorije() {
 	 });
 }
 function dodajPDVKategoriju(){
-//	var nazivKategorijeInput = $('#nazivKategorijeInput');
-//	
-//	var naziv_kategorije = naziv_kategorije.val();
-//	
-//	console.log('naziv_kategorije: ' + naziv_kategorije);
-//	
-//	var kategorija = {
-//			"naziv_kategorije": naziv_kategorije
-//	};
-//	console.log(kategorija);
-//	console.log(JSON.stringify(kategorija));
-//	$.ajax({
-//			url: "/api/pdvkategorije/",
-//			type: "POST",
-//			data: JSON.stringify(kategorija),
-//			contentType: "application/json",
-//			datatype: "json",
-//			success: function(data) {
-//				dobaviPDVKategorije();
-//				$("#nazivKategorijeInput").val("");
-//			}
-//	});
-
 	var nazivKategorijeInput = $('#nazivKategorijeInput');
-
 	
 	$('#doAdd').on('click', function(event){
 		var naziv_kategorije = nazivKategorijeInput.val();
@@ -149,6 +87,7 @@ function dodajPDVKategoriju(){
 			alert('Dodata je nova pdv kategorija')
 			
 			dobaviPDVKategorije();
+			nazivKategorijeInput.val("");
 		});
 		console.log('slanje poruke');
 		event.preventDefault();
