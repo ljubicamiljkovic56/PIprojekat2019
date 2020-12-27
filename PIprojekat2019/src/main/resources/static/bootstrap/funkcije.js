@@ -149,3 +149,27 @@ function getNameOfSelectedEntityPartner(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityPDVStope(){
+	var row = $(".highlighted");
+    var id = row.find(".idStope").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityPDVStope(){
+	var row = $(".highlighted");
+    var name = row.find(".datumVazenja").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}

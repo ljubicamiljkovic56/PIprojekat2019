@@ -7,15 +7,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import projekat.dto.PDVStopaDTO;
+import projekat.model.PDVKategorija;
 import projekat.model.PDVStopa;
+import projekat.service.intrfc.PDVKategorijaServiceInterface;
 import projekat.service.intrfc.PDVStopaServiceInterface;
 
 @CrossOrigin
@@ -25,6 +29,9 @@ public class PDVStopaController {
 	
 	@Autowired
 	private PDVStopaServiceInterface pdvStopaServiceInterface;
+	
+	@Autowired
+	private PDVKategorijaServiceInterface pdvKategorijaServiceInterface;
 	
 	@GetMapping(path = "/all")
 	public List<PDVStopa> getAll(){
@@ -46,12 +53,19 @@ public class PDVStopaController {
 //	}
 	
 	@PostMapping(value = "/dodajPDVStopu")
-	public ResponseEntity<Void> dodajPDVStopu(@RequestParam("procenat") String procenat, @RequestParam("datum_vazenja") String datumVazenja) throws ParseException {
+	public ResponseEntity<Void> dodajPDVStopu(@Validated @RequestParam("datum_vazenja") String datumVazenja, @RequestParam("procenat") String procenat, 
+			@RequestParam("pdvKategorija") String nazivKategorije) throws ParseException {
 		
 		double procenatDouble = Double.parseDouble(procenat);
 		String datum = datumVazenja;
 		
+		PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findByNazivKategorije(nazivKategorije);
+	
+		PDVKategorija pdvKategorija2 = pdvKategorijaServiceInterface.findOne(pdvKategorija.getIdKategorije());
+		
 		System.out.println("Procenat: " + procenat);
+		System.out.println("Datum: " + datum);
+		System.out.println("Naziv pdv kategorije: " + nazivKategorije);
 		
 		PDVStopa pdvStopa = new PDVStopa();
 		pdvStopa.setProcenat(procenatDouble);
@@ -59,6 +73,7 @@ public class PDVStopaController {
 		java.util.Date date = formatter.parse(datum);
 	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		pdvStopa.setDatumVazenja(sqlDate);
+		pdvStopa.setPdvKategorija(pdvKategorija2);
 		pdvStopaServiceInterface.save(pdvStopa);
 		
 		System.out.println("Dodata je nova pdv stopa.");
@@ -66,39 +81,37 @@ public class PDVStopaController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/izmeniPDVStopu")
-	public ResponseEntity<Void> izmeniPDVStopu(@RequestParam("procenat") String procenat, @RequestParam("novi_procenat") String novi_procenat,
-			@RequestParam("datum_vazenja") String datumVazenja) throws ParseException {
-		
-		double procenatDouble = Double.parseDouble(procenat);
-		double noviProcenatDouble = Double.parseDouble(novi_procenat);
-		String datum = datumVazenja;
-		
-		PDVStopa pdvStopa = pdvStopaServiceInterface.findByProcenat(procenatDouble);
-		
-		if(pdvStopa != null) {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date date = formatter.parse(datum);
-		    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-			pdvStopa.setDatumVazenja(sqlDate);
-			pdvStopa.setProcenat(noviProcenatDouble);
-			pdvStopaServiceInterface.save(pdvStopa);
-			
-			System.out.println("Izmena pdv stope.");
-			
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}else {
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
-		
-	}
+//	@PostMapping(value = "/izmeniPDVStopu")
+//	public ResponseEntity<Void> izmeniPDVStopu(@RequestParam("procenat") String procenat, @RequestParam("novi_procenat") String novi_procenat,
+//			@RequestParam("datum_vazenja") String datumVazenja) throws ParseException {
+//		
+//		double procenatDouble = Double.parseDouble(procenat);
+//		double noviProcenatDouble = Double.parseDouble(novi_procenat);
+//		String datum = datumVazenja;
+//		
+//		PDVStopa pdvStopa = pdvStopaServiceInterface.findByProcenat(procenatDouble);
+//		
+//		if(pdvStopa != null) {
+//			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//			java.util.Date date = formatter.parse(datum);
+//		    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+//			pdvStopa.setDatumVazenja(sqlDate);
+//			pdvStopa.setProcenat(noviProcenatDouble);
+//			pdvStopaServiceInterface.save(pdvStopa);
+//			
+//			System.out.println("Izmena pdv stope.");
+//			
+//			return new ResponseEntity<Void>(HttpStatus.OK);
+//		}else {
+//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+//		}
+//		
+//	}
 	
-	@PostMapping(value = "/obrisiPDVStopu")
-	public ResponseEntity<Void> obrisiPDVStopu(@RequestParam("procenat") String procenat) {
+	@DeleteMapping(value = "/obrisiPDVStopu/{id}")
+	public ResponseEntity<Void> obrisiPDVStopu(@PathVariable("id") long id) {
 		
-		double procenatDouble = Double.parseDouble(procenat);
-		
-		PDVStopa pdvStopa = pdvStopaServiceInterface.findByProcenat(procenatDouble);
+		PDVStopa pdvStopa = pdvStopaServiceInterface.findOne(id);
 		
 		if(pdvStopa == null) {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);

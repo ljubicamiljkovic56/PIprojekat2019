@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +55,7 @@ public class PoslovniPartnerController {
 //	}
 	
 	@PostMapping(path = "/dodajPoslovnogPartnera")
-	public ResponseEntity<Void> dodajPoslovnogPartnera(@RequestParam("naziv_poslovnog_partnera") String nazivPoslovnogPartnera,
+	public ResponseEntity<Void> dodajPoslovnogPartnera(@Validated @RequestParam("naziv_poslovnog_partnera") String nazivPoslovnogPartnera,
 			@RequestParam("adresa") String adresa, @RequestParam("telefon") String telefon,
 			@RequestParam("fax") String fax, @RequestParam("email") String email, @RequestParam("vrsta_partnera") String vrstaPartnera,
 			@RequestParam("mesto") String nazivMesta, @RequestParam("preduzece") String nazivPreduzeca) {

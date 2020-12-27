@@ -1,30 +1,189 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>PDV Stope</title>
-<script src="js/jquery-3.3.1.js"></script>
-<script src="js/pdv_stope.js"></script>
-<link rel="shortcut icon" href="favicon.ico">
-</head>
-<body>
-<h3>PDV Stope</h3>
-	<table border="1" id="pdvstopeTable">
-		<tr bgcolor="lightblue">
-			<th><a>Datum vazenja</a></th>
-			<th><a>Procenat</a></th>
-			<th><a>Naziv kategorije</a></th>
-			<th/>
-		</tr>
-	</table>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<script src="bootstrap/jquery-3.3.1.min.js"></script>
+		<script src="bootstrap/bootstrap.js"></script>
+		<script src="bootstrap/funkcije.js"></script>
+		<script src="js/pdv_stope.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/stil.css">
+		
+		<script src="https://kit.fontawesome.com/9497a339e1.js" crossorigin="anonymous"></script>
 	
+		<title>PDV stope</title>
+		
+		<script>
+			$(document).ready(getPDVStope);
+		</script>
+	
+	</head>
+	<body background="bootstrap/wavegreen.png">
 
-	<p><a href="pdv_stopa.html">Pojedinacan prikaz pdv stope</a></p>
-	<p><a href="dodaj_pdv_stopu.html">Dodaj novu pdv stopu</a></p>
-	<p><a href="izmeni_pdv_stopu.html">Izmeni pdv stopu</a></p>
-	<p><a href="obrisi_pdv_stopu.html">Obrisi pdv stopu</a></p>
-	<p><a href="webshop.html">Nazad na glavnu stranu</a>
-	<p><a href="login.html">Nazad na login</a><p>
-	<p><a href="index.html">Nazad na index stranu</a></p>
-</body>
+		<div class="container">
+			<nav class="navbar navbar-expand navbar-dark bg-success fixed-top">
+				
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="#">Početna</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="jedinice_mere.html">Jedinice mere</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="pdv_kategorije.html">PDV kategorije</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="pdv_stope.html">PDV stope</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="naseljena_mesta.html">Naseljena mesta</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="preduzeca.html">Preduzeca</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="poslovni_partneri.html">Poslovni partneri</a>
+					</li>
+				</ul>
+			</nav>
+			
+			<h1 class="pageHead">PDV stope</h1>
+			
+			<!-- Pretraga -->
+			<div class="collapse" id="collapseSearch">
+				<form>
+					<div class="row">
+						<div class="col-10 search-inputs">
+							<div class="form-group form-row">
+					    		<label for="datumSearchInput" class="col-sm-2 col-form-label">Datum vazenja</label>
+					    		<div class="col-sm-4">
+					    			<input type="text" class="form-control" id="datumSearchInput">
+					    		</div>
+					    		<label for="procenatSearchInput" class="col-sm-2 col-form-label">Procenat</label>
+					    		<div class="col-sm-4">
+					    			<input type="text" class="form-control" id="adresaSearchInput">
+					    		</div>
+							</div>
+							<div class="form-group form-row">
+								<label for="kategorijaSearchInput" class="col-sm-2 col-form-label">Naziv PDV kategorije</label>
+								<div class="col-sm-4">
+					    			<input type="text" class="form-control" id="kategorijaSearchInput">
+								</div>
+<!-- 								<label for="countryNameSearchInput" class="col-sm-2 col-form-label">Država</label> -->
+<!-- 								<div class="col-sm-4"> -->
+<!-- 					    			<input type="text" class="form-control" id="countryNameSearchInput"> -->
+<!-- 								</div> -->
+							</div>
+						</div>
+						<div class="col-2 center">
+							<button id="doSearch" type="button" class="btn btn-outline-secondary">Pretraži</button>
+							<button id="doReset" type="button" class="btn btn-outline-secondary">Poništi</button>
+						</div>
+					</div>
+				</form>
+				
+				
+			</div>
+			
+			<!-- Toolbar -->	
+			<div class="toolbar">
+				<button id="refresh" type="button" class="btn btn-outline-secondary"><i class="fas fa-sync-alt"></i></button>
+				
+				<button id="search" type="button" class="btn btn-outline-secondary">Pretraži</button>
+				
+				<button id="add" type="button" class="btn btn-outline-secondary">Dodaj</button>
+				<button id="edit" type="button" class="btn btn-outline-secondary">Izmeni</button>
+				<button id="delete" type="button" class="btn btn-outline-secondary">Obriši</button>
+				
+				<!-- Pagination -->
+				<div class="pagination" >
+					<button type="button" class="btn btn-outline-secondary btn-sm disabled btn-pagination-previous"><i class="fas fa-angle-left"></i></button>
+					<span class="pagination-numbering">x do y od z</span>
+					<button type="button" class="btn btn-outline-secondary btn-sm btn-pagination-next"><i class="fas fa-angle-right"></i></button>
+				</div>
+			</div>
+				
+	
+			
+			<table id="dataTable" class="table">
+				<thead>
+					<tr>
+						<th>PDV kategorija</th>
+						<th>Datum vazenja</th>
+						<th>Procenat</th>
+					</tr>
+				</thead>
+				<tbody id="dataTableBody">
+				</tbody>
+				
+				
+			</table>
+			
+			
+			<!-- Dodavanje pdv stope -->
+			<div class="modal fade" id="addModalScrollable" tabindex="-1" role="dialog" aria-labelledby="addModalScrollableTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-scrollable" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="addModalScrollableTitle">Dodavanje PDV stope</h5>
+			        <button type="button" class="close addModalClose" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <form>
+					  <div class="form-group">
+					    <label for="datumInput">Datum vazenja</label>
+					    <input type="date" class="form-control" id="datumInput" aria-describedby="datumHelp" placeholder="Unesite datum vazenja PDV stope">
+					  </div>
+					   <div class="form-group">
+					    <label for="procenatInput">Procenat</label>
+					    <input type="text" class="form-control" id="procenatInput" aria-describedby="procenatHelp" placeholder="Unesite procenat PDV stope">
+<!-- 					    <small id="cityPCodeHelp" class="form-text text-muted">Mora imati od 1 do 6 karaktera.</small> -->
+					  </div>
+					  <div class="form-group">
+					    <label for="kategorijaSelect">PDV kategorija</label>
+					    <select class="form-control"  id="kategorijaSelect">
+					    
+					    </select>
+					  </div>
+					</form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary addModalClose" >Otkaži</button>
+			        <button type="button" id="doAdd" class="btn btn-primary">Sačuvaj</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			
+			<!-- Brisanje pdv stope -->
+			<div class="modal fade" id="deletePromptModal" tabindex="-1" role="dialog" aria-labelledby="deletePromptLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="deletePromptLabel">Jeste li sigurni?</h5>
+			        <button type="button" class="close deletePromptClose" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <p id="deletePromptText"></p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary deletePromptClose">Otkaži</button>
+			        <button type="button" id="doDelete" class="btn btn-primary">Obriši</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+		</div>
+		
+	</body>
 </html>
