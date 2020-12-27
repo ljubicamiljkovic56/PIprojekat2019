@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import projekat.dto.PoslovniPartnerDTO;
 import projekat.model.NaseljenoMesto;
 import projekat.model.PoslovniPartner;
 import projekat.service.intrfc.NaseljenoMestoServiceInterface;
