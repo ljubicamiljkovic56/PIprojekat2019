@@ -71,33 +71,33 @@ public class PreduzeceController {
 		
 	}
 	
-	@PostMapping(path = "/izmeniPreduzece")
-	public ResponseEntity<Void> izmeniPreduzece(@RequestParam("naziv_preduzeca") String nazivPreduzeca,
-			@RequestParam("novi_naziv") String noviNaziv, @RequestParam("adresa_preduzeca") String adresa,
-			@RequestParam("broj_telefona") String brojTelefona, @RequestParam("fax_preduzeca") String fax,
-			@RequestParam("godina") String godina,
-			@RequestParam("naziv_mesta") String nazivMesta, @RequestParam("naziv_poslovnog_partnera") String nazivPartnera,
-			@RequestParam("datum_vazenja") String datumCenovnika) throws ParseException {
-		
-	
-		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
-		
-		if(preduzece != null) {
-			preduzece.setNazivPreduzeca(noviNaziv);
-			preduzece.setAdresa(adresa);
-			preduzece.setBrojTelefona(brojTelefona);
-			preduzece.setFax(fax);
-			preduzeceServiceInterface.save(preduzece);
-			
-			System.out.println("Izmenjeno je preduzece.");
-			
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}else {
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
-	
-		
-	}
+//	@PostMapping(path = "/izmeniPreduzece")
+//	public ResponseEntity<Void> izmeniPreduzece(@RequestParam("naziv_preduzeca") String nazivPreduzeca,
+//			@RequestParam("novi_naziv") String noviNaziv, @RequestParam("adresa_preduzeca") String adresa,
+//			@RequestParam("broj_telefona") String brojTelefona, @RequestParam("fax_preduzeca") String fax,
+//			@RequestParam("godina") String godina,
+//			@RequestParam("naziv_mesta") String nazivMesta, @RequestParam("naziv_poslovnog_partnera") String nazivPartnera,
+//			@RequestParam("datum_vazenja") String datumCenovnika) throws ParseException {
+//		
+//	
+//		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
+//		
+//		if(preduzece != null) {
+//			preduzece.setNazivPreduzeca(noviNaziv);
+//			preduzece.setAdresa(adresa);
+//			preduzece.setBrojTelefona(brojTelefona);
+//			preduzece.setFax(fax);
+//			preduzeceServiceInterface.save(preduzece);
+//			
+//			System.out.println("Izmenjeno je preduzece.");
+//			
+//			return new ResponseEntity<Void>(HttpStatus.OK);
+//		}else {
+//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+//		}
+//	
+//		
+//	}
 	
 	@DeleteMapping(path = "/obrisiPreduzece/{id}")
 	public ResponseEntity<Void> obrisiPreduzece(@PathVariable("id") long id) {

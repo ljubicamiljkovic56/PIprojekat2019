@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -82,26 +80,26 @@ public class JedinicaMereController {
 		
 	}
 
-	@PutMapping(value = "/izmeniJedinicuMere/{id}")
-	private ResponseEntity<Void> izmeniJedinicuMere(@PathVariable("id") long id,
-			@Validated @RequestBody JedinicaMere izmenjenaJedinica) {
-		
-		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findOne(id);
-		
-		if(jedinicaMere != null) {
-			jedinicaMere.setIdJediniceMere(izmenjenaJedinica.getIdJediniceMere());
-			jedinicaMere.setNazivJediniceMere(izmenjenaJedinica.getNazivJediniceMere());
-			jedinicaMere.setSkraceniNaziv(izmenjenaJedinica.getSkraceniNaziv());
-			jedinicaMereServiceInterface.save(jedinicaMere);
-			
-			System.out.println("Izmena jedinice mere");
-			
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}else {
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
-		
-	}
+//	@PutMapping(value = "/izmeniJedinicuMere/{id}")
+//	private ResponseEntity<Void> izmeniJedinicuMere(@PathVariable("id") long id,
+//			@Validated @RequestBody JedinicaMere izmenjenaJedinica) {
+//		
+//		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findOne(id);
+//		
+//		if(jedinicaMere != null) {
+//			jedinicaMere.setIdJediniceMere(izmenjenaJedinica.getIdJediniceMere());
+//			jedinicaMere.setNazivJediniceMere(izmenjenaJedinica.getNazivJediniceMere());
+//			jedinicaMere.setSkraceniNaziv(izmenjenaJedinica.getSkraceniNaziv());
+//			jedinicaMereServiceInterface.save(jedinicaMere);
+//			
+//			System.out.println("Izmena jedinice mere");
+//			
+//			return new ResponseEntity<Void>(HttpStatus.OK);
+//		}else {
+//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+//		}
+//		
+//	}
 	
 //	@PostMapping(value = "/izmeniJedinicuMere")
 //	private ResponseEntity<Void> izmeniJedinicuMere(@RequestParam("naziv_jedinice_mere") String nazivJediniceMere, 

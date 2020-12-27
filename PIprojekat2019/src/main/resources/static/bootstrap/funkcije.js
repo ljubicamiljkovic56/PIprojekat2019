@@ -125,3 +125,27 @@ function getNameOfSelectedEntityPreduzece(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityPartner(){
+	var row = $(".highlighted");
+    var id = row.find(".idPoslovnogPartnera").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityPartner(){
+	var row = $(".highlighted");
+    var name = row.find(".nazivPoslovnogPartnera").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}

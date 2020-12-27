@@ -26,7 +26,7 @@ function getPreduzeca(){
 	$(document).on("click", '#delete', function(event){
 		var name = getNameOfSelectedEntityPreduzece();
 		if(name!=null){
-			$('#deletePromptText').text("Jeste li sigurni da želite da izbiršete preduzece: " + name);
+			$('#deletePromptText').text("Obrisati preduzece: " + name);
 			$('#deletePromptModal').modal('show');
 		}
 
@@ -116,7 +116,7 @@ function dodajPreduzece(){
 		
 		console.log('naziv_preduzeca: ' + naziv_preduzeca)
 		console.log('adresa_preduzeca: ' + adresa_preduzeca);
-		console.log('broj_telfona: ' + broj_telefona);
+		console.log('broj_telefona: ' + broj_telefona);
 		console.log('fax_preduzeca: ' + fax_preduzeca);
 		console.log('naziv_mesta: ' + naziv_mesta);
 		
@@ -148,7 +148,6 @@ function dodajPreduzece(){
 function obrisiPreduzece(){
 	var id = getIdOfSelectedEntityPreduzece();
 	console.log(id);
-	alert(id)
 	$.ajax({
     	url: "http://localhost:8080/api/preduzece/obrisiPreduzece/" + id,
     	type: "DELETE",
