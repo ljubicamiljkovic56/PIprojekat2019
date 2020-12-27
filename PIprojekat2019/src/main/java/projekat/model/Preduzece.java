@@ -23,6 +23,7 @@ public class Preduzece {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_preduzeca")
 	private Long idPreduzeca;
 	
 	@Column(name = "naziv_preduzeca", columnDefinition = "VARCHAR(20)")

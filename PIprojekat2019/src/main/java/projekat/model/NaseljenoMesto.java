@@ -21,6 +21,7 @@ public class NaseljenoMesto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_mesta")
 	private Long idMesta;
 	
 	@Column(name = "ptt_broj", columnDefinition = "INT")

@@ -101,3 +101,27 @@ function getNameOfSelectedEntityMesto(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityPreduzece(){
+	var row = $(".highlighted");
+    var id = row.find(".idPreduzeca").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityPreduzece(){
+	var row = $(".highlighted");
+    var name = row.find(".nazivPreduzeca").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}
