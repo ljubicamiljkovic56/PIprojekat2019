@@ -197,3 +197,27 @@ function getNameOfSelectedEntityGrupa(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityRoba(){
+	var row = $(".highlighted");
+    var id = row.find(".idRobeUsluge").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityRoba(){
+	var row = $(".highlighted");
+    var name = row.find(".nazivRobeUsluge").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}

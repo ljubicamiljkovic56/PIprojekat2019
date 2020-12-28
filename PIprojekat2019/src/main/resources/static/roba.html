@@ -1,27 +1,207 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Pojedinacni prikaz robe</title>
-<script src="js/jquery-3.3.1.js"></script>
-<script src="js/roba.js"></script>
-<link rel="shortcut icon" href="favicon.ico">
-</head>
-<body>
-<h3>Pojedinacni prikaz robe</h3>
-<label>Naziv robe: </label><br><input type="text" id="naziv_robeInput"/><input type="submit" value="Show" id="robaSubmit">
-	<form id="robaForm">
-		<table>
-			<tr><td align="right">Naziv robe:</td><td><input type="text" id="naziv_robeCell"/></td></tr>
-			<tr><td align="right">Opis:</td><td><input type="text" id="opisCell"/></td></tr>
-			<tr><td align="right">Roba:</td><td><input type="text" id="robaCell"/></td></tr>
-			<tr><td align="right">Jedinica mere:</td><td><input type="text" id="jedinica_mereCell"/></td></tr>
-			<tr><td align="right">Grupa robe:</td><td><input type="text" id="grupa_robeCell"/></td></tr>
-		</table>
-	</form>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<script src="bootstrap/jquery-3.3.1.min.js"></script>
+		<script src="bootstrap/bootstrap.js"></script>
+		<script src="bootstrap/funkcije.js"></script>
+		<script src="js/roba.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/stil.css">
+		
+		<script src="https://kit.fontawesome.com/9497a339e1.js" crossorigin="anonymous"></script>
 	
-	<p><a href="robe.html">Nazad na svu robu</a></p>
-	<p><a href="login.html">Nazad na login</a><p>
-	<p><a href="index.html">Nazad na index stranu</a></p>
-</body>
+		<title>Roba</title>
+		
+		<script>
+			$(document).ready(getRoba);
+		</script>
+	
+	</head>
+	<body background="bootstrap/wavegreen.png">
+
+		<div class="container">
+			<nav class="navbar navbar-expand navbar-dark bg-success fixed-top">
+				
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="#">Početna</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="jedinice_mere.html">Jedinice mere</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="pdv_kategorije.html">PDV kategorije</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="pdv_stope.html">PDV stope</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="grupe_robe.html">Grupe robe</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="roba.html">Roba</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="naseljena_mesta.html">Naseljena mesta</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="preduzeca.html">Preduzeca</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="poslovni_partneri.html">Poslovni partneri</a>
+					</li>
+				</ul>
+			</nav>
+			
+			<h1 class="pageHead">Roba</h1>
+			
+			<!-- Pretraga -->
+			<div class="collapse" id="collapseSearch">
+				<form>
+					<div class="row">
+						<div class="col-10 search-inputs">
+							<div class="form-group form-row">
+					    		<label for="nazivSearchInput" class="col-sm-2 col-form-label">Naziv</label>
+					    		<div class="col-sm-4">
+					    			<input type="text" class="form-control" id="nazivSearchInput">
+					    		</div>
+					    		<label for="opisSearchInput" class="col-sm-2 col-form-label">Opis</label>
+					    		<div class="col-sm-4">
+					    			<input type="text" class="form-control" id="opisSearchInput">
+					    		</div>
+							</div>
+							<div class="form-group form-row">
+								<label for="jedinicaSearchInput" class="col-sm-2 col-form-label">Jedinica mere</label>
+								<div class="col-sm-4">
+					    			<input type="text" class="form-control" id="jedinicaSearchInput">
+								</div>
+								<label for="grupaSearchInput" class="col-sm-2 col-form-label">Grupa robe</label>
+								<div class="col-sm-4">
+					    			<input type="text" class="form-control" id="grupaSearchInput">
+								</div>
+							</div>
+						</div>
+						<div class="col-2 center">
+							<button id="doSearch" type="button" class="btn btn-outline-secondary">Pretraži</button>
+							<button id="doReset" type="button" class="btn btn-outline-secondary">Poništi</button>
+						</div>
+					</div>
+				</form>
+				
+				
+			</div>
+			
+			<!-- Toolbar -->	
+			<div class="toolbar">
+				<button id="refresh" type="button" class="btn btn-outline-secondary"><i class="fas fa-sync-alt"></i></button>
+				
+				<button id="search" type="button" class="btn btn-outline-secondary">Pretraži</button>
+				
+				<button id="add" type="button" class="btn btn-outline-secondary">Dodaj</button>
+				<button id="edit" type="button" class="btn btn-outline-secondary">Izmeni</button>
+				<button id="delete" type="button" class="btn btn-outline-secondary">Obriši</button>
+				
+				<!-- Pagination -->
+				<div class="pagination" >
+					<button type="button" class="btn btn-outline-secondary btn-sm disabled btn-pagination-previous"><i class="fas fa-angle-left"></i></button>
+					<span class="pagination-numbering">x do y od z</span>
+					<button type="button" class="btn btn-outline-secondary btn-sm btn-pagination-next"><i class="fas fa-angle-right"></i></button>
+				</div>
+			</div>
+				
+	
+			
+			<table id="dataTable" class="table">
+				<thead>
+					<tr>
+						<th>Naziv robe</th>
+						<th>Opis</th>
+						<th>Roba?</th>
+						<th>Jedinica mere</th>
+						<th>Grupa robe</th>
+					</tr>
+				</thead>
+				<tbody id="dataTableBody">
+				</tbody>
+				
+				
+			</table>
+			
+			
+			<!-- Dodavanje robe -->
+			<div class="modal fade" id="addModalScrollable" tabindex="-1" role="dialog" aria-labelledby="addModalScrollableTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-scrollable" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="addModalScrollableTitle">Dodavanje mesta</h5>
+			        <button type="button" class="close addModalClose" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <form>
+					  <div class="form-group">
+					    <label for="nazivInput">Naziv robe</label>
+					    <input type="text" class="form-control" id="nazivInput" aria-describedby="nazivHelp" placeholder="Unesite naziv robe/usluge">
+					  </div>
+					   <div class="form-group">
+					    <label for="opisInput">Opis robe</label>
+					    <input type="text" class="form-control" id="opisInput" aria-describedby="opisHelp" placeholder="Unesite opis robe/usluge">
+					  </div>
+					  <div class="form-group">
+					    <label for="robaInput">Roba ?</label>
+					    <input type="checkbox" class="form-control" id="robaInput" placeholder="Oznaci ako jeste roba">
+					    <small id="robaHelp" class="form-text text-muted">Oznaci ako jeste roba</small>
+					  </div>
+					  <div class="form-group">
+					    <label for="jedinicaSelect">Jedinica mere</label>
+					    <select class="form-control"  id="jedinicaSelect">
+					    
+					    </select>
+					  </div>
+					  <div class="form-group">
+					    <label for="grupaSelect">Grupa robe</label>
+					    <select class="form-control"  id="grupaSelect">
+					    
+					    </select>
+					  </div>
+					</form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary addModalClose" >Otkaži</button>
+			        <button type="button" id="doAdd" class="btn btn-primary">Sačuvaj</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			
+			<!-- Brisanje robe -->
+			<div class="modal fade" id="deletePromptModal" tabindex="-1" role="dialog" aria-labelledby="deletePromptLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="deletePromptLabel">Jeste li sigurni?</h5>
+			        <button type="button" class="close deletePromptClose" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <p id="deletePromptText"></p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary deletePromptClose">Otkaži</button>
+			        <button type="button" id="doDelete" class="btn btn-primary">Obriši</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+		</div>
+		
+	</body>
 </html>

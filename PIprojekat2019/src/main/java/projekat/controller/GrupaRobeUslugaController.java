@@ -70,24 +70,24 @@ public class GrupaRobeUslugaController {
 		
 	}
 	
-	@PostMapping(value = "/izmeniGrupu")
-	private ResponseEntity<Void> izmeniGrupu(@RequestParam("naziv_grupe") String nazivGrupe, @RequestParam("novi_naziv") String noviNaziv) {
-		
-		GrupaRobeUsluga grupaRobeUsluga = grupaRobeUslugaServiceInterface.findByNazivGrupe(nazivGrupe);
-		
-		if(grupaRobeUsluga != null) {
-			grupaRobeUsluga.setNazivGrupe(noviNaziv);
-			grupaRobeUslugaServiceInterface.save(grupaRobeUsluga);
-			
-			System.out.println("Izmenjena je grupa robe");
-			
-			
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		}else {
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
-		
-	}
+//	@PostMapping(value = "/izmeniGrupu")
+//	private ResponseEntity<Void> izmeniGrupu(@RequestParam("naziv_grupe") String nazivGrupe, @RequestParam("novi_naziv") String noviNaziv) {
+//		
+//		GrupaRobeUsluga grupaRobeUsluga = grupaRobeUslugaServiceInterface.findByNazivGrupe(nazivGrupe);
+//		
+//		if(grupaRobeUsluga != null) {
+//			grupaRobeUsluga.setNazivGrupe(noviNaziv);
+//			grupaRobeUslugaServiceInterface.save(grupaRobeUsluga);
+//			
+//			System.out.println("Izmenjena je grupa robe");
+//			
+//			
+//			return new ResponseEntity<Void>(HttpStatus.OK);
+//		}else {
+//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+//		}
+//		
+//	}
 	
 	@DeleteMapping(value = "/obrisiGrupu/{id}")
 	private ResponseEntity<Void> obrisiGrupu(@PathVariable("id") long id){
