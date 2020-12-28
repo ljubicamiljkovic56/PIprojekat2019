@@ -173,3 +173,27 @@ function getNameOfSelectedEntityPDVStope(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityGrupa(){
+	var row = $(".highlighted");
+    var id = row.find(".idGrupe").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityGrupa(){
+	var row = $(".highlighted");
+    var name = row.find(".nazivGrupe").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}

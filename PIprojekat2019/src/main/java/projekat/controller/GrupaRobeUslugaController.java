@@ -6,14 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import projekat.model.GrupaRobeUsluga;
+import projekat.model.PDVKategorija;
 import projekat.service.intrfc.GrupaRobeUslugaServiceInterface;
+import projekat.service.intrfc.PDVKategorijaServiceInterface;
 
 @CrossOrigin
 @RestController
@@ -23,6 +27,9 @@ public class GrupaRobeUslugaController {
 	
 	@Autowired
 	private GrupaRobeUslugaServiceInterface grupaRobeUslugaServiceInterface;
+	
+	@Autowired
+	private PDVKategorijaServiceInterface pdvKategorijaServiceInterface;
 	
 	@GetMapping(path = "/all")
 	public List<GrupaRobeUsluga> getAll(){
@@ -44,12 +51,17 @@ public class GrupaRobeUslugaController {
 //	}
 	
 	@PostMapping(value = "/dodajGrupu")
-	private ResponseEntity<Void> dodajGrupu(@RequestParam("naziv_grupe") String nazivGrupe) {
+	private ResponseEntity<Void> dodajGrupu(@RequestParam("naziv_grupe") String nazivGrupe, 
+			@RequestParam("pdvKategorija") String nazivKategorije) {
 		
 		System.out.println("Naziv grupe: " + nazivGrupe);
+	
+		PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findByNazivKategorije(nazivKategorije);
+		PDVKategorija pdvKategorija2 = pdvKategorijaServiceInterface.findOne(pdvKategorija.getIdKategorije());
 		
 		GrupaRobeUsluga grupaRobeUsluga = new GrupaRobeUsluga();
 		grupaRobeUsluga.setNazivGrupe(nazivGrupe);
+		grupaRobeUsluga.setPdvKategorija(pdvKategorija2);
 		grupaRobeUslugaServiceInterface.save(grupaRobeUsluga);
 		
 		System.out.println("Dodata je nova grupa robe");
@@ -77,10 +89,10 @@ public class GrupaRobeUslugaController {
 		
 	}
 	
-	@PostMapping(value = "/obrisiGrupu")
-	private ResponseEntity<Void> obrisiGrupu(@RequestParam("naziv_grupe") String nazivGrupe){
+	@DeleteMapping(value = "/obrisiGrupu/{id}")
+	private ResponseEntity<Void> obrisiGrupu(@PathVariable("id") long id){
 		
-		GrupaRobeUsluga grupaRobeUsluga = grupaRobeUslugaServiceInterface.findByNazivGrupe(nazivGrupe);
+		GrupaRobeUsluga grupaRobeUsluga = grupaRobeUslugaServiceInterface.findOne(id);
 		
 		if(grupaRobeUsluga == null) {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);

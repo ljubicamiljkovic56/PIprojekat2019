@@ -58,7 +58,7 @@ toolbar {
 }
 
 
-td.idJediniceMere, td.idKategorije, td.idMesta, td.idPreduzeca, td.idPoslovnogPartnera, td.idStope{
+td.idJediniceMere, td.idKategorije, td.idMesta, td.idPreduzeca, td.idPoslovnogPartnera, td.idStope, td.idGrupe{
  	visibility: hidden; 
  	max-width: 0px;
 }

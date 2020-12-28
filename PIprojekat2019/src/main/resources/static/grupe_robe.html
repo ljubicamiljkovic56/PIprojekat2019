@@ -1,27 +1,186 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Grupe robe</title>
-<script src="js/jquery-3.3.1.js"></script>
-<script src="js/grupe_robe.js"></script>
-<link rel="shortcut icon" href="favicon.ico">
-</head>
-<body>
-<h3>Grupe robe</h3>
-	<table border="1" id="grupeTable">
-		<tr bgcolor="lightblue">
-			<th><a>Naziv</a></th>
-			<th/>
-		</tr>
-	</table>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<script src="bootstrap/jquery-3.3.1.min.js"></script>
+		<script src="bootstrap/bootstrap.js"></script>
+		<script src="bootstrap/funkcije.js"></script>
+		<script src="js/grupe_robe.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="bootstrap/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/stil.css">
+		
+		<script src="https://kit.fontawesome.com/9497a339e1.js" crossorigin="anonymous"></script>
 	
-	<p><a href="webshop.html">Nazad na glavnu stranu</a>
-	<p><a href="grupa_robe.html">Pojedinacan prikaz grupe robe</a></p>
-	<p><a href="dodaj_grupu_robe.html">Dodaj grupu robe</a></p>
-	<p><a href="izmeni_grupu_robe.html">Izmeni grupu robe</a></p>
-	<p><a href="obrisi_grupu_robe.html">Obrisi grupu robe</a></p>
-	<p><a href="login.html">Nazad na login</a><p>
-	<p><a href="index.html">Nazad na index stranu</a></p>
-</body>
+		<title>Grupe robe i usluga</title>
+		
+		<script>
+			$(document).ready(getGrupe);
+		</script>
+	
+	</head>
+	<body background="bootstrap/wavegreen.png">
+
+		<div class="container">
+			<nav class="navbar navbar-expand navbar-dark bg-success fixed-top">
+				
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="#">Početna</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="jedinice_mere.html">Jedinice mere</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="pdv_kategorije.html">PDV kategorije</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="pdv_stope.html">PDV stope</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="grupe_robe.html">Grupe robe</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="naseljena_mesta.html">Naseljena mesta</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="preduzeca.html">Preduzeca</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="poslovni_partneri.html">Poslovni partneri</a>
+					</li>
+				</ul>
+			</nav>
+			
+			<h1 class="pageHead">Grupe robe</h1>
+			
+			<!-- Pretraga -->
+			<div class="collapse" id="collapseSearch">
+				<form>
+					<div class="row">
+						<div class="col-10 search-inputs">
+							<div class="form-group form-row">
+					    		<label for="nazivSearchInput" class="col-sm-2 col-form-label">Naziv</label>
+					    		<div class="col-sm-4">
+					    			<input type="text" class="form-control" id="nazivSearchInput">
+					    		</div>
+					    		<label for="kategorijaSearchInput" class="col-sm-2 col-form-label">PDV kategorija</label>
+					    		<div class="col-sm-4">
+					    			<input type="text" class="form-control" id="kategorijaSearchInput">
+					    		</div>
+							</div>
+							<div class="form-group form-row">
+<!-- 								<label for="mestoSearchInput" class="col-sm-2 col-form-label">Mesto</label> -->
+<!-- 								<div class="col-sm-4"> -->
+<!-- 					    			<input type="text" class="form-control" id="mestoSearchInput"> -->
+<!-- 								</div> -->
+<!-- 								<label for="countryNameSearchInput" class="col-sm-2 col-form-label">Država</label> -->
+<!-- 								<div class="col-sm-4"> -->
+<!-- 					    			<input type="text" class="form-control" id="countryNameSearchInput"> -->
+<!-- 								</div> -->
+							</div>
+						</div>
+						<div class="col-2 center">
+							<button id="doSearch" type="button" class="btn btn-outline-secondary">Pretraži</button>
+							<button id="doReset" type="button" class="btn btn-outline-secondary">Poništi</button>
+						</div>
+					</div>
+				</form>
+				
+				
+			</div>
+			
+			<!-- Toolbar -->	
+			<div class="toolbar">
+				<button id="refresh" type="button" class="btn btn-outline-secondary"><i class="fas fa-sync-alt"></i></button>
+				
+				<button id="search" type="button" class="btn btn-outline-secondary">Pretraži</button>
+				
+				<button id="add" type="button" class="btn btn-outline-secondary">Dodaj</button>
+				<button id="edit" type="button" class="btn btn-outline-secondary">Izmeni</button>
+				<button id="delete" type="button" class="btn btn-outline-secondary">Obriši</button>
+				
+				<!-- Pagination -->
+				<div class="pagination" >
+					<button type="button" class="btn btn-outline-secondary btn-sm disabled btn-pagination-previous"><i class="fas fa-angle-left"></i></button>
+					<span class="pagination-numbering">x do y od z</span>
+					<button type="button" class="btn btn-outline-secondary btn-sm btn-pagination-next"><i class="fas fa-angle-right"></i></button>
+				</div>
+			</div>
+				
+	
+			
+			<table id="dataTable" class="table">
+				<thead>
+					<tr>
+						<th>Naziv grupe robe</th>
+						<th>PDV kategorija</th>
+					</tr>
+				</thead>
+				<tbody id="dataTableBody">
+				</tbody>
+				
+				
+			</table>
+			
+			
+			<!-- Dodavanje grupe robe -->
+			<div class="modal fade" id="addModalScrollable" tabindex="-1" role="dialog" aria-labelledby="addModalScrollableTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-scrollable" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="addModalScrollableTitle">Dodavanje grupe robe</h5>
+			        <button type="button" class="close addModalClose" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <form>
+					  <div class="form-group">
+					    <label for="nazivInput">Naziv grupe robe</label>
+					    <input type="text" class="form-control" id="nazivInput" aria-describedby="nazivHelp" placeholder="Unesite naziv grupe robe">
+					  </div>
+					  <div class="form-group">
+					    <label for="kategorijaSelect">PDV kategorija</label>
+					    <select class="form-control"  id="kategorijaSelect">
+					    
+					    </select>
+					  </div>
+					</form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary addModalClose" >Otkaži</button>
+			        <button type="button" id="doAdd" class="btn btn-primary">Sačuvaj</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			
+			<!-- Brisanje grupe robe -->
+			<div class="modal fade" id="deletePromptModal" tabindex="-1" role="dialog" aria-labelledby="deletePromptLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="deletePromptLabel">Jeste li sigurni?</h5>
+			        <button type="button" class="close deletePromptClose" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <p id="deletePromptText"></p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary deletePromptClose">Otkaži</button>
+			        <button type="button" id="doDelete" class="btn btn-primary">Obriši</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+		</div>
+		
+	</body>
 </html>
