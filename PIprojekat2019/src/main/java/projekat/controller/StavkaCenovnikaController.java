@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import projekat.dto.StavkaCenovnikaDTO;
 import projekat.model.Cenovnik;
 import projekat.model.RobaUsluga;
 import projekat.model.StavkaCenovnika;
@@ -57,14 +58,14 @@ public class StavkaCenovnikaController {
 //	}
 //	
 	@PostMapping(path = "/dodajStavkuCenovnika")
-	public ResponseEntity<Void> dodajStavkuCenovnika(@RequestParam("cena") String cena, @RequestParam("roba") String nazivRobe,
-			@RequestParam("datum_vazenja") String datumVazenjaCenovnika) throws ParseException {
+	public ResponseEntity<Void> dodajStavkuCenovnika(@RequestParam("cena") String cena,
+			@RequestParam("cenovnik") String datumVazenjaCenovnika, @RequestParam("roba") String nazivRobe) throws ParseException {
 		
 		
 		System.out.println("Cena: " + cena);
-		System.out.println("Naziv robe: " + nazivRobe);
 		System.out.println("Datum vazenja: " + datumVazenjaCenovnika);
-		
+		System.out.println("Naziv robe: " + nazivRobe);
+	
 		double cenaDouble = Double.parseDouble(cena);
 		
 		String datum = datumVazenjaCenovnika;
@@ -90,47 +91,45 @@ public class StavkaCenovnikaController {
 	}
 	
 	
-	@PostMapping(path = "/izmeniStavkuCenovnika")
-	public ResponseEntity<Void> izmeniStavkuCenovnika(@RequestParam("cena") String cena, @RequestParam("nova_cena") String novaCena,
-			@RequestParam("roba") String nazivRobe,
-			@RequestParam("datum_vazenja") String datumVazenjaCenovnika) throws ParseException {
-		
-
-		double cenaDouble = Double.parseDouble(cena);
-		double novaCenaDouble = Double.parseDouble(novaCena);
-		
-		String datum = datumVazenjaCenovnika;
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = formatter.parse(datum);
-	    java.sql.Date sqlDate = new java.sql.Date(date.getTime()); 
-	    
-		StavkaCenovnika stavkaCenovnika = stavkaCenovnikaServiceInterface.findByCena(cenaDouble);
-		
-		Cenovnik cenovnik = cenovnikServiceInterface.findByDatumPocetkaVazenja(sqlDate);
-		RobaUsluga robaUsluga = robaUslugaServiceInterface.findByNazivRobeUsluge(nazivRobe);
-		
-		if(stavkaCenovnika != null) {
-			stavkaCenovnika.setCena(novaCenaDouble);
-			stavkaCenovnika.setCenovnik(cenovnik);
-			stavkaCenovnika.setRobaUsluga(robaUsluga);
-			stavkaCenovnikaServiceInterface.save(stavkaCenovnika);
-			
-			
-			System.out.println("Izmenjena je stavka cenovnika.");
-			
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
-		
-	}
+//	@PostMapping(path = "/izmeniStavkuCenovnika")
+//	public ResponseEntity<Void> izmeniStavkuCenovnika(@RequestParam("cena") String cena, @RequestParam("nova_cena") String novaCena,
+//			@RequestParam("roba") String nazivRobe,
+//			@RequestParam("datum_vazenja") String datumVazenjaCenovnika) throws ParseException {
+//		
+//
+//		double cenaDouble = Double.parseDouble(cena);
+//		double novaCenaDouble = Double.parseDouble(novaCena);
+//		
+//		String datum = datumVazenjaCenovnika;
+//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//		java.util.Date date = formatter.parse(datum);
+//	    java.sql.Date sqlDate = new java.sql.Date(date.getTime()); 
+//	    
+//		StavkaCenovnika stavkaCenovnika = stavkaCenovnikaServiceInterface.findByCena(cenaDouble);
+//		
+//		Cenovnik cenovnik = cenovnikServiceInterface.findByDatumPocetkaVazenja(sqlDate);
+//		RobaUsluga robaUsluga = robaUslugaServiceInterface.findByNazivRobeUsluge(nazivRobe);
+//		
+//		if(stavkaCenovnika != null) {
+//			stavkaCenovnika.setCena(novaCenaDouble);
+//			stavkaCenovnika.setCenovnik(cenovnik);
+//			stavkaCenovnika.setRobaUsluga(robaUsluga);
+//			stavkaCenovnikaServiceInterface.save(stavkaCenovnika);
+//			
+//			
+//			System.out.println("Izmenjena je stavka cenovnika.");
+//			
+//			return new ResponseEntity<Void>(HttpStatus.OK);
+//		} else {
+//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+//		}
+//		
+//	}
 	
-	@PostMapping(path = "/obrisiStavkuCenovnika") 
-	public ResponseEntity<Void> obrisiStavkuCenovnika(@RequestParam("cena") String cena) {
+	@DeleteMapping(path = "/obrisiStavkuCenovnika/{id}") 
+	public ResponseEntity<Void> obrisiStavkuCenovnika(@PathVariable("id") long id) {
 		
-		double cenaDouble = Double.parseDouble(cena);
-		
-		StavkaCenovnika stavkaCenovnika = stavkaCenovnikaServiceInterface.findByCena(cenaDouble);
+		StavkaCenovnika stavkaCenovnika = stavkaCenovnikaServiceInterface.findOne(id);
 		
 		if(stavkaCenovnika == null) {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);

@@ -245,3 +245,27 @@ function getNameOfSelectedEntityGodina(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityStavkaCenovnika(){
+	var row = $(".highlighted");
+    var id = row.find(".idStavke").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityStavkaCenovnika(){
+	var row = $(".highlighted");
+    var name = row.find(".cena").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}
