@@ -123,14 +123,14 @@ function dobaviGrupeRobe() {
 function dodajRobu(){
 	var nazivInput = $('#nazivInput');
 	var opisInput = $('#opisInput');
-	var robaInput = $('#robaInput');
+	var robaSelect = $('#robaSelect');
 	var jedinicaSelect = $('#jedinicaSelect');
 	var grupaSelect = $('#grupaSelect');
 	
 	$('#doAdd').on('click', function(event){
 		var naziv_robe = nazivInput.val();
 		var opis = opisInput.val();
-		var roba = robaInput.val();
+		var roba = robaSelect.find(":selected").text();;
 		var naziv_mere = jedinicaSelect.find(":selected").text();
 		var naziv_grupe = grupaSelect.find(":selected").text();
 		

@@ -221,3 +221,27 @@ function getNameOfSelectedEntityRoba(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityGodina(){
+	var row = $(".highlighted");
+    var id = row.find(".idGodine").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityGodina(){
+	var row = $(".highlighted");
+    var name = row.find(".godina").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}

@@ -55,7 +55,7 @@ public class RobaUslugaController {
 	
 	@PostMapping(path = "/dodajRobu")
 	public ResponseEntity<Void> dodajRobu(@RequestParam("naziv_robe") String nazivRobe, 
-			@RequestParam("opis") String opis, @RequestParam("roba") boolean roba,
+			@RequestParam("opis") String opis, @RequestParam("roba") String roba,
 			@RequestParam("naziv_mere") String nazivMere, @RequestParam("naziv_grupe") String nazivGrupe) {
 		
 		GrupaRobeUsluga grupa = grupaRobeUslugaServiceInterface.findByNazivGrupe(nazivGrupe);
@@ -68,7 +68,13 @@ public class RobaUslugaController {
 		RobaUsluga robaUsluga = new RobaUsluga();
 		robaUsluga.setNazivRobeUsluge(nazivRobe);
 		robaUsluga.setOpis(opis);
-		robaUsluga.setRoba(true);
+		
+		if(roba.equalsIgnoreCase("Da")) {
+			robaUsluga.setRoba(true);
+		}else {
+			robaUsluga.setRoba(false);
+		}
+		
 		robaUsluga.setJedinicaMere(mera2);
 		robaUsluga.setGrupaRobeUsluga(grupa2);
 		robaUslugaServiceInterface.save(robaUsluga);
