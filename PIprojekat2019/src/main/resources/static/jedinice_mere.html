@@ -178,6 +178,36 @@
 			  </div>
 			</div>
 			
+			<!-- Izmena jedinice mere -->
+			<div class="modal fade" id="updateModalScrollable" tabindex="-1" role="dialog" aria-labelledby="updateModalScrollableTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="updateModalScrollableTitle">Izmena jedinice mere</h5>
+							<button type="button" class="close updateModalClose" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-group">
+									<label for="nazivJediniceMereInput">Naziv jedinice mere</label>
+									<input type="text" class="form-control" id="nazivJediniceMereInput" aria-describedby="nazivJediniceMere">
+								</div>
+								<div class="form-group">
+									<label for="skraceniNazivInput">Skraceni naziv</label>
+									<input type="text" class="form-control" id="skraceniNazivInput" aria-describedby="skraceniNaziv">
+								</div>
+							
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary updateModalClose">Otkaži</button>
+							<button type="button" id="doUpdate" class="btn btn-primary">Sačuvaj</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			
 			<!-- Obrisi jedinicu mere -->
 			<div class="modal fade" id="deletePromptModal" tabindex="-1" role="dialog" aria-labelledby="deletePromptLabel" aria-hidden="true">

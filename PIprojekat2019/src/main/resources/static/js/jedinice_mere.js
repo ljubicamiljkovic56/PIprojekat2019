@@ -19,6 +19,16 @@ function getJediniceMere() {
 	
 	$(document).on("click", '#edit', function(event){
 		console.log(getIdOfSelectedEntityJedinica());
+		$('#updateModalScrollable').modal('show');
+	});
+	
+	$(document).on("click", "#doUpdate", function(event) {
+		izmeniJedinicuMere();
+		$('#updateModalScrollable').modal('hide');
+	});
+	
+	$(document).on("click", '.updateModalClose', function(event) {
+		$('#updateModalScrollable').modal('hide');
 	});
 	
 	$(document).on("click", '#delete', function(event){
@@ -130,6 +140,10 @@ function dodajJedinicuMere(){
 //				$("#skraceniNazivInput").val("");
 //			}
 //	});
+}
+
+function izmeniJedinicuMere() {
+	
 }
 
 function obrisiJedinicuMere(){
