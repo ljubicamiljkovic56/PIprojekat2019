@@ -40,12 +40,15 @@ INSERT INTO poslovni_partner(naziv_poslovnog_partnera, adresa, telefon, fax, ema
 
 INSERT INTO cenovnik(datum_pocetka_vazenja, id_preduzeca) VALUES ('2020-01-01', 1);
 INSERT INTO cenovnik(datum_pocetka_vazenja, id_preduzeca) VALUES ('2020-03-03', 2);
+INSERT INTO cenovnik(datum_pocetka_vazenja, id_preduzeca) VALUES ('2020-04-04', 1);
+INSERT INTO cenovnik(datum_pocetka_vazenja, id_preduzeca) VALUES ('2020-05-05', 2);
+INSERT INTO cenovnik(datum_pocetka_vazenja, id_preduzeca) VALUES ('2020-06-06', 1);
 
 INSERT INTO stavka_cenovnika(cena, id_cenovnika, id_robe_usluge) VALUES (22000, 1, 1);
-INSERT INTO stavka_cenovnika(cena, id_cenovnika, id_robe_usluge) VALUES (100, 1, 2);
-INSERT INTO stavka_cenovnika(cena, id_cenovnika, id_robe_usluge) VALUES (200, 1, 3);
-INSERT INTO stavka_cenovnika(cena, id_cenovnika, id_robe_usluge) VALUES (600, 1, 4);
-INSERT INTO stavka_cenovnika(cena, id_cenovnika, id_robe_usluge) VALUES (310, 1, 5);
+INSERT INTO stavka_cenovnika(cena, id_cenovnika, id_robe_usluge) VALUES (100, 2, 2);
+INSERT INTO stavka_cenovnika(cena, id_cenovnika, id_robe_usluge) VALUES (200, 3, 3);
+INSERT INTO stavka_cenovnika(cena, id_cenovnika, id_robe_usluge) VALUES (600, 4, 4);
+INSERT INTO stavka_cenovnika(cena, id_cenovnika, id_robe_usluge) VALUES (310, 5, 5);
 
 
 INSERT INTO poslovna_godina(godina, zakljucena, id_preduzeca) VALUES (2020, false, 1);

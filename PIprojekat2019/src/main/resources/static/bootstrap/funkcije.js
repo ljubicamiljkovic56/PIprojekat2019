@@ -269,3 +269,27 @@ function getNameOfSelectedEntityStavkaCenovnika(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityCenovnik(){
+	var row = $(".highlighted");
+    var id = row.find(".idCenovnika").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityCenovnik(){
+	var row = $(".highlighted");
+    var name = row.find(".datumPocetkaVazenja").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}
