@@ -18,7 +18,17 @@ function getMesta() {
 	});
 	
 	$(document).on("click", '#edit', function(event){
-		console.log(getIdOfSelectedEntityJedinica());
+		console.log(getIdOfSelectedEntityMesto());
+		$('#updateModalScrollable').modal('show');
+	});
+	
+	$(document).on("click", "#doUpdate", function(event) {
+		izmeniMesto();
+		$('#updateModalScrollable').modal('hide');
+	});
+	
+	$(document).on("click", '.updateModalClose', function(event) {
+		$('#updateModalScrollable').modal('hide');
 	});
 	
 	$(document).on("click", '#delete', function(event){
@@ -98,6 +108,44 @@ function dodajMesto(){
 		console.log('slanje poruke');
 		event.preventDefault();
 		return false;
+	});
+	
+}
+
+function izmeniMesto() {
+	var id = getIdOfSelectedEntityMesto();
+	console.log(id);
+	
+	var nazivMestaIzmeniInput = $('#nazivMestaIzmeniInput');
+	var pttBrojIzmeniInput = $('#pttBrojIzmeniInput');
+	
+	$("#doUpdate").on("click", function(event) {
+		var naziv_mesta = nazivMestaIzmeniInput.val();
+		var ptt_broj = pttBrojIzmeniInput.val();
+		
+		console.log('naziv_mesta: ' + naziv_mesta);
+		console.log('ptt_broj: ' + ptt_broj);
+		
+		var params = {
+				'id': id,
+				'naziv_mesta': naziv_mesta,
+				'ptt_broj': ptt_broj	
+		}
+		$.post("http://localhost:8080/api/mesto/izmeniMesto/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Izmena naseljenog mesta');
+			
+			dobaviMesta();
+			nazivMestaInput.val("");
+			pttBrojInput.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+		
 	});
 	
 }

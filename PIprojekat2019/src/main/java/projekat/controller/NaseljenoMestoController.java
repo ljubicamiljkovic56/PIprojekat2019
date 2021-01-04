@@ -62,28 +62,29 @@ public class NaseljenoMestoController {
 	}
 	
 	
-//	@PostMapping(path = "/izmeniMesto")
-//	public ResponseEntity<Void> izmeniMesto(@RequestParam("naziv_mesta") String nazivMesta, @RequestParam("novi_naziv") String noviNaziv,
-//			@RequestParam("ptt_broj") String pttBroj) {
-//		
-//		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
-//		
-//		int pttBrojInt = Integer.parseInt(pttBroj);
-//		
-//		if(mesto != null) {
-//			mesto.setNazivMesta(noviNaziv);
-//			mesto.setPttBroj(pttBrojInt);
-//			naseljenoMestoServiceInterface.save(mesto);
-//			
-//			System.out.println("Izmenjeno je naseljeno mesto");
-//			
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//	}
-//	
+	@PostMapping(path = "/izmeniMesto", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
+	public ResponseEntity<Void> izmeniMesto(@RequestParam("id") long id, @RequestParam("naziv_mesta") String nazivMesta,
+			@RequestParam("ptt_broj") String pttBroj) {
+		
+		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findOne(id);
+		
+		int pttBrojInt = Integer.parseInt(pttBroj);
+		
+		if(mesto != null) {
+			mesto.setIdMesta(id);
+			mesto.setNazivMesta(nazivMesta);
+			mesto.setPttBroj(pttBrojInt);
+			naseljenoMestoServiceInterface.save(mesto);
+			
+			System.out.println("Izmenjeno je naseljeno mesto");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
 	@DeleteMapping(value = "/obrisiMesto/{id}")
 	public ResponseEntity<Void> obrisiMesto(@PathVariable("id") long id){
 		

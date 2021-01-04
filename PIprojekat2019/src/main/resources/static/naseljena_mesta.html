@@ -91,15 +91,6 @@
 							
 							
 							<div class="form-group form-row">
-<!-- 								<label for="cityNameSearchInput" class="col-sm-2 col-form-label">Naziv</label> -->
-<!-- 								<div class="col-sm-4"> -->
-<!-- 					    			<input type="text" class="form-control" id="cityNameSearchInput"> -->
-<!-- 								</div> -->
-								
-<!-- 								<label for="countryNameSearchInput" class="col-sm-2 col-form-label">Država</label> -->
-<!-- 								<div class="col-sm-4"> -->
-<!-- 					    			<input type="text" class="form-control" id="countryNameSearchInput"> -->
-<!-- 								</div> -->
 							</div>
 						</div>
 						<div class="col-2 center">
@@ -178,6 +169,37 @@
 			  </div>
 			</div>
 			
+			
+			<!-- Izmena naseljenog mesta -->
+			<div class="modal fade" id="updateModalScrollable" tabindex="-1" role="dialog" aria-labelledby="updateModalScrollableTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="updateModalScrollableTitle">Izmena jedinice mere</h5>
+							<button type="button" class="close updateModalClose" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							 <form>
+					  			<div class="form-group">
+					    			<label for="nazivMestaIzmeniInput">Naziv mesta</label>
+					    			<input type="text" class="form-control" id="nazivMestaIzmeniInput" aria-describedby="nazivMestaIzmeni" placeholder="Unesite naziv naseljenog mesta">
+					  			</div>
+					   			<div class="form-group">
+					   			 	<label for="pttBrojIzmeniInput">PTT broj</label>
+					    			<input type="text" class="form-control" id="pttBrojIzmeniInput" aria-describedby="pttBrojIzmeni" placeholder="Unesite PTT broj">
+					  			</div>
+
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary updateModalClose">Otkaži</button>
+							<button type="button" id="doUpdate" class="btn btn-primary">Sačuvaj</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			
 			<!-- Obrisi naseljeno mesto -->
 			<div class="modal fade" id="deletePromptModal" tabindex="-1" role="dialog" aria-labelledby="deletePromptLabel" aria-hidden="true">
