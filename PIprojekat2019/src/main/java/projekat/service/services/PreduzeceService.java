@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import projekat.model.Preduzece;
 import projekat.repository.PreduzeceRepository;
 import projekat.service.intrfc.PreduzeceServiceInterface;
 
+@Transactional
 @Service
 public class PreduzeceService implements PreduzeceServiceInterface {
 	

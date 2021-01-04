@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import projekat.model.PDVKategorija;
 import projekat.repository.PDVKategorijaRepository;
 import projekat.service.intrfc.PDVKategorijaServiceInterface;
 
+@Transactional
 @Service
 public class PDVKategorijaService implements PDVKategorijaServiceInterface {
 	

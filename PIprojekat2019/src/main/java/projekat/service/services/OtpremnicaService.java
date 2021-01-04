@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import projekat.model.Otpremnica;
 import projekat.repository.OtpremnicaRepository;
 import projekat.service.intrfc.OtpremnicaServiceInterface;
 
+@Transactional
 @Service
 public class OtpremnicaService implements OtpremnicaServiceInterface {
 	

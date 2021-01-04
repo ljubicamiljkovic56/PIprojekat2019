@@ -143,6 +143,52 @@ function dodajJedinicuMere(){
 }
 
 function izmeniJedinicuMere() {
+	var id = getIdOfSelectedEntityJedinica();
+	console.log(id);
+	
+	var nazivJediniceMereIzmeniInput = $('#nazivJediniceMereIzmeniInput');
+	var skraceniNazivIzmeniInput = $('#skraceniNazivIzmeniInput');
+	
+	$("#doUpdate").on("click", function(event) {
+		var naziv_jedinice_mere = nazivJediniceMereIzmeniInput.val();
+		var skraceni_naziv = skraceniNazivIzmeniInput.val();
+		
+		console.log('naziv_jedinice_mere: ' + naziv_jedinice_mere);
+		console.log('skraceni_naziv: ' + skraceni_naziv);
+		
+		var params = {
+				'id': id,
+				'naziv_jedinice_mere': naziv_jedinice_mere,
+				'skraceni_naziv': skraceni_naziv	
+		}
+		$.post("http://localhost:8080/api/jedinicemere/izmeniJedinicuMere/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Izmena jedinice mere');
+			
+			dobaviJediniceMere();
+			nazivJediniceMereIzmeniInput.val("");
+			skraceniNazivIzmeniInput.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+		
+	});
+	
+	
+//	$.ajax({
+//    	url: "http://localhost:8080/api/jedinicemere/izmeniJedinicuMere/" + id,
+//    	type: "PUT",
+//    	data: JSON.stringify(params),
+//    	contentType:'application/json',
+//    	success: function(){
+//    		dobaviJediniceMere();
+//        }
+//	});
+//	
 	
 }
 

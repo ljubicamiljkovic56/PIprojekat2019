@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import projekat.model.PoslovniPartner;
 import projekat.repository.PoslovniPartnerRepository;
 import projekat.service.intrfc.PoslovniPartnerServiceInterface;
 
+@Transactional
 @Service
 public class PoslovniPartnerService implements PoslovniPartnerServiceInterface {
 	

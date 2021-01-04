@@ -2,10 +2,11 @@ package projekat.service.services;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import projekat.model.JedinicaMere;
 import projekat.repository.JedinicaMereRepository;
