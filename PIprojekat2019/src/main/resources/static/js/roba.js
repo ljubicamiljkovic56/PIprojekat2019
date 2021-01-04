@@ -2,6 +2,8 @@ function getRoba(){
 	dobaviRobu();
 	dobaviJediniceMere();
 	dobaviGrupeRobe();
+	dobaviJediniceMere2();
+	dobaviGrupeRobe2();
 	
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
@@ -22,6 +24,16 @@ function getRoba(){
 	
 	$(document).on("click", '#edit', function(event){
 		console.log(getIdOfSelectedEntityRoba());
+		$('#updateModalScrollable').modal('show');
+	});
+	
+	$(document).on("click", "#doUpdate", function(event) {
+		izmeniRobu();
+		$('#updateModalScrollable').modal('hide');
+	});
+	
+	$(document).on("click", '.updateModalClose', function(event) {
+		$('#updateModalScrollable').modal('hide');
 	});
 	
 	$(document).on("click", '#delete', function(event){
@@ -120,6 +132,47 @@ function dobaviGrupeRobe() {
 		}
 	);
 }
+
+function dobaviJediniceMere2() {
+	$.ajax({
+		url : "http://localhost:8080/api/jedinicemere/all"
+	}).then(
+		function(data) {
+			$("#jedinicaIzmeniSelect").empty();
+			$('#jedinicaIzmeniSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#jedinicaIzmeniSelect').append($('<option>', { 
+			        value: item.idJediniceMere,
+			        text : item.nazivJediniceMere 
+			    }));
+			});	
+		}
+	);
+}
+function dobaviGrupeRobe2() {
+	$.ajax({
+		url : "http://localhost:8080/api/gruperobe/all"
+	}).then(
+		function(data) {
+			$("#grupaIzmeniSelect").empty();
+			$('#grupaIzmeniSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#grupaIzmeniSelect').append($('<option>', { 
+			        value: item.idGrupe,
+			        text : item.nazivGrupe
+			    }));
+			});	
+		}
+	);
+}
 function dodajRobu(){
 	var nazivInput = $('#nazivInput');
 	var opisInput = $('#opisInput');
@@ -163,6 +216,60 @@ function dodajRobu(){
 		event.preventDefault();
 		return false;
 	});
+}
+
+function izmeniRobu() {
+	var id = getIdOfSelectedEntityRoba();
+	console.log(id);
+	
+	var nazivIzmeniInput = $('#nazivIzmeniInput');
+	var opisIzmeniInput = $('#opisIzmeniInput');
+	var robaIzmeniSelect = $('#robaIzmeniSelect');
+	var jedinicaIzmeniSelect = $('#jedinicaIzmeniSelect');
+	var grupaIzmeniSelect = $('#grupaIzmeniSelect');
+	
+	$("#doUpdate").on("click", function(event) {
+		var naziv_robe = nazivIzmeniInput.val();
+		var opis = opisIzmeniInput.val();
+		var roba = robaIzmeniSelect.find(":selected").text();;
+		var naziv_mere = jedinicaIzmeniSelect.find(":selected").text();
+		var naziv_grupe = grupaIzmeniSelect.find(":selected").text();
+		
+		console.log('naziv_robe: ' + naziv_robe)
+		console.log('opis: ' + opis);
+		console.log('roba: ' + roba);
+		console.log('naziv_mere: ' + naziv_mere);
+		console.log('naziv_grupe: ' + naziv_grupe);
+		
+		var params = {
+				'id': id,
+				'naziv_robe': naziv_robe,
+				'opis': opis,
+				'roba': roba,
+				'naziv_mere': naziv_mere,
+				'naziv_grupe': naziv_grupe
+					
+		}
+		$.post("http://localhost:8080/api/roba/izmeniRobu/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Izmena robe');
+			
+			dobaviRobu();
+			nazivIzmeniInput.val("");
+			opisIzmeniInput.val("");
+			robaIzmeniSelect.val("");
+			jedinicaIzmeniSelect.val("");
+			grupaIzmeniSelect.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+		
+	});
+	
 }
 
 function obrisiRobu(){

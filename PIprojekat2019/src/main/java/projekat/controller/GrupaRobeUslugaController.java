@@ -70,24 +70,29 @@ public class GrupaRobeUslugaController {
 		
 	}
 	
-//	@PostMapping(value = "/izmeniGrupu")
-//	private ResponseEntity<Void> izmeniGrupu(@RequestParam("naziv_grupe") String nazivGrupe, @RequestParam("novi_naziv") String noviNaziv) {
-//		
-//		GrupaRobeUsluga grupaRobeUsluga = grupaRobeUslugaServiceInterface.findByNazivGrupe(nazivGrupe);
-//		
-//		if(grupaRobeUsluga != null) {
-//			grupaRobeUsluga.setNazivGrupe(noviNaziv);
-//			grupaRobeUslugaServiceInterface.save(grupaRobeUsluga);
-//			
-//			System.out.println("Izmenjena je grupa robe");
-//			
-//			
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		}else {
-//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//	}
+	@PostMapping(value = "/izmeniGrupu", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
+	private ResponseEntity<Void> izmeniGrupu(@RequestParam("id") long id, @RequestParam("naziv_grupe") String nazivGrupe, 
+			@RequestParam("pdvKategorija") String nazivKategorije) {
+		
+		GrupaRobeUsluga grupaRobeUsluga = grupaRobeUslugaServiceInterface.findOne(id);
+		
+		PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findByNazivKategorije(nazivKategorije);
+		PDVKategorija pdvKategorija2 = pdvKategorijaServiceInterface.findOne(pdvKategorija.getIdKategorije());
+		
+		if(grupaRobeUsluga != null) {
+			grupaRobeUsluga.setIdGrupe(id);
+			grupaRobeUsluga.setNazivGrupe(nazivGrupe);
+			grupaRobeUsluga.setPdvKategorija(pdvKategorija2);
+			grupaRobeUslugaServiceInterface.save(grupaRobeUsluga);
+			
+			System.out.println("Izmenjena je grupa robe");
+			
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}		
+	}
 	
 	@DeleteMapping(value = "/obrisiGrupu/{id}")
 	private ResponseEntity<Void> obrisiGrupu(@PathVariable("id") long id){

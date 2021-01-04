@@ -170,6 +170,37 @@
 			  </div>
 			</div>
 			
+			<!-- Izmena grupe robe -->
+			<div class="modal fade" id="updateModalScrollable" tabindex="-1" role="dialog" aria-labelledby="updateModalScrollableTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="updateModalScrollableTitle">Izmena grupe robe</h5>
+							<button type="button" class="close updateModalClose" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+					  			<div class="form-group">
+					    			<label for="nazivIzmeniInput">Naziv grupe robe</label>
+					    			<input type="text" class="form-control" id="nazivIzmeniInput" aria-describedby="nazivIzmeniHelp" placeholder="Unesite naziv grupe robe">
+					  			</div>
+					  			<div class="form-group">
+					    			<label for="kategorijaIzmeniSelect">PDV kategorija</label>
+					    			<select class="form-control"  id="kategorijaIzmeniSelect">
+					    
+					    			</select>
+					  			</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary updateModalClose">Otkaži</button>
+							<button type="button" id="doUpdate" class="btn btn-primary">Sačuvaj</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			
 			<!-- Brisanje grupe robe -->
 			<div class="modal fade" id="deletePromptModal" tabindex="-1" role="dialog" aria-labelledby="deletePromptLabel" aria-hidden="true">

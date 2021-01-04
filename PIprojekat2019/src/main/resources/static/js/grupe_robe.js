@@ -1,6 +1,7 @@
 function getGrupe(){
 	dobaviGrupeRobe();
 	dobaviPDVKategorije();
+	dobaviPDVKategorije2();
 	
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
@@ -21,6 +22,16 @@ function getGrupe(){
 	
 	$(document).on("click", '#edit', function(event){
 		console.log(getIdOfSelectedEntityGrupa());
+		$('#updateModalScrollable').modal('show');
+	});
+	
+	$(document).on("click", "#doUpdate", function(event) {
+		izmeniGrupuRobe();
+		$('#updateModalScrollable').modal('hide');
+	});
+	
+	$(document).on("click", '.updateModalClose', function(event) {
+		$('#updateModalScrollable').modal('hide');
 	});
 	
 	$(document).on("click", '#delete', function(event){
@@ -96,6 +107,27 @@ function dobaviPDVKategorije() {
 		}
 	);
 }
+
+function dobaviPDVKategorije2() {
+	$.ajax({
+		url : "http://localhost:8080/api/pdvkategorije/all"
+	}).then(
+		function(data) {
+			$("#kategorijaIzmeniSelect").empty();
+			$('#kategorijaIzmeniSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#kategorijaIzmeniSelect').append($('<option>', { 
+			        value: item.idKategorije,
+			        text : item.nazivKategorije 
+			    }));
+			});	
+		}
+	);
+}
 function dodajGrupuRobe(){
 	var nazivInput = $('#nazivInput');
 	var kategorijaSelect = $('#kategorijaSelect');
@@ -123,6 +155,44 @@ function dodajGrupuRobe(){
 		console.log('slanje poruke');
 		event.preventDefault();
 		return false;
+	});
+}
+
+function izmeniGrupuRobe(){
+	var id = getIdOfSelectedEntityGrupa();
+	console.log(id);
+	
+	var nazivIzmeniInput = $('#nazivIzmeniInput');
+	var kategorijaIzmeniSelect = $('#kategorijaIzmeniSelect');
+	
+	$("#doUpdate").on("click", function(event) {
+		var naziv_grupe = nazivIzmeniInput.val();
+		var pdvKategorija = kategorijaIzmeniSelect.find(":selected").text();
+		
+		console.log('naziv_grupe: ' + naziv_grupe)
+		console.log('pdvKategorija: ' + pdvKategorija);
+		
+		
+		var params = {
+				'id': id,
+				'naziv_grupe': naziv_grupe,
+				'pdvKategorija': pdvKategorija	
+		}
+		$.post("http://localhost:8080/api/gruperobe/izmeniGrupu/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Izmena grupe robe');
+			
+			dobaviGrupeRobe();
+			nazivIzmeniInput.val("");
+			kategorijaIzmeniSelect.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+		
 	});
 }
 

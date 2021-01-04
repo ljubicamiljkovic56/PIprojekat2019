@@ -85,34 +85,39 @@ public class RobaUslugaController {
 		
 	}
 	
-//	@PostMapping(path = "/izmeniRobu")
-//	public ResponseEntity<Void> izmeniRobu(@RequestParam("naziv_robe") String nazivRobe, 
-//			@RequestParam("novi_naziv") String noviNaziv, @RequestParam("opis") String opis, @RequestParam("naziv_grupe") String nazivGrupe,
-//			@RequestParam("naziv_mere") String nazivMere) {
-//		
-//		RobaUsluga roba = robaUslugaServiceInterface.findByNazivRobeUsluge(nazivRobe);
-//		
-//		GrupaRobeUsluga grupa = grupaRobeUslugaServiceInterface.findByNazivGrupe(nazivGrupe);
-//		
-//		JedinicaMere mera = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivMere);
-//		
-//		if(roba != null) {
-//			roba.setNazivRobeUsluge(noviNaziv);
-//			roba.setOpis(opis);
-//			roba.setRoba(true);
-//			roba.setGrupaRobeUsluga(grupa);
-//			roba.setJedinicaMere(mera);
-//			robaUslugaServiceInterface.save(roba);
-//			
-//			System.out.println("Izmena robe");
-//			
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		}else {
-//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//		
-//	}
+	@PostMapping(path = "/izmeniRobu", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
+	public ResponseEntity<Void> izmeniRobu(@RequestParam("id") long id, @RequestParam("naziv_robe") String nazivRobe, 
+			@RequestParam("opis") String opis, @RequestParam("roba") String roba, @RequestParam("naziv_mere") String nazivMere, 
+			@RequestParam("naziv_grupe") String nazivGrupe) {
+	
+		RobaUsluga robaUsluga = robaUslugaServiceInterface.findOne(id);
+		
+		JedinicaMere mera = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivMere);
+		
+		GrupaRobeUsluga grupa = grupaRobeUslugaServiceInterface.findByNazivGrupe(nazivGrupe);
+			
+		if(roba != null) {
+			robaUsluga.setIdRobeUsluge(id);
+			robaUsluga.setNazivRobeUsluge(nazivRobe);
+			robaUsluga.setOpis(opis);
+		
+			if(roba.equalsIgnoreCase("Da")) {
+				robaUsluga.setRoba(true);
+			}else {
+				robaUsluga.setRoba(false);
+			}
+			
+			robaUsluga.setJedinicaMere(mera);
+			robaUsluga.setGrupaRobeUsluga(grupa);
+			robaUslugaServiceInterface.save(robaUsluga);
+			
+			System.out.println("Izmena robe");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}		
+	}
 	
 	@DeleteMapping(path = "/obrisiRobu/{id}")
 	public ResponseEntity<Void> obrisiRobu(@PathVariable("id") long id) {
