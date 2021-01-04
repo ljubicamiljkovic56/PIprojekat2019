@@ -61,25 +61,24 @@ public class PDVKategorijaController {
 		
 	}
 	
-//	@PostMapping(value = "/izmeniKategoriju")
-//	public ResponseEntity<Void> izmeniKategoriju(@RequestParam("naziv_kategorije") String nazivKategorije,
-//			@RequestParam("novi_naziv") String noviNaziv) {
-//		
-//		PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findByNazivKategorije(nazivKategorije);
-//		
-//		if(pdvKategorija != null) {
-//			pdvKategorija.setNazivKategorije(noviNaziv);
-//			pdvKategorija.setPdvStope(pdvKategorija.getPdvStope());
-//			pdvKategorijaServiceInterface.save(pdvKategorija);
-//			
-//			System.out.println("Izmenjena pdv kategorija");
-//			
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		}else {
-//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//	}
+	@PostMapping(value = "/izmeniKategoriju", consumes =  "application/x-www-form-urlencoded;charset=UTF-8")
+	public ResponseEntity<Void> izmeniKategoriju(@RequestParam("id") long id, @RequestParam("naziv_kategorije") String nazivKategorije) {
+		
+		PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findOne(id);
+		
+		if(pdvKategorija != null) {
+			pdvKategorija.setIdKategorije(id);
+			pdvKategorija.setNazivKategorije(nazivKategorije);
+			pdvKategorijaServiceInterface.save(pdvKategorija);
+			
+			System.out.println("Izmenjena pdv kategorija");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
 	
 	@DeleteMapping(value = "/obrisiKategoriju/{id}")
 	public ResponseEntity<Void> obrisiKategoriju(@PathVariable("id") long id) {

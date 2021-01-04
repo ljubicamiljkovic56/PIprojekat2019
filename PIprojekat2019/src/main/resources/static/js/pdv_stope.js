@@ -1,6 +1,7 @@
 function getPDVStope(){
 	dobaviPDVStope();
 	dobaviPDVKategorije();
+	dobaviPDVKategorije2();
 	
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
@@ -21,6 +22,16 @@ function getPDVStope(){
 	
 	$(document).on("click", '#edit', function(event){
 		console.log(getIdOfSelectedEntityPDVStope());
+		$('#updateModalScrollable').modal('show');
+	});
+	
+	$(document).on("click", "#doUpdate", function(event) {
+		izmeniPDVStopu();
+		$('#updateModalScrollable').modal('hide');
+	});
+	
+	$(document).on("click", '.updateModalClose', function(event) {
+		$('#updateModalScrollable').modal('hide');
 	});
 	
 	$(document).on("click", '#delete', function(event){
@@ -97,6 +108,27 @@ function dobaviPDVKategorije() {
 		}
 	);
 }
+
+function dobaviPDVKategorije2() {
+	$.ajax({
+		url : "http://localhost:8080/api/pdvkategorije/all"
+	}).then(
+		function(data) {
+			$("#kategorijaIzmeniSelect").empty();
+			$('#kategorijaIzmeniSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#kategorijaIzmeniSelect').append($('<option>', { 
+			        value: item.idKategorije,
+			        text : item.nazivKategorije 
+			    }));
+			});	
+		}
+	);
+}
 function dodajPDVStopu(){
 	var datumInput = $('#datumInput');
 	var procenatInput = $('#procenatInput');
@@ -129,6 +161,47 @@ function dodajPDVStopu(){
 		console.log('slanje poruke');
 		event.preventDefault();
 		return false;
+	});
+}
+
+function izmeniPDVStopu() {
+	var id = getIdOfSelectedEntityPDVStope();
+	console.log(id);
+	
+	var datumIzmeniInput = $('#datumIzmeniInput');
+	var procenatIzmeniInput = $('#procenatIzmeniInput');
+	var kategorijaIzmeniSelect = $('#kategorijaIzmeniSelect');
+	
+	$("#doUpdate").on("click", function(event) {
+		var datum_vazenja = datumIzmeniInput.val();
+		var procenat = procenatIzmeniInput.val();
+		var pdvKategorija = kategorijaIzmeniSelect.find(":selected").text();
+		
+		console.log('datum_vazenja: ' + datum_vazenja);
+		console.log('procenat: ' + procenat);
+		console.log('pdvKategorija: ' + pdvKategorija);
+		
+		var params = {
+				'id': id,
+				'datum_vazenja': datum_vazenja,
+				'procenat': procenat,
+				'pdvKategorija': pdvKategorija
+		}
+		$.post("http://localhost:8080/api/pdvstope/izmeniPDVStopu/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Izmena pdv stope');
+			
+			dobaviPDVStope();
+			datumIzmeniInput.val("");
+			procenatIzmeniInput.val("");
+			kategorijaIzmeniSelect.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
 	});
 }
 

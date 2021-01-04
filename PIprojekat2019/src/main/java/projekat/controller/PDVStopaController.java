@@ -81,32 +81,36 @@ public class PDVStopaController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-//	@PostMapping(value = "/izmeniPDVStopu")
-//	public ResponseEntity<Void> izmeniPDVStopu(@RequestParam("procenat") String procenat, @RequestParam("novi_procenat") String novi_procenat,
-//			@RequestParam("datum_vazenja") String datumVazenja) throws ParseException {
-//		
-//		double procenatDouble = Double.parseDouble(procenat);
-//		double noviProcenatDouble = Double.parseDouble(novi_procenat);
-//		String datum = datumVazenja;
-//		
-//		PDVStopa pdvStopa = pdvStopaServiceInterface.findByProcenat(procenatDouble);
-//		
-//		if(pdvStopa != null) {
-//			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//			java.util.Date date = formatter.parse(datum);
-//		    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-//			pdvStopa.setDatumVazenja(sqlDate);
-//			pdvStopa.setProcenat(noviProcenatDouble);
-//			pdvStopaServiceInterface.save(pdvStopa);
-//			
-//			System.out.println("Izmena pdv stope.");
-//			
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		}else {
-//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//	}
+	@PostMapping(value = "/izmeniPDVStopu", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
+	public ResponseEntity<Void> izmeniPDVStopu(@RequestParam("id") long id, @RequestParam("datum_vazenja") String datumVazenja,
+			@RequestParam("procenat") String procenat, @RequestParam("pdvKategorija") String nazivKategorije) throws ParseException {
+		
+		PDVStopa pdvStopa = pdvStopaServiceInterface.findOne(id);
+		
+		double procenatDouble = Double.parseDouble(procenat);
+		String datum = datumVazenja;
+		
+		PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findByNazivKategorije(nazivKategorije);
+		
+		PDVKategorija pdvKategorija2 = pdvKategorijaServiceInterface.findOne(pdvKategorija.getIdKategorije());
+
+		if(pdvStopa != null) {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date date = formatter.parse(datum);
+		    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+		    pdvStopa.setIdStope(id);
+			pdvStopa.setDatumVazenja(sqlDate);
+			pdvStopa.setProcenat(procenatDouble);
+			pdvStopa.setPdvKategorija(pdvKategorija2);
+			pdvStopaServiceInterface.save(pdvStopa);
+			
+			System.out.println("Izmena pdv stope.");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}		
+	}
 	
 	@DeleteMapping(value = "/obrisiPDVStopu/{id}")
 	public ResponseEntity<Void> obrisiPDVStopu(@PathVariable("id") long id) {

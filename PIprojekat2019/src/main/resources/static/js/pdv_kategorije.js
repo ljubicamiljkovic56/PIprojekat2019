@@ -19,7 +19,18 @@ function getPDVKategorije(){
 	
 	$(document).on("click", '#edit', function(event){
 		console.log(getIdOfSelectedEntityKategorija());
+		$('#updateModalScrollable').modal('show');
 	});
+	
+	$(document).on("click", "#doUpdate", function(event) {
+		izmeniPDVKategoriju();
+		$('#updateModalScrollable').modal('hide');
+	});
+	
+	$(document).on("click", '.updateModalClose', function(event) {
+		$('#updateModalScrollable').modal('hide');
+	});
+	
 	
 	$(document).on("click", '#delete', function(event){
 		var name = getNameOfSelectedEntityKategorija();
@@ -95,6 +106,38 @@ function dodajPDVKategoriju(){
 	});
 }
 
+function izmeniPDVKategoriju(){
+	var id = getIdOfSelectedEntityKategorija();
+	console.log(id);
+	
+	var nazivKategorijeIzmeniInput = $('#nazivKategorijeIzmeniInput');
+	
+	$("#doUpdate").on("click", function(event) {
+		var naziv_kategorije = nazivKategorijeIzmeniInput.val();
+		
+		console.log('naziv_kategorije: ' + naziv_kategorije);
+		
+		var params = {
+				'id': id,
+				'naziv_kategorije': naziv_kategorije
+		}
+		$.post("http://localhost:8080/api/pdvkategorije/izmeniKategoriju/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Izmena pdv kategorije');
+			
+			dobaviPDVKategorije();
+			nazivKategorijeIzmeniInput.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+		
+	});
+	
+}
 
 function obrisiPDVKategoriju(){
 	var id = getIdOfSelectedEntityKategorija();

@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -103,27 +101,6 @@ public class JedinicaMereController {
 		}
 		
 	}
-	
-//	@PostMapping(value = "/izmeniJedinicuMere")
-//	private ResponseEntity<Void> izmeniJedinicuMere(@RequestParam("naziv_jedinice_mere") String nazivJediniceMere, 
-//			@RequestParam("novi_naziv") String noviNaziv, 
-//			@RequestParam("skraceni_naziv") String skraceniNaziv) {
-//		
-//		JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivJediniceMere);
-//		
-//		if(jedinicaMere != null) {
-//			jedinicaMere.setNazivJediniceMere(noviNaziv);
-//			jedinicaMere.setSkraceniNaziv(skraceniNaziv);
-//			jedinicaMereServiceInterface.save(jedinicaMere);
-//			
-//			System.out.println("Izmena jedinice mere");
-//			
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		}else {
-//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		}
-//					
-//	}
 	
 //	@RequestMapping(method = RequestMethod.POST, consumes = "application/json", path = "/saveJedinicaMere")
 //	private ResponseEntity<JedinicaMere> saveJedinicaMere(@RequestBody JedinicaMere jedinicaMere) {
