@@ -78,29 +78,40 @@ public class PoslovnaGodinaController {
 		
 	}
 	
-//	@PostMapping(path = "/izmeniGodinu")
-//	public ResponseEntity<Void> izmeniGodinu(@RequestParam("godina") String godina, @RequestParam("godina2") String godina2) {
-//	
-//		int godinaInt = Integer.parseInt(godina);
-//		int godinaInt2 = Integer.parseInt(godina2);
-//		
-//		PoslovnaGodina poslovnaGodina = poslovnaGodinaServiceInterface.findByGodina(godinaInt);
-//		
-//		if(poslovnaGodina != null) {
-//			poslovnaGodina.setGodina(godinaInt2);
-//			poslovnaGodina.setZakljucena(false);
-//			poslovnaGodinaServiceInterface.save(poslovnaGodina);
-//			
-//			System.out.println("Izmenjena je poslovna godina.");
-//			
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		}else {
-//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//	
-//		
-//	}
+	@PostMapping(path = "/izmeniGodinu", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
+	public ResponseEntity<Void> izmeniGodinu(@RequestParam("id") long id,
+			@RequestParam("godina") String godina, @RequestParam("zakljucena") String zakljucena,
+			@RequestParam("preduzece") String nazivPreduzeca) {
+	
+		int godinaInt = Integer.parseInt(godina);
+		
+		PoslovnaGodina poslovnaGodina = poslovnaGodinaServiceInterface.findOne(id);
+		
+		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
+		
+		if(poslovnaGodina != null) {
+			poslovnaGodina.setIdGodine(id);
+			poslovnaGodina.setGodina(godinaInt);
+			
+			if(zakljucena.equalsIgnoreCase("Da")) {
+				poslovnaGodina.setZakljucena(true);
+			}else {
+				poslovnaGodina.setZakljucena(false);
+			}
+			poslovnaGodina.setPreduzece(preduzece);
+			
+			poslovnaGodinaServiceInterface.save(poslovnaGodina);
+			
+			System.out.println("Izmenjena je poslovna godina.");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
+	
+		
+	}
 
 	@DeleteMapping(path = "/obrisiGodinu/{id}")
 	public ResponseEntity<Void> obrisiGodinu(@PathVariable("id") long id) {

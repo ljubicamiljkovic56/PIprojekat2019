@@ -1,6 +1,7 @@
 function getGodine(){
 	dobaviGodine();
 	dobaviPreduzeca();
+	dobaviPreduzeca2();
 	
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
@@ -21,6 +22,16 @@ function getGodine(){
 	
 	$(document).on("click", '#edit', function(event){
 		console.log(getIdOfSelectedEntityGodina());
+		$('#updateModalScrollable').modal('show');
+	});
+	
+	$(document).on("click", "#doUpdate", function(event) {
+		izmeniGodinu();
+		$('#updateModalScrollable').modal('hide');
+	});
+	
+	$(document).on("click", '.updateModalClose', function(event) {
+		$('#updateModalScrollable').modal('hide');
 	});
 	
 	$(document).on("click", '#delete', function(event){
@@ -97,6 +108,27 @@ function dobaviPreduzeca() {
 		}
 	);
 }
+
+function dobaviPreduzeca2() {
+	$.ajax({
+		url : "http://localhost:8080/api/preduzece/all"
+	}).then(
+		function(data) {
+			$("#preduzeceIzmeniSelect").empty();
+			$('#preduzeceIzmeniSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#preduzeceIzmeniSelect').append($('<option>', { 
+			        value: item.idPreduzeca,
+			        text : item.nazivPreduzeca
+			    }));
+			});	
+		}
+	);
+}
 function dodajGodinu(){
 	var godinaInput = $('#godinaInput');
 	var zakljucenaSelect = $('#zakljucenaSelect');
@@ -129,6 +161,49 @@ function dodajGodinu(){
 		console.log('slanje poruke');
 		event.preventDefault();
 		return false;
+	});
+}
+
+function izmeniGodinu(){
+	var id = getIdOfSelectedEntityGodina();
+	console.log(id);
+	
+	var godinaIzmeniInput = $('#godinaIzmeniInput');
+	var zakljucenaIzmeniSelect = $('#zakljucenaIzmeniSelect');
+	var preduzeceIzmeniSelect = $('#preduzeceIzmeniSelect');
+	
+	
+	$("#doUpdate").on("click", function(event) {
+		var godina = godinaIzmeniInput.val();
+		var zakljucena = zakljucenaIzmeniSelect.find(":selected").text();
+		var preduzece = preduzeceIzmeniSelect.find(":selected").text();
+		
+		console.log('godina: ' + godina)
+		console.log('zakljucena: ' + zakljucena);
+		console.log('preduzece: ' + preduzece);
+		
+		var params = {
+				'id': id,
+				'godina': godina,
+				'zakljucena': zakljucena,
+				'preduzece': preduzece
+		}
+		$.post("http://localhost:8080/api/poslovnegodine/izmeniGodinu/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Izmena poslovne godine');
+			
+			dobaviGodine();
+			godinaIzmeniInput.val("");
+			zakljucenaIzmeniSelect.val("");
+			preduzeceIzmeniSelect.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+		
 	});
 }
 
