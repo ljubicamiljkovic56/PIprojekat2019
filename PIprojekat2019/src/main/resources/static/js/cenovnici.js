@@ -1,6 +1,7 @@
 function getCenovnici(){
 	dobaviCenovnike();
 	dobaviPreduzeca();
+	dobaviPreduzeca2();
 	
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
@@ -21,6 +22,16 @@ function getCenovnici(){
 	
 	$(document).on("click", '#edit', function(event){
 		console.log(getIdOfSelectedEntityCenovnik());
+		$('#updateModalScrollable').modal('show');
+	});
+	
+	$(document).on("click", "#doUpdate", function(event) {
+		izmeniCenovnik();
+		$('#updateModalScrollable').modal('hide');
+	});
+	
+	$(document).on("click", '.updateModalClose', function(event) {
+		$('#updateModalScrollable').modal('hide');
 	});
 	
 	$(document).on("click", '#delete', function(event){
@@ -96,6 +107,27 @@ function dobaviPreduzeca() {
 		}
 	);
 }
+
+function dobaviPreduzeca2() {
+	$.ajax({
+		url : "http://localhost:8080/api/preduzece/all"
+	}).then(
+		function(data) {
+			$("#preduzeceIzmeniSelect").empty();
+			$('#preduzeceIzmeniSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#preduzeceIzmeniSelect').append($('<option>', { 
+			        value: item.idPreduzeca,
+			        text : item.nazivPreduzeca
+			    }));
+			});	
+		}
+	);
+}
 function dodajCenovnik(){
 	var datumInput = $('#datumInput');
 	var preduzeceSelect = $('#preduzeceSelect');
@@ -123,6 +155,44 @@ function dodajCenovnik(){
 		console.log('slanje poruke');
 		event.preventDefault();
 		return false;
+	});
+}
+
+function izmeniCenovnik() {
+	var id = getIdOfSelectedEntityCenovnik();
+	console.log(id);
+	
+	var datumIzmeniInput = $('#datumIzmeniInput');
+	var preduzeceIzmeniSelect = $('#preduzeceIzmeniSelect');
+	
+	$("#doUpdate").on("click", function(event) {
+		var datum_vazenja = datumIzmeniInput.val();
+		var preduzece = preduzeceIzmeniSelect.find(":selected").text();
+		
+		console.log('datum_vazenja: ' + datum_vazenja)
+		console.log('preduzece: ' + preduzece);
+		
+		var params = {
+				'id': id,
+				'datum_vazenja': datum_vazenja,
+				'preduzece': preduzece
+				
+		}
+		$.post("http://localhost:8080/api/cenovnici/izmeniCenovnik/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Izmena cenovnika');
+			
+			dobaviCenovnike();
+			datumIzmeniInput.val("");
+			preduzeceIzmeniSelect.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+		
 	});
 }
 

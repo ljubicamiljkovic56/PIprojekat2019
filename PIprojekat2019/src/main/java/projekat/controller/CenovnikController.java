@@ -82,34 +82,34 @@ public class CenovnikController {
 		
 	}
 	
-//	@PostMapping(path = "/izmeniCenovnik")
-//	public ResponseEntity<Void> izmeniCenovnik(@RequestParam("datum_vazenja") String datumVazenja, @RequestParam("novi_datum") String noviDatum) throws ParseException{
-//		
-//		String datum = datumVazenja;
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//		java.util.Date date = formatter.parse(datum);
-//	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-//	    
-//	    String datum2 = noviDatum;
-//	    SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
-//	    java.util.Date date2 = formatter2.parse(datum2);
-//	    java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
-//	    
-//	    Cenovnik cenovnik = cenovnikServiceInterface.findByDatumPocetkaVazenja(sqlDate);
-//	    
-//	    if(cenovnik != null) {
-//	    	cenovnik.setDatumPocetkaVazenja(sqlDate2);
-//	    //	cenovnik.setStavkeCenovnika(cenovnik.getStavkeCenovnika());
-//	    	cenovnikServiceInterface.save(cenovnik);
-//	    	
-//	    	System.out.println("Izmenjen je cenovnik");
-//	    	
-//	    	return new ResponseEntity<Void>(HttpStatus.OK);
-//	    }else {
-//	    	return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//	    }
-//		
-//	}
+	@PostMapping(path = "/izmeniCenovnik", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
+	public ResponseEntity<Void> izmeniCenovnik(@RequestParam("id") long id,
+			@RequestParam("datum_vazenja") String datumVazenja, 
+			@RequestParam("preduzece") String nazivPreduzeca) throws ParseException{
+	    
+	    Cenovnik cenovnik = cenovnikServiceInterface.findOne(id);
+	    
+		String datum = datumVazenja;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = formatter.parse(datum);
+	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+	    
+	    Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
+	    
+	    if(cenovnik != null) {
+	    	cenovnik.setIdCenovnika(id);
+	    	cenovnik.setDatumPocetkaVazenja(sqlDate);
+	    	cenovnik.setPreduzece(preduzece);
+	    	cenovnikServiceInterface.save(cenovnik);
+	    	
+	    	System.out.println("Izmenjen je cenovnik");
+	    	
+	    	return new ResponseEntity<Void>(HttpStatus.OK);
+	    }else {
+	    	return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+	    }
+		
+	}
 	
 	@DeleteMapping(path = "/obrisiCenovnik/{id}")
 	public ResponseEntity<Void> obrisiCenovnik(@PathVariable("id") long id) {
