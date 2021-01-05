@@ -2,6 +2,8 @@ function getStavkeCenovnika(){
 	dobaviStavkeCenovnika();
 	dobaviCenovnik();
 	dobaviRobu();
+	dobaviCenovnik2();
+	dobaviRobu2();
 	
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
@@ -22,6 +24,16 @@ function getStavkeCenovnika(){
 	
 	$(document).on("click", '#edit', function(event){
 		console.log(getIdOfSelectedEntityStavkaCenovnika());
+		$('#updateModalScrollable').modal('show');
+	});
+	
+	$(document).on("click", "#doUpdate", function(event) {
+		izmeniStavkuCenovnika();
+		$('#updateModalScrollable').modal('hide');
+	});
+	
+	$(document).on("click", '.updateModalClose', function(event) {
+		$('#updateModalScrollable').modal('hide');
 	});
 	
 	$(document).on("click", '#delete', function(event){
@@ -119,6 +131,48 @@ function dobaviRobu() {
 		}
 	);
 }
+
+function dobaviCenovnik2() {
+	$.ajax({
+		url : "http://localhost:8080/api/cenovnici/all"
+	}).then(
+		function(data) {
+			$("#cenovnikIzmeniSelect").empty();
+			$('#cenovnikIzmeniSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#cenovnikIzmeniSelect').append($('<option>', { 
+			        value: item.idCenovnika,
+			        text : item.datumPocetkaVazenja
+			    }));
+			});	
+		}
+	);
+}
+
+function dobaviRobu2() {
+	$.ajax({
+		url : "http://localhost:8080/api/roba/all"
+	}).then(
+		function(data) {
+			$("#robaIzmeniSelect").empty();
+			$('#robaIzmeniSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#robaIzmeniSelect').append($('<option>', { 
+			        value: item.idRobeUsluge,
+			        text : item.nazivRobeUsluge
+			    }));
+			});	
+		}
+	);
+}
 function dodajStavkuCenovnika(){
 	var cenaInput = $('#cenaInput');
 	var cenovnikSelect = $('#cenovnikSelect');
@@ -151,6 +205,50 @@ function dodajStavkuCenovnika(){
 		console.log('slanje poruke');
 		event.preventDefault();
 		return false;
+	});
+}
+
+function izmeniStavkuCenovnika() {
+	var id = getIdOfSelectedEntityStavkaCenovnika();
+	console.log(id);
+	
+	var cenaIzmeniInput = $('#cenaIzmeniInput');
+	var cenovnikIzmeniSelect = $('#cenovnikIzmeniSelect');
+	var robaIzmeniSelect = $('#robaIzmeniSelect');
+
+	
+	$("#doUpdate").on("click", function(event) {
+		var cena = cenaIzmeniInput.val();
+		var cenovnik = cenovnikIzmeniSelect.find(":selected").text();
+		var roba = robaIzmeniSelect.find(":selected").text();
+		
+		console.log('cena: ' + cena)
+		console.log('cenovnik: ' + cenovnik);
+		console.log('roba: ' + roba);
+
+		
+		var params = {
+				'id': id,
+				'cena': cena,
+				'cenovnik': cenovnik,
+				'roba': roba
+		}
+		$.post("http://localhost:8080/api/stavkecenovnika/izmeniStavkuCenovnika/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Izmena stavke cenovnika');
+			
+			dobaviStavkeCenovnika();
+			cenaIzmeniInput.val("");
+			cenovnikIzmeniSelect.val("");
+			robaIzmeniSelect.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+		
 	});
 }
 

@@ -91,40 +91,41 @@ public class StavkaCenovnikaController {
 	}
 	
 	
-//	@PostMapping(path = "/izmeniStavkuCenovnika")
-//	public ResponseEntity<Void> izmeniStavkuCenovnika(@RequestParam("cena") String cena, @RequestParam("nova_cena") String novaCena,
-//			@RequestParam("roba") String nazivRobe,
-//			@RequestParam("datum_vazenja") String datumVazenjaCenovnika) throws ParseException {
-//		
-//
-//		double cenaDouble = Double.parseDouble(cena);
-//		double novaCenaDouble = Double.parseDouble(novaCena);
-//		
-//		String datum = datumVazenjaCenovnika;
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//		java.util.Date date = formatter.parse(datum);
-//	    java.sql.Date sqlDate = new java.sql.Date(date.getTime()); 
-//	    
-//		StavkaCenovnika stavkaCenovnika = stavkaCenovnikaServiceInterface.findByCena(cenaDouble);
-//		
-//		Cenovnik cenovnik = cenovnikServiceInterface.findByDatumPocetkaVazenja(sqlDate);
-//		RobaUsluga robaUsluga = robaUslugaServiceInterface.findByNazivRobeUsluge(nazivRobe);
-//		
-//		if(stavkaCenovnika != null) {
-//			stavkaCenovnika.setCena(novaCenaDouble);
-//			stavkaCenovnika.setCenovnik(cenovnik);
-//			stavkaCenovnika.setRobaUsluga(robaUsluga);
-//			stavkaCenovnikaServiceInterface.save(stavkaCenovnika);
-//			
-//			
-//			System.out.println("Izmenjena je stavka cenovnika.");
-//			
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//	}
+	@PostMapping(path = "/izmeniStavkuCenovnika", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
+	public ResponseEntity<Void> izmeniStavkuCenovnika(@RequestParam("id") long id,
+			@RequestParam("cena") String cena,
+			@RequestParam("cenovnik") String datumVazenjaCenovnika,
+			@RequestParam("roba") String nazivRobe) throws ParseException {
+		
+	    
+		StavkaCenovnika stavkaCenovnika = stavkaCenovnikaServiceInterface.findOne(id);
+		
+		double cenaDouble = Double.parseDouble(cena);
+		
+		String datum = datumVazenjaCenovnika;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = formatter.parse(datum);
+	    java.sql.Date sqlDate = new java.sql.Date(date.getTime()); 
+		
+		Cenovnik cenovnik = cenovnikServiceInterface.findByDatumPocetkaVazenja(sqlDate);
+		RobaUsluga robaUsluga = robaUslugaServiceInterface.findByNazivRobeUsluge(nazivRobe);
+		
+		if(stavkaCenovnika != null) {
+			stavkaCenovnika.setIdStavke(id);
+			stavkaCenovnika.setCena(cenaDouble);
+			stavkaCenovnika.setCenovnik(cenovnik);
+			stavkaCenovnika.setRobaUsluga(robaUsluga);
+			stavkaCenovnikaServiceInterface.save(stavkaCenovnika);
+			
+			
+			System.out.println("Izmenjena je stavka cenovnika.");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
 	
 	@DeleteMapping(path = "/obrisiStavkuCenovnika/{id}") 
 	public ResponseEntity<Void> obrisiStavkuCenovnika(@PathVariable("id") long id) {
