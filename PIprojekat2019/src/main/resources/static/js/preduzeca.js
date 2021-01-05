@@ -1,6 +1,7 @@
 function getPreduzeca(){
 	dobaviPreduzeca();
 	dobaviMesta();
+	dobaviMesta2();
 	
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
@@ -18,9 +19,19 @@ function getPreduzeca(){
 	$(document).on("click", '.addModalClose', function(event){
 		$('#addModalScrollable').modal('hide');
 	});
-	
+
 	$(document).on("click", '#edit', function(event){
 		console.log(getIdOfSelectedEntityPreduzece());
+		$('#updateModalScrollable').modal('show');
+	});
+	
+	$(document).on("click", "#doUpdate", function(event) {
+		izmeniPreduzece();
+		$('#updateModalScrollable').modal('hide');
+	});
+	
+	$(document).on("click", '.updateModalClose', function(event) {
+		$('#updateModalScrollable').modal('hide');
 	});
 	
 	$(document).on("click", '#delete', function(event){
@@ -99,6 +110,27 @@ function dobaviMesta() {
 		}
 	);
 }
+
+function dobaviMesta2() {
+	$.ajax({
+		url : "http://localhost:8080/api/mesto/all"
+	}).then(
+		function(data) {
+			$("#mestoIzmeniSelect").empty();
+			$('#mestoIzmeniSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#mestoIzmeniSelect').append($('<option>', { 
+			        value: item.idNaseljenogMesta,
+			        text : item.nazivMesta 
+			    }));
+			});	
+		}
+	);
+}
 function dodajPreduzece(){
 	var nazivInput = $('#nazivInput');
 	var adresaInput = $('#adresaInput');
@@ -107,7 +139,6 @@ function dodajPreduzece(){
 	var mestoSelect = $('#mestoSelect');
 	
 	$('#doAdd').on('click', function(event){
-		console.log()
 		var naziv_preduzeca = nazivInput.val();
 		var adresa_preduzeca = adresaInput.val();
 		var broj_telefona = brojTelefonaInput.val();
@@ -142,6 +173,59 @@ function dodajPreduzece(){
 		console.log('slanje poruke');
 		event.preventDefault();
 		return false;
+	});
+}
+
+function izmeniPreduzece() {
+	var id = getIdOfSelectedEntityPreduzece();
+	console.log(id);
+	
+	var nazivIzmeniInput = $('#nazivIzmeniInput');
+	var adresaIzmeniInput = $('#adresaIzmeniInput');
+	var brojTelefonaIzmeniInput = $('#brojTelefonaIzmeniInput');
+	var faxIzmeniInput = $('#faxIzmeniInput');
+	var mestoIzmeniSelect = $('#mestoIzmeniSelect');
+	
+	$("#doUpdate").on("click", function(event) {
+		var naziv_preduzeca = nazivIzmeniInput.val();
+		var adresa_preduzeca = adresaIzmeniInput.val();
+		var broj_telefona = brojTelefonaIzmeniInput.val();
+		var fax_preduzeca = faxIzmeniInput.val();
+		var naziv_mesta = mestoIzmeniSelect.val();
+		
+		console.log('naziv_preduzeca: ' + naziv_preduzeca)
+		console.log('adresa_preduzeca: ' + adresa_preduzeca);
+		console.log('broj_telefona: ' + broj_telefona);
+		console.log('fax_preduzeca: ' + fax_preduzeca);
+		console.log('naziv_mesta: ' + naziv_mesta);
+		
+		
+		var params = {
+				'id': id,
+				'naziv_preduzeca': naziv_preduzeca,
+				'adresa_preduzeca': adresa_preduzeca,
+				'broj_telefona': broj_telefona,
+				'fax_preduzeca': fax_preduzeca,
+				'naziv_mesta': naziv_mesta
+		}
+		$.post("http://localhost:8080/api/preduzece/izmeniPreduzece/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Izmena preduzeca');
+			
+			dobaviPreduzeca();
+			nazivIzmeniInput.val("");
+			adresaIzmeniInput.val("");
+			brojTelefonaIzmeniInput.val("");
+			faxIzmeniInput.val("");
+			mestoIzmeniSelect.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+		
 	});
 }
 

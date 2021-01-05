@@ -187,6 +187,50 @@
 			</div>
 			
 			
+			<!-- Izmena preduzeca -->
+			<div class="modal fade" id="updateModalScrollable" tabindex="-1" role="dialog" aria-labelledby="updateModalScrollableTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="updateModalScrollableTitle">Izmena preduzeca</h5>
+							<button type="button" class="close updateModalClose" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+					  			<div class="form-group">
+					    			<label for="nazivIzmeniInput">Naziv preduzeca</label>
+					   				<input type="text" class="form-control" id="nazivIzmeniInput" aria-describedby="nazivIzmeniHelp" placeholder="Unesite naziv preduzeca">
+					  			</div>
+					   			<div class="form-group">
+					    			<label for="adresaIzmeniInput">Adresa preduzeca</label>
+					    			<input type="text" class="form-control" id="adresaIzmeniInput" aria-describedby="adresaIzmeniHelp" placeholder="Unesite adresu preduzeca">
+					  			</div>
+					  			<div class="form-group">
+					    			<label for="brojTelefonaIzmeniInput">Broj telefona preduzeca</label>
+					    			<input type="text" class="form-control" id="brojTelefonaIzmeniInput" placeholder="Unesite broj telefona">
+					  			</div>
+					  			<div class="form-group">
+					    			<label for="faxIzmeniInput">Fax preduzeca</label>
+					    			<input type="text" class="form-control" id="faxIzmeniInput" placeholder="Unesite fax preduzeca">
+					  			</div>
+					  			<div class="form-group">
+					    			<label for="mestoIzmeniSelect">Mesto</label>
+					    			<select class="form-control"  id="mestoIzmeniSelect">
+					    
+					    			</select>
+					  			</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary updateModalClose">Otkaži</button>
+							<button type="button" id="doUpdate" class="btn btn-primary">Sačuvaj</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 			<!-- Brisanje preduzeca -->
 			<div class="modal fade" id="deletePromptModal" tabindex="-1" role="dialog" aria-labelledby="deletePromptLabel" aria-hidden="true">
 			  <div class="modal-dialog" role="document">
