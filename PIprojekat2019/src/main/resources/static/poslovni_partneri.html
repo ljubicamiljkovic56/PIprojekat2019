@@ -184,11 +184,6 @@
 					    <label for="emailInput">Email poslovnog partnera</label>
 					    <input type="text" class="form-control" id="emailInput" placeholder="Unesite email poslovnog partnera">
 					  </div>
-<!-- 					   <div class="form-group"> -->
-<!-- 					    <label for="vrstaPartneraInput">Vrsta poslovnog partnera</label> -->
-<!-- 					    <input type="text" class="form-control" id="faxInput" placeholder="Unesite vrstu poslovnog partnera"> -->
-<!-- 					    <small id="vrstaPartneraHelp" class="form-text text-muted">KU - kupac, DO - dobavljac, KD - kupac/dobavljac</small> -->
-<!-- 					  </div> -->
 						<div class="form-group">
 					    <label for="vrstaPartneraSelect">Vrsta partnera</label>
 					    <select class="form-control"  id="vrstaPartneraSelect">
@@ -217,6 +212,66 @@
 			  </div>
 			</div>
 			
+			
+			<!-- Izmena poslovnog partnera -->
+			<div class="modal fade" id="updateModalScrollable" tabindex="-1" role="dialog" aria-labelledby="updateModalScrollableTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="updateModalScrollableTitle">Izmena poslovnog partnera</h5>
+							<button type="button" class="close updateModalClose" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+					  			<div class="form-group">
+					    			<label for="nazivIzmeniInput">Naziv poslovnog partnera</label>
+					    			<input type="text" class="form-control" id="nazivIzmeniInput" aria-describedby="nazivIzmeniHelp" placeholder="Unesite naziv poslovnog partnera">
+					  			</div>
+					   			<div class="form-group">
+					    			<label for="adresaIzmeniInput">Adresa poslovnog partnera</label>
+					    			<input type="text" class="form-control" id="adresaIzmeniInput" aria-describedby="adresaIzmeniHelp" placeholder="Unesite adresu poslovnog partnera">
+					  			</div>
+					  			<div class="form-group">
+					    			<label for="telefonIzmeniInput">Telefon poslovnog partnera</label>
+					    			<input type="text" class="form-control" id="telefonIzmeniInput" placeholder="Unesite broj telefona poslovnog partnera">
+					  			</div>
+					  			<div class="form-group">
+					    			<label for="faxIzmeniInput">Fax poslovnog partnera</label>
+					    			<input type="text" class="form-control" id="faxIzmeniInput" placeholder="Unesite fax poslovnog partnera">
+					  			</div>
+					   			<div class="form-group">
+					    			<label for="emailIzmeniInput">Email poslovnog partnera</label>
+					    			<input type="text" class="form-control" id="emailIzmeniInput" placeholder="Unesite email poslovnog partnera">
+					  			</div>
+								<div class="form-group">
+					    			<label for="vrstaPartneraIzmeniSelect">Vrsta partnera</label>
+					    			<select class="form-control"  id="vrstaPartneraIzmeniSelect">
+					    				<option>KU</option>
+					    				<option>DO</option>
+					    				<option>KD</option>
+					    			</select>
+					  			</div>
+					  			<div class="form-group">
+					    			<label for="mestoIzmeniSelect">Mesto</label>
+					    			<select class="form-control"  id="mestoIzmeniSelect">
+					    			</select>
+					  				</div>
+					  			<div class="form-group">
+					    			<label for="preduzeceIzmeniSelect">Preduzece</label>
+					    			<select class="form-control"  id="preduzeceIzmeniSelect">
+					    			</select>
+					  			</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary updateModalClose">Otkaži</button>
+							<button type="button" id="doUpdate" class="btn btn-primary">Sačuvaj</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			
 			<!-- Brisanje poslovnog partnera -->
 			<div class="modal fade" id="deletePromptModal" tabindex="-1" role="dialog" aria-labelledby="deletePromptLabel" aria-hidden="true">

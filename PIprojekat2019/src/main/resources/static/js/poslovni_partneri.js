@@ -2,6 +2,8 @@ function getPartneri(){
 	dobaviPartnere();
 	dobaviPreduzeca();
 	dobaviMesta();
+	dobaviPreduzeca2();
+	dobaviMesta2();
 	
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
@@ -22,6 +24,16 @@ function getPartneri(){
 	
 	$(document).on("click", '#edit', function(event){
 		console.log(getIdOfSelectedEntityPartner());
+		$('#updateModalScrollable').modal('show');
+	});
+	
+	$(document).on("click", "#doUpdate", function(event) {
+		izmeniPartnera();
+		$('#updateModalScrollable').modal('hide');
+	});
+	
+	$(document).on("click", '.updateModalClose', function(event) {
+		$('#updateModalScrollable').modal('hide');
 	});
 	
 	$(document).on("click", '#delete', function(event){
@@ -123,6 +135,46 @@ function dobaviPreduzeca() {
 		}
 	);
 }
+function dobaviMesta2() {
+	$.ajax({
+		url : "http://localhost:8080/api/mesto/all"
+	}).then(
+		function(data) {
+			$("#mestoIzmeniSelect").empty();
+			$('#mestoIzmeniSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#mestoIzmeniSelect').append($('<option>', { 
+			        value: item.idNaseljenogMesta,
+			        text : item.nazivMesta 
+			    }));
+			});	
+		}
+	);
+}
+function dobaviPreduzeca2() {
+	$.ajax({
+		url : "http://localhost:8080/api/preduzece/all"
+	}).then(
+		function(data) {
+			$("#preduzeceIzmeniSelect").empty();
+			$('#preduzeceIzmeniSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#preduzeceIzmeniSelect').append($('<option>', { 
+			        value: item.idPreduzeca,
+			        text : item.nazivPreduzeca 
+			    }));
+			});	
+		}
+	);
+}
 function dodajPartnera(){
 	var nazivInput = $('#nazivInput');
 	var adresaInput = $('#adresaInput');
@@ -180,6 +232,75 @@ function dodajPartnera(){
 		console.log('slanje poruke');
 		event.preventDefault();
 		return false;
+	});
+}
+
+function izmeniPartnera() {
+	var id = getIdOfSelectedEntityPartner();
+	console.log(id);
+	
+	var nazivIzmeniInput = $('#nazivIzmeniInput');
+	var adresaIzmeniInput = $('#adresaIzmeniInput');
+	var telefonIzmeniInput = $('#telefonIzmeniInput');
+	var faxIzmeniInput = $('#faxIzmeniInput');
+	var emailIzmeniInput = $('#emailIzmeniInput');
+	var vrstaPartneraIzmeniSelect = $('#vrstaPartneraIzmeniSelect');
+	var mestoIzmeniSelect = $('#mestoIzmeniSelect');
+	var preduzeceIzmeniSelect = $('#preduzeceIzmeniSelect');
+	
+	$("#doUpdate").on("click", function(event) {
+		var naziv_poslovnog_partnera = nazivIzmeniInput.val();
+		var adresa = adresaIzmeniInput.val();
+		var telefon = telefonIzmeniInput.val();
+		var fax = faxIzmeniInput.val();
+		var email = emailIzmeniInput.val();
+		var vrsta_partnera = vrstaPartneraIzmeniSelect.val();
+		var mesto = mestoIzmeniSelect.val();
+		var preduzece = preduzeceIzmeniSelect.find(":selected").text();
+		
+		console.log('naziv_poslovnog_partnera: ' + naziv_poslovnog_partnera)
+		console.log('adresa: ' + adresa);
+		console.log('telefon: ' + telefon);
+		console.log('fax: ' + fax);
+		console.log('email: ' + email);
+		console.log('vrsta_partnera: ' + vrsta_partnera);
+		console.log('mesto: ' + mesto);
+		console.log('preduzece: ' + preduzece);
+		
+		var params = {
+				'id': id,
+				'naziv_poslovnog_partnera': naziv_poslovnog_partnera,
+				'adresa': adresa,
+				'telefon': telefon,
+				'fax': fax,
+				'email': email,
+				'vrsta_partnera': vrsta_partnera,
+				'mesto': mesto,
+				'preduzece': preduzece
+				
+		}
+		$.post("http://localhost:8080/api/poslovnipartneri/izmeniPoslovnogPartnera/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Izmena poslovnog partnera');
+			
+			dobaviPartnere();
+			nazivIzmeniInput.val("");
+			adresaIzmeniInput.val("");
+			telefonIzmeniInput.val("");
+			faxIzmeniInput.val("");
+			emailIzmeniInput.val("");
+			vrstaPartneraIzmeniSelect.val("");
+			mestoIzmeniSelect.val("");
+			preduzeceIzmeniSelect.val("");
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+		
 	});
 }
 

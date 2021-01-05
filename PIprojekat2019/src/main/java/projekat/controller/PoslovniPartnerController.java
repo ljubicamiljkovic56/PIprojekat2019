@@ -83,37 +83,43 @@ public class PoslovniPartnerController {
 		
 	}
 	
-//	@PostMapping(path = "/izmeniPoslovnogPartnera")
-//	public ResponseEntity<Void> izmeniPoslovnogPartnera(@RequestParam("naziv_poslovnog_partnera") String nazivPoslovnogPartnera,
-//			@RequestParam("novi_naziv") String noviNaziv,
-//			@RequestParam("adresa") String adresa, @RequestParam("telefon") String telefon,
-//			@RequestParam("fax") String fax, @RequestParam("email") String email, @RequestParam("vrsta_partnera") String vrstaPartnera,
-//			@RequestParam("mesto") String nazivMesta){
-//		
-//		
-//		PoslovniPartner partner = poslovniPartnerServiceInterface.findByNazivPoslovnogPartnera(nazivPoslovnogPartnera);
-//		
-//		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
-//		
-//		if(partner != null) {
-//			partner.setNazivPoslovnogPartnera(noviNaziv);
-//			partner.setAdresa(adresa);
-//			partner.setTelefon(telefon);
-//			partner.setFax(fax);
-//			partner.setEmail(email);
-//			partner.setVrstaPartnera(vrstaPartnera);
-//			partner.setNaseljenoMesto(mesto);
-//			
-//			poslovniPartnerServiceInterface.save(partner);
-//			
-//			System.out.println("Izmenjen je poslovni partner");
-//			
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		}else {
-//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//	}
+	@PostMapping(path = "/izmeniPoslovnogPartnera", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
+	public ResponseEntity<Void> izmeniPoslovnogPartnera(@RequestParam("id") long id,
+			@RequestParam("naziv_poslovnog_partnera") String nazivPoslovnogPartnera,
+			@RequestParam("adresa") String adresa, 
+			@RequestParam("telefon") String telefon,
+			@RequestParam("fax") String fax, 
+			@RequestParam("email") String email, 
+			@RequestParam("vrsta_partnera") String vrstaPartnera,
+			@RequestParam("mesto") String nazivMesta, @RequestParam("preduzece") String nazivPreduzeca){
+		
+		
+		PoslovniPartner partner = poslovniPartnerServiceInterface.findOne(id);
+		
+		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
+		
+		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
+		
+		if(partner != null) {
+			partner.setIdPoslovnogPartnera(id);
+			partner.setNazivPoslovnogPartnera(nazivPoslovnogPartnera);
+			partner.setAdresa(adresa);
+			partner.setTelefon(telefon);
+			partner.setFax(fax);
+			partner.setEmail(email);
+			partner.setVrstaPartnera(vrstaPartnera);
+			partner.setNaseljenoMesto(mesto);
+			partner.setPreduzece(preduzece);
+			poslovniPartnerServiceInterface.save(partner);
+			
+			System.out.println("Izmenjen je poslovni partner");
+			
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
+	}
 	
 	@DeleteMapping(path = "/obrisiPoslovnogPartnera/{id}")
 	public ResponseEntity<Void> obrisiPoslovnogPartnera(@PathVariable("id") long id) {
