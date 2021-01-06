@@ -59,7 +59,7 @@ toolbar {
 
 
 td.idJediniceMere, td.idKategorije, td.idMesta, td.idPreduzeca, td.idPoslovnogPartnera, td.idStope, td.idGrupe, td.idRobeUsluge, td.idGodine,
-td.idStavke, td.idCenovnika, td.idStavkeFakture{
+td.idStavke, td.idCenovnika, td.idFakture{
  	visibility: hidden; 
  	max-width: 0px;
 }
@@ -67,3 +67,19 @@ td.idStavke, td.idCenovnika, td.idStavkeFakture{
 .center{
 	margin:auto;
 }
+
+/* #list-nav { */
+/* 	display:flex; */
+/*     flex-flow:row wrap; */
+/*     justify-content:center */
+/* } */
+
+/* #list-nav-link { */
+/* 	display:flex; control the items' content */
+/*     justify-content:center; horizontally */
+/*     align-items:center; */
+/* } */
+
+/* #list-nav { */
+/* 	display: grid !important; */
+/* } */

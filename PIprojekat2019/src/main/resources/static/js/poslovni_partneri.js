@@ -72,15 +72,15 @@ function dobaviPartnere() {
 					console.log(data[i].idPoslovnogPartnera)
 					newRow = 
 					"<tr>" 
-						+ "<td class=\"idNaseljenogMesta\">" + data[i].naseljenoMesto.nazivMesta + "</td>"
-						+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>"
 						+ "<td class=\"nazivPoslovnogPartnera\">" + data[i].nazivPoslovnogPartnera + "</td>"
 						+ "<td class=\"adresa\">" + data[i].adresa + "</td>"
 						+ "<td class=\"telefon\">" + data[i].telefon + "</td>"
 						+ "<td class=\"fax\">" + data[i].fax + "</td>"
 						+ "<td class=\"email\">" + data[i].email + "</td>"
 						+ "<td class=\"vrstaPartnera\">" + data[i].vrstaPartnera + "</td>"
-						+ "<td class=\"idPoslovnogPartnera\"  style:display:none>" + data[i].idPoslovnogPartnera + "</td>" +
+						+ "<td class=\"idNaseljenogMesta\">" + data[i].naseljenoMesto.nazivMesta + "</td>"
+						+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>"
+						+ "<td class=\"idPoslovnogPartnera\"  style:display:none>" + data[i].idPoslovnogPartnera + "</td>"
 					"</tr>"
 					$("#dataTableBody").append(newRow);
 				}

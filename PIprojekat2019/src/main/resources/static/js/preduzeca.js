@@ -70,12 +70,12 @@ function dobaviPreduzeca() {
 					console.log(data[i].idPreduzeca)
 					newRow = 
 					"<tr>" 
-						+ "<td class=\"idNaseljenogMesta\">" + data[i].naseljenoMesto.nazivMesta + "</td>"
 						+ "<td class=\"nazivPreduzeca\">" + data[i].nazivPreduzeca + "</td>"
 						+ "<td class=\"adresaPreduzeca\">" + data[i].adresa + "</td>"
 						+ "<td class=\"brojTelefona\">" + data[i].brojTelefona + "</td>"
 						+ "<td class=\"fax\">" + data[i].fax + "</td>"
-						+ "<td class=\"idPreduzeca\"  style:display:none>" + data[i].idPreduzeca + "</td>" +
+						+ "<td class=\"idNaseljenogMesta\">" + data[i].naseljenoMesto.nazivMesta + "</td>"
+						+ "<td class=\"idPreduzeca\"  style:display:none>" + data[i].idPreduzeca + "</td>"
 					"</tr>"
 					$("#dataTableBody").append(newRow);
 				}

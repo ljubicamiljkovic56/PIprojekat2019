@@ -317,3 +317,27 @@ function getNameOfSelectedEntityStavkaFakture(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityFaktura(){
+	var row = $(".highlighted");
+    var id = row.find(".idFakture").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityFaktura(){
+	var row = $(".highlighted");
+    var name = row.find(".brojFakture").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}

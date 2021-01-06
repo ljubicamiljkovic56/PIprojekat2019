@@ -67,7 +67,7 @@ function dobaviJediniceMere() {
 						"<tr>" 
 							+ "<td class=\"nazivJediniceMere\">" + data[i].nazivJediniceMere + "</td>"
 							+ "<td class=\"skraceniNaziv\">" + data[i].skraceniNaziv + "</td>"
-							+ "<td class=\"idJediniceMere\"  style:display:none>" + data[i].idJediniceMere + "</td>" +
+							+ "<td class=\"idJediniceMere\"  style:display:none>" + data[i].idJediniceMere + "</td>" 
 						"</tr>"
 					$("#dataTableBody").append(newRow);
 				}
