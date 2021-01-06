@@ -73,10 +73,11 @@ function dobaviStavkeFakture() {
 							+ "<td class=\"osnovicaZaPDV\">" + data[i].osnovicaZaPDV + "</td>"
 							+ "<td class=\"iznosPDV\">" + data[i].iznosPDV + "</td>"
 							+ "<td class=\"ukupanIznos\">" + data[i].ukupanIznos + "</td>"
+							+ "<td class=\"faktura\">" + data[i].faktura.brojFakture + "</td>" 
+							+ "<td class=\"robaUsluga\">" + data[i].robaUsluga.nazivRobeUsluge + "</td>"
+							+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>"
 							+ "<td class=\"idStavke\">" + data[i].idStavke + "</td>"
-//							+ "<td class=\"faktura\">" + data[i].faktura.brojFakture + "</td>" +
-//							+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>" +
-//							+ "<td class=\"robaUsluga\">" + data[i].robaUsluga.nazivRobeUsluge + "</td>" +
+
 						"</tr>"
 					$("#dataTableBody").append(newRow);
 				}
