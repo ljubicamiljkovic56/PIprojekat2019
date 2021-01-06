@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import projekat.dto.StavkaFaktureDTO;
 import projekat.model.Preduzece;
 import projekat.model.RobaUsluga;
 import projekat.model.StavkaFakture;
@@ -150,12 +151,10 @@ public class StavkaFaktureController {
 	
 	
 	
-	@PostMapping(path = "/obrisiStavkuFakture")
-	public ResponseEntity<Void> obrisiStavkuFakture(@RequestParam("jedinicna_cena") String jedinicnaCena) {
+	@DeleteMapping(path = "/obrisiStavkuFakture/{id}")
+	public ResponseEntity<Void> obrisiStavkuFakture(@PathVariable("id") long id) {
 		
-		double jedinicnaCenaDouble = Double.parseDouble(jedinicnaCena);
-		
-		StavkaFakture stavkaFakture = stavkaFaktureServiceInterface.findByJedinicnaCena(jedinicnaCenaDouble);
+		StavkaFakture stavkaFakture = stavkaFaktureServiceInterface.findOne(id);
 		
 		if(stavkaFakture == null) {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);

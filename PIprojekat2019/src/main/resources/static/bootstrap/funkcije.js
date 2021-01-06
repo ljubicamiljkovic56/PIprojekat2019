@@ -293,3 +293,27 @@ function getNameOfSelectedEntityCenovnik(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityStavkaFakture(){
+	var row = $(".highlighted");
+    var id = row.find(".idStavke").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityStavkaFakture(){
+	var row = $(".highlighted");
+    var name = row.find(".idStavke").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}
