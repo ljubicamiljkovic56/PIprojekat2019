@@ -341,3 +341,27 @@ function getNameOfSelectedEntityFaktura(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityStavkaOtpremnice(){
+	var row = $(".highlighted");
+    var id = row.find(".idStavkeOtpremnice").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityStavkaOtpremnice(){
+	var row = $(".highlighted");
+    var name = row.find(".redniBrojProizvoda").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}
