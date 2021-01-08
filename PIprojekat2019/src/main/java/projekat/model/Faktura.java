@@ -65,11 +65,11 @@ public class Faktura {
 	
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "faktura")
 	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "faktura")
 	private List<Otpremnica> otpremnice = new ArrayList<Otpremnica>();
 	
 	

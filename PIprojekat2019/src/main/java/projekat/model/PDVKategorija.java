@@ -28,11 +28,11 @@ public class PDVKategorija {
 	private String nazivKategorije;
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false, mappedBy = "pdvKategorija")
 	private List<PDVStopa> pdvStope = new ArrayList<PDVStopa>();
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false, mappedBy = "pdvKategorija")
 	private List<GrupaRobeUsluga> grupeRobe = new ArrayList<GrupaRobeUsluga>();
 	
 	public PDVKategorija() {

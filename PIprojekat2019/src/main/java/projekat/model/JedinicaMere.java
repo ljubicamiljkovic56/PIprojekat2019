@@ -33,7 +33,7 @@ public class JedinicaMere {
 	private String skraceniNaziv;
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false, mappedBy = "jedinicaMere")
 	private List<RobaUsluga> roba = new ArrayList<RobaUsluga>();
 	
 	public JedinicaMere() {

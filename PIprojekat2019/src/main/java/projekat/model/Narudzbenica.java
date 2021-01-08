@@ -42,17 +42,17 @@ public class Narudzbenica {
 	private PoslovnaGodina poslovnaGodina;
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "narudzbenica")
 	private List<StavkaNarudzbenice> stavkeNarudzbenice = new ArrayList<StavkaNarudzbenice>();
 	
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "narudzbenica")
 	private List<Faktura> fakture = new ArrayList<Faktura>();
 	
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "narudzbenica")
 	private List<Otpremnica> otpremnice = new ArrayList<Otpremnica>();
 	
 	public Narudzbenica() {

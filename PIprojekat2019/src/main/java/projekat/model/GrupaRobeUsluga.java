@@ -35,7 +35,7 @@ public class GrupaRobeUsluga {
 	private PDVKategorija pdvKategorija;
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false, mappedBy = "grupaRobeUsluga")
 	private List<RobaUsluga> roba = new ArrayList<RobaUsluga>();
 	
 	public GrupaRobeUsluga() {

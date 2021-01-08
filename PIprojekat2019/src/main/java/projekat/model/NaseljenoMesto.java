@@ -31,11 +31,11 @@ public class NaseljenoMesto {
 	private String nazivMesta;
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false, mappedBy = "naseljenoMesto")
 	private List<Preduzece> preduzeca = new ArrayList<Preduzece>();
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false, mappedBy = "naseljenoMesto")
 	private List<PoslovniPartner> poslovniPartneri = new ArrayList<PoslovniPartner>();
 
 	public NaseljenoMesto() {

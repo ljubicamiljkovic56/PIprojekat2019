@@ -35,7 +35,7 @@ public class Cenovnik {
 	private Preduzece preduzece;
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "cenovnik")
 	private List<StavkaCenovnika> stavkeCenovnika = new ArrayList<StavkaCenovnika>();
 	
 	public Cenovnik() {

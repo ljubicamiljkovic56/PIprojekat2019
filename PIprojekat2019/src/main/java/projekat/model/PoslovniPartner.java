@@ -54,11 +54,11 @@ public class PoslovniPartner {
 	
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false, mappedBy = "poslovniPartner")
 	private List<Faktura> fakture = new ArrayList<Faktura>();
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false, mappedBy = "poslovniPartner")
 	private List<Narudzbenica> narudzbenice = new ArrayList<Narudzbenica>();
 	
 	

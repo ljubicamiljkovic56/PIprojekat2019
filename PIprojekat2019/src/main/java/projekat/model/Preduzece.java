@@ -43,24 +43,24 @@ public class Preduzece {
 	private NaseljenoMesto naseljenoMesto;
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "preduzece")
 	private List<Cenovnik> cenovnici = new ArrayList<Cenovnik>();
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "preduzece")
 	private List<PoslovniPartner> poslovniPartneri = new ArrayList<PoslovniPartner>();
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "preduzece")
 	private List<Faktura> fakture = new ArrayList<Faktura>();
 	
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "preduzece")
 	private List<StavkaFakture> stavkeFakture = new ArrayList<StavkaFakture>();
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "preduzece")
 	private List<Narudzbenica> narudzbenice = new ArrayList<Narudzbenica>();
 	
 	public Preduzece() {

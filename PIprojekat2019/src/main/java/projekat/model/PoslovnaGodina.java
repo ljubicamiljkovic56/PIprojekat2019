@@ -36,11 +36,11 @@ public class PoslovnaGodina {
 	private Preduzece preduzece;
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false, mappedBy = "poslovnaGodina")
 	private List<Faktura> fakture = new ArrayList<Faktura>();
 	
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false, mappedBy = "poslovnaGodina")
 	private List<Narudzbenica> narudzbenice = new ArrayList<Narudzbenica>();
 	
 	
