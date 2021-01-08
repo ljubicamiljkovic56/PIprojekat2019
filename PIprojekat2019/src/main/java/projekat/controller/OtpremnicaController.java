@@ -23,7 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,8 +33,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import projekat.dto.OtpremnicaDTO;
 import projekat.model.Faktura;
 import projekat.model.Otpremnica;
 import projekat.model.StavkaOtpremnice;
@@ -171,12 +171,10 @@ public class OtpremnicaController {
 	}
 
 	
-	@PostMapping(path = "/obrisiOtpremnicu")
-	public ResponseEntity<Void> obrisiOtpremnicu(@RequestParam("broj_otpremnice") String brojOtpremnice){
+	@DeleteMapping(path = "/obrisiOtpremnicu/{id}")
+	public ResponseEntity<Void> obrisiOtpremnicu(@PathVariable("id") long id){
 		
-		int brojOtpremniceInt = Integer.parseInt(brojOtpremnice);
-		
-		Otpremnica otpremnica = otpremnicaServiceInterface.findByBrojOtpremnice(brojOtpremniceInt);
+		Otpremnica otpremnica = otpremnicaServiceInterface.findOne(id);
 		
 		if(otpremnica == null) {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);

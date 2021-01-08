@@ -365,3 +365,27 @@ function getNameOfSelectedEntityStavkaOtpremnice(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityOtpremnica(){
+	var row = $(".highlighted");
+    var id = row.find(".idOtpremnice").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityOtpremnica(){
+	var row = $(".highlighted");
+    var name = row.find(".brojOtpremnice").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}
