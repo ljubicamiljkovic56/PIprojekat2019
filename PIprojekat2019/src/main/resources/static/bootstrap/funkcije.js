@@ -413,3 +413,27 @@ function getNameOfSelectedEntityStavkaNarudzbenice(){
     	return name;
     }  
 }
+
+function getIdOfSelectedEntityNarudzbenica(){
+	var row = $(".highlighted");
+    var id = row.find(".idNarudzbenice").html();
+    if(id==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return id;
+    }  
+}
+
+function getNameOfSelectedEntityNarudzbenica(){
+	var row = $(".highlighted");
+    var name = row.find(".brojNarudzbenice").html();
+    if(name==undefined){
+    	console.log("No entity selected!");
+    	return null;
+    }
+    else{
+    	return name;
+    }  
+}
