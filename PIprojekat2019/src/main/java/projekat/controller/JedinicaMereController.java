@@ -2,11 +2,14 @@ package projekat.controller;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+//import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +27,7 @@ import projekat.service.intrfc.JedinicaMereServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/jedinicemere")
+@ControllerAdvice
 public class JedinicaMereController {
 	
 	@Autowired
@@ -66,7 +70,12 @@ public class JedinicaMereController {
 	
 	//moj nacin slanja, bez converter klasa
 	@PostMapping(value = "/dodajJedinicuMere")
-	private ResponseEntity<Void> dodajJedinicuMere(@Validated @RequestParam(name = "naziv_jedinice_mere") String nazivJediniceMere, @RequestParam(name = "skraceni_naziv") String skraceniNaziv){
+	private ResponseEntity<Void> dodajJedinicuMere(@RequestParam(name = "naziv_jedinice_mere") String nazivJediniceMere, 
+			@RequestParam(name = "skraceni_naziv") String skraceniNaziv){
+		
+		if(nazivJediniceMere == null || skraceniNaziv == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 		
 		System.out.println("Naziv jedinice mere: " + nazivJediniceMere);
 		System.out.println("Skraceni naziv: " + skraceniNaziv);
@@ -129,7 +138,7 @@ public class JedinicaMereController {
 		
 	}
 	
-	@ExceptionHandler(value = DataIntegrityViolationException.class)
+	@ExceptionHandler(value = ConstraintViolationException.class)
 	public ResponseEntity<Void> handle() {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
