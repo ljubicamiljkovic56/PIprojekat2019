@@ -3,11 +3,13 @@ package projekat.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,7 +66,7 @@ public class JedinicaMereController {
 	
 	//moj nacin slanja, bez converter klasa
 	@PostMapping(value = "/dodajJedinicuMere")
-	private ResponseEntity<Void> dodajJedinicuMere(@Validated @RequestParam("naziv_jedinice_mere") String nazivJediniceMere, @RequestParam("skraceni_naziv") String skraceniNaziv){
+	private ResponseEntity<Void> dodajJedinicuMere(@Validated @RequestParam(name = "naziv_jedinice_mere") String nazivJediniceMere, @RequestParam(name = "skraceni_naziv") String skraceniNaziv){
 		
 		System.out.println("Naziv jedinice mere: " + nazivJediniceMere);
 		System.out.println("Skraceni naziv: " + skraceniNaziv);
@@ -125,5 +127,10 @@ public class JedinicaMereController {
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 		
+	}
+	
+	@ExceptionHandler(value = DataIntegrityViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

@@ -12,6 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,9 +29,13 @@ public class JedinicaMere {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idJediniceMere;
 	
+	@NotBlank(message = "Naziv jedinice mere ne sme biti prazan")
+	@Size(max=20)
 	@Column(name = "naziv_jedinice_mere", columnDefinition = "VARCHAR(20)")
 	private String nazivJediniceMere;
 	
+	@NotBlank(message = "Skraceni naziv ne sme biti prazan")
+	@Size(min=1, max=5)
 	@Column(name = "skraceni_naziv", columnDefinition = "CHAR(5)")
 	private String skraceniNaziv;
 	
