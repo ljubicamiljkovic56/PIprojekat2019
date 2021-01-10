@@ -92,6 +92,10 @@ function dodajJedinicuMere(){
 		console.log('naziv_jedinice_mere: ' + naziv_jedinice_mere)
 		console.log('skraceni_naziv: ' + skraceni_naziv);
 		
+		if(naziv_jedinice_mere == '' || skraceni_naziv == ''){
+			alert("Niste uneli potrebne podatke.");
+		}
+		
 		var params = {
 			'naziv_jedinice_mere': naziv_jedinice_mere,
 			'skraceni_naziv': skraceni_naziv	
