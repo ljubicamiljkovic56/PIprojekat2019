@@ -17,5 +17,6 @@ public interface JedinicaMereServiceInterface {
 	List<JedinicaMere> findAll();
 	
 	void remove(Long id);
-
+	
+	//List<JedinicaMere> findByNaziv(String nazivJediniceMere);
 }

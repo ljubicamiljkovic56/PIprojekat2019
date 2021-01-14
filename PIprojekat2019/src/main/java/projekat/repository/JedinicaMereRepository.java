@@ -16,4 +16,5 @@ public interface JedinicaMereRepository extends JpaRepository<JedinicaMere, Long
 	
 	List<JedinicaMere> findAll();
 
+	//List<JedinicaMere> findByNaziv(String nazivJediniceMere);
 }

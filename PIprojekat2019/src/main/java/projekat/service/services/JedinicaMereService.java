@@ -50,4 +50,9 @@ public class JedinicaMereService implements JedinicaMereServiceInterface {
 
 	}
 
+//	@Override
+//	public List<JedinicaMere> findByNaziv(String nazivJediniceMere) {
+//		return jedinicaMereRepository.findByNaziv(nazivJediniceMere);
+//	}
+
 }

@@ -1,5 +1,6 @@
 package projekat.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
@@ -46,6 +47,22 @@ public class JedinicaMereController {
 	@GetMapping(path = "/all")
 	public List<JedinicaMere> getAll(){
 		return jedinicaMereServiceInterface.findAll();
+	}
+	
+	@GetMapping(path = "/searchByNaziv/{naziv}")
+	private ResponseEntity<Void> searchByNaziv(@RequestParam("naziv") String nazivJediniceMere) {
+		
+		List<JedinicaMere> jediniceMere = new ArrayList<JedinicaMere>();
+		
+		if(nazivJediniceMere == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
+	//	JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivJediniceMere);
+		
+	//	System.out.println(jedinicaMere);
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 //	@RequestMapping(method = RequestMethod.POST, consumes = "application/json", path = "/saveJedinicaMere")
