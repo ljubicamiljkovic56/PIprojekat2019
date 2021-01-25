@@ -130,14 +130,6 @@ public class JedinicaMereController {
 		
 	}
 	
-//	@RequestMapping(method = RequestMethod.POST, consumes = "application/json", path = "/saveJedinicaMere")
-//	private ResponseEntity<JedinicaMere> saveJedinicaMere(@RequestBody JedinicaMere jedinicaMere) {
-//		
-//		JedinicaMere novaJedinica = jedinicaMereServiceInterface.save(jedinicaMere);
-//		
-//		return new ResponseEntity<JedinicaMere>(novaJedinica, HttpStatus.OK);
-//	}
-
 	@DeleteMapping(value = "/obrisiJedinicuMere/{id}")
 	private ResponseEntity<Void> obrisiJedinicuMere(@PathVariable("id") long id){
 		
