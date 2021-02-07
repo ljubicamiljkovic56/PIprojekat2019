@@ -3,12 +3,16 @@ package projekat.controller;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +25,7 @@ import projekat.service.intrfc.PDVKategorijaServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/pdvkategorije")
+@ControllerAdvice
 public class PDVKategorijaController {
 	
 	@Autowired
@@ -32,21 +37,12 @@ public class PDVKategorijaController {
 	}
 
 	
-//	@PostMapping(value = "/pojedinacnaKategorija")
-//	public ResponseEntity<PDVKategorijaDTO> pojedinacnaKategorija(@RequestParam("naziv_kategorije") String nazivKategorije) {
-//		
-//		PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findByNazivKategorije(nazivKategorije);
-//		
-//		if(pdvKategorija == null) {
-//			return new ResponseEntity<PDVKategorijaDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<PDVKategorijaDTO>(new PDVKategorijaDTO(pdvKategorija), HttpStatus.OK);
-//		}
-//		
-//	}
-	
 	@PostMapping(value = "/dodajKategoriju")
 	public ResponseEntity<Void> dodajKategoriju(@Validated @RequestParam("naziv_kategorije") String nazivKategorije) {
+		
+		if(nazivKategorije == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 		
 		System.out.println("Naziv kategorije: " + nazivKategorije);
 		
@@ -62,9 +58,13 @@ public class PDVKategorijaController {
 	}
 	
 	@PostMapping(value = "/izmeniKategoriju", consumes =  "application/x-www-form-urlencoded;charset=UTF-8")
-	public ResponseEntity<Void> izmeniKategoriju(@RequestParam("id") long id, @RequestParam("naziv_kategorije") String nazivKategorije) {
+	public ResponseEntity<Void> izmeniKategoriju(@RequestParam("id") long id, @Validated @RequestParam("naziv_kategorije") String nazivKategorije) {
 		
 		PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findOne(id);
+		
+		if(nazivKategorije == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 		
 		if(pdvKategorija != null) {
 			pdvKategorija.setIdKategorije(id);
@@ -94,5 +94,10 @@ public class PDVKategorijaController {
 		System.out.println("Obrisana je pdv kategorija");
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

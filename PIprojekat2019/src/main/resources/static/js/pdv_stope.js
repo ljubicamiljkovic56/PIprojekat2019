@@ -143,6 +143,10 @@ function dodajPDVStopu(){
 		console.log('procenat: ' + procenat);
 		console.log('pdvKategorija: ' + pdvKategorija);
 		
+		if(datum_vazenja == '' || procenat == '' || pdvKategorija == null){
+			alert("Niste uneli potrebne podatke.");
+		}
+		
 		var params = {
 			'datum_vazenja': datum_vazenja,
 			'procenat': procenat,
@@ -180,6 +184,10 @@ function izmeniPDVStopu() {
 		console.log('datum_vazenja: ' + datum_vazenja);
 		console.log('procenat: ' + procenat);
 		console.log('pdvKategorija: ' + pdvKategorija);
+		
+		if(datum_vazenja == '' || procenat == '' || pdvKategorija == null){
+			alert("Niste uneli potrebne podatke.");
+		}
 		
 		var params = {
 				'id': id,

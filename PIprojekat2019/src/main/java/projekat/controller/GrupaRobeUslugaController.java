@@ -2,11 +2,15 @@ package projekat.controller;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +26,7 @@ import projekat.service.intrfc.PDVKategorijaServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/gruperobe")
+@ControllerAdvice
 public class GrupaRobeUslugaController {
 
 	
@@ -36,28 +41,19 @@ public class GrupaRobeUslugaController {
 		return grupaRobeUslugaServiceInterface.findAll();
 	}
 	
-	
-//	@PostMapping(value = "/pojedinacnaGrupa")
-//	private ResponseEntity<GrupaRobeUslugaDTO> pojedinacnaGrupa(@RequestParam("naziv_grupe") String nazivGrupe) {
-//		
-//		GrupaRobeUsluga grupaRobeUsluga = grupaRobeUslugaServiceInterface.findByNazivGrupe(nazivGrupe);
-//		
-//		if(grupaRobeUsluga == null) {
-//			return new ResponseEntity<GrupaRobeUslugaDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<GrupaRobeUslugaDTO>(new GrupaRobeUslugaDTO(grupaRobeUsluga), HttpStatus.OK);
-//		}
-//		
-//	}
-	
 	@PostMapping(value = "/dodajGrupu")
 	private ResponseEntity<Void> dodajGrupu(@RequestParam("naziv_grupe") String nazivGrupe, 
 			@RequestParam("pdvKategorija") String nazivKategorije) {
+		
+		if(nazivGrupe == null || nazivKategorije == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 		
 		System.out.println("Naziv grupe: " + nazivGrupe);
 	
 		PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findByNazivKategorije(nazivKategorije);
 		PDVKategorija pdvKategorija2 = pdvKategorijaServiceInterface.findOne(pdvKategorija.getIdKategorije());
+		
 		
 		GrupaRobeUsluga grupaRobeUsluga = new GrupaRobeUsluga();
 		grupaRobeUsluga.setNazivGrupe(nazivGrupe);
@@ -111,4 +107,8 @@ public class GrupaRobeUslugaController {
 		
 	}
 	
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
 }

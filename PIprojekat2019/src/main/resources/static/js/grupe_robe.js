@@ -139,6 +139,10 @@ function dodajGrupuRobe(){
 		console.log('naziv_grupe: ' + naziv_grupe)
 		console.log('pdvKategorija: ' + pdvKategorija);
 		
+		if(naziv_grupe == '' || pdvKategorija == ''){
+			alert("Niste uneli potrebne podatke.");
+		}
+		
 		var params = {
 			'naziv_grupe': naziv_grupe,
 			'pdvKategorija': pdvKategorija
@@ -172,6 +176,9 @@ function izmeniGrupuRobe(){
 		console.log('naziv_grupe: ' + naziv_grupe)
 		console.log('pdvKategorija: ' + pdvKategorija);
 		
+		if(naziv_grupe == '' || pdvKategorija == ''){
+			alert("Niste uneli potrebne podatke.");
+		}
 		
 		var params = {
 				'id': id,

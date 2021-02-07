@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -24,6 +26,7 @@ public class PDVKategorija {
 	@Column(name = "kategorija_id")
 	private Long idKategorije;
 	
+	@NotBlank(message = "Naziv kategorije ne sme biti prazan")
 	@Column(name = "naziv_kategorije", columnDefinition = "VARCHAR(20)")
 	private String nazivKategorije;
 	

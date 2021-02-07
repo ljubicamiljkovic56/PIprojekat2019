@@ -193,6 +193,10 @@ function dodajRobu(){
 		console.log('naziv_mere: ' + naziv_mere);
 		console.log('naziv_grupe: ' + naziv_grupe);
 		
+		if(naziv_robe == '' || naziv_mere == null || naziv_grupe == null){
+			alert("Niste uneli potrebne podatke.");
+		}
+		
 		var params = {
 			'naziv_robe': naziv_robe,
 			'opis': opis,
@@ -240,6 +244,10 @@ function izmeniRobu() {
 		console.log('roba: ' + roba);
 		console.log('naziv_mere: ' + naziv_mere);
 		console.log('naziv_grupe: ' + naziv_grupe);
+		
+		if(naziv_robe == '' || naziv_mere == null || naziv_grupe == null){
+			alert("Niste uneli potrebne podatke.");
+		}
 		
 		var params = {
 				'id': id,

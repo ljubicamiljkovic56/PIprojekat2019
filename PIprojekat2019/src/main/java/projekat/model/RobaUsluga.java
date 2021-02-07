@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,6 +29,7 @@ public class RobaUsluga {
 	@Column(name = "id_robe_usluge")
 	private Long idRobeUsluge;
 	
+	@NotBlank(message = "Naziv robe ne sme biti prazan")
 	@Column(name = "naziv_robe_usluge", columnDefinition = "VARCHAR(30)")
 	private String nazivRobeUsluge;
 	
@@ -35,10 +39,12 @@ public class RobaUsluga {
 	@Column(name = "roba", columnDefinition = "TINYINT(1)")
 	private boolean roba;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_jedinice_mere")
 	private JedinicaMere jedinicaMere;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_grupe")
 	private GrupaRobeUsluga grupaRobeUsluga;

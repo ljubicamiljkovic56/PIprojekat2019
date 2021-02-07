@@ -4,12 +4,16 @@ package projekat.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +29,7 @@ import projekat.service.intrfc.PDVStopaServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/pdvstope")
+@ControllerAdvice
 public class PDVStopaController {
 	
 	@Autowired
@@ -38,23 +43,13 @@ public class PDVStopaController {
 		return pdvStopaServiceInterface.findAll();
 	}
 	
-//	@PostMapping(value = "/pojedinacnaPDVStopa")
-//	public ResponseEntity<PDVStopaDTO> pojedinacnaPDVStopa(@RequestParam("procenat") String procenat) {
-//		
-//		double procenatDouble = Double.parseDouble(procenat);
-//		
-//		PDVStopa pdvStopa = pdvStopaServiceInterface.findByProcenat(procenatDouble);
-//		
-//		if(pdvStopa == null) {
-//			return new ResponseEntity<PDVStopaDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<PDVStopaDTO>(new PDVStopaDTO(pdvStopa), HttpStatus.OK);
-//		}
-//	}
-	
 	@PostMapping(value = "/dodajPDVStopu")
-	public ResponseEntity<Void> dodajPDVStopu(@Validated @RequestParam("datum_vazenja") String datumVazenja, @RequestParam("procenat") String procenat, 
+	public ResponseEntity<Void> dodajPDVStopu(@RequestParam("datum_vazenja") String datumVazenja, @RequestParam("procenat") String procenat, 
 			@RequestParam("pdvKategorija") String nazivKategorije) throws ParseException {
+		
+		if(datumVazenja == null || procenat == "" || nazivKategorije == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 		
 		double procenatDouble = Double.parseDouble(procenat);
 		String datum = datumVazenja;
@@ -93,6 +88,10 @@ public class PDVStopaController {
 		PDVKategorija pdvKategorija = pdvKategorijaServiceInterface.findByNazivKategorije(nazivKategorije);
 		
 		PDVKategorija pdvKategorija2 = pdvKategorijaServiceInterface.findOne(pdvKategorija.getIdKategorije());
+		
+		if(datum == null || procenat == null || nazivKategorije == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 
 		if(pdvStopa != null) {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -128,4 +127,8 @@ public class PDVStopaController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
 }

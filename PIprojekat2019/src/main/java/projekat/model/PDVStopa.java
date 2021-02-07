@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 
 
 @Entity
@@ -20,12 +23,15 @@ public class PDVStopa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idStope;
 	
+	@NotNull(message = "Mora da se unese datum vazenja")
 	@Column(name = "datum_vazenja", columnDefinition = "DATE")
 	private Date datumVazenja;
 	
+	@Size(min=1, message = "Procenat ne sme da bude prazan")
 	@Column(name = "procenat", columnDefinition = "DOUBLE")
 	private double procenat;
 
+	@NotNull(message = "Mora postojati kategorija")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "kategorija_id")
 	private PDVKategorija pdvKategorija;

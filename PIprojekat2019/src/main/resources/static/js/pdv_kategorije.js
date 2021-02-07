@@ -88,6 +88,10 @@ function dodajPDVKategoriju(){
 		
 		console.log('naziv_kategorije: ' + naziv_kategorije)
 		
+		if(naziv_kategorije == ''){
+			alert("Niste uneli potrebne podatke.");
+		}
+		
 		var params = {
 			'naziv_kategorije': naziv_kategorije
 		}
@@ -116,6 +120,10 @@ function izmeniPDVKategoriju(){
 		var naziv_kategorije = nazivKategorijeIzmeniInput.val();
 		
 		console.log('naziv_kategorije: ' + naziv_kategorije);
+		
+		if(naziv_kategorije == ''){
+			alert("Niste uneli potrebne podatke.");
+		}
 		
 		var params = {
 				'id': id,

@@ -14,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,9 +30,11 @@ public class GrupaRobeUsluga {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idGrupe;
 	
+	@NotBlank(message = "Naziv grupe ne sme biti prazan")
 	@Column(name = "naziv_grupe", columnDefinition = "VARCHAR(30)")
 	private String nazivGrupe;
 	
+	@NotNull(message = "Mora da postoji pdv kategorija")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "kategorija_id")
 	private PDVKategorija pdvKategorija;

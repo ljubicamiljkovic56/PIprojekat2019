@@ -1,6 +1,5 @@
 package projekat.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
@@ -34,16 +33,6 @@ public class JedinicaMereController {
 	@Autowired
 	private JedinicaMereServiceInterface jedinicaMereServiceInterface;
 	
-//	@Autowired
-//	private JedinicaMereService jedinicaMereService;
-//	
-//	@Autowired
-//	private JedinicaMereToJedinicaMereDTO toJedinicaMereDTO;
-//	
-//	@Autowired
-//	private JedinicaMereDTOtoJedinicaMere toJedinicaMere;
-//	
-	
 	@GetMapping(path = "/all")
 	public List<JedinicaMere> getAll(){
 		return jedinicaMereServiceInterface.findAll();
@@ -52,38 +41,15 @@ public class JedinicaMereController {
 	@GetMapping(path = "/searchByNaziv/{naziv}")
 	private ResponseEntity<Void> searchByNaziv(@RequestParam("naziv") String nazivJediniceMere) {
 		
-		List<JedinicaMere> jediniceMere = new ArrayList<JedinicaMere>();
+	//	List<JedinicaMere> jediniceMere = new ArrayList<JedinicaMere>();
 		
 		if(nazivJediniceMere == null) {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
 		
-	//	JedinicaMere jedinicaMere = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivJediniceMere);
-		
-	//	System.out.println(jedinicaMere);
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
-//	@RequestMapping(method = RequestMethod.POST, consumes = "application/json", path = "/saveJedinicaMere")
-//	public ResponseEntity<JedinicaMereDTO> saveJedinicaMere(@Validated @RequestBody JedinicaMereDTO jedinicaMereDTO) {
-//		
-//		System.out.println("Dodajem novu jedinicu mere...");
-//		System.out.println(jedinicaMereDTO.toString());
-//		JedinicaMere konvertovano = toJedinicaMere.convert(jedinicaMereDTO);
-//		System.out.println("Konvertovano "+ konvertovano + " " + konvertovano.getNazivJediniceMere()+ " " +konvertovano.getSkraceniNaziv());
-//		
-//		JedinicaMere jedinicaMere = jedinicaMereService.save(toJedinicaMere.convert(jedinicaMereDTO));
-//		
-//		System.out.println("Naziv jedinicaMereDTO: " + jedinicaMereDTO.getNazivJediniceMere());
-//		System.out.println("Skraceni naziv: " + jedinicaMereDTO.getSkraceniNaziv());
-//		System.out.println(jedinicaMere);
-//		System.out.println("Naziv jedinicaMere: " + jedinicaMere.getNazivJediniceMere());
-//		System.out.println("Skraceni naziv: " + jedinicaMere.getSkraceniNaziv());
-//		
-//		return new ResponseEntity<>(toJedinicaMereDTO.convert(jedinicaMere), HttpStatus.OK);
-//	}
-//	
 	
 	//moj nacin slanja, bez converter klasa
 	@PostMapping(value = "/dodajJedinicuMere")

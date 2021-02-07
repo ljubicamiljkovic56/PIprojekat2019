@@ -2,11 +2,15 @@ package projekat.controller;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +27,7 @@ import projekat.service.intrfc.RobaUslugaServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/roba")
+@ControllerAdvice
 public class RobaUslugaController {
 
 	@Autowired
@@ -40,18 +45,6 @@ public class RobaUslugaController {
 		return robaUslugaServiceInterface.findAll();
 	}
 	
-//	@PostMapping(path = "/pojedinacnaRoba")
-//	public ResponseEntity<RobaUslugaDTO> pojedinacnaRoba(@RequestParam("naziv_robe") String nazivRobe) {
-//		
-//		RobaUsluga roba = robaUslugaServiceInterface.findByNazivRobeUsluge(nazivRobe);
-//		
-//		if(roba == null) {
-//			return new ResponseEntity<RobaUslugaDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<RobaUslugaDTO>(new RobaUslugaDTO(roba), HttpStatus.OK);
-//		}
-//		
-//	}
 	
 	@PostMapping(path = "/dodajRobu")
 	public ResponseEntity<Void> dodajRobu(@RequestParam("naziv_robe") String nazivRobe, 
@@ -134,5 +127,10 @@ public class RobaUslugaController {
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 		
+	}
+	
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }
