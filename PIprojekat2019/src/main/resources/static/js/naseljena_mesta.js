@@ -92,6 +92,10 @@ function dodajMesto(){
 		console.log('naziv_mesta: ' + naziv_mesta);
 		console.log('ptt_broj: ' + ptt_broj);
 		
+		if(naziv_mesta == '' || ptt_broj == ''){
+			alert("Niste uneli potrebne podatke.");
+		}
+		
 		var params = {
 			'naziv_mesta': naziv_mesta,
 			'ptt_broj': ptt_broj	
@@ -125,6 +129,10 @@ function izmeniMesto() {
 		
 		console.log('naziv_mesta: ' + naziv_mesta);
 		console.log('ptt_broj: ' + ptt_broj);
+		
+		if(naziv_mesta == '' || ptt_broj == ''){
+			alert("Niste uneli potrebne podatke.");
+		}
 		
 		var params = {
 				'id': id,

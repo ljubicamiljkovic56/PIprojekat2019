@@ -12,6 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,10 +26,12 @@ public class NaseljenoMesto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_mesta")
 	private Long idMesta;
-	
+
+	@NotNull(message = "PTT broj ne sme biti 0 ili prazan")
 	@Column(name = "ptt_broj", columnDefinition = "INT")
 	private int pttBroj;
 	
+	@NotBlank(message = "Naziv mesta ne sme biti prazan")
 	@Column(name = "naziv_mesta", columnDefinition = "VARCHAR(20)")
 	private String nazivMesta;
 	

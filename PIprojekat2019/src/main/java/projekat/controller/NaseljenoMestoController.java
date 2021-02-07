@@ -2,11 +2,16 @@ package projekat.controller;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +24,7 @@ import projekat.service.intrfc.NaseljenoMestoServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/mesto")
+@ControllerAdvice
 public class NaseljenoMestoController {
 
 	@Autowired
@@ -30,27 +36,18 @@ public class NaseljenoMestoController {
 		return naseljenoMestoServiceInterface.findAll();
 	}
 	
-//	@PostMapping(path = "/pojedinacnoMesto")
-//	public ResponseEntity<NaseljenoMestoDTO> pojedinacnoMesto(@RequestParam("naziv_mesta") String nazivMesta) {
-//		
-//		NaseljenoMesto mesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
-//		
-//		if(mesto == null) {
-//			return new ResponseEntity<NaseljenoMestoDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<NaseljenoMestoDTO>(new NaseljenoMestoDTO(mesto), HttpStatus.OK);
-//		}
-//		
-//	}
-	
 	@PostMapping(path = "/dodajMesto")
-	public ResponseEntity<Void> dodajMesto(@RequestParam("naziv_mesta") String nazivMesta, @RequestParam("ptt_broj") String pttBroj) {
+	public ResponseEntity<Void> dodajMesto(@Validated @RequestParam("naziv_mesta") String nazivMesta, @RequestParam("ptt_broj") String pttBroj) {
 		
 		System.out.println("Naziv naseljenog mesta: " + nazivMesta);
 		System.out.println("Ptt broj naseljnog mesta: " + pttBroj);
 		
-		int pttBrojInt = Integer.parseInt(pttBroj);
+		if(nazivMesta == null || pttBroj == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 		
+		int pttBrojInt = Integer.parseInt(pttBroj);
+			
 		NaseljenoMesto mesto = new NaseljenoMesto();
 		mesto.setNazivMesta(nazivMesta);
 		mesto.setPttBroj(pttBrojInt);
@@ -99,5 +96,11 @@ public class NaseljenoMestoController {
 		System.out.println("Obrisano je mesto");
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }
