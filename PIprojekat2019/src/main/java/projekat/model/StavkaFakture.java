@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "stavka_fakture")
@@ -18,35 +19,45 @@ public class StavkaFakture {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idStavke;
 	
+	@NotNull
 	@Column(name = "kolicina", columnDefinition = "DECIMAL")
 	private double kolicina;
 	
+	@NotNull
 	@Column(name = "rabat", columnDefinition = "DECIMAL")
 	private double rabat;
 	
+	@NotNull
 	@Column(name = "jedinicna_cena", columnDefinition = "DECIMAL")
 	private double jedinicnaCena;
 	
+	@NotNull
 	@Column(name = "pdv_stopa", columnDefinition = "DECIMAL")
 	private double pdvStopa;
 	
+	@NotNull
 	@Column(name = "osnovica_za_pdv", columnDefinition = "DECIMAL")
 	private double osnovicaZaPDV;
 	
+	@NotNull
 	@Column(name = "iznos_pdv", columnDefinition = "DECIMAL")
 	private double iznosPDV;
 	
+	@NotNull
 	@Column(name = "ukupan_iznos", columnDefinition = "DECIMAL")
 	private double ukupanIznos;
 
+	@NotNull(message = "Mora postojati preduzece")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_preduzeca")
 	private Preduzece preduzece;
 	
+	@NotNull(message = "Mora postojati faktura")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_fakture")
 	private Faktura faktura;
 	
+	@NotNull(message = "Mora postojati roba")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_robe")
 	private RobaUsluga robaUsluga;

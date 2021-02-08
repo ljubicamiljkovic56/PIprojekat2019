@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @SuppressWarnings("serial")
 @Entity
@@ -21,25 +24,32 @@ public class StavkaOtpremnice implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idStavkeOtpremnice;
 	
+	@NotNull
 	@Column(name = "redni_broj_proizvoda" , columnDefinition = "INT")
 	private int redniBrojProizvoda;
 	
+	@NotBlank(message = "Jedinica mere ne sme biti prazna")
 	@Column(name = "jedinica_mere", columnDefinition = "CHAR(5)")
 	private String jedinicaMere;
 	
+	@NotNull
 	@Column(name = "cena", columnDefinition = "DECIMAL")
 	private double cena;
 	
+	@NotNull
 	@Column(name = "kolicina", columnDefinition = "DECIMAL")
 	private double kolicina;
 	
+	//napomena je opciona
 	@Column(name = "napomena", columnDefinition = "VARCHAR(20)")
 	private String napomena;
 	
+	@NotNull(message = "Mora postojati otpremnica")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_otpremnice")
 	private Otpremnica otpremnica;
 	
+	@NotNull(message = "Mora postojati roba")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_robe")
 	private RobaUsluga robaUsluga;

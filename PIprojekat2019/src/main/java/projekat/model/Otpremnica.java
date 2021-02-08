@@ -15,6 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,18 +29,23 @@ public class Otpremnica {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idOtpremnice;
 	
+	@NotNull
 	@Column(name = "broj_otpremnice", columnDefinition = "INT")
 	private int brojOtpremnice;
 	
+	@NotBlank(message = "Kupac ne sme biti prazan")
 	@Column(name = "kupac", columnDefinition = "VARCHAR(20)")
 	private String kupac;
 	
+	@NotBlank(message = "Adresa isporuke ne sme biti prazna")
 	@Column(name = "adresa_isporuke", columnDefinition = "VARCHAR(30)")
 	private String adresaIsporuke;
 	
+	@NotNull
 	@Column(name = "datum_isporuke", columnDefinition = "DATE")
 	private Date datumIsporuke;
 	
+	@NotBlank(message = "Prevoznik ne sme biti prazan")
 	@Column(name = "prevoznik", columnDefinition = "VARCHAR(20)")
 	private String prevoznik;
 	
@@ -47,11 +55,12 @@ public class Otpremnica {
 	@Column(name = "primio_robu", columnDefinition = "TINYINT(1)")
 	private boolean primioRobu;
 
-	
+	@NotNull(message = "Mora postojati faktura")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_fakture")
 	private Faktura faktura;
 	
+	@NotNull(message = "Mora postojati narudzbenica")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_narudzbenice")
 	private Narudzbenica narudzbenica;

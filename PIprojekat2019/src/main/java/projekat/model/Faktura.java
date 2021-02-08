@@ -14,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,40 +28,50 @@ public class Faktura {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idFakture;
 	
+	@NotNull
 	@Column(name = "broj_fakture", columnDefinition = "INT")
 	private int brojFakture;
 	
+	@NotNull
 	@Column(name = "datum_fakture", columnDefinition = "DATE")
 	private Date datumFakture;
 	
+	@NotNull
 	@Column(name = "datum_valute", columnDefinition = "DATE")
 	private Date datumValute;
 	
+	@NotNull
 	@Column(name = "ukupna_osnovica", columnDefinition = "DECIMAL")
 	private double ukupnaOsnovica;
 	
+	@NotNull
 	@Column(name = "ukupan_pdv", columnDefinition = "DECIMAL")
 	private double ukupanPDV;
 	
+	@NotNull
 	@Column(name = "ukupan_iznos", columnDefinition = "DECIMAL")
 	private double ukupanIznos;
 	
+	@NotBlank(message = "Status fakture ne sme biti prazno")
 	@Column(name = "status_fakture", columnDefinition = "CHAR(1)")
 	private String statusFakture;
 	
-	
+	@NotNull(message = "Mora postojati poslovna godina")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_godine")
 	private PoslovnaGodina poslovnaGodina;
 	
+	@NotNull(message = "Mora postojati preduzece")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_preduzeca")
 	private Preduzece preduzece;
 	
+	@NotNull(message = "Mora postojati poslovni partner")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_poslovnog_partnera")
 	private PoslovniPartner poslovniPartner;
 	
+	@NotNull(message = "Mora postojati narudzbenica")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_narudzbenice")
 	private Narudzbenica narudzbenica;

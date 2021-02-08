@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "stavka_narudzbenice")
@@ -18,22 +21,28 @@ public class StavkaNarudzbenice {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotBlank(message = "Jedinica mere ne sme biti prazna")
 	@Column(name = "jedinica_mere", columnDefinition = "CHAR(5)")
 	private String jedinicaMere;
 	
+	@NotNull
 	@Column(name = "kolicina", columnDefinition = "DECIMAL")
 	private double kolicina;
 	
+	@NotNull
 	@Column(name = "cena", columnDefinition = "DECIMAL")
 	private double cena;
 	
+	@NotNull
 	@Column(name = "iznos", columnDefinition = "DECIMAL")
 	private double iznos;
 	
+	@NotNull(message = "Mora postojati narudzbenica")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_narudzbenice")
 	private Narudzbenica narudzbenica;
 	
+	@NotNull(message = "Mora postojati roba")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_robe")
 	private RobaUsluga robaUsluga;

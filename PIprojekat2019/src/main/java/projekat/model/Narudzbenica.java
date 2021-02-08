@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,17 +27,21 @@ public class Narudzbenica {
 	@Column(name = "narudzbenica_id")
 	private Long id;
 	
+	@NotNull
 	@Column(name = "broj_narudzbenice", columnDefinition = "INT")
 	private int brojNarudzbenice;
 
+	@NotNull(message = "Mora postojati preduzece")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_preduzeca")
 	private Preduzece preduzece;
 	
+	@NotNull(message = "Mora postojati poslovni partner")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_poslovnog_partnera")
 	private PoslovniPartner poslovniPartner;
 	
+	@NotNull(message = "Mora postojati poslovna godina")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_godine")
 	private PoslovnaGodina poslovnaGodina;

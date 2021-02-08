@@ -1,11 +1,16 @@
 package projekat.controller;
 
 import java.util.List;
+
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +23,7 @@ import projekat.service.intrfc.StavkaOtpremniceServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/stavkeotpremnice")
+@ControllerAdvice
 public class StavkaOtpremniceController {
 	
 	@Autowired
@@ -28,21 +34,6 @@ public class StavkaOtpremniceController {
 	public List<StavkaOtpremnice> getAll() {
 		return stavkaOtpremniceServicenterface.findAll();
 	}
-	
-//	@PostMapping(path = "/pojedinacnaStavkaOtpremnice")
-//	public ResponseEntity<StavkaOtpremniceDTO> pojedinacnaStavkaOtpremnice(@RequestParam("redni_broj_proizvoda") String redniBrojProizvoda) {
-//
-//		int redniBrojProizvodaInt = Integer.parseInt(redniBrojProizvoda);
-//		
-//		StavkaOtpremnice stavkaOtpremnice = stavkaOtpremniceServicenterface.findByRedniBrojProizvoda(redniBrojProizvodaInt);
-//		
-//		if(stavkaOtpremnice == null) {
-//			return new ResponseEntity<StavkaOtpremniceDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<StavkaOtpremniceDTO>(new StavkaOtpremniceDTO(stavkaOtpremnice), HttpStatus.OK);
-//		}
-//		
-//	}
 	
 	@PostMapping(path = "/dodajStavkuOtpremnice")
 	public ResponseEntity<Void> dodajStavkuOtpremnice(@RequestParam("redni_broj_proizvoda") String redniBrojProizvoda,
@@ -122,4 +113,8 @@ public class StavkaOtpremniceController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
 }

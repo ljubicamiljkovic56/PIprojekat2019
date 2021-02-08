@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -22,8 +23,10 @@ import javax.xml.transform.stream.StreamResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,6 +48,7 @@ import projekat.service.intrfc.StavkaOtpremniceServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/otpremnice")
+@ControllerAdvice
 public class OtpremnicaController {
 	
 	@Autowired
@@ -60,20 +64,6 @@ public class OtpremnicaController {
 	public List<Otpremnica> getAll() {
 		return otpremnicaServiceInterface.findAll();
 	}
-	
-//	@PostMapping(path = "/pojedinacnaOtpremnica")
-//	public ResponseEntity<OtpremnicaDTO> pojedinacnaOtpremnica(@RequestParam("broj_otpremnice") String brojOtpremnice) {
-//		
-//		int brojOtpremniceInt = Integer.parseInt(brojOtpremnice);
-//		
-//		Otpremnica otpremnica = otpremnicaServiceInterface.findByBrojOtpremnice(brojOtpremniceInt);
-//		
-//		if(otpremnica == null) {
-//			return new ResponseEntity<OtpremnicaDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<OtpremnicaDTO>(new OtpremnicaDTO(otpremnica), HttpStatus.OK);
-//		}
-//	}
 	
 	@PostMapping(path = "/dodajOtpremnicu")
 	public ResponseEntity<Void> dodajOtpremnicu(@RequestParam("broj_otpremnice") String brojOtpremnice, 
@@ -449,5 +439,11 @@ public class OtpremnicaController {
 	    System.out.println("Dodata je nova otpremnica sa fakturom");
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

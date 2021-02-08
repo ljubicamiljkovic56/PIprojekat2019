@@ -2,11 +2,15 @@ package projekat.controller;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +28,7 @@ import projekat.service.intrfc.StavkaFaktureServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/stavkefakture")
+@ControllerAdvice
 public class StavkaFaktureController {
 	
 	@Autowired
@@ -40,21 +45,6 @@ public class StavkaFaktureController {
 		return stavkaFaktureServiceInterface.findAll();
 	}
 	
-//	@PostMapping(path = "/pojedinacnaStavkaFakture")
-//	public ResponseEntity<StavkaFaktureDTO> pojedinacnaStavkaFakture(@RequestParam("jedinicna_cena") String jedinicnaCena) {
-//		
-//		double jedinicnaCenaDouble = Double.parseDouble(jedinicnaCena);
-//		
-//		StavkaFakture stavkaFakture = stavkaFaktureServiceInterface.findByJedinicnaCena(jedinicnaCenaDouble);
-//		
-//		if(stavkaFakture == null) {
-//			return new ResponseEntity<StavkaFaktureDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<StavkaFaktureDTO>(new StavkaFaktureDTO(stavkaFakture), HttpStatus.OK);
-//		}
-//		
-//	}
-//	
 	@PostMapping(path = "/dodajStavkuFakture")
 	public ResponseEntity<Void> dodajStavkuFakture(@RequestParam("kolicina") String kolicina,
 			@RequestParam("rabat") String rabat, @RequestParam("jedinicna_cena") String jedinicnaCena, 
@@ -167,4 +157,9 @@ public class StavkaFaktureController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
+	
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
 }
