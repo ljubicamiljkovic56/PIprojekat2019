@@ -33,18 +33,19 @@ public class RobaUsluga {
 	@Column(name = "naziv_robe_usluge", columnDefinition = "VARCHAR(30)")
 	private String nazivRobeUsluge;
 	
+	//opis je opcioni
 	@Column(name = "opis", columnDefinition = "VARCHAR(30)")
 	private String opis;
 	
 	@Column(name = "roba", columnDefinition = "TINYINT(1)")
 	private boolean roba;
 	
-	@NotNull
+	@NotNull(message = "Mora da postoji jedinica mere")
 	@ManyToOne
 	@JoinColumn(name = "id_jedinice_mere")
 	private JedinicaMere jedinicaMere;
 	
-	@NotNull
+	@NotNull(message = "Mora da postoji grupa robe")
 	@ManyToOne
 	@JoinColumn(name = "id_grupe")
 	private GrupaRobeUsluga grupaRobeUsluga;

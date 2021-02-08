@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,7 +43,7 @@ public class GrupaRobeUslugaController {
 	}
 	
 	@PostMapping(value = "/dodajGrupu")
-	private ResponseEntity<Void> dodajGrupu(@RequestParam("naziv_grupe") String nazivGrupe, 
+	private ResponseEntity<Void> dodajGrupu(@Validated @RequestParam("naziv_grupe") String nazivGrupe, 
 			@RequestParam("pdvKategorija") String nazivKategorije) {
 		
 		if(nazivGrupe == null || nazivKategorije == null) {
@@ -109,6 +110,11 @@ public class GrupaRobeUslugaController {
 	
 	@ExceptionHandler(value = ConstraintViolationException.class)
 	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(value = NullPointerException.class)
+	public ResponseEntity<Void> handleNullPointer() {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

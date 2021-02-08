@@ -57,6 +57,10 @@ public class RobaUslugaController {
 		JedinicaMere mera = jedinicaMereServiceInterface.findByNazivJediniceMere(nazivMere);
 		JedinicaMere mera2 = jedinicaMereServiceInterface.findOne(mera.getIdJediniceMere());
 		
+		if(nazivRobe == null || grupa == null || mera == null || grupa2 == null || mera2 == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
 		
 		RobaUsluga robaUsluga = new RobaUsluga();
 		robaUsluga.setNazivRobeUsluge(nazivRobe);
@@ -131,6 +135,11 @@ public class RobaUslugaController {
 	
 	@ExceptionHandler(value = ConstraintViolationException.class)
 	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(value = NullPointerException.class)
+	public ResponseEntity<Void> handleNullPointer() {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

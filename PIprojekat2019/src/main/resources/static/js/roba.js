@@ -212,7 +212,7 @@ function dodajRobu(){
 			dobaviRobu();
 			nazivInput.val("");
 			opisInput.val("");
-			robaInput.val("");
+			robaSelect.val("");
 			jedinicaSelect.val("");
 			grupaSelect.val("");
 		});

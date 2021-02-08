@@ -151,6 +151,10 @@ function dodajPreduzece(){
 		console.log('fax_preduzeca: ' + fax_preduzeca);
 		console.log('naziv_mesta: ' + naziv_mesta);
 		
+		if(naziv_preduzeca == '' || adresa_preduzeca == '' || broj_telefona == ''){
+			alert("Niste uneli potrebne podatke.");
+		}
+		
 		var params = {
 			'naziv_preduzeca': naziv_preduzeca,
 			'adresa_preduzeca': adresa_preduzeca,

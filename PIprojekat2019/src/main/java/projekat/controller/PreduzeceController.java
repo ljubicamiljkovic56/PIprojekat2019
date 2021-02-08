@@ -3,12 +3,16 @@ package projekat.controller;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +27,7 @@ import projekat.service.intrfc.PreduzeceServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/preduzece")
+@ControllerAdvice
 public class PreduzeceController {
 	
 	@Autowired
@@ -37,25 +42,16 @@ public class PreduzeceController {
 		return preduzeceServiceInterface.findAll();
 	}
 	
-	
-//	@PostMapping(path = "/pojedinacnoPreduzece")
-//	public ResponseEntity<PreduzeceDTO> pojedinacnoPreduzece(@RequestParam("naziv_preduzeca") String nazivPreduzeca){
-//		
-//		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
-//		
-//		if(preduzece == null) {
-//			return new ResponseEntity<PreduzeceDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<PreduzeceDTO>(new PreduzeceDTO(preduzece), HttpStatus.OK);
-//		}
-//	}
-	
 	@PostMapping(path = "/dodajPreduzece")
 	public ResponseEntity<Void> dodajPreduzece(@Validated @RequestParam("naziv_preduzeca") String nazivPreduzeca,
 			@RequestParam("adresa_preduzeca") String adresa, @RequestParam("broj_telefona") String brojTelefona, @RequestParam("fax_preduzeca") String fax,
 			@RequestParam("naziv_mesta") String nazivMesta) throws ParseException {
 
 		NaseljenoMesto naseljenoMesto = naseljenoMestoServiceInterface.findByNazivMesta(nazivMesta);
+		
+		if(nazivPreduzeca == null || adresa == null || brojTelefona == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 		
 		Preduzece preduzece = new Preduzece();
 		preduzece.setNazivPreduzeca(nazivPreduzeca);
@@ -118,4 +114,8 @@ public class PreduzeceController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
 }

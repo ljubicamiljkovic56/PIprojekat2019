@@ -103,4 +103,9 @@ public class NaseljenoMestoController {
 	public ResponseEntity<Void> handle() {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(value = NumberFormatException.class)
+	public ResponseEntity<Void> handleNumber() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
 }

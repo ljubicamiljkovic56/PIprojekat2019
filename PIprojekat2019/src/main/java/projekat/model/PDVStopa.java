@@ -27,6 +27,7 @@ public class PDVStopa {
 	@Column(name = "datum_vazenja", columnDefinition = "DATE")
 	private Date datumVazenja;
 	
+	@NotNull(message = "Procenat ne sme biti prazan")
 	@Size(min=1, message = "Procenat ne sme da bude prazan")
 	@Column(name = "procenat", columnDefinition = "DOUBLE")
 	private double procenat;

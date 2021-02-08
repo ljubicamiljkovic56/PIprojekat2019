@@ -10,6 +10,7 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,7 +45,7 @@ public class PDVStopaController {
 	}
 	
 	@PostMapping(value = "/dodajPDVStopu")
-	public ResponseEntity<Void> dodajPDVStopu(@RequestParam("datum_vazenja") String datumVazenja, @RequestParam("procenat") String procenat, 
+	public ResponseEntity<Void> dodajPDVStopu(@Validated @RequestParam("datum_vazenja") String datumVazenja, @RequestParam("procenat") String procenat, 
 			@RequestParam("pdvKategorija") String nazivKategorije) throws ParseException {
 		
 		if(datumVazenja == null || procenat == "" || nazivKategorije == null) {

@@ -2,11 +2,16 @@ package projekat.controller;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +26,7 @@ import projekat.service.intrfc.PreduzeceServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/poslovnegodine")
+@ControllerAdvice
 public class PoslovnaGodinaController {
 	
 	@Autowired
@@ -34,30 +40,18 @@ public class PoslovnaGodinaController {
 		return poslovnaGodinaServiceInterface.findAll();
 	}
 	
-//	@PostMapping(path = "/pojedinacnaGodina")
-//	public ResponseEntity<PoslovnaGodinaDTO> pojedinacnaGodina(@RequestParam("godina") String godina) {
-//		
-//		int godinaInt = Integer.parseInt(godina);
-//		
-//		PoslovnaGodina poslovnaGodina = poslovnaGodinaServiceInterface.findByGodina(godinaInt);
-//		
-//		if(poslovnaGodina == null) {
-//			return new ResponseEntity<PoslovnaGodinaDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<PoslovnaGodinaDTO>(new PoslovnaGodinaDTO(poslovnaGodina), HttpStatus.OK);
-//		}
-//		
-//		
-//	}
-	
 	@PostMapping(path = "/dodajGodinu")
-	public ResponseEntity<Void> dodajGodinu(@RequestParam("godina") String godina, 
+	public ResponseEntity<Void> dodajGodinu(@Validated @RequestParam("godina") String godina, 
 			@RequestParam("zakljucena") String zakljucena, 
 			@RequestParam("preduzece") String nazivPreduzeca) {
 		
 		int godinaInt = Integer.parseInt(godina);
 		
 		Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
+		
+		if(godina == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 		
 		PoslovnaGodina poslovnaGodina = new PoslovnaGodina();
 		poslovnaGodina.setGodina(godinaInt);
@@ -128,5 +122,15 @@ public class PoslovnaGodinaController {
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 		
+	}
+	
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(value = NumberFormatException.class)
+	public ResponseEntity<Void> handleNumberFormat() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

@@ -14,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
@@ -26,18 +29,23 @@ public class Preduzece {
 	@Column(name = "id_preduzeca")
 	private Long idPreduzeca;
 	
+	@NotBlank(message = "Naziv preduzeca ne sme biti prazno")
 	@Column(name = "naziv_preduzeca", columnDefinition = "VARCHAR(20)")
 	private String nazivPreduzeca;
 	
+	@NotBlank(message = "Adresa preduzeca ne sme biti prazna")
 	@Column(name = "adresa_preduzeca", columnDefinition = "VARCHAR(20)")
 	private String adresa;
 	
+	@NotBlank(message = "Broj telefona ne sme biti prazan")
 	@Column(name = "broj_telefona", columnDefinition = "VARCHAR(20)")
 	private String brojTelefona;
 	
+	//firma ne mora da ima fax, bitan je telefon
 	@Column(name = "fax_preduzeca", columnDefinition = "VARCHAR(20)")
 	private String fax;
 	
+	@NotNull(message = "Naseljeno mesto ne sme biti prazno")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_mesta")
 	private NaseljenoMesto naseljenoMesto;
