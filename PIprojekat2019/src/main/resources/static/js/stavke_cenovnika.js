@@ -187,6 +187,10 @@ function dodajStavkuCenovnika(){
 		console.log('cenovnik: ' + cenovnik);
 		console.log('roba: ' + roba);
 
+		if(cena == null || cenovnik == null || roba == null){
+			alert('Niste uneli potrebne podatke')
+		}
+		
 		var params = {
 			'cena': cena,
 			'cenovnik': cenovnik,

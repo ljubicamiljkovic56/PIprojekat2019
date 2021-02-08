@@ -139,6 +139,10 @@ function dodajCenovnik(){
 		console.log('datum_vazenja: ' + datum_vazenja)
 		console.log('preduzece: ' + preduzece);
 		
+		if(datum_vazenja == null || preduzece == null){
+			alert('Niste uneli potrebne podatke')
+		}
+		
 		var params = {
 			'datum_vazenja': datum_vazenja,
 			'preduzece': preduzece

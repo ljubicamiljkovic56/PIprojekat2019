@@ -4,11 +4,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +29,7 @@ import projekat.service.intrfc.PreduzeceServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/cenovnici")
+@ControllerAdvice
 public class CenovnikController {
 	
 	@Autowired
@@ -39,27 +45,8 @@ public class CenovnikController {
 	}
 	
 	
-//	@PostMapping(path = "/pojedinacanCenovnik")
-//	public ResponseEntity<CenovnikDTO> pojedinacanCenovnik(@RequestParam("datum_vazenja") String datumVazenja) throws ParseException {
-//		
-//		String datum = datumVazenja;
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//		java.util.Date date = formatter.parse(datum);
-//	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-//		
-//		Cenovnik cenovnik = cenovnikServiceInterface.findByDatumPocetkaVazenja(sqlDate);
-//		
-//		if(cenovnik == null) {
-//			return new ResponseEntity<CenovnikDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<CenovnikDTO>(new CenovnikDTO(cenovnik), HttpStatus.OK);
-//		}
-//		
-//	}
-
-	
 	@PostMapping(path = "/dodajCenovnik")
-	public ResponseEntity<Void> dodajCenovnik(@RequestParam("datum_vazenja") String datumVazenja,
+	public ResponseEntity<Void> dodajCenovnik(@Validated @RequestParam("datum_vazenja") String datumVazenja,
 			@RequestParam("preduzece") String nazivPreduzeca) throws ParseException {
 		
 		System.out.println("Datum pocetka vazenja: " + datumVazenja);
@@ -70,6 +57,10 @@ public class CenovnikController {
 	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		
 	    Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
+	    
+	    if(datumVazenja == null || nazivPreduzeca == null) {
+	    	return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+	    }
 		
 		Cenovnik cenovnik = new Cenovnik();
 		cenovnik.setDatumPocetkaVazenja(sqlDate);
@@ -126,5 +117,15 @@ public class CenovnikController {
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 		
+	}
+	
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(value = ParseException.class)
+	public ResponseEntity<Void> handleParse() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

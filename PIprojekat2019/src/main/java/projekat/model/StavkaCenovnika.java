@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "stavka_cenovnika")
@@ -19,13 +20,16 @@ public class StavkaCenovnika {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idStavke;
 	
+	@NotNull(message = "Cena ne sme biti prazna")
 	@Column(name = "cena", columnDefinition = "DECIMAL")
 	private double cena;
 	
+	@NotNull(message = "Mora postojati cenovnik")
 	@ManyToOne(cascade =  CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_cenovnika")
 	private Cenovnik cenovnik;
 	
+	@NotNull(message = "Mora postojati roba")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_robe_usluge")
 	private RobaUsluga robaUsluga;

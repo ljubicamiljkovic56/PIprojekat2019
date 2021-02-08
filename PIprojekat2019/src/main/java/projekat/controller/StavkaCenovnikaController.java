@@ -4,11 +4,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +31,7 @@ import projekat.service.intrfc.StavkaCenovnikaServiceInterface;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/stavkecenovnika")
+@ControllerAdvice
 public class StavkaCenovnikaController {
 
 	
@@ -43,22 +49,8 @@ public class StavkaCenovnikaController {
 		return stavkaCenovnikaServiceInterface.findAll();
 	}
 	
-//	@PostMapping(path = "/pojedinacnaStavkaCenovnika")
-//	public ResponseEntity<StavkaCenovnikaDTO> pojedinacnaStavkaCenovnika(@RequestParam("cena") String cena) {
-//		
-//		double cenaDouble = Double.parseDouble(cena);
-//		
-//		StavkaCenovnika stavkaCenovnika = stavkaCenovnikaServiceInterface.findByCena(cenaDouble);
-//		
-//		if(stavkaCenovnika == null) {
-//			return new ResponseEntity<StavkaCenovnikaDTO>(HttpStatus.BAD_REQUEST);
-//		}else {
-//			return new ResponseEntity<StavkaCenovnikaDTO>(new StavkaCenovnikaDTO(stavkaCenovnika), HttpStatus.OK);
-//		}
-//	}
-//	
 	@PostMapping(path = "/dodajStavkuCenovnika")
-	public ResponseEntity<Void> dodajStavkuCenovnika(@RequestParam("cena") String cena,
+	public ResponseEntity<Void> dodajStavkuCenovnika(@Validated @RequestParam("cena") String cena,
 			@RequestParam("cenovnik") String datumVazenjaCenovnika, @RequestParam("roba") String nazivRobe) throws ParseException {
 		
 		
@@ -110,6 +102,10 @@ public class StavkaCenovnikaController {
 		Cenovnik cenovnik = cenovnikServiceInterface.findByDatumPocetkaVazenja(sqlDate);
 		RobaUsluga robaUsluga = robaUslugaServiceInterface.findByNazivRobeUsluge(nazivRobe);
 		
+		if(cena == null || datumVazenjaCenovnika == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
 		if(stavkaCenovnika != null) {
 			stavkaCenovnika.setIdStavke(id);
 			stavkaCenovnika.setCena(cenaDouble);
@@ -141,5 +137,20 @@ public class StavkaCenovnikaController {
 		System.out.println("Obrisana je stavka cenovnika.");
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(value = NumberFormatException.class)
+	public ResponseEntity<Void> handleNumberFormat() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(value = ParseException.class)
+	public ResponseEntity<Void> handleParse() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }
