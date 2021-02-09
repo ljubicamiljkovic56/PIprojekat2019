@@ -85,6 +85,7 @@ public class StavkaNarudzbeniceController {
 		
 		System.out.println("Dodata je nova stavka narudzbenice");
 		return new ResponseEntity<Void>(HttpStatus.OK);
+		
 	}
 
 	@DeleteMapping(value = "/obrisiStavkuNarudzbenice/{id}")
