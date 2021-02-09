@@ -82,8 +82,3 @@ INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('pera', 'pera', 'ad
 INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('ana', 'ana', 'korisnik');
 INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('mile', 'mile', 'korisnik');
 
-
-INSERT INTO kupljeni_proizvod(naziv, cena, opis, kolicina, kupac) VALUES ('Steinberg antifriz', 310, 'antifriz za auto', 1, 'pera');
-INSERT INTO kupljeni_proizvod(naziv, cena, opis, kolicina, kupac) VALUES ('ScreenClean', 200, 'sprej za ciscenje monitora', 1, 'ana');
-
-

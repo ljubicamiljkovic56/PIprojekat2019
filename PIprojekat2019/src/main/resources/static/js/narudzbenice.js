@@ -1,5 +1,8 @@
 function getNarudzbenice() {
 	dobaviNarudzbenice();
+	dobaviPreduzece();
+	dobaviPoslovnogPartnera();
+	dobaviGodine();
 
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
@@ -9,7 +12,7 @@ function getNarudzbenice() {
 		$('#addModalScrollable').modal('show');
 	});
 	$(document).on("click", '#doAdd', function(event){
-		//dodajNarudzbenicu();
+		dodajNarudzbenicu();
 		$('#addModalScrollable').modal('hide');				
 	});
 	
@@ -22,14 +25,13 @@ function getNarudzbenice() {
 		$('#updateModalScrollable').modal('show');
 	});
 	
-	$(document).on("click", "#doUpdate", function(event) {
-		//izmeniNarudzbenicu();
-		$('#updateModalScrollable').modal('hide');
-	});
-	
-	$(document).on("click", '.updateModalClose', function(event) {
-		$('#updateModalScrollable').modal('hide');
-	});
+//	$(document).on("click", "#doUpdate", function(event) {
+//		$('#updateModalScrollable').modal('hide');
+//	});
+//	
+//	$(document).on("click", '.updateModalClose', function(event) {
+//		$('#updateModalScrollable').modal('hide');
+//	});
 	
 	$(document).on("click", '#delete', function(event){
 		var name = getNameOfSelectedEntityNarudzbenica();
@@ -82,6 +84,113 @@ function dobaviNarudzbenice() {
 	$("#next").click(function(){
 		goNext()
 	 });
+}
+
+function dobaviPreduzece() {
+	$.ajax({
+		url : "http://localhost:8080/api/preduzece/all"
+	}).then(
+		function(data) {
+			$("#preduzeceSelect").empty();
+			$('#preduzeceSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#preduzeceSelect').append($('<option>', { 
+			        value: item.idPreduzeca,
+			        text : item.nazivPreduzeca
+			    }));
+			});	
+		}
+	);
+}
+
+function dobaviPoslovnogPartnera() {
+	$.ajax({
+		url : "http://localhost:8080/api/poslovnipartneri/all"
+	}).then(
+		function(data) {
+			$("#poslovniPartnerSelect").empty();
+			$('#poslovniPartnerSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#poslovniPartnerSelect').append($('<option>', { 
+			        value: item.idPoslovnogPartnera,
+			        text : item.nazivPoslovnogPartnera 
+			    }));
+			});	
+		}
+	);
+}
+
+function dobaviGodine() {
+	$.ajax({
+		url : "http://localhost:8080/api/poslovnegodine/all"
+	}).then(
+		function(data) {
+			$("#godinaSelect").empty();
+			$('#godinaSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#godinaSelect').append($('<option>', { 
+			        value: item.idGodine,
+			        text : item.godina 
+			    }));
+			});	
+		}
+	);
+}
+
+function dodajNarudzbenicu(){
+	var brojNarudzbeniceInput = $('#brojNarudzbeniceInput');
+	var preduzeceSelect = $('#preduzeceSelect');
+	var poslovniPartnerSelect = $('#poslovniPartnerSelect');
+	var godinaSelect = $('#godinaSelect');
+	
+	$('#doAdd').on('click', function(event){
+		var broj_narudzbenice = brojNarudzbeniceInput.val();
+		var preduzece = preduzeceSelect.find(":selected").text();
+		var poslovni_partner = poslovniPartnerSelect.find(":selected").text();
+		var godina = godinaSelect.find(":selected").text();
+		
+		console.log('broj_narudzbenice: ' + broj_narudzbenice);
+		console.log('preduzece: ' + preduzece);
+		console.log('poslovni_partner: ' + poslovni_partner);
+		console.log('godina: ' + godina);
+		
+		if(broj_narudzbenice == '' || preduzece == '' || poslovni_partner == '' || godina == ''){
+			alert("Niste uneli potrebne podatke.");
+		}
+		
+		var params = {
+			'broj_narudzbenice': broj_narudzbenice,
+			'preduzece': preduzece,
+			'poslovni_partner': poslovni_partner,
+			'godina': godina
+		}
+		$.post("http://localhost:8080/api/narudzbenica/dodajNarudzbenicu", params, function(data) {
+			console.log('ispis...')
+			
+			alert('Dodata je nova narudzbenica')
+			
+			dobaviNarudzbenice();
+			brojNarudzbeniceInput.val("");
+			preduzeceSelect.val("");
+			poslovniPartnerSelect.val("");
+			godinaSelect.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+	});
 }
 
 function obrisiNarudzbenicu(){
