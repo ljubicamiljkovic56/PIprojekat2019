@@ -1,5 +1,7 @@
 function getStavkeNarudzbenice() {
 	dobaviStavkeNarudzbenice();
+	dobaviNarudzbenice();
+	dobaviRobu();
 
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
@@ -9,7 +11,7 @@ function getStavkeNarudzbenice() {
 		$('#addModalScrollable').modal('show');
 	});
 	$(document).on("click", '#doAdd', function(event){
-		//dodajStavkuNarudzbenice();
+		dodajStavkuNarudzbenice();
 		$('#addModalScrollable').modal('hide');				
 	});
 	
@@ -22,14 +24,14 @@ function getStavkeNarudzbenice() {
 		$('#updateModalScrollable').modal('show');
 	});
 	
-	$(document).on("click", "#doUpdate", function(event) {
-		//izmeniStavkuNarudzbenice();
-		$('#updateModalScrollable').modal('hide');
-	});
-	
-	$(document).on("click", '.updateModalClose', function(event) {
-		$('#updateModalScrollable').modal('hide');
-	});
+//	$(document).on("click", "#doUpdate", function(event) {
+//		//izmeniStavkuNarudzbenice();
+//		$('#updateModalScrollable').modal('hide');
+//	});
+//	
+//	$(document).on("click", '.updateModalClose', function(event) {
+//		$('#updateModalScrollable').modal('hide');
+//	});
 	
 	$(document).on("click", '#delete', function(event){
 		var name = getNameOfSelectedEntityStavkaNarudzbenice();
@@ -84,6 +86,98 @@ function dobaviStavkeNarudzbenice() {
 	$("#next").click(function(){
 		goNext()
 	 });
+}
+
+function dobaviNarudzbenice() {
+	$.ajax({
+		url : "http://localhost:8080/api/narudzbenica/all"
+	}).then(
+		function(data) {
+			$("#narudzbenicaSelect").empty();
+			$('#narudzbenicaSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#narudzbenicaSelect').append($('<option>', { 
+			        value: item.idNarudzbenice,
+			        text : item.brojNarudzbenice 
+			    }));
+			});	
+		}
+	);
+}
+
+function dobaviRobu() {
+	$.ajax({
+		url : "http://localhost:8080/api/roba/all"
+	}).then(
+		function(data) {
+			$("#robaSelect").empty();
+			$('#robaSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#robaSelect').append($('<option>', { 
+			        value: item.idRobeUsluge,
+			        text : item.nazivRobeUsluge 
+			    }));
+			});	
+		}
+	);
+}
+
+function dodajStavkuNarudzbenice(){
+	var jedinicaMereInput = $('#jedinicaMereInput');
+	var kolicinaInput = $('#kolicinaInput');
+	var cenaInput = $('#cenaInput');
+	//var iznosInput = $('#iznosInput');
+	var narudzbenicaSelect = $('#narudzbenicaSelect');
+	var robaSelect = $('#robaSelect');
+	
+	$('#doAdd').on('click', function(event){
+		var jedinica_mere = jedinicaMereInput.val();
+		var kolicina = kolicinaInput.val();
+		var cena = cenaInput.val();
+		var narudzbenica = narudzbenicaSelect.find(":selected").text();
+		var roba = robaSelect.find(":selected").text();
+		
+		console.log('jedinica_mere: ' + jedinica_mere);
+		console.log('kolicina: ' + kolicina);
+		console.log('cena: ' + cena);
+		console.log('narudzbenica: ' + narudzbenica);
+		console.log('roba: ' + roba);
+		
+		if(jedinica_mere == '' || kolicina == '' || cena == '' || narudzbenica == '' || roba == ''){
+			alert("Niste uneli potrebne podatke.");
+		}
+		
+		var params = {
+			'jedinica_mere': jedinica_mere,
+			'kolicina': kolicina,
+			'cena': cena,
+			'narudzbenica': narudzbenica,
+			'roba': roba
+		}
+		$.post("http://localhost:8080/api/stavkenarudzbenice/dodajStavkuNarudzbenice", params, function(data) {
+			console.log('ispis...')
+			
+			alert('Dodata je nova stavka narudzbenice')
+			
+			dobaviStavkeNarudzbenice();
+			jedinicaMereInput.val("");
+			kolicinaInput.val("");
+			cenaInput.val("");
+			narudzbenicaSelect.val("");
+			robaSelect.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+	});
 }
 
 function obrisiStavkuNarudzbenice(){

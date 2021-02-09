@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import projekat.model.Narudzbenica;
+import projekat.model.RobaUsluga;
 import projekat.model.StavkaNarudzbenice;
+import projekat.service.intrfc.NarudzbenicaServiceInterface;
+import projekat.service.intrfc.RobaUslugaServiceInterface;
 import projekat.service.intrfc.StavkaNarudzbeniceServiceInterface;
 
 @CrossOrigin
@@ -30,16 +34,56 @@ public class StavkaNarudzbeniceController {
 	@Autowired
 	private StavkaNarudzbeniceServiceInterface stavkaNarudzbeniceServiceInterface;
 	
+	@Autowired
+	private NarudzbenicaServiceInterface narudzbenicaServiceInterface;
+	
+	@Autowired
+	private RobaUslugaServiceInterface robaUslugaServiceInterface;
+	
+	
 	@GetMapping(path = "/all")
 	public List<StavkaNarudzbenice> getAll() {
 		return stavkaNarudzbeniceServiceInterface.findAll();
 	}
 	
 	@PostMapping(value = "/dodajStavkuNarudzbenice")
-	public ResponseEntity<Void> dodajStavkuNarudzbenice(@RequestParam("jedinica_mere") String jedinicaMere){
+	public ResponseEntity<Void> dodajStavkuNarudzbenice(@RequestParam("jedinica_mere") String jedinicaMere,
+			@RequestParam("kolicina") String kolicinaString, @RequestParam("cena") String cenaString,
+			@RequestParam("narudzbenica") String broj, 
+			@RequestParam("roba") String robaString){
 		
+		int brojNarudzbenice = Integer.parseInt(broj);
 		
+		double kolicina = Double.parseDouble(kolicinaString);
 		
+		double cena = Double.parseDouble(cenaString);
+		
+	//	double iznos = Double.parseDouble(iznosString);
+		
+		Narudzbenica narudzbenica1 = narudzbenicaServiceInterface.findByBrojNarudzbenice(brojNarudzbenice);
+		Narudzbenica narudzbenica = narudzbenicaServiceInterface.findOne(narudzbenica1.getId());
+		
+		RobaUsluga robaUsluga1 = robaUslugaServiceInterface.findByNazivRobeUsluge(robaString);
+		RobaUsluga robaUsluga = robaUslugaServiceInterface.findOne(robaUsluga1.getIdRobeUsluge());
+				
+		if(jedinicaMere == null || kolicina == 0 || cena == 0 || narudzbenica == null || robaUsluga == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
+		double iznos = kolicina * cena;
+		
+		System.out.println("Iznos stavke narudzbenice: " + iznos);
+		
+		StavkaNarudzbenice stavkaNarudzbenice = new StavkaNarudzbenice();
+		stavkaNarudzbenice.setJedinicaMere(jedinicaMere);
+		stavkaNarudzbenice.setKolicina(kolicina);
+		stavkaNarudzbenice.setCena(cena);
+		stavkaNarudzbenice.setIznos(iznos);
+		stavkaNarudzbenice.setNarudzbenica(narudzbenica);
+		stavkaNarudzbenice.setRobaUsluga(robaUsluga);
+		stavkaNarudzbeniceServiceInterface.save(stavkaNarudzbenice);
+		
+		System.out.println("Dodata je nova stavka narudzbenice");
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
@@ -61,6 +105,11 @@ public class StavkaNarudzbeniceController {
 	
 	@ExceptionHandler(value = ConstraintViolationException.class)
 	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(value = NumberFormatException.class)
+	public ResponseEntity<Void> handleNumberFormat() {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

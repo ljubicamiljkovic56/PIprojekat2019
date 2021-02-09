@@ -38,6 +38,11 @@ public class NarudzbenicaService implements NarudzbenicaServiceInterface {
 
 	}
 
+	@Override
+	public Narudzbenica findByBrojNarudzbenice(int brojNarudzbenice) {
+		return narudzbenicaRepository.findByBrojNarudzbenice(brojNarudzbenice);
+	}
+
 	
 
 }
