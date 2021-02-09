@@ -6,11 +6,11 @@ INSERT INTO pdv_kategorija(naziv_kategorije) VALUES ('Visa stopa pdv');
 INSERT INTO pdv_stopa(datum_vazenja, procenat, kategorija_id) VALUES ('2020-04-20', 8, 1);
 INSERT INTO pdv_stopa(datum_vazenja, procenat, kategorija_id) VALUES ('2020-08-29', 18, 2);
 
-INSERT INTO proizvod(naziv, cena, opis) VALUES ('Laptop Dell Latitude', 22000, 'mali laptop');
-INSERT INTO proizvod(naziv, cena, opis) VALUES ('Pakovanje malih zavrtnja', 100, 'visenamenski zavrtnji');
-INSERT INTO proizvod(naziv, cena, opis) VALUES ('ScreenClean', 200, 'sprej za ciscenje monitora');
-INSERT INTO proizvod(naziv, cena, opis) VALUES ('Asepsol', 600, 'sredstvo za dezinfekciju');
-INSERT INTO proizvod(naziv, cena, opis) VALUES ('Steinberg antifriz', 310, 'antifriz za auto');
+-- INSERT INTO proizvod(naziv, cena, opis) VALUES ('Laptop Dell Latitude', 22000, 'mali laptop');
+-- INSERT INTO proizvod(naziv, cena, opis) VALUES ('Pakovanje malih zavrtnja', 100, 'visenamenski zavrtnji');
+-- INSERT INTO proizvod(naziv, cena, opis) VALUES ('ScreenClean', 200, 'sprej za ciscenje monitora');
+-- INSERT INTO proizvod(naziv, cena, opis) VALUES ('Asepsol', 600, 'sredstvo za dezinfekciju');
+-- INSERT INTO proizvod(naziv, cena, opis) VALUES ('Steinberg antifriz', 310, 'antifriz za auto');
 
 INSERT INTO jedinica_mere(naziv_jedinice_mere, skraceni_naziv) VALUES ('komad', 'kom.');
 INSERT INTO jedinica_mere(naziv_jedinice_mere, skraceni_naziv) VALUES ('gram', 'gr');
@@ -76,9 +76,3 @@ INSERT INTO otpremnica(broj_otpremnice, kupac, adresa_isporuke, datum_isporuke, 
 
 INSERT INTO stavka_otpremnice(redni_broj_proizvoda, jedinica_mere, cena, kolicina, napomena, id_otpremnice, id_robe) VALUES (3, 'ml', 200, 1, '', 1, 5);
 INSERT INTO stavka_otpremnice(redni_broj_proizvoda, jedinica_mere, cena, kolicina, napomena, id_otpremnice, id_robe) VALUES (5, 'kg', 310,  1, 'brza isporuka', 2, 3);
-
-
-INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('pera', 'pera', 'admin');
-INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('ana', 'ana', 'korisnik');
-INSERT INTO korisnik(korisnicko_ime, lozinka, uloga) VALUES ('mile', 'mile', 'korisnik');
-

@@ -237,7 +237,8 @@ public class FakturaController {
 		
 		int brojFaktureInt = Integer.parseInt(brojFakture);
 		
-		Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
+		Faktura faktura1 = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
+		Faktura faktura = fakturaServiceInterface.findOne(faktura1.getIdFakture());
 		
 		if(faktura != null) {
 			faktura.setBrojFakture(faktura.getBrojFakture());
@@ -247,7 +248,6 @@ public class FakturaController {
 			faktura.setUkupanPDV(faktura.getUkupanPDV());
 			faktura.setUkupanIznos(faktura.getUkupanIznos());
 			faktura.setStatusFakture("S");
-		//	faktura.setStavkaFakture(faktura.getStavkaFakture());
 			faktura.setPoslovnaGodina(faktura.getPoslovnaGodina());
 			faktura.setPoslovniPartner(faktura.getPoslovniPartner());
 			faktura.setPreduzece(faktura.getPreduzece());

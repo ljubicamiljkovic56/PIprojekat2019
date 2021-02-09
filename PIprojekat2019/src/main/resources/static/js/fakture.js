@@ -30,7 +30,7 @@ function getFakture() {
 	$(document).on("click", '.updateModalClose', function(event) {
 		$('#updateModalScrollable').modal('hide');
 	});
-	
+	//brisanje
 	$(document).on("click", '#delete', function(event){
 		var name = getNameOfSelectedEntityFaktura();
 		if(name!=null){
@@ -47,6 +47,25 @@ function getFakture() {
 	$(document).on("click", '#doDelete', function(event){
 		obrisiFakturu();
 		$('#deletePromptModal').modal('hide');
+	});
+	
+	//storniranje
+	$(document).on("click", '#storno', function(event){
+		var name = getNameOfSelectedEntityFaktura();
+		if(name!=null){
+			$('#stornoPromptText').text("Storniraj: " + name);
+			$('#stornoPromptModal').modal('show');
+		}
+
+	});
+	
+	$(document).on("click", '.stornoPromptClose', function(event){
+		$('#stornoPromptModal').modal('hide');
+	});
+	
+	$(document).on("click", '#doStorniraj', function(event){
+		stornirajFakturu();
+		$('#stornoPromptModal').modal('hide');
 	});
 	
 	
@@ -101,5 +120,29 @@ function obrisiFakturu(){
     	success: function(){
     		dobaviFakture();
         }
+	});
+}
+
+function stornirajFakturu(){
+	var id = getIdOfSelectedEntityFaktura();
+	console.log(id);
+	var broj_fakture = getNameOfSelectedEntityFaktura();
+	
+	$('#doStorniraj').on('click', function(event){
+		console.log('broj_fakture: ' + broj_fakture);
+		
+		var params = {
+				'broj_fakture': broj_fakture
+		}
+		
+		$.post("http://localhost:8080/api/fakture/stornirajFakturu", params, function(data) {
+			console.log('ispis...')
+			
+			alert('Stornirana je faktura')
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
 	});
 }
