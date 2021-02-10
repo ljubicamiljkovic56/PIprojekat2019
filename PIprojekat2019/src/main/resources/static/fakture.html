@@ -133,6 +133,7 @@
 				<button id="edit" type="button" class="btn btn-outline-secondary">Izmeni</button>
 				<button id="delete" type="button" class="btn btn-outline-secondary">Obriši</button>
 				<button id="storno" type="button" class="btn btn-outline-secondary">Storniraj</button>
+				<button id="export" type="button" class="btn btn-outline-secondary">Export fakture</button>
 				
 				<!-- Pagination -->
 				
@@ -237,6 +238,27 @@
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary stornoPromptClose">Otkaži</button>
 			        <button type="button" id="doStorniraj" class="btn btn-primary">Storniraj</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			<!-- Export fakture u xml -->
+			<div class="modal fade" id="exportPromptModal" tabindex="-1" role="dialog" aria-labelledby="exportPromptLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exportPromptLabel">Export fakture?</h5>
+			        <button type="button" class="close stornoPromptClose" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <p id="exportPromptText"></p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary exportPromptClose">Otkaži</button>
+			        <button type="button" id="doExport" class="btn btn-primary">Export</button>
 			      </div>
 			    </div>
 			  </div>

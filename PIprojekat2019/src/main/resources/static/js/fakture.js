@@ -68,6 +68,24 @@ function getFakture() {
 		$('#stornoPromptModal').modal('hide');
 	});
 	
+	//export u xml
+	$(document).on("click", '#export', function(event){
+		var name = getNameOfSelectedEntityFaktura();
+		if(name!=null){
+			$('#exportPromptText').text("Export fakture broj: " + name);
+			$('#exportPromptModal').modal('show');
+		}
+
+	});
+	
+	$(document).on("click", '.exportPromptClose', function(event){
+		$('#exportPromptModal').modal('hide');
+	});
+	
+	$(document).on("click", '#doExport', function(event){
+		exportFakture();
+		$('#exportPromptModal').modal('hide');
+	});
 	
 	$(document).on("click", '#search', function(event){
 		$("#collapseSearch").collapse('toggle');
@@ -139,6 +157,30 @@ function stornirajFakturu(){
 			console.log('ispis...')
 			
 			alert('Stornirana je faktura')
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+	});
+}
+
+function exportFakture(){
+	var id = getIdOfSelectedEntityFaktura();
+	console.log(id);
+	var broj_fakture = getNameOfSelectedEntityFaktura();
+	
+	$('#doExport').on('click', function(event){
+		console.log('broj_fakture: ' + broj_fakture);
+		
+		var params = {
+				'broj_fakture': broj_fakture
+		}
+		
+		$.post("http://localhost:8080/api/fakture/exportFakture", params, function(data) {
+			console.log('ispis...')
+			
+			alert('Exportovana je faktura')
 			
 		});
 		console.log('slanje poruke');
