@@ -1,11 +1,14 @@
 package projekat.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,12 +20,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import projekat.dto.JedinicaMereDTO;
 import projekat.model.JedinicaMere;
 import projekat.service.intrfc.JedinicaMereServiceInterface;
+import projekat.service.services.JedinicaMereService;
 
 @CrossOrigin
 @RestController
@@ -33,11 +37,47 @@ public class JedinicaMereController {
 	@Autowired
 	private JedinicaMereServiceInterface jedinicaMereServiceInterface;
 	
+	@Autowired
+	private JedinicaMereService jedinicaMereService;
+	
 	@GetMapping(path = "/all")
 	public List<JedinicaMere> getAll(){
 		return jedinicaMereServiceInterface.findAll();
 	}
 	
+	@GetMapping(path = "/pag")
+	public ResponseEntity<List<JedinicaMereDTO>> getJediniceMerePage(Pageable page) {
+		Page<JedinicaMere> jedinice =  jedinicaMereServiceInterface.findAll(page);
+		
+		List<JedinicaMereDTO> jediniceDTO = new ArrayList<>();
+		for (JedinicaMere jedinica : jedinice) {
+			jediniceDTO.add(new JedinicaMereDTO(jedinica));
+		}
+		return new ResponseEntity<>(jediniceDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(path = "/p")
+    public ResponseEntity<List<JedinicaMere>> getAllJedinicaMere(
+                        @RequestParam(defaultValue = "0") Integer pageNo, 
+                        @RequestParam(defaultValue = "10") Integer pageSize) 
+    {
+        List<JedinicaMere> list = jedinicaMereService.getAllJedinicaMere(pageNo, pageSize);
+ 
+        return new ResponseEntity<List<JedinicaMere>>(list, new HttpHeaders(), HttpStatus.OK); 
+    }
+	
+	@SuppressWarnings("rawtypes")
+	@GetMapping(path = "/page")
+	public ResponseEntity getJedinicaMerePage(@RequestParam(value = "pageNo",defaultValue = "0") int pageNo,
+            @RequestParam(value = "pageSize",defaultValue = Integer.MAX_VALUE+"") int pageSize,
+            @RequestParam(value = "nazivJediniceMere",defaultValue = "") String nazivJediniceMere) {
+		
+		Page<JedinicaMere> jediniceMere =  jedinicaMereServiceInterface.findAllByNazivJediniceMere(nazivJediniceMere,pageNo,pageSize);
+		HttpHeaders headers = new HttpHeaders();
+        headers.set("total",String.valueOf(jediniceMere.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(jediniceMere.getContent());
+		
+	}
 	@GetMapping(path = "/searchByNaziv/{naziv}")
 	private ResponseEntity<Void> searchByNaziv(@RequestParam("naziv") String nazivJediniceMere) {
 		

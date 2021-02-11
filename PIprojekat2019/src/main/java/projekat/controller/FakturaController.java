@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.validation.ConstraintViolationException;
@@ -35,8 +37,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import projekat.model.Faktura;
+import projekat.model.Narudzbenica;
+import projekat.model.Otpremnica;
+import projekat.model.StavkaOtpremnice;
 import projekat.service.intrfc.FakturaServiceInterface;
-
+import projekat.service.intrfc.NarudzbenicaServiceInterface;
+import projekat.service.intrfc.OtpremnicaServiceInterface;
+import projekat.service.intrfc.StavkaOtpremniceServiceInterface;
 
 
 @CrossOrigin
@@ -45,21 +52,17 @@ import projekat.service.intrfc.FakturaServiceInterface;
 @ControllerAdvice
 public class FakturaController {
 	
-	
 	@Autowired
 	private FakturaServiceInterface fakturaServiceInterface;
 	
-//	@Autowired
-//	private PoslovnaGodinaServiceInterface poslovnaGodinaServiceInterface;
-//	
-//	@Autowired
-//	private PoslovniPartnerServiceInterface poslovniPartnerServiceInterface;
-//	
-//	@Autowired
-//	private PreduzeceServiceInterface preduzeceServiceInterface;
-//	
-//	@Autowired
-//	private StavkaFaktureServiceInterface stavkaFaktureServiceInterface;
+	@Autowired
+	private OtpremnicaServiceInterface otpremnicaServiceInterface;
+	
+	@Autowired
+	private StavkaOtpremniceServiceInterface stavkaOtpremniceServiceInterface;
+	
+	@Autowired
+	private NarudzbenicaServiceInterface narudzbenicaServiceInterface;
 	
 	@GetMapping(path = "/all")
 	public List<Faktura> getAll() {
@@ -133,71 +136,6 @@ public class FakturaController {
 //		
 //	}
 //	
-//	@PostMapping(path = "/izmeniFakturu")
-//	public ResponseEntity<Void> izmeniFakturu(@RequestParam("broj_fakture") String brojFakture, @RequestParam("novi_broj") String noviBroj,
-//			@RequestParam("datum_fakture") String datumFakture, @RequestParam("datum_valute") String datumValute,
-//			@RequestParam("ukupna_osnovica") String ukupnaOsnovica, @RequestParam("ukupan_pdv") String ukupanPdv, 
-//			@RequestParam("ukupan_iznos") String ukupanIznos, @RequestParam("status_fakture") String statusFakture, 
-//			@RequestParam("stavka_fakture") String stavkaFakture, @RequestParam("poslovna_godina") String poslovnaGodina,
-//			@RequestParam("poslovni_partner") String nazivPoslovnogPartnera, @RequestParam("preduzece") String nazivPreduzeca) throws ParseException{
-//		
-//		int brojFaktureInt = Integer.parseInt(brojFakture);
-//		
-//		Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
-//		
-//		int noviBrojInt = Integer.parseInt(noviBroj);
-//		
-//		String datum = datumFakture;
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//		java.util.Date date = formatter.parse(datum);
-//	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-//	    
-//	    String datum2 = datumValute;
-//		SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
-//		java.util.Date date2 = formatter2.parse(datum2);
-//	    java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
-//	    
-//	    double ukupnaOsnovicaDouble = Double.parseDouble(ukupnaOsnovica);
-//	    double ukupanPdvDouble = Double.parseDouble(ukupanPdv);
-//	    double ukupanIznosDouble = Double.parseDouble(ukupanIznos);
-//	    
-//	    int godinaInt = Integer.parseInt(poslovnaGodina);
-//	    
-//	    int stavkaFaktureInt = Integer.parseInt(stavkaFakture);
-//	    
-//	    StavkaFakture stavkaFakture2 = stavkaFaktureServiceInterface.findByJedinicnaCena(stavkaFaktureInt);
-//	    
-//	    PoslovnaGodina poslovnaGodina2 = poslovnaGodinaServiceInterface.findByGodina(godinaInt);
-//	    
-//	    PoslovniPartner partner = poslovniPartnerServiceInterface.findByNazivPoslovnogPartnera(nazivPoslovnogPartnera);
-//	    
-//	    Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
-//		
-//		if(faktura != null) {
-//			faktura.setBrojFakture(noviBrojInt);
-//			faktura.setDatumFakture(sqlDate);
-//			faktura.setDatumValute(sqlDate2);
-//			faktura.setUkupnaOsnovica(ukupnaOsnovicaDouble);
-//			faktura.setUkupanPDV(ukupanPdvDouble);
-//			faktura.setUkupanIznos(ukupanIznosDouble);
-//			faktura.setStatusFakture(statusFakture);
-//		//	faktura.setStavkaFakture(stavkaFakture2);
-//			faktura.setPoslovnaGodina(poslovnaGodina2);
-//			faktura.setPoslovniPartner(partner);
-//			faktura.setPreduzece(preduzece);
-//			
-//			fakturaServiceInterface.save(faktura);
-//			
-//			System.out.println("Izmenjena je faktura.");
-//			
-//			return new ResponseEntity<Void>(HttpStatus.OK);
-//		}else {
-//			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		}
-//		
-//		
-//	}
-	
 	
 	@DeleteMapping(path = "/obrisiFakturu/{id}")
 	public ResponseEntity<Void> obrisiFakturu(@PathVariable("id") long id) {
@@ -246,6 +184,57 @@ public class FakturaController {
 		}
 		
 		
+	}
+	
+	@PostMapping(value = "/kreirajOtpremnicu")
+	public ResponseEntity<Void> kreirajOtpremnicu(@PathVariable("id") long id, 
+			@RequestParam("broj_otpremnice") String brojOtpremniceString,
+			@RequestParam("kupac") String kupac,
+			@RequestParam("adresa_isporuke") String adresaIsporuke,
+			@RequestParam("datum_isporuke") String datumIsporukeString,
+			@RequestParam("prevoznik") String prevoznik,
+			@RequestParam("narudzbenica") String brojNarudzbeniceString) throws ParseException{
+		
+		Faktura faktura = fakturaServiceInterface.findOne(id);
+		
+		if(faktura == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
+		
+		int brojNarudzbenice = Integer.parseInt(brojNarudzbeniceString);
+		
+		Narudzbenica narudzbenica1 = narudzbenicaServiceInterface.findByBrojNarudzbenice(brojNarudzbenice);
+		Narudzbenica narudzbenica = narudzbenicaServiceInterface.findOne(narudzbenica1.getId());
+		
+		int brojOtpremnice = Integer.parseInt(brojOtpremniceString);
+		
+		String datum = datumIsporukeString;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = formatter.parse(datum);
+	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+		
+		Otpremnica otpremnica = new Otpremnica();
+		otpremnica.setBrojOtpremnice(brojOtpremnice);
+		otpremnica.setKupac(kupac);
+		otpremnica.setAdresaIsporuke(adresaIsporuke);
+		otpremnica.setDatumIsporuke(sqlDate);
+		otpremnica.setPrevoznik(prevoznik);
+		otpremnica.setPotpisVozaca(false);
+		otpremnica.setPrimioRobu(false);
+		otpremnica.setFaktura(faktura);
+		otpremnica.setNarudzbenica(narudzbenica);
+		otpremnicaServiceInterface.save(otpremnica);
+		
+		StavkaOtpremnice stavkaOtpremnice = new StavkaOtpremnice();
+	//	stavkaOtpremnice.setRedniBrojProizvoda();
+	//	stavkaOtpremnice.set
+//		stavkaOtpremnice.setOtpremnica(otpremnica);
+	//	stavkaOtpremnice.setRobaUsluga(robaUsluga);
+		stavkaOtpremniceServiceInterface.save(stavkaOtpremnice);
+		
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@PostMapping(path = "/exportFakture")

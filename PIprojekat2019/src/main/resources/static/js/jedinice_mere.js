@@ -171,3 +171,14 @@ function obrisiJedinicuMere(){
         }
 	});
 }
+
+$.ajax({
+	type: 'GET',
+	url:'url?pageNum=2',
+	success: function(data, textStatus, request){
+	alert(request.getResponseHeader('some_header'));
+	}
+	error: function (request, textStatus, errorThrown) {
+	alert(request.getResponseHeader('some_header'));
+	}
+});

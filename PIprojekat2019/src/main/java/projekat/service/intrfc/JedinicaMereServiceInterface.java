@@ -2,6 +2,9 @@ package projekat.service.intrfc;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import projekat.model.JedinicaMere;
 
 public interface JedinicaMereServiceInterface {
@@ -18,5 +21,10 @@ public interface JedinicaMereServiceInterface {
 	
 	void remove(Long id);
 	
-	//List<JedinicaMere> findByNaziv(String nazivJediniceMere);
+	Page<JedinicaMere> findAll(Pageable pageable);
+	
+	Page<JedinicaMere> findPaginated(int pageNo, int pageSize);
+	
+	Page<JedinicaMere> findAllByNazivJediniceMere(String nazivJediniceMere, int pageNo, int pageSize);
+	
 }
