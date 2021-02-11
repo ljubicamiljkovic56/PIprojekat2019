@@ -1,5 +1,7 @@
 function getFakture() {
 	dobaviFakture();
+	dobaviNarudzbenice();
+	dobaviRobu();
 
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
@@ -23,7 +25,7 @@ function getFakture() {
 	});
 	
 	$(document).on("click", "#doUpdate", function(event) {
-		//izmeniFakturu();
+		kreirajOtpremnicu();
 		$('#updateModalScrollable').modal('hide');
 	});
 	
@@ -128,6 +130,49 @@ function dobaviFakture() {
 	 });
 }
 
+function dobaviNarudzbenice() {
+	$.ajax({
+		url : "http://localhost:8080/api/narudzbenica/all"
+	}).then(
+		function(data) {
+			$("#narudzbenicaSelect").empty();
+			$('#narudzbenicaSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#narudzbenicaSelect').append($('<option>', { 
+			        value: item.idNarudzbenice,
+			        text : item.brojNarudzbenice 
+			    }));
+			});	
+		}
+	);
+}
+
+function dobaviRobu() {
+	$.ajax({
+		url : "http://localhost:8080/api/roba/all"
+	}).then(
+		function(data) {
+			$("#robaSelect").empty();
+			$('#robaSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#robaSelect').append($('<option>', { 
+			        value: item.idRobeUsluge,
+			        text : item.nazivRobeUsluge 
+			    }));
+			});	
+		}
+	);
+}
+
+
 function obrisiFakturu(){
 	var id = getIdOfSelectedEntityFaktura();
 	console.log(id);
@@ -186,5 +231,82 @@ function exportFakture(){
 		console.log('slanje poruke');
 		event.preventDefault();
 		return false;
+	});
+}
+
+function kreirajOtpremnicu(){
+	var id = getIdOfSelectedEntityFaktura();
+	console.log(id);
+	
+	var brojOtpremniceInput = $('#brojOtpremniceInput');
+	var datumIsporukeInput = $('#datumIsporukeInput');
+	var prevoznikInput = $('#prevoznikInput');
+	var narudzbenicaSelect = $('#narudzbenicaSelect');
+	var redniBrojProizvodaInput = $('#redniBrojProizvodaInput');
+	var jedinicaMereInput = $('#jedinicaMereInput');
+	var kolicinaInput = $('#kolicinaInput');
+	var napomenaInput = $('#napomenaInput');
+	var robaSelect = $('#robaSelect');
+	
+	$("#doUpdate").on("click", function(event) {
+		var broj_otpremnice = brojOtpremniceInput.val();
+		var datum_isporuke = datumIsporukeInput.val();
+		var prevoznik = prevoznikInput.val();
+		var narudzbenica = narudzbenicaSelect.find(":selected").text();
+		var redni_broj_proizvoda = redniBrojProizvodaInput.val();
+		var jedinica_mere = jedinicaMereInput.val();
+		var kolicina = kolicinaInput.val();
+		var napomena = napomenaInput.val();
+		var roba = robaSelect.find(":selected").text();
+		
+		
+		console.log('broj_otpremnice: ' + broj_otpremnice);
+		console.log('datum_isporuke: ' + datum_isporuke);
+		console.log('prevoznik: ' + prevoznik);
+		console.log('narudzbenica: ' + narudzbenica);
+		console.log('redni_broj_proizvoda: ' + redni_broj_proizvoda);
+		console.log('jedinica_mere: ' + jedinica_mere);
+		console.log('kolicina: ' + kolicina);
+		console.log('napomena: ' + napomena);
+		console.log('roba: ' + roba);
+		
+		if(broj_otpremnice == '' || datum_isporuke == '' || prevoznik == '' || narudzbenica == '' || redni_broj_proizvoda == '' || kolicina == '' || roba == ''){
+			alert("Niste uneli potrebne podatke.");
+		}
+		
+		var params = {
+				'id': id,
+				'broj_otpremnice': broj_otpremnice,
+				'datum_isporuke': datum_isporuke,
+				'prevoznik': prevoznik,
+				'narudzbenica': narudzbenica,
+				'redni_broj_proizvoda': redni_broj_proizvoda,
+				'jedinica_mere': jedinica_mere,
+				'kolicina': kolicina,
+				'napomena': napomena,
+				'roba': roba
+		}
+		$.post("http://localhost:8080/api/fakture/kreirajOtpremnicu/", params, function(data) {
+			console.log('ispis...')
+			console.log(data);
+			
+			alert('Kreirana je otpremnica na osnovu fakture');
+			
+			dobaviFakture();
+			brojOtpremniceInput.val("");
+			datumIsporukeInput.val("");
+			prevoznikInput.val("");
+			narudzbenicaSelect.val("");
+			redniBrojProizvodaInput.val("");
+			jedinicaMereInput.val("");
+			kolicinaInput.val("");
+			napomenaInput.val("");
+			robaSelect.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+		
+		
 	});
 }

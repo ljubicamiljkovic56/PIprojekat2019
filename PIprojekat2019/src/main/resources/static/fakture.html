@@ -130,7 +130,7 @@
 				<button id="search" type="button" class="btn btn-outline-secondary">Pretraži</button>
 				
 				<button id="add" type="button" class="btn btn-outline-secondary">Dodaj</button>
-				<button id="edit" type="button" class="btn btn-outline-secondary">Izmeni</button>
+				<button id="edit" type="button" class="btn btn-outline-secondary">Kreiraj otpremnicu</button>
 				<button id="delete" type="button" class="btn btn-outline-secondary">Obriši</button>
 				<button id="storno" type="button" class="btn btn-outline-secondary">Storniraj</button>
 				<button id="export" type="button" class="btn btn-outline-secondary">Export fakture</button>
@@ -169,37 +169,67 @@
 			</table>
 			
 			
-			<!-- Dodavanje fakture -->
-<!-- 			<div class="modal fade" id="addModalScrollable" tabindex="-1" role="dialog" aria-labelledby="addModalScrollableTitle" aria-hidden="true"> -->
-<!-- 			  <div class="modal-dialog modal-dialog-scrollable" role="document"> -->
-<!-- 			    <div class="modal-content"> -->
-<!-- 			      <div class="modal-header"> -->
-<!-- 			        <h5 class="modal-title" id="addModalScrollableTitle">Dodavanje jedinice mere</h5> -->
-<!-- 			        <button type="button" class="close addModalClose" aria-label="Close"> -->
-<!-- 			          <span aria-hidden="true">&times;</span> -->
-<!-- 			        </button> -->
-<!-- 			      </div> -->
-<!-- 			      <div class="modal-body"> -->
-<!-- 			        <form> -->
-<!-- 					  <div class="form-group"> -->
-<!-- 					    <label for="nazivJediniceMereInput">Naziv jedinice mere</label> -->
-<!-- 					    <input type="text" class="form-control" id="nazivJediniceMereInput" aria-describedby="nazivJediniceMere" placeholder="Unesite naziv jedinice mere"> -->
-<!-- 					  </div> -->
-<!-- 					   <div class="form-group"> -->
-<!-- 					    <label for="skraceniNazivInput">Skraceni naziv</label> -->
-<!-- 					    <input type="text" class="form-control" id="skraceniNazivInput" aria-describedby="skraceniNaziv" placeholder="Unesite skraceni naziv"> -->
-<!-- 					  </div> -->
-
-<!-- 					</form> -->
-<!-- 			      </div> -->
-<!-- 			      <div class="modal-footer"> -->
-<!-- 			        <button type="button" class="btn btn-secondary addModalClose" >Otkaži</button> -->
-<!-- 			        <button type="button" id="doAdd" class="btn btn-primary">Sačuvaj</button> -->
-<!-- 			      </div> -->
-<!-- 			    </div> -->
-<!-- 			  </div> -->
-<!-- 			</div> -->
-			
+			<!-- Dodavanje otpremnice na osnovu fakture -->
+			<div class="modal fade" id="updateModalScrollable" tabindex="-1" role="dialog" aria-labelledby="updateModalScrollableTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="updateModalScrollableTitle">Dodavanje otpremnice na osnovu fakture</h5>
+							<button type="button" class="close updateModalClose" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-group">
+					    			<label for="brojOtpremniceInput">Broj otpremnice</label>
+					    			<input type="text" class="form-control" id="brojOtpremniceInput" aria-describedby="brojOtpremniceHelp" placeholder="Unesite broj otpremnice">
+					  			</div>
+								<div class="form-group">
+					    			<label for="datumIsporukeInput">Datum isporuke</label>
+					    			<input type="date" class="form-control" id="datumIsporukeInput" aria-describedby="datumIsporukeHelp" placeholder="Unesite datum isporuke">
+					  			</div>
+								<div class="form-group">
+					    			<label for="prevoznikInput">Prevoznik</label>
+					    			<input type="text" class="form-control" id="prevoznikInput" aria-describedby="prevoznikHelp" placeholder="Unesite prevoznika">
+					  			</div>
+								<div class="form-group">
+					    			<label for="narudzbenicaSelect">Narudzbenica</label>
+					    			<select class="form-control"  id="narudzbenicaSelect">
+					    
+					    			</select>
+					  			</div>
+								<div class="form-group">
+					    			<label for="redniBrojProizvodaInput">Redni broj proizvoda</label>
+					    			<input type="text" class="form-control" id="redniBrojProizvodaInput" aria-describedby="napomenaHelp" placeholder="Unesite redni broj proizvoda">
+					  			</div>
+								<div class="form-group">
+					    			<label for="jedinicaMereInput">Jedinica mere</label>
+					    			<input type="text" class="form-control" id="jedinicaMereInput" aria-describedby="jedinicaMereHelp" placeholder="Unesite jedinicu mere">
+					  			</div>
+								<div class="form-group">
+					    			<label for="kolicinaInput">Kolicina</label>
+					    			<input type="text" class="form-control" id="kolicinaInput" aria-describedby="kolicinaHelp" placeholder="Unesite kolicinu">
+					  			</div>
+					  			<div class="form-group">
+					    			<label for="napomenaInput">Napomena</label>
+					    			<input type="text" class="form-control" id="napomenaInput" aria-describedby="napomenaHelp" placeholder="Unesite napomenu">
+					  			</div>
+					  			<div class="form-group">
+					    			<label for="robaSelect">Roba</label>
+					    			<select class="form-control"  id="robaSelect">
+					    
+					    			</select>
+					  			</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary updateModalClose">Otkaži</button>
+							<button type="button" id="doUpdate" class="btn btn-primary">Sačuvaj</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			
 			<!-- Obrisi fakturu -->
 			<div class="modal fade" id="deletePromptModal" tabindex="-1" role="dialog" aria-labelledby="deletePromptLabel" aria-hidden="true">

@@ -39,10 +39,12 @@ import org.w3c.dom.Element;
 import projekat.model.Faktura;
 import projekat.model.Narudzbenica;
 import projekat.model.Otpremnica;
+import projekat.model.RobaUsluga;
 import projekat.model.StavkaOtpremnice;
 import projekat.service.intrfc.FakturaServiceInterface;
 import projekat.service.intrfc.NarudzbenicaServiceInterface;
 import projekat.service.intrfc.OtpremnicaServiceInterface;
+import projekat.service.intrfc.RobaUslugaServiceInterface;
 import projekat.service.intrfc.StavkaOtpremniceServiceInterface;
 
 
@@ -64,78 +66,13 @@ public class FakturaController {
 	@Autowired
 	private NarudzbenicaServiceInterface narudzbenicaServiceInterface;
 	
+	@Autowired
+	private RobaUslugaServiceInterface robaUslugaServiceInterface;
+	
 	@GetMapping(path = "/all")
 	public List<Faktura> getAll() {
 		return fakturaServiceInterface.findAll();
 	}
-	
-//	@PostMapping(path =  "/dodajFakturu")
-//	public ResponseEntity<Void> dodajFakturu(@RequestParam("broj_fakture") String brojFakture, 
-//			@RequestParam("datum_fakture") String datumFakture, @RequestParam("datum_valute") String datumValute,
-//			@RequestParam("ukupna_osnovica") String ukupnaOsnovica, @RequestParam("ukupan_pdv") String ukupanPdv, 
-//			@RequestParam("ukupan_iznos") String ukupanIznos, @RequestParam("status_fakture") String statusFakture, 
-//			@RequestParam("stavka_fakture") String stavkaFakture, @RequestParam("poslovna_godina") String poslovnaGodina,
-//			@RequestParam("poslovni_partner") String nazivPoslovnogPartnera, @RequestParam("preduzece") String nazivPreduzeca) throws ParseException {
-//		
-//		System.out.println("Broj fakture: " + brojFakture);
-//		System.out.println("Datum fakture: " + datumFakture);
-//		System.out.println("Datum valute: " + datumValute);
-//		System.out.println("Ukupna osnovica: " + ukupnaOsnovica);
-//		System.out.println("Ukupan pdv: " + ukupanPdv);
-//		System.out.println("Ukupan iznos: " + ukupanIznos);
-//		System.out.println("Status fakture: " + statusFakture);
-//		System.out.println("Stavka fakture: " + stavkaFakture);
-//		System.out.println("Poslovna godina: " + poslovnaGodina);
-//		System.out.println("Poslovni partner: " + nazivPoslovnogPartnera);
-//		System.out.println("Preduzece: " + nazivPreduzeca);
-//		
-//		int brojFaktureInt = Integer.parseInt(brojFakture);
-//		
-//		String datum = datumFakture;
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//		java.util.Date date = formatter.parse(datum);
-//	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-//	    
-//	    String datum2 = datumValute;
-//		SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
-//		java.util.Date date2 = formatter2.parse(datum2);
-//	    java.sql.Date sqlDate2 = new java.sql.Date(date2.getTime());
-//	    
-//	    double ukupnaOsnovicaDouble = Double.parseDouble(ukupnaOsnovica);
-//	    double ukupanPdvDouble = Double.parseDouble(ukupanPdv);
-//	    double ukupanIznosDouble = Double.parseDouble(ukupanIznos);
-//	    
-//	    int godinaInt = Integer.parseInt(poslovnaGodina);
-//	    int jedinicnaCena = Integer.parseInt(stavkaFakture);
-//	    
-//	    StavkaFakture stavkaFakture2 = stavkaFaktureServiceInterface.findByJedinicnaCena(jedinicnaCena);
-//	    
-//	    PoslovnaGodina poslovnaGodina2 = poslovnaGodinaServiceInterface.findByGodina(godinaInt);
-//	    
-//	    PoslovniPartner partner = poslovniPartnerServiceInterface.findByNazivPoslovnogPartnera(nazivPoslovnogPartnera);
-//	    
-//	    Preduzece preduzece = preduzeceServiceInterface.findByNazivPreduzeca(nazivPreduzeca);
-//		
-//		Faktura faktura = new Faktura();
-//		faktura.setBrojFakture(brojFaktureInt);
-//		faktura.setDatumFakture(sqlDate);
-//		faktura.setDatumValute(sqlDate2);
-//		faktura.setUkupnaOsnovica(ukupnaOsnovicaDouble);
-//		faktura.setUkupanPDV(ukupanPdvDouble);
-//		faktura.setUkupanIznos(ukupanIznosDouble);
-//		faktura.setStatusFakture(statusFakture);
-////		faktura.setStavkaFakture(stavkaFakture2);
-//		faktura.setPoslovnaGodina(poslovnaGodina2);
-//		faktura.setPoslovniPartner(partner);
-//		faktura.setPreduzece(preduzece);
-//		fakturaServiceInterface.save(faktura);
-//		
-//		System.out.println("Dodata ja faktura");
-//		
-//		return new ResponseEntity<Void>(HttpStatus.OK);
-//		
-//	}
-//	
 	
 	@DeleteMapping(path = "/obrisiFakturu/{id}")
 	public ResponseEntity<Void> obrisiFakturu(@PathVariable("id") long id) {
@@ -186,20 +123,37 @@ public class FakturaController {
 		
 	}
 	
-	@PostMapping(value = "/kreirajOtpremnicu")
-	public ResponseEntity<Void> kreirajOtpremnicu(@PathVariable("id") long id, 
+	@PostMapping(value = "/kreirajOtpremnicu", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
+	public ResponseEntity<Void> kreirajOtpremnicu(@RequestParam("id") long id, 
 			@RequestParam("broj_otpremnice") String brojOtpremniceString,
-			@RequestParam("kupac") String kupac,
-			@RequestParam("adresa_isporuke") String adresaIsporuke,
 			@RequestParam("datum_isporuke") String datumIsporukeString,
 			@RequestParam("prevoznik") String prevoznik,
-			@RequestParam("narudzbenica") String brojNarudzbeniceString) throws ParseException{
+			@RequestParam("narudzbenica") String brojNarudzbeniceString,
+			@RequestParam("redni_broj_proizvoda") String redniBrojProizvodaS,
+			@RequestParam("jedinica_mere") String jedinicaMere,
+			@RequestParam("kolicina") String kolicinaString, 
+			@RequestParam("napomena") String napomena,
+			@RequestParam("roba") String roba) throws ParseException{
 		
 		Faktura faktura = fakturaServiceInterface.findOne(id);
 		
 		if(faktura == null) {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
+		
+//		try {
+//			Connection conn = null;
+//			PreparedStatement pstmt = null;
+//			
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+//			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pi", "root", "root");
+//			
+//			String query = "SELECT * FROM faktura, stavka_fakture, narudzbenica, stavka_narudzbenice WHERE stavka_fakture.id_fakture = faktura.id_fakture "
+//					+ "AND narudzbenica.id_narudzbenice = stavka_narudzbenice.id_stavke";
+//			
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
 		int brojNarudzbenice = Integer.parseInt(brojNarudzbeniceString);
 		
@@ -216,8 +170,8 @@ public class FakturaController {
 		
 		Otpremnica otpremnica = new Otpremnica();
 		otpremnica.setBrojOtpremnice(brojOtpremnice);
-		otpremnica.setKupac(kupac);
-		otpremnica.setAdresaIsporuke(adresaIsporuke);
+		otpremnica.setKupac(faktura.getPoslovniPartner().getNazivPoslovnogPartnera());
+		otpremnica.setAdresaIsporuke(faktura.getPoslovniPartner().getAdresa());
 		otpremnica.setDatumIsporuke(sqlDate);
 		otpremnica.setPrevoznik(prevoznik);
 		otpremnica.setPotpisVozaca(false);
@@ -226,13 +180,24 @@ public class FakturaController {
 		otpremnica.setNarudzbenica(narudzbenica);
 		otpremnicaServiceInterface.save(otpremnica);
 		
+		int redniBrojProizvoda = Integer.parseInt(redniBrojProizvodaS);
+		
+		double kolicina = Double.parseDouble(kolicinaString);
+		
+		RobaUsluga robaUsluga1 = robaUslugaServiceInterface.findByNazivRobeUsluge(roba);
+		RobaUsluga robaUsluga = robaUslugaServiceInterface.findOne(robaUsluga1.getIdRobeUsluge());
+		
 		StavkaOtpremnice stavkaOtpremnice = new StavkaOtpremnice();
-	//	stavkaOtpremnice.setRedniBrojProizvoda();
-	//	stavkaOtpremnice.set
-//		stavkaOtpremnice.setOtpremnica(otpremnica);
-	//	stavkaOtpremnice.setRobaUsluga(robaUsluga);
+		stavkaOtpremnice.setRedniBrojProizvoda(redniBrojProizvoda);
+		stavkaOtpremnice.setJedinicaMere(jedinicaMere);
+		stavkaOtpremnice.setOtpremnica(otpremnica);
+		stavkaOtpremnice.setCena(faktura.getUkupanIznos());
+		stavkaOtpremnice.setKolicina(kolicina);
+		stavkaOtpremnice.setNapomena(napomena);
+		stavkaOtpremnice.setRobaUsluga(robaUsluga);
 		stavkaOtpremniceServiceInterface.save(stavkaOtpremnice);
 		
+		System.out.println("Kreirana otpremnica na osnovu fakture.");
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
