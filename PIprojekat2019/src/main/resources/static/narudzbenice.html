@@ -140,6 +140,7 @@
 				
 				<button id="add" type="button" class="btn btn-outline-secondary">Dodaj</button>
 				<button id="delete" type="button" class="btn btn-outline-secondary">Obriši</button>
+				<button id="kreirajFakturu" type="button" class="btn btn-outline-secondary">Kreiraj fakturu</button>
 				
 				<!-- Pagination -->
 				
@@ -210,6 +211,46 @@
 			      </div>
 			    </div>
 			  </div>
+			</div>
+			
+			<!-- Kreiraj fakturu na osnovu narudzbenice -->
+			<div class="modal fade" id="updateModalScrollable" tabindex="-1" role="dialog" aria-labelledby="updateModalScrollableTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="updateModalScrollableTitle">Kreiranje fakture od narudzbenice</h5>
+							<button type="button" class="close updateModalClose" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-group">
+									<label for="datumValuteInput">Datum valute</label>
+									<input type="text" class="form-control" id="datumValuteInput" aria-describedby="datumValute" placeholder="Unesite datum valute">
+								</div>
+								<div class="form-group">
+									<label for="rabatInput">Rabat</label>
+									<input type="text" class="form-control" id="rabatInput" aria-describedby="rabat" placeholder="Unesite rabat (procenat)">
+								</div>
+								<div class="form-group">
+									<label for="pdvStopaInput">PDV stopa</label>
+									<input type="text" class="form-control" id="pdvStopaInput" aria-describedby="pdvStopa" placeholder="Unesite pdv stopu">
+								</div>
+								<div class="form-group">
+					    			<label for="robaSelect">Roba</label>
+					    			<select class="form-control"  id="robaSelect">
+					    
+					   		 		</select>
+					  			</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary updateModalClose">Otkaži</button>
+							<button type="button" id="doKreirajFakturu" class="btn btn-primary">Sačuvaj</button>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 			

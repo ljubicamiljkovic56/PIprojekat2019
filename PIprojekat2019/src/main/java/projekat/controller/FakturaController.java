@@ -122,7 +122,7 @@ public class FakturaController {
 		
 		
 	}
-	
+	//kreiraj otpremnicu na osnovu selektovane fakture
 	@PostMapping(value = "/kreirajOtpremnicu", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
 	public ResponseEntity<Void> kreirajOtpremnicu(@RequestParam("id") long id, 
 			@RequestParam("broj_otpremnice") String brojOtpremniceString,
@@ -140,20 +140,6 @@ public class FakturaController {
 		if(faktura == null) {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
-		
-//		try {
-//			Connection conn = null;
-//			PreparedStatement pstmt = null;
-//			
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pi", "root", "root");
-//			
-//			String query = "SELECT * FROM faktura, stavka_fakture, narudzbenica, stavka_narudzbenice WHERE stavka_fakture.id_fakture = faktura.id_fakture "
-//					+ "AND narudzbenica.id_narudzbenice = stavka_narudzbenice.id_stavke";
-//			
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}
 		
 		int brojNarudzbenice = Integer.parseInt(brojNarudzbeniceString);
 		

@@ -20,18 +20,18 @@ function getNarudzbenice() {
 		$('#addModalScrollable').modal('hide');
 	});
 	
-	$(document).on("click", '#edit', function(event){
+	$(document).on("click", '#kreirajFakturu', function(event){
 		console.log(getIdOfSelectedEntityNarudzbenica());
 		$('#updateModalScrollable').modal('show');
 	});
 	
-//	$(document).on("click", "#doUpdate", function(event) {
-//		$('#updateModalScrollable').modal('hide');
-//	});
-//	
-//	$(document).on("click", '.updateModalClose', function(event) {
-//		$('#updateModalScrollable').modal('hide');
-//	});
+	$(document).on("click", "#doKreirajFakturu", function(event) {
+		$('#updateModalScrollable').modal('hide');
+	});
+	
+	$(document).on("click", '.updateModalClose', function(event) {
+		$('#updateModalScrollable').modal('hide');
+	});
 	
 	$(document).on("click", '#delete', function(event){
 		var name = getNameOfSelectedEntityNarudzbenica();
@@ -191,6 +191,10 @@ function dodajNarudzbenicu(){
 		event.preventDefault();
 		return false;
 	});
+}
+
+function kreirajFakturu(){
+	
 }
 
 function obrisiNarudzbenicu(){

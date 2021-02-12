@@ -6,6 +6,7 @@ public class StavkaFaktureDTO {
 	private double kolicina;
 	private double rabat;
 	private double jedinicnaCena;
+	private double iznos;
 	private double pdvStopa;
 	private double osnovicaZaPDV;
 	private double iznosPDV;
@@ -19,7 +20,7 @@ public class StavkaFaktureDTO {
 	}
 
 	
-	public StavkaFaktureDTO(Long idStavke, double kolicina, double rabat, double jedinicnaCena, double pdvStopa,
+	public StavkaFaktureDTO(Long idStavke, double kolicina, double rabat, double jedinicnaCena, double iznos, double pdvStopa,
 			double osnovicaZaPDV, double iznosPDV, double ukupanIznos, Long idPreduzeca, Long idFakture,
 			Long idRobeUsluge) {
 		super();
@@ -27,6 +28,7 @@ public class StavkaFaktureDTO {
 		this.kolicina = kolicina;
 		this.rabat = rabat;
 		this.jedinicnaCena = jedinicnaCena;
+		this.iznos = iznos;
 		this.pdvStopa = pdvStopa;
 		this.osnovicaZaPDV = osnovicaZaPDV;
 		this.iznosPDV = iznosPDV;
@@ -141,6 +143,16 @@ public class StavkaFaktureDTO {
 
 	public void setIdRobeUsluge(Long idRobeUsluge) {
 		this.idRobeUsluge = idRobeUsluge;
+	}
+
+
+	public double getIznos() {
+		return iznos;
+	}
+
+
+	public void setIznos(double iznos) {
+		this.iznos = iznos;
 	}
 	
 }

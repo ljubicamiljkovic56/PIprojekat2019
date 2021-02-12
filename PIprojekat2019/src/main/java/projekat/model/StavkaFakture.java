@@ -32,6 +32,10 @@ public class StavkaFakture {
 	private double jedinicnaCena;
 	
 	@NotNull
+	@Column(name = "iznos", columnDefinition = "DECIMAL")
+	private double iznos;
+	
+	@NotNull
 	@Column(name = "pdv_stopa", columnDefinition = "DECIMAL")
 	private double pdvStopa;
 	
@@ -68,7 +72,7 @@ public class StavkaFakture {
 	}
 
 
-	public StavkaFakture(Long idStavke, double kolicina, double rabat, double jedinicnaCena, double pdvStopa,
+	public StavkaFakture(Long idStavke, double kolicina, double rabat, double jedinicnaCena, double iznos,double pdvStopa,
 			double osnovicaZaPDV, double iznosPDV, double ukupanIznos, Preduzece preduzece, Faktura faktura,
 			RobaUsluga robaUsluga) {
 		super();
@@ -76,6 +80,7 @@ public class StavkaFakture {
 		this.kolicina = kolicina;
 		this.rabat = rabat;
 		this.jedinicnaCena = jedinicnaCena;
+		this.iznos = iznos;
 		this.pdvStopa = pdvStopa;
 		this.osnovicaZaPDV = osnovicaZaPDV;
 		this.iznosPDV = iznosPDV;
@@ -194,15 +199,22 @@ public class StavkaFakture {
 	public void setRobaUsluga(RobaUsluga robaUsluga) {
 		this.robaUsluga = robaUsluga;
 	}
+	public double getIznos() {
+		return iznos;
+	}
+
+
+	public void setIznos(double iznos) {
+		this.iznos = iznos;
+	}
 
 
 	@Override
 	public String toString() {
 		return "StavkaFakture [idStavke=" + idStavke + ", kolicina=" + kolicina + ", rabat=" + rabat
-				+ ", jedinicnaCena=" + jedinicnaCena + ", pdvStopa=" + pdvStopa + ", osnovicaZaPDV=" + osnovicaZaPDV
-				+ ", iznosPDV=" + iznosPDV + ", ukupanIznos=" + ukupanIznos + ", preduzece=" + preduzece + ", faktura="
-				+ faktura + ", robaUsluga=" + robaUsluga + "]";
+				+ ", jedinicnaCena=" + jedinicnaCena + ", iznos=" + iznos + ", pdvStopa=" + pdvStopa
+				+ ", osnovicaZaPDV=" + osnovicaZaPDV + ", iznosPDV=" + iznosPDV + ", ukupanIznos=" + ukupanIznos
+				+ ", preduzece=" + preduzece + ", faktura=" + faktura + ", robaUsluga=" + robaUsluga + "]";
 	}
-
 
 }
