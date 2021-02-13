@@ -86,7 +86,6 @@ public class NarudzbenicaController {
 			@RequestParam("datum_valute") String datumValuteString,
 			@RequestParam("rabat") String rabatString,
 			@RequestParam("pdv_stopa") String pdvStopaString,
-			@RequestParam("broj_fakture") String brojFaktureString,
 			@RequestParam("roba") String roba){
 		
 		Narudzbenica narudzbenica = narudzbenicaServiceInterface.findOne(id);
@@ -132,12 +131,10 @@ public class NarudzbenicaController {
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				java.util.Date date = formatter.parse(datum);
 			    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-
-			    int brojFakture = Integer.parseInt(brojFaktureString);
 				
 				Date datumFakture = Date.valueOf(LocalDate.now());
 				Faktura faktura = new Faktura();
-				faktura.setBrojFakture(brojFakture);
+				faktura.setBrojFakture(narudzbenica.getBrojNarudzbenice());
 				faktura.setDatumFakture(datumFakture);
 				faktura.setDatumValute(sqlDate);
 				faktura.setUkupnaOsnovica(stavkaFakture.getIznos());

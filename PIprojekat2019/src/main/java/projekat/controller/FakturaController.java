@@ -125,63 +125,77 @@ public class FakturaController {
 	//kreiraj otpremnicu na osnovu selektovane fakture
 	@PostMapping(value = "/kreirajOtpremnicu", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
 	public ResponseEntity<Void> kreirajOtpremnicu(@RequestParam("id") long id, 
-			@RequestParam("broj_otpremnice") String brojOtpremniceString,
 			@RequestParam("datum_isporuke") String datumIsporukeString,
 			@RequestParam("prevoznik") String prevoznik,
 			@RequestParam("narudzbenica") String brojNarudzbeniceString,
 			@RequestParam("redni_broj_proizvoda") String redniBrojProizvodaS,
 			@RequestParam("jedinica_mere") String jedinicaMere,
-			@RequestParam("kolicina") String kolicinaString, 
 			@RequestParam("napomena") String napomena,
 			@RequestParam("roba") String roba) throws ParseException{
 		
 		Faktura faktura = fakturaServiceInterface.findOne(id);
 		
-		if(faktura == null) {
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
+		RobaUsluga roba1 = robaUslugaServiceInterface.findByNazivRobeUsluge(roba);
+		RobaUsluga robaUsluga = robaUslugaServiceInterface.findOne(roba1.getIdRobeUsluge());
 		
 		int brojNarudzbenice = Integer.parseInt(brojNarudzbeniceString);
 		
 		Narudzbenica narudzbenica1 = narudzbenicaServiceInterface.findByBrojNarudzbenice(brojNarudzbenice);
 		Narudzbenica narudzbenica = narudzbenicaServiceInterface.findOne(narudzbenica1.getId());
 		
-		int brojOtpremnice = Integer.parseInt(brojOtpremniceString);
+		if(faktura == null) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 		
-		String datum = datumIsporukeString;
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = formatter.parse(datum);
-	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-
-		
-		Otpremnica otpremnica = new Otpremnica();
-		otpremnica.setBrojOtpremnice(brojOtpremnice);
-		otpremnica.setKupac(faktura.getPoslovniPartner().getNazivPoslovnogPartnera());
-		otpremnica.setAdresaIsporuke(faktura.getPoslovniPartner().getAdresa());
-		otpremnica.setDatumIsporuke(sqlDate);
-		otpremnica.setPrevoznik(prevoznik);
-		otpremnica.setPotpisVozaca(false);
-		otpremnica.setPrimioRobu(false);
-		otpremnica.setFaktura(faktura);
-		otpremnica.setNarudzbenica(narudzbenica);
-		otpremnicaServiceInterface.save(otpremnica);
-		
-		int redniBrojProizvoda = Integer.parseInt(redniBrojProizvodaS);
-		
-		double kolicina = Double.parseDouble(kolicinaString);
-		
-		RobaUsluga robaUsluga1 = robaUslugaServiceInterface.findByNazivRobeUsluge(roba);
-		RobaUsluga robaUsluga = robaUslugaServiceInterface.findOne(robaUsluga1.getIdRobeUsluge());
-		
-		StavkaOtpremnice stavkaOtpremnice = new StavkaOtpremnice();
-		stavkaOtpremnice.setRedniBrojProizvoda(redniBrojProizvoda);
-		stavkaOtpremnice.setJedinicaMere(jedinicaMere);
-		stavkaOtpremnice.setOtpremnica(otpremnica);
-		stavkaOtpremnice.setCena(faktura.getUkupanIznos());
-		stavkaOtpremnice.setKolicina(kolicina);
-		stavkaOtpremnice.setNapomena(napomena);
-		stavkaOtpremnice.setRobaUsluga(robaUsluga);
-		stavkaOtpremniceServiceInterface.save(stavkaOtpremnice);
+		try {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pi", "root", "root");
+			
+			String query = "SELECT kolicina, iznos FROM faktura, stavka_fakture WHERE faktura.id_fakture = stavka_fakture.id_fakture AND faktura.id_fakture = " + id;
+			
+			pstmt = conn.prepareStatement(query);
+			ResultSet rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				
+				int redniBrojProizvoda = Integer.parseInt(redniBrojProizvodaS);
+				
+				StavkaOtpremnice stavkaOtpremnice = new StavkaOtpremnice();
+				stavkaOtpremnice.setRedniBrojProizvoda(redniBrojProizvoda);
+				stavkaOtpremnice.setJedinicaMere(jedinicaMere);
+				
+				String datum = datumIsporukeString;
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				java.util.Date date = formatter.parse(datum);
+			    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+				
+				Otpremnica otpremnica = new Otpremnica();
+				otpremnica.setBrojOtpremnice(faktura.getBrojFakture());
+				otpremnica.setKupac(faktura.getPoslovniPartner().getNazivPoslovnogPartnera());
+				otpremnica.setAdresaIsporuke(faktura.getPoslovniPartner().getAdresa());
+				otpremnica.setDatumIsporuke(sqlDate);
+				otpremnica.setPrevoznik(prevoznik);
+				otpremnica.setPotpisVozaca(false);
+				otpremnica.setPrimioRobu(false);
+				otpremnica.setFaktura(faktura);
+				otpremnica.setNarudzbenica(narudzbenica);
+				otpremnicaServiceInterface.save(otpremnica);
+				
+			
+				stavkaOtpremnice.setOtpremnica(otpremnica);
+				stavkaOtpremnice.setCena(rset.getDouble("iznos"));
+				stavkaOtpremnice.setKolicina(rset.getDouble("kolicina"));
+				stavkaOtpremnice.setNapomena(napomena);
+				stavkaOtpremnice.setRobaUsluga(robaUsluga);
+				stavkaOtpremniceServiceInterface.save(stavkaOtpremnice);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		System.out.println("Kreirana otpremnica na osnovu fakture.");
 		
@@ -190,10 +204,6 @@ public class FakturaController {
 	
 	@PostMapping(path = "/exportFakture")
 	public ResponseEntity<Void> generateFakturaBrojFakture(@RequestParam("broj_fakture") String brojFaktureString){
-		
-//		int brojFaktureInt = Integer.parseInt(brojFaktureString);
-//		
-//		Faktura faktura = fakturaServiceInterface.findByBrojFakture(brojFaktureInt);
 		
 		try {
 			Connection conn = null;

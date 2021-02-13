@@ -223,23 +223,23 @@ function kreirajFakturu(){
 	var datumValuteInput = $('#datumValuteInput');
 	var rabatInput = $('#rabatInput');
 	var pdvStopaInput = $('#pdvStopaInput');
-	var brojFaktureInput = $('#brojFaktureInput');
+	//var brojFaktureInput = $('#brojFaktureInput');
 	var robaSelect = $('#robaSelect');
 	
 	$('#doKreirajFakturu').on('click', function(event){
 		var datum_valute = datumValuteInput.val();
 		var rabat = rabatInput.val();
 		var pdv_stopa = pdvStopaInput.val();
-		var broj_fakture = brojFaktureInput.val();
+		//var broj_fakture = brojFaktureInput.val();
 		var roba = robaSelect.find(":selected").text();
 		
 		console.log('datum_valute: ' + datum_valute);
 		console.log('rabat: ' + rabat);
 		console.log('pdv_stopa: ' + pdv_stopa);
-		console.log('broj_fakture:' + broj_fakture)
+		//console.log('broj_fakture:' + broj_fakture)
 		console.log('roba: ' + roba);
 		
-		if(datum_valute == '' || rabat == '' || pdv_stopa == '' || roba == '' || broj_fakture == ''){
+		if(datum_valute == '' || rabat == '' || pdv_stopa == '' || roba == ''){
 			alert("Niste uneli potrebne podatke.");
 		}
 		
@@ -248,7 +248,6 @@ function kreirajFakturu(){
 			'datum_valute': datum_valute,
 			'rabat': rabat,
 			'pdv_stopa': pdv_stopa,
-			'broj_fakture': broj_fakture,
 			'roba': roba
 		}
 		$.post("http://localhost:8080/api/narudzbenica/kreirajFakturu", params, function(data) {
@@ -260,7 +259,7 @@ function kreirajFakturu(){
 			datumValuteInput.val("");
 			rabatInput.val("");
 			pdvStopaInput.val("");
-			brojFaktureInput.val("");
+			//brojFaktureInput.val("");
 			robaSelect.val("");
 		});
 		console.log('slanje poruke');
