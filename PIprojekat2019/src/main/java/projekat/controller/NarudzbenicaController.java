@@ -81,11 +81,12 @@ public class NarudzbenicaController {
 		return narudzbenicaServiceInterface.findAll();
 	}
 	
-	@PostMapping(value = "/kreirajFakturu/{id}")
+	@PostMapping(value = "/kreirajFakturu", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
 	private ResponseEntity<Void> kreirajFakturu(@RequestParam("id") long id,
 			@RequestParam("datum_valute") String datumValuteString,
 			@RequestParam("rabat") String rabatString,
 			@RequestParam("pdv_stopa") String pdvStopaString,
+			@RequestParam("broj_fakture") String brojFaktureString,
 			@RequestParam("roba") String roba){
 		
 		Narudzbenica narudzbenica = narudzbenicaServiceInterface.findOne(id);
@@ -104,14 +105,11 @@ public class NarudzbenicaController {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pi", "root", "root");
 			
-			String query = "SELECT cena, kolicina, id_robe, procenat FROM narudzbenica, stavka_narudzbenice WHERE narudzbenica.narudzbenica_id = stavka_narudzbenice.id_narudzbenice";
+			String query = "SELECT cena, kolicina, id_robe FROM narudzbenica, stavka_narudzbenice WHERE narudzbenica.narudzbenica_id = stavka_narudzbenice.id_narudzbenice AND narudzbenica.narudzbenica_id = " + id;
 			
 			pstmt = conn.prepareStatement(query);
 			ResultSet rset = pstmt.executeQuery();
 			while(rset.next()) {
-				
-				
-				
 				StavkaFakture stavkaFakture = new StavkaFakture();
 				double kolicina = rset.getDouble("kolicina");
 				stavkaFakture.setKolicina(kolicina);
@@ -127,7 +125,7 @@ public class NarudzbenicaController {
 				stavkaFakture.setOsnovicaZaPDV(osnovicaZaPDV);
 				double iznosPDV = (osnovicaZaPDV * pdvStopa)/100;
 				stavkaFakture.setIznosPDV(iznosPDV);
-				double ukupanIznos = iznos - rabat * iznosPDV;
+				double ukupanIznos = iznos - rabat + iznosPDV;
 				stavkaFakture.setUkupanIznos(ukupanIznos);
 				
 				String datum = datumValuteString;
@@ -135,10 +133,11 @@ public class NarudzbenicaController {
 				java.util.Date date = formatter.parse(datum);
 			    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
+			    int brojFakture = Integer.parseInt(brojFaktureString);
 				
 				Date datumFakture = Date.valueOf(LocalDate.now());
 				Faktura faktura = new Faktura();
-				faktura.setBrojFakture(narudzbenica.getBrojNarudzbenice());
+				faktura.setBrojFakture(brojFakture);
 				faktura.setDatumFakture(datumFakture);
 				faktura.setDatumValute(sqlDate);
 				faktura.setUkupnaOsnovica(stavkaFakture.getIznos());

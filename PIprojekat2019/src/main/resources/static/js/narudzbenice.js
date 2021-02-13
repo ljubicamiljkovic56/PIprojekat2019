@@ -3,6 +3,7 @@ function getNarudzbenice() {
 	dobaviPreduzece();
 	dobaviPoslovnogPartnera();
 	dobaviGodine();
+	dobaviRobu();
 
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
@@ -26,6 +27,7 @@ function getNarudzbenice() {
 	});
 	
 	$(document).on("click", "#doKreirajFakturu", function(event) {
+		kreirajFakturu();
 		$('#updateModalScrollable').modal('hide');
 	});
 	
@@ -193,8 +195,78 @@ function dodajNarudzbenicu(){
 	});
 }
 
+function dobaviRobu() {
+	$.ajax({
+		url : "http://localhost:8080/api/roba/all"
+	}).then(
+		function(data) {
+			$("#robaSelect").empty();
+			$('#robaSelect').append($('<option>', {
+			    value: 1,
+			    text: ''
+			}));
+			
+			$.each(data, function (i, item) {
+			    $('#robaSelect').append($('<option>', { 
+			        value: item.idRobeUsluge,
+			        text : item.nazivRobeUsluge 
+			    }));
+			});	
+		}
+	);
+}
+
 function kreirajFakturu(){
+	var id = getIdOfSelectedEntityNarudzbenica();
+	console.log(id);
 	
+	var datumValuteInput = $('#datumValuteInput');
+	var rabatInput = $('#rabatInput');
+	var pdvStopaInput = $('#pdvStopaInput');
+	var brojFaktureInput = $('#brojFaktureInput');
+	var robaSelect = $('#robaSelect');
+	
+	$('#doKreirajFakturu').on('click', function(event){
+		var datum_valute = datumValuteInput.val();
+		var rabat = rabatInput.val();
+		var pdv_stopa = pdvStopaInput.val();
+		var broj_fakture = brojFaktureInput.val();
+		var roba = robaSelect.find(":selected").text();
+		
+		console.log('datum_valute: ' + datum_valute);
+		console.log('rabat: ' + rabat);
+		console.log('pdv_stopa: ' + pdv_stopa);
+		console.log('broj_fakture:' + broj_fakture)
+		console.log('roba: ' + roba);
+		
+		if(datum_valute == '' || rabat == '' || pdv_stopa == '' || roba == '' || broj_fakture == ''){
+			alert("Niste uneli potrebne podatke.");
+		}
+		
+		var params = {
+			'id': id,
+			'datum_valute': datum_valute,
+			'rabat': rabat,
+			'pdv_stopa': pdv_stopa,
+			'broj_fakture': broj_fakture,
+			'roba': roba
+		}
+		$.post("http://localhost:8080/api/narudzbenica/kreirajFakturu", params, function(data) {
+			console.log('ispis...')
+			
+			alert('Dodata je nova faktura')
+			
+			dobaviNarudzbenice();
+			datumValuteInput.val("");
+			rabatInput.val("");
+			pdvStopaInput.val("");
+			brojFaktureInput.val("");
+			robaSelect.val("");
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+	});
 }
 
 function obrisiNarudzbenicu(){
