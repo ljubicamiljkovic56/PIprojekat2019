@@ -34,6 +34,7 @@ function getCenovnici(){
 		$('#updateModalScrollable').modal('hide');
 	});
 	
+	//brisanje
 	$(document).on("click", '#delete', function(event){
 		var name = getNameOfSelectedEntityCenovnik();
 		if(name!=null){
@@ -52,6 +53,24 @@ function getCenovnici(){
 		$('#deletePromptModal').modal('hide');
 	});
 	
+	//kopiranje cenovnika
+	$(document).on("click", '#kopirajCenovnik', function(event){
+		var name = getNameOfSelectedEntityCenovnik();
+		if(name!=null){
+			$('#copyPromptText').text("Kopiraj cenovnik sa datumom: " + name);
+			$('#copyPromptModal').modal('show');
+		}
+
+	});
+	
+	$(document).on("click", '.copyPromptClose', function(event){
+		$('#copyPromptModal').modal('hide');
+	});
+	
+	$(document).on("click", '#doCopy', function(event){
+		kopirajCenovnik();
+		$('#copyPromptModal').modal('hide');
+	});
 	
 	$(document).on("click", '#search', function(event){
 		$("#collapseSearch").collapse('toggle');
@@ -209,5 +228,30 @@ function obrisiCenovnik(){
     	success: function(){
     		dobaviCenovnike();
         }
+	});
+}
+
+function kopirajCenovnik(){
+	var id = getIdOfSelectedEntityCenovnik();
+	console.log(id);
+	var datum_vazenja = getNameOfSelectedEntityCenovnik();
+	
+	$('#doCopy').on('click', function(event){
+		console.log('datum_vazenja: ' + datum_vazenja);
+		
+		var params = {
+				'id':id,
+				'datum_vazenja': datum_vazenja
+		}
+		
+		$.post("http://localhost:8080/api/cenovnici/kopirajCenovnik", params, function(data) {
+			console.log('ispis...')
+			
+			alert('Kopiran je cenovnik')
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
 	});
 }

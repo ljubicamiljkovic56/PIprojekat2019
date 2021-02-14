@@ -125,6 +125,7 @@
 				<button id="add" type="button" class="btn btn-outline-secondary">Dodaj</button>
 				<button id="edit" type="button" class="btn btn-outline-secondary">Izmeni</button>
 				<button id="delete" type="button" class="btn btn-outline-secondary">Obriši</button>
+				<button id="kopirajCenovnik" type="button" class="btn btn-outline-secondary">Kopiraj cenovnik</button>
 				
 				<!-- Pagination -->
 				<div class="pagination" >
@@ -230,6 +231,27 @@
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary deletePromptClose">Otkaži</button>
 			        <button type="button" id="doDelete" class="btn btn-primary">Obriši</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			<!-- Kopiranje cenovnika -->
+			<div class="modal fade" id="copyPromptModal" tabindex="-1" role="dialog" aria-labelledby="copyPromptLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="copyPromptLabel">Jeste li sigurni?</h5>
+			        <button type="button" class="close copyPromptClose" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <p id="copyPromptText"></p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary copyPromptClose">Otkaži</button>
+			        <button type="button" id="doCopy" class="btn btn-primary">Kopiraj</button>
 			      </div>
 			    </div>
 			  </div>

@@ -2,8 +2,6 @@ package projekat.service.services;
 
 import java.sql.Date;
 import java.util.List;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +40,6 @@ public class CenovnikService implements CenovnikServiceInterface {
 	@Override
 	public Cenovnik findByDatumPocetkaVazenja(Date datumVazenja) {
 		return cenovnikRepository.findByDatumPocetkaVazenja(datumVazenja);
-	}
+	} 
 
 }

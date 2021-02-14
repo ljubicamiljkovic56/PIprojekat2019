@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import projekat.model.Cenovnik;
 import projekat.model.Preduzece;
+import projekat.model.StavkaCenovnika;
 import projekat.service.intrfc.CenovnikServiceInterface;
 import projekat.service.intrfc.PreduzeceServiceInterface;
+import projekat.service.intrfc.StavkaCenovnikaServiceInterface;
 
 
 @CrossOrigin
@@ -37,6 +39,9 @@ public class CenovnikController {
 	
 	@Autowired
 	private PreduzeceServiceInterface preduzeceServiceInterface;
+	
+	@Autowired
+	private StavkaCenovnikaServiceInterface stavkaCenovnikaServiceInterface;
 	
 	
 	@GetMapping(path = "/all")
@@ -117,6 +122,42 @@ public class CenovnikController {
 		
 		return new ResponseEntity<Void>(HttpStatus.OK);
 		
+	}
+	
+	@PostMapping(value = "/kopirajCenovnik")
+	public ResponseEntity<Void> kopirajCenovnik(@RequestParam("datum_vazenja") String datumVazenjaString) throws ParseException{
+		
+		String datum = datumVazenjaString;
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = formatter.parse(datum);
+	    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+
+	    Cenovnik cenovnik1 = cenovnikServiceInterface.findByDatumPocetkaVazenja(sqlDate);
+	    Cenovnik cenovnik = cenovnikServiceInterface.findOne(cenovnik1.getIdCenovnika());
+	    
+	    if(cenovnik != null) {
+	    	Cenovnik cenovnikCopy = new Cenovnik();
+	    	cenovnikCopy.setDatumPocetkaVazenja(cenovnik.getDatumPocetkaVazenja());
+	    	cenovnikCopy.setPreduzece(cenovnik.getPreduzece());
+	    	
+	    	List<StavkaCenovnika> stavkeCenovnika = cenovnik.getStavkeCenovnika();
+			
+			for(StavkaCenovnika stavkaCenovnika : stavkeCenovnika) {
+				StavkaCenovnika novaStavka = new StavkaCenovnika();
+				novaStavka.setCena(stavkaCenovnika.getCena());
+				novaStavka.setCenovnik(stavkaCenovnika.getCenovnik());
+				novaStavka.setRobaUsluga(stavkaCenovnika.getRobaUsluga());
+				
+				cenovnikCopy.getStavkeCenovnika().add(novaStavka);
+				stavkaCenovnikaServiceInterface.save(novaStavka);
+			}
+			
+			cenovnikServiceInterface.save(cenovnikCopy);
+	    	//cenovnikCopy.setStavkeCenovnika(stavkeCenovnika);
+	    	
+	    }
+	    
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@ExceptionHandler(value = ConstraintViolationException.class)

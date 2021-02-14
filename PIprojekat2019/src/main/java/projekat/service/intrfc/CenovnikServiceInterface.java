@@ -16,5 +16,6 @@ public interface CenovnikServiceInterface {
 	List<Cenovnik> findAll();
 	
 	void remove(Long id);
+	
 
 }
