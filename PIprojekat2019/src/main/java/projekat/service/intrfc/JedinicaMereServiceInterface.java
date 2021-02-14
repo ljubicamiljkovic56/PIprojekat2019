@@ -27,4 +27,6 @@ public interface JedinicaMereServiceInterface {
 	
 	Page<JedinicaMere> findAllByNazivJediniceMere(String nazivJediniceMere, int pageNo, int pageSize);
 	
+	Page<JedinicaMere> findAll(int pageNo, int pageSize);
+	
 }

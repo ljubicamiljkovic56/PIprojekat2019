@@ -79,4 +79,9 @@ public class JedinicaMereService implements JedinicaMereServiceInterface {
         }
     }
 
+	@Override
+	public Page<JedinicaMere> findAll(int pageNo, int pageSize) {
+		return jedinicaMereRepository.findAll(new PageRequest(pageNo, pageSize));
+	}
+
 }

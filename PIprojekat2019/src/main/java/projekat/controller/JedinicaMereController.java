@@ -53,31 +53,23 @@ public class JedinicaMereController {
 		for (JedinicaMere jedinica : jedinice) {
 			jediniceDTO.add(new JedinicaMereDTO(jedinica));
 		}
+		
 		return new ResponseEntity<>(jediniceDTO, HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "/p")
     public ResponseEntity<List<JedinicaMere>> getAllJedinicaMere(
-                        @RequestParam(defaultValue = "0") Integer pageNo, 
-                        @RequestParam(defaultValue = "10") Integer pageSize) 
+                        @RequestParam("pageNo") Integer pageNo, 
+                        @RequestParam("pageSize") Integer pageSize) 
     {
-        List<JedinicaMere> list = jedinicaMereService.getAllJedinicaMere(pageNo, pageSize);
- 
-        return new ResponseEntity<List<JedinicaMere>>(list, new HttpHeaders(), HttpStatus.OK); 
+       // List<JedinicaMere> list = jedinicaMereService.getAllJedinicaMere(pageNo, pageSize);
+		Page<JedinicaMere> jediniceMere = jedinicaMereServiceInterface.findAll(pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(jediniceMere.getTotalPages()));
+     //   headers.set("total", String.valueOf(list));
+        return ResponseEntity.ok().headers(headers).body(jediniceMere.getContent());
     }
 	
-	@SuppressWarnings("rawtypes")
-	@GetMapping(path = "/page")
-	public ResponseEntity getJedinicaMerePage(@RequestParam(value = "pageNo",defaultValue = "0") int pageNo,
-            @RequestParam(value = "pageSize",defaultValue = Integer.MAX_VALUE+"") int pageSize,
-            @RequestParam(value = "nazivJediniceMere",defaultValue = "") String nazivJediniceMere) {
-		
-		Page<JedinicaMere> jediniceMere =  jedinicaMereServiceInterface.findAllByNazivJediniceMere(nazivJediniceMere,pageNo,pageSize);
-		HttpHeaders headers = new HttpHeaders();
-        headers.set("total",String.valueOf(jediniceMere.getTotalPages()));
-        return ResponseEntity.ok().headers(headers).body(jediniceMere.getContent());
-		
-	}
 	@GetMapping(path = "/searchByNaziv/{naziv}")
 	private ResponseEntity<Void> searchByNaziv(@RequestParam("naziv") String nazivJediniceMere) {
 		

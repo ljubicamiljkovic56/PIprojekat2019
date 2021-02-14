@@ -1,6 +1,7 @@
 function getJediniceMere() {
 	dobaviJediniceMere();
 
+
 	$(document).on("click", 'tr', function(event) {
 		highlightRow(this);
 	});
@@ -55,13 +56,24 @@ function getJediniceMere() {
 	});
 }
 
+
 function dobaviJediniceMere() {
+	var pageNo = 0; 
+	var cenovnikPagintaion = $('#cenovnik-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
 	$.ajax({
-		url : "http://localhost:8080/api/jedinicemere/all"
+		url : "http://localhost:8080/api/jedinicemere/p?pageNo=" + pageNo + "&pageSize=" + pageSize
 	}).then(
-			function(data) {
+			function(data, status, request) {
 				console.log(data);
+				cenovnikPagintaion.empty();
 				$("#dataTableBody").empty();
+				console.log(request.getResponseHeader('total'));
+				for(var j=0; j<request.getResponseHeader('total'); j++){
+                    cenovnikPagintaion.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+                }
 				for (i = 0; i < data.length; i++) {
 					newRow = 
 						"<tr>" 
@@ -70,6 +82,7 @@ function dobaviJediniceMere() {
 							+ "<td class=\"idJediniceMere\"  style:display:none>" + data[i].idJediniceMere + "</td>" 
 						"</tr>"
 					$("#dataTableBody").append(newRow);
+					
 				}
 			});
 	
@@ -80,7 +93,21 @@ function dobaviJediniceMere() {
 	$("#next").click(function(){
 		goNext()
 	 });
+	
+	nmbSelect.on('change',function (event) {
+	    event.preventDefault();
+	    pageSize = $(this).val();
+	    dobaviJediniceMere();
+	});
+
+	cenovnikPagintaion.on("click","a.page-link", function (event) {
+	    event.preventDefault();
+	    pageNo = $(this).attr("pageno");
+	    dobaviJediniceMere();
+	});
 }
+
+
 function dodajJedinicuMere(){
 	var nazivJediniceMereInput = $('#nazivJediniceMereInput');
 	var skraceniNazivInput = $('#skraceniNazivInput');
