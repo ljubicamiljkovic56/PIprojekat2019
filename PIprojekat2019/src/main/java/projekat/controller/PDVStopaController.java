@@ -8,6 +8,8 @@ import java.util.List;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import projekat.model.PDVKategorija;
 import projekat.model.PDVStopa;
 import projekat.service.intrfc.PDVKategorijaServiceInterface;
@@ -43,6 +44,18 @@ public class PDVStopaController {
 	public List<PDVStopa> getAll(){
 		return pdvStopaServiceInterface.findAll();
 	}
+	
+	@GetMapping(path = "/p")
+    public ResponseEntity<List<PDVStopa>> getAllPDVStopa(
+                        @RequestParam("pageNo") Integer pageNo, 
+                        @RequestParam("pageSize") Integer pageSize) 
+    {
+       
+		Page<PDVStopa> pdvStope = pdvStopaServiceInterface.findAll(pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(pdvStope.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(pdvStope.getContent());
+    }
 	
 	@PostMapping(value = "/dodajPDVStopu")
 	public ResponseEntity<Void> dodajPDVStopu(@Validated @RequestParam("datum_vazenja") String datumVazenja, @RequestParam("procenat") String procenat, 

@@ -2,6 +2,8 @@ package projekat.service.intrfc;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import projekat.model.RobaUsluga;
 
 public interface RobaUslugaServiceInterface {
@@ -16,4 +18,5 @@ public interface RobaUslugaServiceInterface {
 
 	void remove(Long id);
 
+	Page<RobaUsluga> findAll(int pageNo, int pageSize);
 }

@@ -3,6 +3,8 @@ package projekat.service.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,5 +42,10 @@ public class PDVKategorijaService implements PDVKategorijaServiceInterface {
 	@Override
 	public void remove(Long id) {
 		pdvKategorijaRepository.delete(id);
+	}
+
+	@Override
+	public Page<PDVKategorija> findAll(int pageNo, int pageSize) {
+		return pdvKategorijaRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 }

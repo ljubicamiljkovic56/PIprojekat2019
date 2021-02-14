@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -41,6 +43,18 @@ public class GrupaRobeUslugaController {
 	public List<GrupaRobeUsluga> getAll(){
 		return grupaRobeUslugaServiceInterface.findAll();
 	}
+	
+	@GetMapping(path = "/p")
+    public ResponseEntity<List<GrupaRobeUsluga>> getAllGrupaRobe(
+                        @RequestParam("pageNo") Integer pageNo, 
+                        @RequestParam("pageSize") Integer pageSize) 
+    {
+       
+		Page<GrupaRobeUsluga> grupeRobe = grupaRobeUslugaServiceInterface.findAll(pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(grupeRobe.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(grupeRobe.getContent());
+    }
 	
 	@PostMapping(value = "/dodajGrupu")
 	private ResponseEntity<Void> dodajGrupu(@Validated @RequestParam("naziv_grupe") String nazivGrupe, 

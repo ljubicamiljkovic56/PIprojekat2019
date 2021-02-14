@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -36,6 +38,16 @@ public class PDVKategorijaController {
 		return pdvKategorijaServiceInterface.findAll();
 	}
 
+	@GetMapping(path = "/p")
+    public ResponseEntity<List<PDVKategorija>> getAllPDVKategorija(
+                        @RequestParam("pageNo") Integer pageNo, 
+                        @RequestParam("pageSize") Integer pageSize) 
+    {
+		Page<PDVKategorija> pdvKategorije = pdvKategorijaServiceInterface.findAll(pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(pdvKategorije.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(pdvKategorije.getContent());
+    }
 	
 	@PostMapping(value = "/dodajKategoriju")
 	public ResponseEntity<Void> dodajKategoriju(@Validated @RequestParam("naziv_kategorije") String nazivKategorije) {

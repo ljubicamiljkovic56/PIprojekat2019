@@ -2,6 +2,8 @@ package projekat.service.intrfc;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import projekat.model.PDVKategorija;
 
 public interface PDVKategorijaServiceInterface {
@@ -15,5 +17,7 @@ public interface PDVKategorijaServiceInterface {
 	List<PDVKategorija> findAll();
 	
 	void remove(Long id);
+	
+	Page<PDVKategorija> findAll(int pageNo, int pageSize);
 
 }

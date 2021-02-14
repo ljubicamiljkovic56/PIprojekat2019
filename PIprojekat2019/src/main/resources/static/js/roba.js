@@ -61,13 +61,22 @@ function getRoba(){
 }
 
 function dobaviRobu() {
+	var pageNo = 0; 
+	var robaPagination = $('#roba-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
 	$.ajax({
-		url : "http://localhost:8080/api/roba/all"
+		url : "http://localhost:8080/api/roba/p?pageNo=" + pageNo + "&pageSize=" + pageSize
 	}).then(
-			function(data) {
+			function(data, status, request) {
 				console.log(data);
-				
+				robaPagination.empty();
 				$("#dataTableBody").empty();
+				console.log(request.getResponseHeader('total'));
+				for(var j=0; j<request.getResponseHeader('total'); j++){
+                    robaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+                }
 				for (i = 0; i < data.length; i++) {
 					console.log(data[i].idRobeUsluge)
 					newRow = 
@@ -90,6 +99,18 @@ function dobaviRobu() {
 	$("#next").click(function(){
 		goNext()
 	 });
+	
+	nmbSelect.on('change',function (event) {
+	    event.preventDefault();
+	    pageSize = $(this).val();
+	    dobaviRobu();
+	});
+
+	robaPagination.on("click","a.page-link", function (event) {
+	    event.preventDefault();
+	    pageNo = $(this).attr("pageno");
+	    dobaviRobu();
+	});
 }
 
 function dobaviJediniceMere() {

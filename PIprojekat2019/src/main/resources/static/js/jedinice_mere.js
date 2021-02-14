@@ -59,7 +59,7 @@ function getJediniceMere() {
 
 function dobaviJediniceMere() {
 	var pageNo = 0; 
-	var cenovnikPagintaion = $('#cenovnik-page');
+	var jedinicaPagination = $('#jedinica-page');
 	var nmbSelect = $('#nmb-select');
 	var pageSize = nmbSelect.find(":selected").text();
 	$.ajax({
@@ -67,11 +67,11 @@ function dobaviJediniceMere() {
 	}).then(
 			function(data, status, request) {
 				console.log(data);
-				cenovnikPagintaion.empty();
+				jedinicaPagination.empty();
 				$("#dataTableBody").empty();
 				console.log(request.getResponseHeader('total'));
 				for(var j=0; j<request.getResponseHeader('total'); j++){
-                    cenovnikPagintaion.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+                    jedinicaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
                         `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
                 }
 				for (i = 0; i < data.length; i++) {
@@ -100,7 +100,7 @@ function dobaviJediniceMere() {
 	    dobaviJediniceMere();
 	});
 
-	cenovnikPagintaion.on("click","a.page-link", function (event) {
+	jedinicaPagination.on("click","a.page-link", function (event) {
 	    event.preventDefault();
 	    pageNo = $(this).attr("pageno");
 	    dobaviJediniceMere();

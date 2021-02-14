@@ -3,6 +3,8 @@ package projekat.service.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +43,11 @@ public class PDVStopaService implements PDVStopaServiceInterface {
 	public void remove(Long id) {
 		pdvStopaRepository.delete(id);
 
+	}
+
+	@Override
+	public Page<PDVStopa> findAll(int pageNo, int pageSize) {
+		return pdvStopaRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
 }
