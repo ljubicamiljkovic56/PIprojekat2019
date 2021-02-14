@@ -2,6 +2,8 @@ package projekat.service.intrfc;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import projekat.model.Preduzece;
 
 public interface PreduzeceServiceInterface {
@@ -15,4 +17,6 @@ public interface PreduzeceServiceInterface {
 	List<Preduzece> findAll();
 	
 	void remove(Long id);
+	
+	Page<Preduzece> findAll(int pageNo, int pageSize);
 }

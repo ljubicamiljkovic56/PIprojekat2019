@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import projekat.model.PoslovnaGodina;
 import projekat.model.Preduzece;
 import projekat.service.intrfc.PoslovnaGodinaServiceInterface;
@@ -39,6 +40,19 @@ public class PoslovnaGodinaController {
 	public List<PoslovnaGodina> getAll() {
 		return poslovnaGodinaServiceInterface.findAll();
 	}
+	
+	@GetMapping(path = "/p")
+    public ResponseEntity<List<PoslovnaGodina>> getAllPoslovnaGodina(
+                        @RequestParam("pageNo") Integer pageNo, 
+                        @RequestParam("pageSize") Integer pageSize) 
+    {
+       
+		Page<PoslovnaGodina> godine = poslovnaGodinaServiceInterface.findAll(pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(godine.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(godine.getContent());
+    }
+	
 	
 	@PostMapping(path = "/dodajGodinu")
 	public ResponseEntity<Void> dodajGodinu(@Validated @RequestParam("godina") String godina, 

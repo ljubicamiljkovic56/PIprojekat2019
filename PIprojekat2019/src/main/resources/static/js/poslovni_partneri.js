@@ -61,13 +61,22 @@ function getPartneri(){
 }
 
 function dobaviPartnere() {
+	var pageNo = 0; 
+	var partnerPagination = $('#partner-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
 	$.ajax({
-		url : "http://localhost:8080/api/poslovnipartneri/all"
+		url : "http://localhost:8080/api/poslovnipartneri/p?pageNo=" + pageNo + "&pageSize=" + pageSize
 	}).then(
-			function(data) {
+			function(data, status, request) {
 				console.log(data);
-				
+				partnerPagination.empty();
 				$("#dataTableBody").empty();
+				console.log(request.getResponseHeader('total'));
+				for(var j=0; j<request.getResponseHeader('total'); j++){
+                    partnerPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+                }
 				for (i = 0; i < data.length; i++) {
 					console.log(data[i].idPoslovnogPartnera)
 					newRow = 
@@ -93,6 +102,18 @@ function dobaviPartnere() {
 	$("#next").click(function(){
 		goNext()
 	 });
+	
+	nmbSelect.on('change',function (event) {
+	    event.preventDefault();
+	    pageSize = $(this).val();
+	    dobaviPartnere();
+	});
+
+	partnerPagination.on("click","a.page-link", function (event) {
+	    event.preventDefault();
+	    pageNo = $(this).attr("pageno");
+	    dobaviPartnere();
+	});
 }
 
 function dobaviMesta() {

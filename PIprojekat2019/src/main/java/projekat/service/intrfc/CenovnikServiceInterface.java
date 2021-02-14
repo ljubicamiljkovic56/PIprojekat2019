@@ -3,6 +3,8 @@ package projekat.service.intrfc;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import projekat.model.Cenovnik;
 
 public interface CenovnikServiceInterface {
@@ -16,6 +18,8 @@ public interface CenovnikServiceInterface {
 	List<Cenovnik> findAll();
 	
 	void remove(Long id);
+	
+	Page<Cenovnik> findAll(int pageNo, int pageSize);
 	
 
 }

@@ -3,6 +3,8 @@ package projekat.service.services;
 import java.sql.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +42,11 @@ public class CenovnikService implements CenovnikServiceInterface {
 	@Override
 	public Cenovnik findByDatumPocetkaVazenja(Date datumVazenja) {
 		return cenovnikRepository.findByDatumPocetkaVazenja(datumVazenja);
+	}
+
+	@Override
+	public Page<Cenovnik> findAll(int pageNo, int pageSize) {
+		return cenovnikRepository.findAll(new PageRequest(pageNo, pageSize));
 	} 
 
 }

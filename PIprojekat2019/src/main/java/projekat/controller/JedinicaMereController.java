@@ -64,8 +64,6 @@ public class JedinicaMereController {
 	@GetMapping(path = "/searchByNaziv/{naziv}")
 	private ResponseEntity<Void> searchByNaziv(@RequestParam("naziv") String nazivJediniceMere) {
 		
-	//	List<JedinicaMere> jediniceMere = new ArrayList<JedinicaMere>();
-		
 		if(nazivJediniceMere == null) {
 			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 		}
