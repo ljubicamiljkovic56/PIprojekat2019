@@ -3,6 +3,8 @@ package projekat.service.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +48,11 @@ public class OtpremnicaService implements OtpremnicaServiceInterface {
 	public void remove(Long id) {
 		otpremnicaRepository.delete(id);
 
+	}
+
+	@Override
+	public Page<Otpremnica> findAll(int pageNo, int pageSize) {
+		return otpremnicaRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
 }

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -45,6 +47,19 @@ public class OtpremnicaController {
 	public List<Otpremnica> getAll() {
 		return otpremnicaServiceInterface.findAll();
 	}
+	
+	@GetMapping(path = "/p")
+    public ResponseEntity<List<Otpremnica>> getAllOtpremnica(
+                        @RequestParam("pageNo") Integer pageNo, 
+                        @RequestParam("pageSize") Integer pageSize) 
+    {
+       
+		Page<Otpremnica> otpremnice = otpremnicaServiceInterface.findAll(pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(otpremnice.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(otpremnice.getContent());
+    }
+	
 	
 	@PostMapping(path = "/dodajOtpremnicu")
 	public ResponseEntity<Void> dodajOtpremnicu(@RequestParam("broj_otpremnice") String brojOtpremnice, 

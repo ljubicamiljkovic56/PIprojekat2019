@@ -20,6 +20,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -73,6 +75,19 @@ public class FakturaController {
 	public List<Faktura> getAll() {
 		return fakturaServiceInterface.findAll();
 	}
+	
+	@GetMapping(path = "/p")
+    public ResponseEntity<List<Faktura>> getAllFaktura(
+                        @RequestParam("pageNo") Integer pageNo, 
+                        @RequestParam("pageSize") Integer pageSize) 
+    {
+       
+		Page<Faktura> fakture = fakturaServiceInterface.findAll(pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(fakture.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(fakture.getContent());
+    }
+	
 	
 	@DeleteMapping(path = "/obrisiFakturu/{id}")
 	public ResponseEntity<Void> obrisiFakturu(@PathVariable("id") long id) {

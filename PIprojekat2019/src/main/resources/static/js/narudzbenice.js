@@ -60,12 +60,22 @@ function getNarudzbenice() {
 }
 
 function dobaviNarudzbenice() {
+	var pageNo = 0; 
+	var narudzbenicaPagination = $('#narudzbenica-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
 	$.ajax({
-		url : "http://localhost:8080/api/narudzbenica/all"
+		url : "http://localhost:8080/api/narudzbenica/p?pageNo=" + pageNo + "&pageSize=" + pageSize
 	}).then(
-			function(data) {
+			function(data, status, request) {
 				console.log(data);
+				narudzbenicaPagination.empty();
 				$("#dataTableBody").empty();
+				console.log(request.getResponseHeader('total'));
+				for(var j=0; j<request.getResponseHeader('total'); j++){
+                    narudzbenicaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+                }
 				for (i = 0; i < data.length; i++) {
 					newRow = 
 						"<tr>" 
@@ -86,6 +96,18 @@ function dobaviNarudzbenice() {
 	$("#next").click(function(){
 		goNext()
 	 });
+	
+	nmbSelect.on('change',function (event) {
+	    event.preventDefault();
+	    pageSize = $(this).val();
+	    dobaviNarudzbenice();
+	});
+
+	narudzbenicaPagination.on("click","a.page-link", function (event) {
+	    event.preventDefault();
+	    pageNo = $(this).attr("pageno");
+	    dobaviNarudzbenice();
+	});
 }
 
 function dobaviPreduzece() {

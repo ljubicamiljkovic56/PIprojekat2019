@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -34,6 +36,19 @@ public class StavkaOtpremniceController {
 	public List<StavkaOtpremnice> getAll() {
 		return stavkaOtpremniceServicenterface.findAll();
 	}
+	
+	@GetMapping(path = "/p")
+    public ResponseEntity<List<StavkaOtpremnice>> getAllStavkaOtpremnice(
+                        @RequestParam("pageNo") Integer pageNo, 
+                        @RequestParam("pageSize") Integer pageSize) 
+    {
+       
+		Page<StavkaOtpremnice> stavkeOtpremnice = stavkaOtpremniceServicenterface.findAll(pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(stavkeOtpremnice.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(stavkeOtpremnice.getContent());
+    }
+	
 	
 	@PostMapping(path = "/dodajStavkuOtpremnice")
 	public ResponseEntity<Void> dodajStavkuOtpremnice(@RequestParam("redni_broj_proizvoda") String redniBrojProizvoda,

@@ -2,6 +2,8 @@ package projekat.service.intrfc;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import projekat.model.Faktura;
 
 public interface FakturaServiceInterface {
@@ -16,5 +18,5 @@ public interface FakturaServiceInterface {
 	
 	void remove(Long id);
 
-
+	Page<Faktura> findAll(int pageNo, int pageSize);
 }

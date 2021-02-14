@@ -2,6 +2,8 @@ package projekat.service.intrfc;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import projekat.model.StavkaFakture;
 
 public interface StavkaFaktureServiceInterface {
@@ -15,6 +17,8 @@ public interface StavkaFaktureServiceInterface {
 	List<StavkaFakture> findAll();
 	
 	void remove(Long id);
+	
+	Page<StavkaFakture> findAll(int pageNo, int pageSize);
 
 
 }

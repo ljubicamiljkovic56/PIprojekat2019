@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import projekat.model.Preduzece;
 import projekat.model.RobaUsluga;
 import projekat.model.StavkaFakture;
@@ -44,6 +45,19 @@ public class StavkaFaktureController {
 	public List<StavkaFakture> getAll(){
 		return stavkaFaktureServiceInterface.findAll();
 	}
+	
+	@GetMapping(path = "/p")
+    public ResponseEntity<List<StavkaFakture>> getAllStavkaFakture(
+                        @RequestParam("pageNo") Integer pageNo, 
+                        @RequestParam("pageSize") Integer pageSize) 
+    {
+       
+		Page<StavkaFakture> stavkeFakture = stavkaFaktureServiceInterface.findAll(pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(stavkeFakture.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(stavkeFakture.getContent());
+    }
+	
 	
 	@PostMapping(path = "/dodajStavkuFakture")
 	public ResponseEntity<Void> dodajStavkuFakture(@RequestParam("kolicina") String kolicina,

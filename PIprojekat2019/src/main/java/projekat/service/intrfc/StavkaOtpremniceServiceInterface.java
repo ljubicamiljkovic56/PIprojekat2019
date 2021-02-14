@@ -2,6 +2,8 @@ package projekat.service.intrfc;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import projekat.model.StavkaOtpremnice;
 
 public interface StavkaOtpremniceServiceInterface {
@@ -15,4 +17,6 @@ public interface StavkaOtpremniceServiceInterface {
 	List<StavkaOtpremnice> findAll();
 	
 	void remove(Long id);
+	
+	Page<StavkaOtpremnice> findAll(int pageNo, int pageSize);
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import projekat.model.Narudzbenica;
 import projekat.model.RobaUsluga;
 import projekat.model.StavkaNarudzbenice;
@@ -45,6 +46,19 @@ public class StavkaNarudzbeniceController {
 	public List<StavkaNarudzbenice> getAll() {
 		return stavkaNarudzbeniceServiceInterface.findAll();
 	}
+	
+	@GetMapping(path = "/p")
+    public ResponseEntity<List<StavkaNarudzbenice>> getAllStavkaNarudzbenice(
+                        @RequestParam("pageNo") Integer pageNo, 
+                        @RequestParam("pageSize") Integer pageSize) 
+    {
+       
+		Page<StavkaNarudzbenice> stavkeNarudzbenice = stavkaNarudzbeniceServiceInterface.findAll(pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(stavkeNarudzbenice.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(stavkeNarudzbenice.getContent());
+    }
+	
 	
 	@PostMapping(value = "/dodajStavkuNarudzbenice")
 	public ResponseEntity<Void> dodajStavkuNarudzbenice(@RequestParam("jedinica_mere") String jedinicaMere,

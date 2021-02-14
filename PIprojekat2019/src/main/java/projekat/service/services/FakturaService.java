@@ -5,6 +5,8 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +45,11 @@ public class FakturaService implements FakturaServiceInterface {
 	public void remove(Long id) {
 		fakturaRepository.delete(id);
 		
+	}
+
+	@Override
+	public Page<Faktura> findAll(int pageNo, int pageSize) {
+		return fakturaRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
 }
