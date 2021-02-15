@@ -19,4 +19,8 @@ public interface NaseljenoMestoServiceInterface {
 	void remove(Long id);
 	
 	Page<NaseljenoMesto> findAll(int pageNo, int pageSize);
+	
+	Page<NaseljenoMesto> findAllByNazivMesta (String nazivMesta, int pageNo, int pageSize);
+	
+	Page<NaseljenoMesto> findAllByPttBroj (int pttBroj, int pageNo, int pageSize);
 }

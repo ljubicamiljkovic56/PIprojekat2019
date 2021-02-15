@@ -19,4 +19,8 @@ public interface PreduzeceServiceInterface {
 	void remove(Long id);
 	
 	Page<Preduzece> findAll(int pageNo, int pageSize);
+	
+	Page<Preduzece> findAllByNazivPreduzeca (String nazivPreduzeca, int pageNo, int pageSize);
+	
+	Page<Preduzece> findAllByAdresa (String adresa, int pageNo, int pageSize);
 }

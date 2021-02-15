@@ -51,6 +51,8 @@ function getMesta() {
 	
 	
 	$(document).on("click", '#search', function(event){
+		searchMestoByNaziv();
+		searchMestoByPttBroj();
 		$("#collapseSearch").collapse('toggle');
 	});
 }
@@ -103,6 +105,115 @@ function dobaviMesta() {
 	    dobaviMesto();
 	});
 }
+
+function searchMestoByNaziv(){
+	var pageNo = 0; 
+	var mestoPagination = $('#mesto-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var nazivSearchInput = $('#nazivMestaSearchInput');
+		var naziv = nazivSearchInput.val();
+		console.log(naziv);
+		$.ajax({
+			url : "http://localhost:8080/api/mesto/searchByNaziv?pageNo=" + pageNo + "&pageSize=" + pageSize + "&naziv=" + naziv
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					mestoPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    mestoPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						newRow = 
+							"<tr>" 
+								+ "<td class=\"nazivMesta\">" + data[i].nazivMesta + "</td>"
+								+ "<td class=\"pttBroj\">" + data[i].pttBroj + "</td>"
+								+ "<td class=\"idMesta\"  style:display:none>" + data[i].idMesta + "</td>" +
+							"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviMesta();
+		});
+
+		mestoPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviMesto();
+		});
+	});
+}
+
+function searchMestoByPttBroj(){
+	var pageNo = 0; 
+	var mestoPagination = $('#mesto-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var pttBrojSearchInput = $('#pttBrojSearchInput');
+		var ptt_broj = pttBrojSearchInput.val();
+		console.log(ptt_broj);
+		$.ajax({
+			url : "http://localhost:8080/api/mesto/searchByPttBroj?pageNo=" + pageNo + "&pageSize=" + pageSize + "&ptt_broj=" + ptt_broj 
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					mestoPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    mestoPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						newRow = 
+							"<tr>" 
+								+ "<td class=\"nazivMesta\">" + data[i].nazivMesta + "</td>"
+								+ "<td class=\"pttBroj\">" + data[i].pttBroj + "</td>"
+								+ "<td class=\"idMesta\"  style:display:none>" + data[i].idMesta + "</td>" +
+							"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviMesta();
+		});
+
+		mestoPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviMesto();
+		});
+	});
+}
+
 function dodajMesto(){
 	var nazivMestaInput = $('#nazivMestaInput');
 	var pttBrojInput = $('#pttBrojInput');

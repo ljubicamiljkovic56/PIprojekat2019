@@ -73,6 +73,7 @@ function getCenovnici(){
 	});
 	
 	$(document).on("click", '#search', function(event){
+		searchCenovnik();
 		$("#collapseSearch").collapse('toggle');
 	});
 }
@@ -124,6 +125,61 @@ function dobaviCenovnike() {
 	    event.preventDefault();
 	    pageNo = $(this).attr("pageno");
 	    dobaviCenovnike();
+	});
+}
+
+function searchCenovnik(){
+	var pageNo = 0; 
+	var cenovnikPagination = $('#cenovnik-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var datumSearchInput = $('#datumSearchInput');
+		var datum_vazenja = datumSearchInput.val();
+		console.log(datum_vazenja);
+		$.ajax({
+			url : "http://localhost:8080/api/cenovnici/searchByDatumPocetkaVazenja?pageNo=" + pageNo + "&pageSize=" + pageSize + "&datum_vazenja=" + datum_vazenja
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					cenovnikPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    cenovnikPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idCenovnika)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"datumPocetkaVazenja\">" + data[i].datumPocetkaVazenja + "</td>"
+							+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>"
+							+ "<td class=\"idCenovnika\"  style:display:none>" + data[i].idCenovnika + "</td>" +
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviCenovnike();
+		});
+
+		cenovnikPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviCenovnike();
+		});
 	});
 }
 

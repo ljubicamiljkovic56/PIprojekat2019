@@ -56,6 +56,29 @@ public class PreduzeceController {
         return ResponseEntity.ok().headers(headers).body(preduzeca.getContent());
     }
 	
+	@GetMapping(path = "/searchByNaziv")
+	private ResponseEntity<List<Preduzece>> searchByNaziv(@RequestParam("naziv") String nazivPreduzeca,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		Page<Preduzece> preduzeca = preduzeceServiceInterface.findAllByNazivPreduzeca(nazivPreduzeca, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(preduzeca.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(preduzeca.getContent());
+		
+	}
+	
+	@GetMapping(path = "/searchByAdresa")
+	private ResponseEntity<List<Preduzece>> searchByAdresa(@RequestParam("adresa") String adresa,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		Page<Preduzece> preduzeca = preduzeceServiceInterface.findAllByAdresa(adresa, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(preduzeca.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(preduzeca.getContent());
+		
+	}
 	
 	@PostMapping(path = "/dodajPreduzece")
 	public ResponseEntity<Void> dodajPreduzece(@Validated @RequestParam("naziv_preduzeca") String nazivPreduzeca,

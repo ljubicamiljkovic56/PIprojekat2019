@@ -50,6 +50,32 @@ public class NaseljenoMestoController {
         return ResponseEntity.ok().headers(headers).body(mesta.getContent());
     }
 	
+	@GetMapping(path = "/searchByNaziv")
+	private ResponseEntity<List<NaseljenoMesto>> searchByNaziv(@RequestParam("naziv") String nazivMesta,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		Page<NaseljenoMesto> mesta = naseljenoMestoServiceInterface.findAllByNazivMesta(nazivMesta, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(mesta.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(mesta.getContent());
+		
+	}
+	
+	@GetMapping(path = "/searchByPttBroj")
+	private ResponseEntity<List<NaseljenoMesto>> searchByPttBroj(@RequestParam("ptt_broj") String pttBrojString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		int pttBroj = Integer.parseInt(pttBrojString);
+		
+		Page<NaseljenoMesto> mesta = naseljenoMestoServiceInterface.findAllByPttBroj(pttBroj, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(mesta.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(mesta.getContent());
+		
+	}
+	
 	@PostMapping(path = "/dodajMesto")
 	public ResponseEntity<Void> dodajMesto(@Validated @RequestParam("naziv_mesta") String nazivMesta, @RequestParam("ptt_broj") String pttBroj) {
 		

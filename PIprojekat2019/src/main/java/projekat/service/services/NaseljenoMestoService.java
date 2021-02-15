@@ -50,4 +50,14 @@ public class NaseljenoMestoService implements NaseljenoMestoServiceInterface {
 		return naseljenoMestoRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
+	@Override
+	public Page<NaseljenoMesto> findAllByNazivMesta(String nazivMesta, int pageNo, int pageSize) {
+		return naseljenoMestoRepository.findAllByNazivMesta(nazivMesta, new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<NaseljenoMesto> findAllByPttBroj(int pttBroj, int pageNo, int pageSize) {
+		return naseljenoMestoRepository.findAllByPttBroj(pttBroj, new PageRequest(pageNo, pageSize));
+	}
+
 }

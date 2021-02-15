@@ -54,6 +54,7 @@ function getGodine(){
 	
 	
 	$(document).on("click", '#search', function(event){
+		searchGodine();
 		$("#collapseSearch").collapse('toggle');
 	});
 }
@@ -106,6 +107,62 @@ function dobaviGodine() {
 	    event.preventDefault();
 	    pageNo = $(this).attr("pageno");
 	    dobaviGodine();
+	});
+}
+
+function searchGodine(){
+	var pageNo = 0; 
+	var godinaPagination = $('#godina-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var godinaSearchInput = $('#godinaSearchInput');
+		var godina = godinaSearchInput.val();
+		console.log(godina);
+		$.ajax({
+			url : "http://localhost:8080/api/poslovnegodine/searchByGodina?pageNo=" + pageNo + "&pageSize=" + pageSize + "&godina=" + godina
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					godinaPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    godinaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idGodine)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"godina\">" + data[i].godina + "</td>"
+							+ "<td class=\"zakljucena\">" + data[i].zakljucena + "</td>"
+							+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>"
+							+ "<td class=\"idGodine\"  style:display:none>" + data[i].idGodine + "</td>" +
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviGodine();
+		});
+
+		godinaPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviGodine();
+		});
 	});
 }
 

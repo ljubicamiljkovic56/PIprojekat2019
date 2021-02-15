@@ -21,5 +21,7 @@ public interface CenovnikServiceInterface {
 	
 	Page<Cenovnik> findAll(int pageNo, int pageSize);
 	
+	Page<Cenovnik> findAllByDatumPocetkaVazenja(Date datumPocetkaVazenja, int pageNo, int pageSize);
+	
 
 }

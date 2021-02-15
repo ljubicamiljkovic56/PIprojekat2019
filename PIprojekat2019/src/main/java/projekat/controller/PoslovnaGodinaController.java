@@ -53,6 +53,20 @@ public class PoslovnaGodinaController {
         return ResponseEntity.ok().headers(headers).body(godine.getContent());
     }
 	
+	@GetMapping(path = "/searchByGodina")
+	private ResponseEntity<List<PoslovnaGodina>> searchByGodina(@RequestParam("godina") String godinaString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		int godina = Integer.parseInt(godinaString);
+		
+		Page<PoslovnaGodina> godine = poslovnaGodinaServiceInterface.findAllByGodina(godina, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(godine.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(godine.getContent());
+		
+	}
+	
 	
 	@PostMapping(path = "/dodajGodinu")
 	public ResponseEntity<Void> dodajGodinu(@Validated @RequestParam("godina") String godina, 

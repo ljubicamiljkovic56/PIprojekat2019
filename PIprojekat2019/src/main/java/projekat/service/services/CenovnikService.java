@@ -47,6 +47,11 @@ public class CenovnikService implements CenovnikServiceInterface {
 	@Override
 	public Page<Cenovnik> findAll(int pageNo, int pageSize) {
 		return cenovnikRepository.findAll(new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<Cenovnik> findAllByDatumPocetkaVazenja(Date datumPocetkaVazenja, int pageNo, int pageSize) {
+		return cenovnikRepository.findAllByDatumPocetkaVazenja(datumPocetkaVazenja, new PageRequest(pageNo, pageSize));
 	} 
 
 }

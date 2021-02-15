@@ -20,4 +20,5 @@ public interface StavkaCenovnikaServiceInterface {
 	
 	Page<StavkaCenovnika> findAll(int pageNo, int pageSize);
 
+	Page<StavkaCenovnika> findAllByCena (double cena, int pageNo, int pageSize);
 }

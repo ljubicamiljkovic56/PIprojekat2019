@@ -56,6 +56,7 @@ function getStavkeCenovnika(){
 	
 	
 	$(document).on("click", '#search', function(event){
+		searchStavkaCenovnika();
 		$("#collapseSearch").collapse('toggle');
 	});
 }
@@ -108,6 +109,62 @@ function dobaviStavkeCenovnika() {
 	    event.preventDefault();
 	    pageNo = $(this).attr("pageno");
 	    dobaviStavkeCenovnika();
+	});
+}
+
+function searchStavkaCenovnika(){
+	var pageNo = 0; 
+	var stavkaCPagination = $('#stavkaC-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){ 
+		var cenaSearchInput = $('#cenaSearchInput');
+		var cena = cenaSearchInput.val();
+		console.log(cena);
+		$.ajax({
+			url : "http://localhost:8080/api/stavkecenovnika/searchByCena?pageNo=" + pageNo + "&pageSize=" + pageSize + "&cena=" + cena
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					stavkaCPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    stavkaCPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idStavke)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"cena\">" + data[i].cena + "</td>"
+							+ "<td class=\"cenovnik\">" + data[i].cenovnik.datumPocetkaVazenja + "</td>"
+							+ "<td class=\"roba\">" + data[i].robaUsluga.nazivRobeUsluge + "</td>"
+							+ "<td class=\"idStavke\"  style:display:none>" + data[i].idStavke + "</td>" +
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviStavkeCenovnika();
+		});
+
+		stavkaCPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviStavkeCenovnika();
+		});
 	});
 }
 

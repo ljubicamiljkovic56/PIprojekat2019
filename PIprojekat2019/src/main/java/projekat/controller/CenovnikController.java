@@ -63,6 +63,22 @@ public class CenovnikController {
         return ResponseEntity.ok().headers(headers).body(cenovnici.getContent());
     }
 	
+	@GetMapping(path = "/searchByDatumPocetkaVazenja")
+	private ResponseEntity<List<Cenovnik>> searchByDatumPocetkaVazenja(@RequestParam("datum_vazenja") String datumString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) throws ParseException {
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = formatter.parse(datumString);
+	    java.sql.Date datumPocetkaVazenja = new java.sql.Date(date.getTime());
+
+		Page<Cenovnik> cenovnik = cenovnikServiceInterface.findAllByDatumPocetkaVazenja(datumPocetkaVazenja, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(cenovnik.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(cenovnik.getContent());
+		
+	}
+	
 	@PostMapping(path = "/dodajCenovnik")
 	public ResponseEntity<Void> dodajCenovnik(@Validated @RequestParam("datum_vazenja") String datumVazenja,
 			@RequestParam("preduzece") String nazivPreduzeca) throws ParseException {

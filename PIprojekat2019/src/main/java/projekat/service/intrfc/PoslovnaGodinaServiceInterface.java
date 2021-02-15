@@ -19,4 +19,6 @@ public interface PoslovnaGodinaServiceInterface {
 	void remove(Long id);
 	
 	Page<PoslovnaGodina> findAll(int pageNo, int pageSize);
+	
+	Page<PoslovnaGodina> findAllByGodina(int godina, int pageNo, int pageSize);
 }

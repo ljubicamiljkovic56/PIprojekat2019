@@ -54,6 +54,8 @@ function getPreduzeca(){
 	
 	
 	$(document).on("click", '#search', function(event){
+		searchPreduzeceByNaziv();
+		searchPreduzeceByAdresa();
 		$("#collapseSearch").collapse('toggle');
 	});
 }
@@ -108,6 +110,122 @@ function dobaviPreduzeca() {
 	    event.preventDefault();
 	    pageNo = $(this).attr("pageno");
 	    dobaviPreduzeca();
+	});
+}
+
+function searchPreduzeceByNaziv() {
+	var pageNo = 0; 
+	var preduzecePagination = $('#preduzece-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){ 
+		var nazivSearchInput = $('#nazivSearchInput');
+		var naziv = nazivSearchInput.val();
+		console.log(naziv);
+		$.ajax({
+			url : "http://localhost:8080/api/preduzece/searchByNaziv?pageNo=" + pageNo + "&pageSize=" + pageSize + "&naziv=" + naziv
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					preduzecePagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                   preduzecePagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idPreduzeca)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"nazivPreduzeca\">" + data[i].nazivPreduzeca + "</td>"
+							+ "<td class=\"adresaPreduzeca\">" + data[i].adresa + "</td>"
+							+ "<td class=\"brojTelefona\">" + data[i].brojTelefona + "</td>"
+							+ "<td class=\"fax\">" + data[i].fax + "</td>"
+							+ "<td class=\"idNaseljenogMesta\">" + data[i].naseljenoMesto.nazivMesta + "</td>"
+							+ "<td class=\"idPreduzeca\"  style:display:none>" + data[i].idPreduzeca + "</td>"
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviPreduzeca();
+		});
+
+		preduzecePagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviPreduzeca();
+		});
+	});
+}
+
+function searchPreduzeceByAdresa() {
+	var pageNo = 0; 
+	var preduzecePagination = $('#preduzece-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){ 
+		var adresaSearchInput = $('#adresaSearchInput');
+		var adresa = adresaSearchInput.val();
+		console.log(adresa);
+		$.ajax({
+			url : "http://localhost:8080/api/preduzece/searchByAdresa?pageNo=" + pageNo + "&pageSize=" + pageSize + "&adresa=" + adresa
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					preduzecePagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                   preduzecePagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idPreduzeca)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"nazivPreduzeca\">" + data[i].nazivPreduzeca + "</td>"
+							+ "<td class=\"adresaPreduzeca\">" + data[i].adresa + "</td>"
+							+ "<td class=\"brojTelefona\">" + data[i].brojTelefona + "</td>"
+							+ "<td class=\"fax\">" + data[i].fax + "</td>"
+							+ "<td class=\"idNaseljenogMesta\">" + data[i].naseljenoMesto.nazivMesta + "</td>"
+							+ "<td class=\"idPreduzeca\"  style:display:none>" + data[i].idPreduzeca + "</td>"
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviPreduzeca();
+		});
+
+		preduzecePagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviPreduzeca();
+		});
 	});
 }
 

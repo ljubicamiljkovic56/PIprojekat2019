@@ -49,4 +49,9 @@ public class StavkaCenovnikaService implements StavkaCenovnikaServiceInterface {
 		return stavkaCenovnikaRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
+	@Override
+	public Page<StavkaCenovnika> findAllByCena(double cena, int pageNo, int pageSize) {
+		return stavkaCenovnikaRepository.findAllByCena(cena, new PageRequest(pageNo, pageSize));
+	}
+
 }

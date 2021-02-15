@@ -50,4 +50,9 @@ public class PoslovnaGodinaService implements PoslovnaGodinaServiceInterface {
 		return poslovnaGodinaRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
+	@Override
+	public Page<PoslovnaGodina> findAllByGodina(int godina, int pageNo, int pageSize) {
+		return poslovnaGodinaRepository.findAllByGodina(godina, new PageRequest(pageNo, pageSize));
+	}
+
 }

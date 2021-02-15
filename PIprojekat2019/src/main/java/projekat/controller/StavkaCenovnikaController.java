@@ -63,6 +63,20 @@ public class StavkaCenovnikaController {
         return ResponseEntity.ok().headers(headers).body(stavkeCenovnika.getContent());
     }
 	
+	@GetMapping(path = "/searchByCena")
+	private ResponseEntity<List<StavkaCenovnika>> searchByCena(@RequestParam("cena") String cenaString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		double cena = Double.parseDouble(cenaString);
+		
+		Page<StavkaCenovnika> stavkeC = stavkaCenovnikaServiceInterface.findAllByCena(cena, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(stavkeC.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(stavkeC.getContent());
+		
+	}
+	
 	@PostMapping(path = "/dodajStavkuCenovnika")
 	public ResponseEntity<Void> dodajStavkuCenovnika(@Validated @RequestParam("cena") String cena,
 			@RequestParam("cenovnik") String datumVazenjaCenovnika, @RequestParam("roba") String nazivRobe) throws ParseException {

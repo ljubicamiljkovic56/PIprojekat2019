@@ -49,4 +49,14 @@ public class PreduzeceService implements PreduzeceServiceInterface {
 		return preduzeceRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
+	@Override
+	public Page<Preduzece> findAllByNazivPreduzeca(String nazivPreduzeca, int pageNo, int pageSize) {
+		return preduzeceRepository.findAllByNazivPreduzeca(nazivPreduzeca, new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<Preduzece> findAllByAdresa(String adresa, int pageNo, int pageSize) {
+		return preduzeceRepository.findAllByAdresa(adresa, new PageRequest(pageNo, pageSize));
+	}
+
 }
