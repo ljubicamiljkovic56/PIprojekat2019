@@ -19,5 +19,7 @@ public interface PDVKategorijaServiceInterface {
 	void remove(Long id);
 	
 	Page<PDVKategorija> findAll(int pageNo, int pageSize);
+	
+	Page<PDVKategorija> findAllByNazivKategorije(String nazivKategorije, int pageNo, int pageSize);
 
 }

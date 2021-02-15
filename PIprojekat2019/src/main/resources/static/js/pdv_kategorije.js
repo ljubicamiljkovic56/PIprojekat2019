@@ -52,6 +52,7 @@ function getPDVKategorije(){
 	
 	
 	$(document).on("click", '#search', function(event){
+		searchPDVKategorija();
 		$("#collapseSearch").collapse('toggle');
 	});
 }
@@ -101,6 +102,52 @@ function dobaviPDVKategorije() {
 	    event.preventDefault();
 	    pageNo = $(this).attr("pageNo");
 	    dobaviPDVKategorije();
+	});
+}
+
+function searchPDVKategorija() {
+	var pageNo = 0; 
+	var kategorijaPagination = $('#kategorija-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$("#doSearch").on("click", function(event) {
+		var nazivSearchInput = $('#nazivKategorijeSearchInput');
+		var naziv = nazivSearchInput.val();
+		console.log(naziv);
+		$.ajax({
+			url : "http://localhost:8080/api/pdvkategorije/searchByNazivKategorije?pageNo=" + pageNo + "&pageSize=" + pageSize + "&naziv=" + naziv
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					kategorijaPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    kategorijaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						newRow = 
+							"<tr>" 
+								+ "<td class=\"nazivKategorije\">" + data[i].nazivKategorije + "</td>"
+								+ "<td class=\"idKategorije\" style:display:none>" + data[i].idKategorije + "</td>" +
+								
+							"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		nmbSelect.on('change',function (event) {
+			event.preventDefault();
+			pageSize = $(this).val();
+			dobaviPDVKategorije();
+		});
+
+		kategorijaPagination.on("click","a.page-link", function (event) {
+			event.preventDefault();
+			pageNo = $(this).attr("pageno");
+			dobaviPDVKategorije();
+		});
+	
 	});
 }
 function dodajPDVKategoriju(){

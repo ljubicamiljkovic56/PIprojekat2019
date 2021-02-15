@@ -52,6 +52,8 @@ function getJediniceMere() {
 	
 	
 	$(document).on("click", '#search', function(event){
+		searchJedinicaMere();
+		searchJedinicaMereBySkraceno()
 		$("#collapseSearch").collapse('toggle');
 	});
 }
@@ -105,6 +107,7 @@ function dobaviJediniceMere() {
 	    pageNo = $(this).attr("pageno");
 	    dobaviJediniceMere();
 	});
+	
 }
 
 
@@ -182,6 +185,102 @@ function izmeniJedinicuMere() {
 		return false;
 		
 		
+	});
+	
+}
+
+function searchJedinicaMere() {
+	var pageNo = 0; 
+	var jedinicaPagination = $('#jedinica-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$("#doSearch").on("click", function(event) {
+		var nazivSearchInput = $('#nazivJediniceMereSearchInput');
+		var naziv = nazivSearchInput.val();
+		console.log(naziv);
+		$.ajax({
+			url : "http://localhost:8080/api/jedinicemere/searchByNaziv?pageNo=" + pageNo + "&pageSize=" + pageSize + "&naziv=" + naziv
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					jedinicaPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+						jedinicaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+						`<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+					}
+					for (i = 0; i < data.length; i++) {
+						newRow = 
+							"<tr>" 
+							+ "<td class=\"nazivJediniceMere\">" + data[i].nazivJediniceMere + "</td>"
+							+ "<td class=\"skraceniNaziv\">" + data[i].skraceniNaziv + "</td>"
+							+ "<td class=\"idJediniceMere\"  style:display:none>" + data[i].idJediniceMere + "</td>" 
+							"</tr>"
+							$("#dataTableBody").append(newRow);
+
+					}
+				});
+		nmbSelect.on('change',function (event) {
+			event.preventDefault();
+			pageSize = $(this).val();
+			dobaviJediniceMere();
+		});
+
+		jedinicaPagination.on("click","a.page-link", function (event) {
+			event.preventDefault();
+			pageNo = $(this).attr("pageno");
+			dobaviJediniceMere();
+		});
+	
+	});
+	
+}
+
+function searchJedinicaMereBySkraceno() {
+	var pageNo = 0; 
+	var jedinicaPagination = $('#jedinica-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$("#doSearch").on("click", function(event) {
+		var skracenoSearchInput = $('#skraceniNazivSearchInput');
+		var skraceno = skracenoSearchInput.val();
+		console.log(skraceno);
+		$.ajax({
+			url : "http://localhost:8080/api/jedinicemere/searchBySkraceniNaziv?pageNo=" + pageNo + "&pageSize=" + pageSize + "&skraceno=" + skraceno
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					jedinicaPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+						jedinicaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+						`<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+					}
+					for (i = 0; i < data.length; i++) {
+						newRow = 
+							"<tr>" 
+							+ "<td class=\"nazivJediniceMere\">" + data[i].nazivJediniceMere + "</td>"
+							+ "<td class=\"skraceniNaziv\">" + data[i].skraceniNaziv + "</td>"
+							+ "<td class=\"idJediniceMere\"  style:display:none>" + data[i].idJediniceMere + "</td>" 
+							"</tr>"
+							$("#dataTableBody").append(newRow);
+
+					}
+				});
+		nmbSelect.on('change',function (event) {
+			event.preventDefault();
+			pageSize = $(this).val();
+			dobaviJediniceMere();
+		});
+
+		jedinicaPagination.on("click","a.page-link", function (event) {
+			event.preventDefault();
+			pageNo = $(this).attr("pageno");
+			dobaviJediniceMere();
+		});
+	
 	});
 	
 }

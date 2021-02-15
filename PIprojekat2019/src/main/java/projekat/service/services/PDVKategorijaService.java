@@ -48,4 +48,9 @@ public class PDVKategorijaService implements PDVKategorijaServiceInterface {
 	public Page<PDVKategorija> findAll(int pageNo, int pageSize) {
 		return pdvKategorijaRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
+
+	@Override
+	public Page<PDVKategorija> findAllByNazivKategorije(String nazivKategorije, int pageNo, int pageSize) {
+		return pdvKategorijaRepository.findAllByNazivKategorije(nazivKategorije, new PageRequest(pageNo, pageSize));
+	}
 }

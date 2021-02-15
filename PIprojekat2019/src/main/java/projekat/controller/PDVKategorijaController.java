@@ -49,6 +49,18 @@ public class PDVKategorijaController {
         return ResponseEntity.ok().headers(headers).body(pdvKategorije.getContent());
     }
 	
+	@GetMapping(path = "/searchByNazivKategorije")
+	private ResponseEntity<List<PDVKategorija>> searchByNazivKategorije(@RequestParam("naziv") String nazivKategorije,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		Page<PDVKategorija> pdvKategorija = pdvKategorijaServiceInterface.findAllByNazivKategorije(nazivKategorije, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(pdvKategorija.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(pdvKategorija.getContent());
+		
+	}
+	
 	@PostMapping(value = "/dodajKategoriju")
 	public ResponseEntity<Void> dodajKategoriju(@Validated @RequestParam("naziv_kategorije") String nazivKategorije) {
 		

@@ -84,4 +84,9 @@ public class JedinicaMereService implements JedinicaMereServiceInterface {
 		return jedinicaMereRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
+	@Override
+	public Page<JedinicaMere> findAllBySkraceniNaziv(String skraceniNaziv, int pageNo, int pageSize) {
+		return jedinicaMereRepository.findAllBySkraceniNaziv(skraceniNaziv, new PageRequest(pageNo, pageSize));
+	}
+
 }

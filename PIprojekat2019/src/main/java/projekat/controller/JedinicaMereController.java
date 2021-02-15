@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import projekat.model.JedinicaMere;
 import projekat.service.intrfc.JedinicaMereServiceInterface;
 
@@ -61,15 +62,28 @@ public class JedinicaMereController {
         return ResponseEntity.ok().headers(headers).body(jediniceMere.getContent());
     }
 	
-	@GetMapping(path = "/searchByNaziv/{naziv}")
-	private ResponseEntity<Void> searchByNaziv(@RequestParam("naziv") String nazivJediniceMere) {
+	@GetMapping(path = "/searchByNaziv")
+	private ResponseEntity<List<JedinicaMere>> searchByNaziv(@RequestParam("naziv") String nazivJediniceMere,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		Page<JedinicaMere> jediniceMere = jedinicaMereServiceInterface.findAllByNazivJediniceMere(nazivJediniceMere, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(jediniceMere.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(jediniceMere.getContent());
 		
-		if(nazivJediniceMere == null) {
-			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-		}
+	}
+	
+	@GetMapping(path = "/searchBySkraceniNaziv")
+	private ResponseEntity<List<JedinicaMere>> searchBySkraceniNaziv(@RequestParam("skraceno") String skraceniNaziv,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		Page<JedinicaMere> jediniceMere = jedinicaMereServiceInterface.findAllBySkraceniNaziv(skraceniNaziv, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(jediniceMere.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(jediniceMere.getContent());
 		
-		
-		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	//moj nacin slanja, bez converter klasa

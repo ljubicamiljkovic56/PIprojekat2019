@@ -29,4 +29,7 @@ public interface JedinicaMereServiceInterface {
 	
 	Page<JedinicaMere> findAll(int pageNo, int pageSize);
 	
+	Page<JedinicaMere> findAllBySkraceniNaziv(String skraceniNaziv, int pageNo, int pageSize);
+	
+	
 }

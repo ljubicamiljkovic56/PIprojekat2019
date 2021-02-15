@@ -19,4 +19,8 @@ public interface JedinicaMereRepository extends JpaRepository<JedinicaMere, Long
 	List<JedinicaMere> findAll();
 	
 	Page<JedinicaMere> findAllByNazivJediniceMere(String nazivJediniceMere, Pageable pageable);
+	
+	Page<JedinicaMere> findAllBySkraceniNaziv(String skraceniNaziv, Pageable pageable);
+	
+	
 }
