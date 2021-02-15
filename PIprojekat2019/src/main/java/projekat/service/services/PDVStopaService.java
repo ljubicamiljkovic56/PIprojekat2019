@@ -1,5 +1,6 @@
 package projekat.service.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,16 @@ public class PDVStopaService implements PDVStopaServiceInterface {
 	@Override
 	public Page<PDVStopa> findAll(int pageNo, int pageSize) {
 		return pdvStopaRepository.findAll(new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<PDVStopa> findAllByDatumVazenja(Date datumVazenja, int pageNo, int pageSize) {
+		return pdvStopaRepository.findAllByDatumVazenja(datumVazenja, new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<PDVStopa> findAllByProcenat(double procenat, int pageNo, int pageSize) {
+		return pdvStopaRepository.findAllByProcenat(procenat, new PageRequest(pageNo, pageSize));
 	}
 
 }

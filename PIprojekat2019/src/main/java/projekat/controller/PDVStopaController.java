@@ -57,6 +57,36 @@ public class PDVStopaController {
         return ResponseEntity.ok().headers(headers).body(pdvStope.getContent());
     }
 	
+	@GetMapping(path = "/searchByDatumVazenja")
+	private ResponseEntity<List<PDVStopa>> searchByDatumVazenja(@RequestParam("datum_vazenja") String datumVazenjaString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) throws ParseException {
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = formatter.parse(datumVazenjaString);
+	    java.sql.Date datumVazenja = new java.sql.Date(date.getTime());
+
+		Page<PDVStopa> pdvStope = pdvStopaServiceInterface.findAllByDatumVazenja(datumVazenja, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(pdvStope.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(pdvStope.getContent());
+		
+	}
+	
+	@GetMapping(path = "/searchByProcenat")
+	private ResponseEntity<List<PDVStopa>> searchByProcenat(@RequestParam("procenat") String procenatString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+		
+		double procenat = Double.parseDouble(procenatString);
+
+		Page<PDVStopa> pdvStope = pdvStopaServiceInterface.findAllByProcenat(procenat, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(pdvStope.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(pdvStope.getContent());
+		
+	}
+	
 	@PostMapping(value = "/dodajPDVStopu")
 	public ResponseEntity<Void> dodajPDVStopu(@Validated @RequestParam("datum_vazenja") String datumVazenja, @RequestParam("procenat") String procenat, 
 			@RequestParam("pdvKategorija") String nazivKategorije) throws ParseException {

@@ -50,4 +50,9 @@ public class GrupaRobeUslugaService implements GrupaRobeUslugaServiceInterface {
 		return grupaRobeUslugaRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
+	@Override
+	public Page<GrupaRobeUsluga> findAllByNazivGrupe(String nazivGrupe, int pageNo, int pageSize) {
+		return grupaRobeUslugaRepository.findAllByNazivGrupe(nazivGrupe, new PageRequest(pageNo, pageSize));
+	}
+
 }

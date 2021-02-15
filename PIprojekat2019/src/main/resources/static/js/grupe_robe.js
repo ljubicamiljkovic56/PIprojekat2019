@@ -54,6 +54,7 @@ function getGrupe(){
 	
 	
 	$(document).on("click", '#search', function(event){
+		searchGrupaRobe();
 		$("#collapseSearch").collapse('toggle');
 	});
 }
@@ -106,6 +107,62 @@ function dobaviGrupeRobe() {
 	    pageNo = $(this).attr("pageno");
 	    dobaviGrupeRobe();
 	});
+}
+
+function searchGrupaRobe(){
+	var pageNo = 0; 
+	var grupaPagination = $('#grupa-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){ 
+		var nazivSearchInput = $('#nazivSearchInput');
+		var naziv = nazivSearchInput.val();
+		console.log(naziv);
+		$.ajax({
+			url : "http://localhost:8080/api/gruperobe/searchByNaziv?pageNo=" + pageNo + "&pageSize=" + pageSize + "&naziv=" + naziv
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					grupaPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    grupaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idGrupe)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"nazivGrupe\">" + data[i].nazivGrupe + "</td>"
+							+ "<td class=\"pdvKategorija\">" + data[i].pdvKategorija.nazivKategorije + "</td>"
+							+ "<td class=\"idGrupe\"  style:display:none>" + data[i].idGrupe + "</td>" +
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviGrupeRobe();
+		});
+
+		grupaPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviGrupeRobe();
+		});
+	});
+	
 }
 
 function dobaviPDVKategorije() {

@@ -19,4 +19,6 @@ public interface RobaUslugaServiceInterface {
 	void remove(Long id);
 
 	Page<RobaUsluga> findAll(int pageNo, int pageSize);
+	
+	Page<RobaUsluga> findAllByNazivRobeUsluge(String nazivRobeUsluge, int pageNo, int pageSize);
 }

@@ -19,5 +19,7 @@ public interface GrupaRobeUslugaServiceInterface {
 	void remove(Long id);
 	
 	Page<GrupaRobeUsluga> findAll(int pageNo, int pageSize);
+	
+	Page<GrupaRobeUsluga> findAllByNazivGrupe(String nazivGrupe, int pageNo, int pageSize);
 
 }

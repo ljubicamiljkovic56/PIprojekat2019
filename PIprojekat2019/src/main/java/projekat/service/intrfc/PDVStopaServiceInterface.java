@@ -1,5 +1,6 @@
 package projekat.service.intrfc;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -19,4 +20,8 @@ public interface PDVStopaServiceInterface {
 	void remove(Long id);
 
 	Page<PDVStopa> findAll(int pageNo, int pageSize);
+	
+	Page<PDVStopa> findAllByDatumVazenja(Date datumVazenja, int pageNo, int pageSize);
+	
+	Page<PDVStopa> findAllByProcenat(double procenat, int pageNo, int pageSize);
 }

@@ -56,6 +56,18 @@ public class GrupaRobeUslugaController {
         return ResponseEntity.ok().headers(headers).body(grupeRobe.getContent());
     }
 	
+	@GetMapping(path = "/searchByNaziv")
+	private ResponseEntity<List<GrupaRobeUsluga>> searchByNaziv(@RequestParam("naziv") String nazivGrupe,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		Page<GrupaRobeUsluga> grupe = grupaRobeUslugaServiceInterface.findAllByNazivGrupe(nazivGrupe, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(grupe.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(grupe.getContent());
+		
+	}
+	
 	@PostMapping(value = "/dodajGrupu")
 	private ResponseEntity<Void> dodajGrupu(@Validated @RequestParam("naziv_grupe") String nazivGrupe, 
 			@RequestParam("pdvKategorija") String nazivKategorije) {

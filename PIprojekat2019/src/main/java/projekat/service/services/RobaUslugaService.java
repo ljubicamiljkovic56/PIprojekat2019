@@ -51,4 +51,9 @@ public class RobaUslugaService implements RobaUslugaServiceInterface {
 		return robaUslugaRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
+	@Override
+	public Page<RobaUsluga> findAllByNazivRobeUsluge(String nazivRobeUsluge, int pageNo, int pageSize) {
+		return robaUslugaRepository.findAllByNazivRobeUsluge(nazivRobeUsluge, new PageRequest(pageNo, pageSize));
+	}
+
 }

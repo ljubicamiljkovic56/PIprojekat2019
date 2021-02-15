@@ -58,6 +58,17 @@ public class RobaUslugaController {
         return ResponseEntity.ok().headers(headers).body(roba.getContent());
     }
 	
+	@GetMapping(path = "/searchByNaziv")
+	private ResponseEntity<List<RobaUsluga>> searchByNaziv(@RequestParam("naziv") String nazivRobeUsluge,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		Page<RobaUsluga> roba = robaUslugaServiceInterface.findAllByNazivRobeUsluge(nazivRobeUsluge, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(roba.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(roba.getContent());
+		
+	}
 	
 	@PostMapping(path = "/dodajRobu")
 	public ResponseEntity<Void> dodajRobu(@RequestParam("naziv_robe") String nazivRobe, 

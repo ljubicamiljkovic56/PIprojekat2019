@@ -56,6 +56,7 @@ function getRoba(){
 	
 	
 	$(document).on("click", '#search', function(event){
+		searchRoba();
 		$("#collapseSearch").collapse('toggle');
 	});
 }
@@ -111,6 +112,65 @@ function dobaviRobu() {
 	    pageNo = $(this).attr("pageno");
 	    dobaviRobu();
 	});
+}
+
+function searchRoba(){
+	var pageNo = 0; 
+	var robaPagination = $('#roba-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var nazivSearchInput = $('#nazivSearchInput');
+		var naziv = nazivSearchInput.val();
+		console.log(naziv);
+		$.ajax({
+			url : "http://localhost:8080/api/roba/searchByNaziv?pageNo=" + pageNo + "&pageSize=" + pageSize + "&naziv=" + naziv
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					robaPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    robaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idRobeUsluge)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"nazivRobeUsluge\">" + data[i].nazivRobeUsluge + "</td>"
+							+ "<td class=\"opis\">" + data[i].opis + "</td>"
+							+ "<td class=\"roba\">" + data[i].roba + "</td>"
+							+ "<td class=\"jedinicaMere\">" + data[i].jedinicaMere.nazivJediniceMere + "</td>"
+							+ "<td class=\"grupaRobeUsluga\">" + data[i].grupaRobeUsluga.nazivGrupe + "</td>"
+							+ "<td class=\"idRobeUsluge\"  style:display:none>" + data[i].idRobeUsluge + "</td>" +
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviRobu();
+		});
+
+		robaPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviRobu();
+		});
+	});
+	
 }
 
 function dobaviJediniceMere() {

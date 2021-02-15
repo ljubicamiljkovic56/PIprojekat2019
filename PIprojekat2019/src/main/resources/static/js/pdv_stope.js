@@ -54,6 +54,8 @@ function getPDVStope(){
 	
 	
 	$(document).on("click", '#search', function(event){
+		searchPDVStopeByProcenat();
+		searchPDVStope();
 		$("#collapseSearch").collapse('toggle');
 	});
 }
@@ -107,6 +109,102 @@ function dobaviPDVStope() {
 	    pageNo = $(this).attr("pageno");
 	    dobaviPDVStope();
 	});
+}
+
+function searchPDVStope(){
+	var pageNo = 0; 
+	var stopaPagination = $('#stopa-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var datumVazenjaInput = $('#datumSearchInput');
+		var datum_vazenja = datumVazenjaInput.val();
+		console.log(datum_vazenja);
+		$.ajax({
+			url : "http://localhost:8080/api/pdvstope/searchByDatumVazenja?pageNo=" + pageNo + "&pageSize=" + pageSize + "&datum_vazenja=" + datum_vazenja
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					stopaPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    stopaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idStope)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"pdvKategorija\">" + data[i].pdvKategorija.nazivKategorije + "</td>"
+							+ "<td class=\"datumVazenja\">" + data[i].datumVazenja + "</td>"
+							+ "<td class=\"procenat\">" + data[i].procenat + "</td>"
+							+ "<td class=\"idStope\"  style:display:none>" + data[i].idStope + "</td>" +
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviPDVStope();
+		});
+
+		stopaPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviPDVStope();
+		});
+	});
+	
+}
+
+function searchPDVStopeByProcenat(){
+	var pageNo = 0; 
+	var stopaPagination = $('#stopa-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var procenatInput = $('#procenatSearchInput');
+		var procenat = procenatInput.val();
+		console.log(procenat);
+		$.ajax({
+			url : "http://localhost:8080/api/pdvstope/searchByProcenat?pageNo=" + pageNo + "&pageSize=" + pageSize + "&procenat=" + procenat
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					stopaPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    stopaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idStope)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"pdvKategorija\">" + data[i].pdvKategorija.nazivKategorije + "</td>"
+							+ "<td class=\"datumVazenja\">" + data[i].datumVazenja + "</td>"
+							+ "<td class=\"procenat\">" + data[i].procenat + "</td>"
+							+ "<td class=\"idStope\"  style:display:none>" + data[i].idStope + "</td>" +
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviPDVStope();
+		});
+
+		stopaPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviPDVStope();
+		});
+	});
+	
 }
 
 function dobaviPDVKategorije() {
