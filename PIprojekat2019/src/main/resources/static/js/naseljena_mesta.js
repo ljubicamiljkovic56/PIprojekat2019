@@ -55,6 +55,19 @@ function getMesta() {
 		searchMestoByPttBroj();
 		$("#collapseSearch").collapse('toggle');
 	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviMesta();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var nazivSearchInput = $('#nazivMestaSearchInput');
+		nazivSearchInput.val("");
+		var pttBrojSearchInput = $('#pttBrojSearchInput');
+		pttBrojSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviMesta();
+	});
 }
 
 function dobaviMesta() {

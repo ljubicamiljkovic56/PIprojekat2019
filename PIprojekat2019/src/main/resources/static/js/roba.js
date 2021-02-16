@@ -59,6 +59,17 @@ function getRoba(){
 		searchRoba();
 		$("#collapseSearch").collapse('toggle');
 	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviRobu();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var nazivSearchInput = $('#nazivSearchInput');
+		nazivSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviRobu();
+	});
 }
 
 function dobaviRobu() {

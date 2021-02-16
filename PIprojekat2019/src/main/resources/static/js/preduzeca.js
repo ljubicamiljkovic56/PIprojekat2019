@@ -58,6 +58,19 @@ function getPreduzeca(){
 		searchPreduzeceByAdresa();
 		$("#collapseSearch").collapse('toggle');
 	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviPreduzeca();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var nazivSearchInput = $('#nazivSearchInput');
+		nazivSearchInput.val("");
+		var adresaSearchInput = $('#adresaSearchInput');
+		adresaSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviPreduzeca();
+	});
 }
 
 function dobaviPreduzeca() {

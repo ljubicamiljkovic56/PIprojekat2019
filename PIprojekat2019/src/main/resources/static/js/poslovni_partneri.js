@@ -62,6 +62,23 @@ function getPartneri(){
 		searchPartnerByVrstaPartnera();
 		$("#collapseSearch").collapse('toggle');
 	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviPartnere();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var nazivSearchInput = $('#nazivSearchInput');
+		nazivSearchInput.val("");
+		var adresaSearchInput = $('#adresaSearchInput');
+		adresaSearchInput.val("");
+		var emailSearchInput = $('#emailSearchInput');
+		emailSearchInput.val("");
+		var vrstaSearchInput = $('#vrstaSearchInput');
+		vrstaSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviPartnere();
+	});
 }
 
 function dobaviPartnere() {

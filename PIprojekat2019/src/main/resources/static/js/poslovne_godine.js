@@ -57,6 +57,17 @@ function getGodine(){
 		searchGodine();
 		$("#collapseSearch").collapse('toggle');
 	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviGodine();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var godinaSearchInput = $('#godinaSearchInput');
+		godinaSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviGodine();
+	});
 }
 
 function dobaviGodine() {

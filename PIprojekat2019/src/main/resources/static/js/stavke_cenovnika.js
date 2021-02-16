@@ -59,6 +59,17 @@ function getStavkeCenovnika(){
 		searchStavkaCenovnika();
 		$("#collapseSearch").collapse('toggle');
 	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviStavkeCenovnika();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var cenaSearchInput = $('#cenaSearchInput');
+		cenaSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviStavkeCenovnika();
+	});
 }
 
 function dobaviStavkeCenovnika() {
