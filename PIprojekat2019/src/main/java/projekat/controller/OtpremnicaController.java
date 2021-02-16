@@ -60,6 +60,40 @@ public class OtpremnicaController {
         return ResponseEntity.ok().headers(headers).body(otpremnice.getContent());
     }
 	
+	@GetMapping(value = "/searchByBrojOtpremnice")
+	public ResponseEntity<List<Otpremnica>> searchByBrojOtpremnice(@RequestParam("broj") String brojOtpremniceString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize){
+		
+		int brojOtpremnice = Integer.parseInt(brojOtpremniceString);
+		
+		Page<Otpremnica> otpremnice = otpremnicaServiceInterface.findAllByBrojOtpremnice(brojOtpremnice, pageNo, pageSize);
+ 		HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(otpremnice.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(otpremnice.getContent());
+	}
+	
+	@GetMapping(value = "/searchByKupac")
+	public ResponseEntity<List<Otpremnica>> searchByKupac(@RequestParam("kupac") String kupac,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+		
+		Page<Otpremnica> otpremnice = otpremnicaServiceInterface.findAllByKupac(kupac, pageNo, pageSize);
+		HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(otpremnice.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(otpremnice.getContent());
+	}
+	
+	@GetMapping(value = "/searchByPrevoznik")
+	public ResponseEntity<List<Otpremnica>> searchByPrevoznik(@RequestParam("prevoznik") String prevoznik,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+		
+		Page<Otpremnica> otpremnice = otpremnicaServiceInterface.findAllByPrevoznik(prevoznik, pageNo, pageSize);
+		HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(otpremnice.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(otpremnice.getContent());
+	}
 	
 	@PostMapping(path = "/dodajOtpremnicu")
 	public ResponseEntity<Void> dodajOtpremnicu(@RequestParam("broj_otpremnice") String brojOtpremnice, 

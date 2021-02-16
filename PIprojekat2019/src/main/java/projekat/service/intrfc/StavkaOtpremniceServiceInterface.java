@@ -19,4 +19,8 @@ public interface StavkaOtpremniceServiceInterface {
 	void remove(Long id);
 	
 	Page<StavkaOtpremnice> findAll(int pageNo, int pageSize);
+	
+	Page<StavkaOtpremnice> findAllByRedniBrojProizvoda(int redniBrojProizvoda, int pageNo, int pageSize);
+	
+	Page<StavkaOtpremnice> findAllByCena (double cena, int pageNo, int pageSize);
 }

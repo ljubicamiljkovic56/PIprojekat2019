@@ -53,7 +53,20 @@ function getStavkeNarudzbenice() {
 	
 	
 	$(document).on("click", '#search', function(event){
+		searchByCena();
 		$("#collapseSearch").collapse('toggle');
+	});
+	
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviStavkeNarudzbenice();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var cenaSearchInput = $('#cenaSearchInput');
+		cenaSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviStavkeNarudzbenice();
 	});
 }
 
@@ -107,6 +120,64 @@ function dobaviStavkeNarudzbenice() {
 	    event.preventDefault();
 	    pageNo = $(this).attr("pageno");
 	    dobaviStavkeNarudzbenice();
+	});
+}
+
+function searchByCena(){
+	var pageNo = 0; 
+	var stavkaNPagination = $('#stavkaN-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var cenaSearchInput = $('#cenaSearchInput');
+		var cena = cenaSearchInput.val();
+		console.log(cena);
+		$.ajax({
+			url : "http://localhost:8080/api/stavkenarudzbenice/searchByCena?pageNo=" + pageNo + "&pageSize=" + pageSize + "&cena=" + cena
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					stavkaNPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    stavkaNPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						newRow = 
+							"<tr>" 
+								+ "<td class=\"jedinicaMere\">" + data[i].jedinicaMere + "</td>"
+								+ "<td class=\"kolicina\">" + data[i].kolicina + "</td>"
+								+ "<td class=\"cena\">" + data[i].cena + "</td>"
+								+ "<td class=\"iznos\">" + data[i].iznos + "</td>"
+								+ "<td class=\"narudzbenica\">" + data[i].narudzbenica.brojNarudzbenice + "</td>"
+								+ "<td class=\"robaUsluga\">" + data[i].robaUsluga.nazivRobeUsluge + "</td>"
+								+ "<td class=\"idStavkeNarudzbenice\"  style:display:none>" + data[i].id + "</td>" 
+							"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviStavkeNarudzbenice();
+		});
+
+		stavkaNPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviStavkeNarudzbenice();
+		});
 	});
 }
 

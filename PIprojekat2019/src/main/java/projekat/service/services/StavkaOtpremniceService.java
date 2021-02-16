@@ -50,4 +50,14 @@ public class StavkaOtpremniceService implements StavkaOtpremniceServiceInterface
 		return stavkaOtpremniceRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
+	@Override
+	public Page<StavkaOtpremnice> findAllByRedniBrojProizvoda(int redniBrojProizvoda, int pageNo, int pageSize) {
+		return stavkaOtpremniceRepository.findAllByRedniBrojProizvoda(redniBrojProizvoda, new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<StavkaOtpremnice> findAllByCena(double cena, int pageNo, int pageSize) {
+		return stavkaOtpremniceRepository.findAllByCena(cena, new PageRequest(pageNo, pageSize));
+	}
+
 }

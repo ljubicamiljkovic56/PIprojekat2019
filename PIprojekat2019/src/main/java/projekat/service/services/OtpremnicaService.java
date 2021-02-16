@@ -1,5 +1,6 @@
 package projekat.service.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,31 @@ public class OtpremnicaService implements OtpremnicaServiceInterface {
 	@Override
 	public Page<Otpremnica> findAll(int pageNo, int pageSize) {
 		return otpremnicaRepository.findAll(new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<Otpremnica> findAllByBrojOtpremnice(int brojOtpremnice, int pageNo, int pageSize) {
+		return otpremnicaRepository.findAllByBrojOtpremnice(brojOtpremnice, new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<Otpremnica> findAllByKupac(String kupac, int pageNo, int pageSize) {
+		return otpremnicaRepository.findAllByKupac(kupac, new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<Otpremnica> findAllByAdresaIsporuke(String adresaIsporuke, int pageNo, int pageSize) {
+		return otpremnicaRepository.findAllByAdresaIsporuke(adresaIsporuke, new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<Otpremnica> findAllByDatumIsporuke(Date datumIsporuke, int pageNo, int pageSize) {
+		return otpremnicaRepository.findAllByDatumIsporuke(datumIsporuke, new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<Otpremnica> findAllByPrevoznik(String prevoznik, int pageNo, int pageSize) {
+		return otpremnicaRepository.findAllByPrevoznik(prevoznik, new PageRequest(pageNo, pageSize));
 	}
 
 }

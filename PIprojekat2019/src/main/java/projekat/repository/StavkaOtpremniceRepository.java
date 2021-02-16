@@ -2,6 +2,8 @@ package projekat.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +14,8 @@ public interface StavkaOtpremniceRepository extends JpaRepository<StavkaOtpremni
 	StavkaOtpremnice findByRedniBrojProizvoda (int redniBrojProizvoda);
 	
 	List<StavkaOtpremnice> findAll();
+	
+	Page<StavkaOtpremnice> findAllByRedniBrojProizvoda (int redniBrojProizvoda, Pageable pageable);
+	
+	Page<StavkaOtpremnice> findAllByCena (double cena, Pageable pageable);
 }

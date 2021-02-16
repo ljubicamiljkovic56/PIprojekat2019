@@ -43,6 +43,11 @@ public class StavkaNarudzbeniceService implements StavkaNarudzbeniceServiceInter
 	public Page<StavkaNarudzbenice> findAll(int pageNo, int pageSize) {
 		return stavkaNarudzbeniceRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
+
+	@Override
+	public Page<StavkaNarudzbenice> findAllByCena(double cena, int pageNo, int pageSize) {
+		return stavkaNarudzbeniceRepository.findAllByCena(cena, new PageRequest(pageNo, pageSize));
+	}
 	
 	
 

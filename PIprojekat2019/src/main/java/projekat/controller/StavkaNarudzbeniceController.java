@@ -60,6 +60,19 @@ public class StavkaNarudzbeniceController {
     }
 	
 	
+	@GetMapping(value = "/searchByCena")
+	public ResponseEntity<List<StavkaNarudzbenice>> searchByCena(@RequestParam("cena") String cenaString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+		
+		double cena = Double.parseDouble(cenaString);
+		
+		Page<StavkaNarudzbenice> stavkeN = stavkaNarudzbeniceServiceInterface.findAllByCena(cena, pageNo, pageSize);
+		HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(stavkeN.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(stavkeN.getContent());
+	}
+	
 	@PostMapping(value = "/dodajStavkuNarudzbenice")
 	public ResponseEntity<Void> dodajStavkuNarudzbenice(@RequestParam("jedinica_mere") String jedinicaMere,
 			@RequestParam("kolicina") String kolicinaString, @RequestParam("cena") String cenaString,

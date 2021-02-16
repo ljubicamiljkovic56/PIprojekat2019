@@ -49,6 +49,32 @@ public class StavkaOtpremniceController {
         return ResponseEntity.ok().headers(headers).body(stavkeOtpremnice.getContent());
     }
 	
+	@GetMapping(value = "/searchByRedniBrojProizvoda")
+	public ResponseEntity<List<StavkaOtpremnice>> searchByRedniBrojProizvoda(@RequestParam("redni") String redniBrojString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+		
+		int redniBrojProizvoda = Integer.parseInt(redniBrojString);
+		
+		Page<StavkaOtpremnice> stavkeOtpremnice = stavkaOtpremniceServicenterface.findAllByRedniBrojProizvoda(redniBrojProizvoda, pageNo, pageSize);
+		HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(stavkeOtpremnice.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(stavkeOtpremnice.getContent());
+	}
+	
+	
+	@GetMapping(value = "/searchByCena")
+	public ResponseEntity<List<StavkaOtpremnice>> searchByCena(@RequestParam("cena") String cenaString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+		
+		double cena = Double.parseDouble(cenaString);
+		
+		Page<StavkaOtpremnice> stavkeOtpremnice = stavkaOtpremniceServicenterface.findAllByCena(cena, pageNo, pageSize);
+		HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(stavkeOtpremnice.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(stavkeOtpremnice.getContent());
+	}
 	
 	@PostMapping(path = "/dodajStavkuOtpremnice")
 	public ResponseEntity<Void> dodajStavkuOtpremnice(@RequestParam("redni_broj_proizvoda") String redniBrojProizvoda,

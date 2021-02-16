@@ -17,4 +17,6 @@ public interface StavkaNarudzbeniceServiceInterface {
 	void remove(Long id);
 	
 	Page<StavkaNarudzbenice> findAll(int pageNo, int pageSize);
+	
+	Page<StavkaNarudzbenice> findAllByCena (double cena, int pageNo, int pageSize);
 }
