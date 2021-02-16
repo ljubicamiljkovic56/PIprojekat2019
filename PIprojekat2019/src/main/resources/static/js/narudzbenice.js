@@ -55,7 +55,19 @@ function getNarudzbenice() {
 	
 	
 	$(document).on("click", '#search', function(event){
+		searchByBrojNarudzbenice();
 		$("#collapseSearch").collapse('toggle');
+	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviNarudzbenice();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var brojSearchInput = $('#brojSearchInput');
+		brojSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviNarudzbenice();
 	});
 }
 
@@ -107,6 +119,62 @@ function dobaviNarudzbenice() {
 	    event.preventDefault();
 	    pageNo = $(this).attr("pageno");
 	    dobaviNarudzbenice();
+	});
+}
+
+function searchByBrojNarudzbenice(){
+	var pageNo = 0; 
+	var narudzbenicaPagination = $('#narudzbenica-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){ 
+		var brojSearchInput = $('#brojSearchInput');
+		var broj = brojSearchInput.val();
+		console.log(broj);
+		$.ajax({
+			url : "http://localhost:8080/api/narudzbenica/searchByBrojNarudzbenice?pageNo=" + pageNo + "&pageSize=" + pageSize + "&broj=" + broj 
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					narudzbenicaPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    narudzbenicaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						newRow = 
+							"<tr>" 
+								+ "<td class=\"brojNarudzbenice\">" + data[i].brojNarudzbenice + "</td>"
+								+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>"
+								+ "<td class=\"poslovniPartner\">" + data[i].poslovniPartner.nazivPoslovnogPartnera + "</td>"
+								+ "<td class=\"godina\">" + data[i].poslovnaGodina.godina + "</td>"
+								+ "<td class=\"idNarudzbenice\"  style:display:none>" + data[i].id + "</td>" 
+							"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviNarudzbenice();
+		});
+
+		narudzbenicaPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviNarudzbenice();
+		});
 	});
 }
 

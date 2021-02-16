@@ -58,6 +58,19 @@ function getPDVStope(){
 		searchPDVStope();
 		$("#collapseSearch").collapse('toggle');
 	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviPDVStope();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var datumVazenjaInput = $('#datumSearchInput');
+		datumVazenjaInput.val("");
+		var procenatInput = $('#procenatSearchInput');
+		procenatInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviPDVStope();
+	});
 }
 
 function dobaviPDVStope() {

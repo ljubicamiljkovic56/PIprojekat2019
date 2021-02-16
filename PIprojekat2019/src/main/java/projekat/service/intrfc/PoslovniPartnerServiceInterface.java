@@ -19,5 +19,13 @@ public interface PoslovniPartnerServiceInterface {
 	void remove(Long id);
 	
 	Page<PoslovniPartner> findAll(int pageNo, int pageSize);
+	
+	Page<PoslovniPartner> findAllByNazivPoslovnogPartnera (String nazivPoslovnogPartnera, int pageNo, int pageSize);
+	
+	Page<PoslovniPartner> findAllByAdresa (String adresa, int pageNo, int pageSize);
+	
+	Page<PoslovniPartner> findAllByEmail (String email, int pageNo, int pageSize);
+	
+	Page<PoslovniPartner> findAllByVrstaPartnera (String vrstaPartnera, int pageNo, int pageSize);
 
 }

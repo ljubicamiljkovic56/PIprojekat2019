@@ -56,6 +56,10 @@ function getPartneri(){
 	
 	
 	$(document).on("click", '#search', function(event){
+		searchPartnerByNaziv();
+		searchPartnerByAdresa();
+		searchPartnerByEmail();
+		searchPartnerByVrstaPartnera();
 		$("#collapseSearch").collapse('toggle');
 	});
 }
@@ -113,6 +117,251 @@ function dobaviPartnere() {
 	    event.preventDefault();
 	    pageNo = $(this).attr("pageno");
 	    dobaviPartnere();
+	});
+}
+
+function searchPartnerByNaziv(){
+	var pageNo = 0; 
+	var partnerPagination = $('#partner-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var nazivSearchInput = $('#nazivSearchInput');
+		var naziv = nazivSearchInput.val();
+		console.log(naziv);
+		$.ajax({
+			url : "http://localhost:8080/api/poslovnipartneri/searchByNaziv?pageNo=" + pageNo + "&pageSize=" + pageSize + "&naziv=" + naziv
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					partnerPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    partnerPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idPoslovnogPartnera)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"nazivPoslovnogPartnera\">" + data[i].nazivPoslovnogPartnera + "</td>"
+							+ "<td class=\"adresa\">" + data[i].adresa + "</td>"
+							+ "<td class=\"telefon\">" + data[i].telefon + "</td>"
+							+ "<td class=\"fax\">" + data[i].fax + "</td>"
+							+ "<td class=\"email\">" + data[i].email + "</td>"
+							+ "<td class=\"vrstaPartnera\">" + data[i].vrstaPartnera + "</td>"
+							+ "<td class=\"idNaseljenogMesta\">" + data[i].naseljenoMesto.nazivMesta + "</td>"
+							+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>"
+							+ "<td class=\"idPoslovnogPartnera\"  style:display:none>" + data[i].idPoslovnogPartnera + "</td>"
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviPartnere();
+		});
+
+		partnerPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviPartnere();
+		});
+	});
+	
+}
+
+function searchPartnerByAdresa(){
+	var pageNo = 0; 
+	var partnerPagination = $('#partner-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var adresaSearchInput = $('#adresaSearchInput');
+		var adresa = adresaSearchInput.val();
+		console.log(adresa);
+		$.ajax({
+			url : "http://localhost:8080/api/poslovnipartneri/searchByAdresa?pageNo=" + pageNo + "&pageSize=" + pageSize + "&adresa=" + adresa
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					partnerPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    partnerPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idPoslovnogPartnera)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"nazivPoslovnogPartnera\">" + data[i].nazivPoslovnogPartnera + "</td>"
+							+ "<td class=\"adresa\">" + data[i].adresa + "</td>"
+							+ "<td class=\"telefon\">" + data[i].telefon + "</td>"
+							+ "<td class=\"fax\">" + data[i].fax + "</td>"
+							+ "<td class=\"email\">" + data[i].email + "</td>"
+							+ "<td class=\"vrstaPartnera\">" + data[i].vrstaPartnera + "</td>"
+							+ "<td class=\"idNaseljenogMesta\">" + data[i].naseljenoMesto.nazivMesta + "</td>"
+							+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>"
+							+ "<td class=\"idPoslovnogPartnera\"  style:display:none>" + data[i].idPoslovnogPartnera + "</td>"
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviPartnere();
+		});
+
+		partnerPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviPartnere();
+		});
+	});
+}
+
+function searchPartnerByEmail(){
+	var pageNo = 0; 
+	var partnerPagination = $('#partner-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var emailSearchInput = $('#emailSearchInput');
+		var email = emailSearchInput.val();
+		console.log(email);
+		$.ajax({
+			url : "http://localhost:8080/api/poslovnipartneri/searchByEmail?pageNo=" + pageNo + "&pageSize=" + pageSize + "&email=" + email
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					partnerPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    partnerPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idPoslovnogPartnera)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"nazivPoslovnogPartnera\">" + data[i].nazivPoslovnogPartnera + "</td>"
+							+ "<td class=\"adresa\">" + data[i].adresa + "</td>"
+							+ "<td class=\"telefon\">" + data[i].telefon + "</td>"
+							+ "<td class=\"fax\">" + data[i].fax + "</td>"
+							+ "<td class=\"email\">" + data[i].email + "</td>"
+							+ "<td class=\"vrstaPartnera\">" + data[i].vrstaPartnera + "</td>"
+							+ "<td class=\"idNaseljenogMesta\">" + data[i].naseljenoMesto.nazivMesta + "</td>"
+							+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>"
+							+ "<td class=\"idPoslovnogPartnera\"  style:display:none>" + data[i].idPoslovnogPartnera + "</td>"
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviPartnere();
+		});
+
+		partnerPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviPartnere();
+		});
+	});
+}
+
+function searchPartnerByVrstaPartnera(){
+	var pageNo = 0; 
+	var partnerPagination = $('#partner-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var vrstaSearchInput = $('#vrstaSearchInput');
+		var vrsta = vrstaSearchInput.val();
+		console.log(vrsta);
+		$.ajax({
+			url : "http://localhost:8080/api/poslovnipartneri/searchByVrstaPartnera?pageNo=" + pageNo + "&pageSize=" + pageSize + "&vrsta=" + vrsta
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					partnerPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    partnerPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						console.log(data[i].idPoslovnogPartnera)
+						newRow = 
+						"<tr>" 
+							+ "<td class=\"nazivPoslovnogPartnera\">" + data[i].nazivPoslovnogPartnera + "</td>"
+							+ "<td class=\"adresa\">" + data[i].adresa + "</td>"
+							+ "<td class=\"telefon\">" + data[i].telefon + "</td>"
+							+ "<td class=\"fax\">" + data[i].fax + "</td>"
+							+ "<td class=\"email\">" + data[i].email + "</td>"
+							+ "<td class=\"vrstaPartnera\">" + data[i].vrstaPartnera + "</td>"
+							+ "<td class=\"idNaseljenogMesta\">" + data[i].naseljenoMesto.nazivMesta + "</td>"
+							+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>"
+							+ "<td class=\"idPoslovnogPartnera\"  style:display:none>" + data[i].idPoslovnogPartnera + "</td>"
+						"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviPartnere();
+		});
+
+		partnerPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviPartnere();
+		});
 	});
 }
 

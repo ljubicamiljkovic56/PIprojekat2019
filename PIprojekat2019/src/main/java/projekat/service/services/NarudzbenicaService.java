@@ -50,6 +50,11 @@ public class NarudzbenicaService implements NarudzbenicaServiceInterface {
 		return narudzbenicaRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
+	@Override
+	public Page<Narudzbenica> findAllByBrojNarudzbenice(int brojNarudzbenice, int pageNo, int pageSize) {
+		return narudzbenicaRepository.findAllByBrojNarudzbenice(brojNarudzbenice, new PageRequest(pageNo, pageSize));
+	}
+
 	
 
 }

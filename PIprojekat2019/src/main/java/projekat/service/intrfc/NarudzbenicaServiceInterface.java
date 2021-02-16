@@ -19,4 +19,6 @@ public interface NarudzbenicaServiceInterface {
 	void remove(Long id);
 	
 	Page<Narudzbenica> findAll(int pageNo, int pageSize);
+	
+	Page<Narudzbenica> findAllByBrojNarudzbenice(int brojNarudzbenice, int pageNo, int pageSize);
 }

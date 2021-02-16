@@ -50,4 +50,25 @@ public class PoslovniPartnerService implements PoslovniPartnerServiceInterface {
 		return poslovniPartnerRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
+	@Override
+	public Page<PoslovniPartner> findAllByNazivPoslovnogPartnera(String nazivPoslovnogPartnera, int pageNo,
+			int pageSize) {
+		return poslovniPartnerRepository.findAllByNazivPoslovnogPartnera(nazivPoslovnogPartnera, new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<PoslovniPartner> findAllByAdresa(String adresa, int pageNo, int pageSize) {
+		return poslovniPartnerRepository.findAllByAdresa(adresa, new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<PoslovniPartner> findAllByEmail(String email, int pageNo, int pageSize) {
+		return poslovniPartnerRepository.findAllByEmail(email, new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<PoslovniPartner> findAllByVrstaPartnera(String vrstaPartnera, int pageNo, int pageSize) {
+		return poslovniPartnerRepository.findAllByVrstaPartnera(vrstaPartnera, new PageRequest(pageNo, pageSize));
+	}
+
 }

@@ -57,6 +57,17 @@ function getGrupe(){
 		searchGrupaRobe();
 		$("#collapseSearch").collapse('toggle');
 	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviGrupeRobe();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var nazivSearchInput = $('#nazivSearchInput');
+		nazivSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviGrupeRobe();
+	});
 }
 
 function dobaviGrupeRobe() {

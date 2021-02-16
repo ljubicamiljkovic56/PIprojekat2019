@@ -87,6 +87,19 @@ public class NarudzbenicaController {
         return ResponseEntity.ok().headers(headers).body(narudzbenice.getContent());
     }
 	
+	@GetMapping(path = "/searchByBrojNarudzbenice")
+	public ResponseEntity<List<Narudzbenica>> searchByBrojNarudzbenice(@RequestParam("broj") String brojNarudzbeniceString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+		
+		int brojNarudzbenice = Integer.parseInt(brojNarudzbeniceString);
+		
+		Page<Narudzbenica> narudzbenice = narudzbenicaServiceInterface.findAllByBrojNarudzbenice(brojNarudzbenice, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(narudzbenice.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(narudzbenice.getContent());
+	}
+	
 	
 	@PostMapping(value = "/kreirajFakturu", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
 	private ResponseEntity<Void> kreirajFakturu(@RequestParam("id") long id,

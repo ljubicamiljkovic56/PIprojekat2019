@@ -60,6 +60,52 @@ public class PoslovniPartnerController {
         return ResponseEntity.ok().headers(headers).body(partneri.getContent());
     }
 	
+	@GetMapping(path = "/searchByNaziv")
+	private ResponseEntity<List<PoslovniPartner>> searchByNaziv(@RequestParam("naziv") String nazivPoslovnogPartnera,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		Page<PoslovniPartner> partner = poslovniPartnerServiceInterface.findAllByNazivPoslovnogPartnera(nazivPoslovnogPartnera, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(partner.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(partner.getContent());
+		
+	}
+	
+	@GetMapping(path = "/searchByAdresa")
+	private ResponseEntity<List<PoslovniPartner>> searchByAdresa(@RequestParam("adresa") String adresa,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+
+		Page<PoslovniPartner> partner = poslovniPartnerServiceInterface.findAllByAdresa(adresa, pageNo, pageSize);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("total", String.valueOf(partner.getTotalPages()));
+        return ResponseEntity.ok().headers(headers).body(partner.getContent());
+		
+	}
+	
+	@GetMapping(path = "/searchByEmail")
+	private ResponseEntity<List<PoslovniPartner>> searchByEmail(@RequestParam("email") String email, 
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+		
+		Page<PoslovniPartner> partner = poslovniPartnerServiceInterface.findAllByEmail(email, pageNo, pageSize);
+		HttpHeaders headers = new HttpHeaders();
+	    headers.set("total", String.valueOf(partner.getTotalPages()));
+	    return ResponseEntity.ok().headers(headers).body(partner.getContent());
+		
+	}
+	
+	@GetMapping(path = "/searchByVrstaPartnera")
+	private ResponseEntity<List<PoslovniPartner>> searchByVrstaPartnera(@RequestParam("vrsta") String vrstaPartnera,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+		
+		Page<PoslovniPartner> partner = poslovniPartnerServiceInterface.findAllByVrstaPartnera(vrstaPartnera, pageNo, pageSize);
+		HttpHeaders headers = new HttpHeaders();
+	    headers.set("total", String.valueOf(partner.getTotalPages()));
+	    return ResponseEntity.ok().headers(headers).body(partner.getContent());
+	}
 	
 	@PostMapping(path = "/dodajPoslovnogPartnera")
 	public ResponseEntity<Void> dodajPoslovnogPartnera(@Validated @RequestParam("naziv_poslovnog_partnera") String nazivPoslovnogPartnera,

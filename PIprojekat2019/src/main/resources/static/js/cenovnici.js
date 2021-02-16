@@ -76,6 +76,17 @@ function getCenovnici(){
 		searchCenovnik();
 		$("#collapseSearch").collapse('toggle');
 	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviCenovnike();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var datumSearchInput = $('#datumSearchInput');
+		datumSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviCenovnike();
+	});
 }
 
 function dobaviCenovnike() {

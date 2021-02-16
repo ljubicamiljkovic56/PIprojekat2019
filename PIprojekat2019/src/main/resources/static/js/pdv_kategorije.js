@@ -55,6 +55,17 @@ function getPDVKategorije(){
 		searchPDVKategorija();
 		$("#collapseSearch").collapse('toggle');
 	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviPDVKategorije();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var nazivSearchInput = $('#nazivKategorijeSearchInput');
+		nazivSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviPDVKategorije();
+	});
 }
 function dobaviPDVKategorije() {
 	var pageNo = 0; 

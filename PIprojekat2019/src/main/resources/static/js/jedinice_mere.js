@@ -56,6 +56,19 @@ function getJediniceMere() {
 		searchJedinicaMereBySkraceno()
 		$("#collapseSearch").collapse('toggle');
 	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviJediniceMere();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var nazivSearchInput = $('#nazivJediniceMereSearchInput');
+		nazivSearchInput.val("");
+		var skracenoSearchInput = $('#skraceniNazivSearchInput');
+		skracenoSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviJediniceMere();
+	});
 }
 
 
