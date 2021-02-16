@@ -90,7 +90,22 @@ function getFakture() {
 	});
 	
 	$(document).on("click", '#search', function(event){
+		searchByBrojFakture();
+		searchByStatusFakture();
 		$("#collapseSearch").collapse('toggle');
+	});
+	
+	$(document).on("click", '#refresh', function(event){
+		dobaviFakture();
+	});
+	
+	$(document).on("click", '#doReset', function(event){
+		var brojSearchInput = $('#brojSearchInput');
+		brojSearchInput.val("");
+		var statusSearchInput = $('#statusSearchInput');
+		statusSearchInput.val("");
+		$("#collapseSearch").collapse('toggle');
+		dobaviFakture();
 	});
 }
 
@@ -149,6 +164,132 @@ function dobaviFakture() {
 	    event.preventDefault();
 	    pageNo = $(this).attr("pageno");
 	    dobaviFakture();
+	});
+}
+
+function searchByBrojFakture(){
+	var pageNo = 0; 
+	var fakturaPagination = $('#faktura-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var brojSearchInput = $('#brojSearchInput');
+		var broj = brojSearchInput.val();
+		console.log(broj);
+		$.ajax({
+			url : "http://localhost:8080/api/fakture/searchByBrojFakture?pageNo=" + pageNo + "&pageSize=" + pageSize + "&broj=" + broj
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					fakturaPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    fakturaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						newRow = 
+							"<tr>" 
+								+ "<td class=\"brojFakture\">" + data[i].brojFakture + "</td>"
+								+ "<td class=\"datumFakture\">" + data[i].datumFakture + "</td>"
+								+ "<td class=\"datumValute\">" + data[i].datumValute + "</td>"
+								+ "<td class=\"ukupnaOsnovica\">" + data[i].ukupnaOsnovica + "</td>"
+								+ "<td class=\"ukupanPDV\">" + data[i].ukupanPDV + "</td>"
+								+ "<td class=\"ukupanIznos\">" + data[i].ukupanIznos + "</td>"
+								+ "<td class=\"statusFakture\">" + data[i].statusFakture + "</td>"
+								+ "<td class=\"godina\">" + data[i].poslovnaGodina.godina + "</td>"
+								+ "<td class=\"narudzbenica\">" + data[i].narudzbenica.brojNarudzbenice + "</td>"
+								+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>"
+								+ "<td class=\"poslovniPartner\">" + data[i].poslovniPartner.nazivPoslovnogPartnera + "</td>"
+								+ "<td class=\"idFakture\">" + data[i].idFakture + "</td>"
+							"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviFakture();
+		});
+
+		fakturaPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviFakture();
+		});
+	});
+}
+
+function searchByStatusFakture(){
+	var pageNo = 0; 
+	var fakturaPagination = $('#faktura-page');
+	var nmbSelect = $('#nmb-select');
+	var pageSize = nmbSelect.find(":selected").text();
+	$('#doSearch').on('click', function(event){
+		var statusSearchInput = $('#statusSearchInput');
+		var status = statusSearchInput.val();
+		console.log(status);
+		$.ajax({
+			url : "http://localhost:8080/api/fakture/searchByStatusFakture?pageNo=" + pageNo + "&pageSize=" + pageSize + "&status=" + status
+		}).then(
+				function(data, status, request) {
+					console.log(data);
+					fakturaPagination.empty();
+					$("#dataTableBody").empty();
+					console.log(request.getResponseHeader('total'));
+					for(var j=0; j<request.getResponseHeader('total'); j++){
+	                    fakturaPagination.append(`<li class="page-item  ${pageNo==j? 'active':''}">` +
+	                        `<${pageNo==j? 'span':'a'} class="page-link" pageNo="${j}">${j+1}</${pageNo==j? 'span':'a'}></li>`);
+	                }
+					for (i = 0; i < data.length; i++) {
+						newRow = 
+							"<tr>" 
+								+ "<td class=\"brojFakture\">" + data[i].brojFakture + "</td>"
+								+ "<td class=\"datumFakture\">" + data[i].datumFakture + "</td>"
+								+ "<td class=\"datumValute\">" + data[i].datumValute + "</td>"
+								+ "<td class=\"ukupnaOsnovica\">" + data[i].ukupnaOsnovica + "</td>"
+								+ "<td class=\"ukupanPDV\">" + data[i].ukupanPDV + "</td>"
+								+ "<td class=\"ukupanIznos\">" + data[i].ukupanIznos + "</td>"
+								+ "<td class=\"statusFakture\">" + data[i].statusFakture + "</td>"
+								+ "<td class=\"godina\">" + data[i].poslovnaGodina.godina + "</td>"
+								+ "<td class=\"narudzbenica\">" + data[i].narudzbenica.brojNarudzbenice + "</td>"
+								+ "<td class=\"preduzece\">" + data[i].preduzece.nazivPreduzeca + "</td>"
+								+ "<td class=\"poslovniPartner\">" + data[i].poslovniPartner.nazivPoslovnogPartnera + "</td>"
+								+ "<td class=\"idFakture\">" + data[i].idFakture + "</td>"
+							"</tr>"
+						$("#dataTableBody").append(newRow);
+					}
+				});
+		
+		$("#first").click(function(){
+			goFirst()
+		 });
+		
+		$("#next").click(function(){
+			goNext()
+		 });
+		
+		nmbSelect.on('change',function (event) {
+		    event.preventDefault();
+		    pageSize = $(this).val();
+		    dobaviFakture();
+		});
+
+		fakturaPagination.on("click","a.page-link", function (event) {
+		    event.preventDefault();
+		    pageNo = $(this).attr("pageno");
+		    dobaviFakture();
+		});
 	});
 }
 

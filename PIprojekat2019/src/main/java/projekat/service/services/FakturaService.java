@@ -52,4 +52,14 @@ public class FakturaService implements FakturaServiceInterface {
 		return fakturaRepository.findAll(new PageRequest(pageNo, pageSize));
 	}
 
+	@Override
+	public Page<Faktura> findAllByBrojFakture(int brojFakture, int pageNo, int pageSize) {
+		return fakturaRepository.findAllByBrojFakture(brojFakture, new PageRequest(pageNo, pageSize));
+	}
+
+	@Override
+	public Page<Faktura> findAllByStatusFakture(String statusFakture, int pageNo, int pageSize) {
+		return fakturaRepository.findAllByStatusFakture(statusFakture, new PageRequest(pageNo, pageSize));
+	}
+
 }

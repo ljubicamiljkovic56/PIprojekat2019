@@ -59,6 +59,19 @@ public class StavkaFaktureController {
     }
 	
 	
+	@GetMapping(value = "/searchByIznos")
+	public ResponseEntity<List<StavkaFakture>> searchByIznos(@RequestParam("iznos") String iznosString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+		  
+		double iznos = Double.parseDouble(iznosString);
+		
+		Page<StavkaFakture> stavkeFakture = stavkaFaktureServiceInterface.findAllByIznos(iznos, pageNo, pageSize);
+		HttpHeaders headers = new HttpHeaders();
+	    headers.set("total", String.valueOf(stavkeFakture.getTotalPages()));
+	    return ResponseEntity.ok().headers(headers).body(stavkeFakture.getContent());
+	}
+	
 	@PostMapping(path = "/dodajStavkuFakture")
 	public ResponseEntity<Void> dodajStavkuFakture(@RequestParam("kolicina") String kolicina,
 			@RequestParam("rabat") String rabat, @RequestParam("jedinicna_cena") String jedinicnaCena, 

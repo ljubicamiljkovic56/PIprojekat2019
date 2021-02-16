@@ -89,6 +89,30 @@ public class FakturaController {
     }
 	
 	
+	@GetMapping(value = "/searchByBrojFakture")
+	public ResponseEntity<List<Faktura>> searchByBrojFakture(@RequestParam("broj") String brojFaktureString,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize) {
+		
+		int brojFakture = Integer.parseInt(brojFaktureString);
+		
+		Page<Faktura> fakture = fakturaServiceInterface.findAllByBrojFakture(brojFakture, pageNo, pageSize);
+		HttpHeaders headers = new HttpHeaders();
+	    headers.set("total", String.valueOf(fakture.getTotalPages()));
+	    return ResponseEntity.ok().headers(headers).body(fakture.getContent());
+	}
+	
+	@GetMapping(value = "/searchByStatusFakture")
+	public ResponseEntity<List<Faktura>> searchByStatusFakture(@RequestParam("status") String statusFakture,
+			@RequestParam("pageNo") Integer pageNo, 
+            @RequestParam("pageSize") Integer pageSize){
+		
+		Page<Faktura> fakture = fakturaServiceInterface.findAllByStatusFakture(statusFakture, pageNo, pageSize);
+		HttpHeaders headers = new HttpHeaders();
+	    headers.set("total", String.valueOf(fakture.getTotalPages()));
+	    return ResponseEntity.ok().headers(headers).body(fakture.getContent());
+	}
+	
 	@DeleteMapping(path = "/obrisiFakturu/{id}")
 	public ResponseEntity<Void> obrisiFakturu(@PathVariable("id") long id) {
 		

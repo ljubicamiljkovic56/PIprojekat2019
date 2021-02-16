@@ -19,4 +19,8 @@ public interface FakturaServiceInterface {
 	void remove(Long id);
 
 	Page<Faktura> findAll(int pageNo, int pageSize);
+	
+	Page<Faktura> findAllByBrojFakture (int brojFakture, int pageNo, int pageSize);
+	
+	Page<Faktura> findAllByStatusFakture (String statusFakture, int pageNo, int pageSize);
 }
