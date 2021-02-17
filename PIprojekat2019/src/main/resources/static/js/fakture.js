@@ -89,16 +89,39 @@ function getFakture() {
 		$('#exportPromptModal').modal('hide');
 	});
 	
+	//report
+	$(document).on("click", '#report', function(event){
+		var name = getNameOfSelectedEntityFaktura();
+		if(name!=null){
+			$('#reportPromptText').text("Report fakture broj: " + name);
+			$('#reportPromptModal').modal('show');
+		}
+
+	});
+	
+	$(document).on("click", '.reportPromptClose', function(event){
+		$('#reportPromptModal').modal('hide');
+	});
+	
+	$(document).on("click", '#doReport', function(event){
+		reportFakture();
+		$('#reportPromptModal').modal('hide');
+	});
+	
+	
+	//pretraga
 	$(document).on("click", '#search', function(event){
 		searchByBrojFakture();
 		searchByStatusFakture();
 		$("#collapseSearch").collapse('toggle');
 	});
 	
+	//refresh
 	$(document).on("click", '#refresh', function(event){
 		dobaviFakture();
 	});
 	
+	//ponisti dugme
 	$(document).on("click", '#doReset', function(event){
 		var brojSearchInput = $('#brojSearchInput');
 		brojSearchInput.val("");
@@ -389,6 +412,27 @@ function exportFakture(){
 			console.log('ispis...')
 			
 			alert('Exportovana je faktura')
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+	});
+}
+
+function reportFakture(){
+	var id = getIdOfSelectedEntityFaktura();
+	console.log(id);
+	
+	$('#doReport').on('click', function(event){
+		//console.log('broj_fakture: ' + broj_fakture);
+		
+		var params = {'id': id}
+	
+		$.post("http://localhost:8080/api/fakture/jasperReportFaktura", params, function(data) {
+			console.log('ispis...')
+			
+			alert('Jasper report')
 			
 		});
 		console.log('slanje poruke');

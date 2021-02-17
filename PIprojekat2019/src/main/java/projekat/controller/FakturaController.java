@@ -1,14 +1,21 @@
 package projekat.controller;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.ConstraintViolationException;
 import javax.xml.parsers.DocumentBuilder;
@@ -20,10 +27,13 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,10 +48,21 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import projekat.model.Faktura;
 import projekat.model.Narudzbenica;
 import projekat.model.Otpremnica;
 import projekat.model.RobaUsluga;
+import projekat.model.StavkaFakture;
 import projekat.model.StavkaOtpremnice;
 import projekat.service.intrfc.FakturaServiceInterface;
 import projekat.service.intrfc.NarudzbenicaServiceInterface;
@@ -129,6 +150,93 @@ public class FakturaController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	@GetMapping(path = "/report/{format}")
+	public String generateReport(@PathVariable String format) throws FileNotFoundException, JRException {
+		return jasperReportFaktura(format);
+	}
+	
+
+	public String jasperReportFaktura(String reportFormat) throws FileNotFoundException, JRException{
+        List<Faktura> fakture = new ArrayList<Faktura>();
+        fakture = fakturaServiceInterface.findAll();
+        
+		String path = "C:\\Users\\Ljubica\\Downloads\\jasperFolder";
+		File file = ResourceUtils.getFile("C:\\Users\\Ljubica\\git\\PIprojekat2019\\PIprojekat2019\\src\\main\\resources\\fakture.jrxml");
+		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(fakture);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("Faktura", "Poslovna informatika");
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+		if(reportFormat.equalsIgnoreCase("pdf")) {
+			JasperExportManager.exportReportToPdfFile(jasperPrint, path + "fakture.pdf");
+		}
+		System.out.println("Report on: " + path);
+		
+    	return path;
+		
+	}
+	
+	@GetMapping(path = "/report")
+	public ResponseEntity<Void> report(String reportFormat) throws FileNotFoundException, JRException{
+		
+		List<Faktura> fakture = fakturaServiceInterface.findAll();
+		String path = "C:\\Users\\Ljubica\\Downloads\\jasperFolder";
+		File file = ResourceUtils.getFile("classpath:faktura.jrxml");
+		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(fakture);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("Faktura", "Poslovna informatika");
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+		if(reportFormat.equalsIgnoreCase("pdf")) {
+			JasperExportManager.exportReportToPdfFile(jasperPrint, path + "faktura.pdf");
+		}
+		System.out.println("Report on: " + path);
+		
+		return new ResponseEntity<Void>(HttpStatus.OK);
+		
+	}
+	
+	@SuppressWarnings("rawtypes")
+	@PostMapping(path = "/jasperReportFaktura", consumes = "application/x-www-form-urlencoded;charset=UTF-8")
+	public ResponseEntity jasperReport(@RequestParam("id") long id) {
+		
+		Faktura faktura = fakturaServiceInterface.findOne(id);
+        if(faktura==null){
+        	return new ResponseEntity(HttpStatus.NOT_FOUND);
+        	}
+    	List<StavkaFakture> stavkeFakture1 = faktura.getStavkeFakture();
+    	
+    	JRBeanCollectionDataSource stavkeFakture = new JRBeanCollectionDataSource(stavkeFakture1);
+    	
+        Map<String, Object> params  = new HashMap<>();
+    	params.put("faktura", faktura);
+    	params.put("stavkeFakture", stavkeFakture);
+    	
+    	for (StavkaFakture stavkaFakture : stavkeFakture1 ){
+			System.out.println("id fakture: " + stavkaFakture.getIdStavke());
+		}    	
+    	try {
+   		
+    		InputStream is = null;
+    		is = new FileInputStream(new File("C:\\Users\\Ljubica\\git\\PIprojekat2019\\PIprojekat2019\\src\\main\\resources\\faktura.jrxml"));
+
+            JasperDesign jasperDesign = JRXmlLoader.load(is);            
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+
+    		JasperPrint jp = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+    		ByteArrayInputStream bis = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));
+    		HttpHeaders headers = new HttpHeaders();
+    		headers.add("Content-Disposition", "inline; filename=fakturaSaStavkama.pdf");
+      		return ResponseEntity
+    	       		.ok()
+    	       		.headers(headers)
+    	       		.contentType(MediaType.APPLICATION_PDF)
+   	       		.body(new InputStreamResource(bis));
+   	}catch (Exception ex) {
+    			ex.printStackTrace();
+   	}
+		return new ResponseEntity(HttpStatus.OK);
+}
 	
 	@PostMapping(path = "/stornirajFakturu")
 	public ResponseEntity<Void> stornirajFakturu(@RequestParam("broj_fakture") String brojFakture) {
