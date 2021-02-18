@@ -10,73 +10,73 @@
 		<property name="com.jaspersoft.studio.field.name" value="id_fakture"/>
 		<property name="com.jaspersoft.studio.field.label" value="id_fakture"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[idFakture]]></fieldDescription>
 	</field>
 	<field name="broj_fakture" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="broj_fakture"/>
 		<property name="com.jaspersoft.studio.field.label" value="broj_fakture"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[brojFakture]]></fieldDescription>
 	</field>
 	<field name="datum_fakture" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.name" value="datum_fakture"/>
 		<property name="com.jaspersoft.studio.field.label" value="datum_fakture"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[datumFakture]]></fieldDescription>
 	</field>
 	<field name="datum_valute" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.name" value="datum_valute"/>
 		<property name="com.jaspersoft.studio.field.label" value="datum_valute"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[datumValute]]></fieldDescription>
 	</field>
 	<field name="status_fakture" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="status_fakture"/>
 		<property name="com.jaspersoft.studio.field.label" value="status_fakture"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[statusFakture]]></fieldDescription>
 	</field>
-	<field name="ukupan_iznos" class="java.math.BigDecimal">
+	<field name="ukupan_iznos" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="ukupan_iznos"/>
 		<property name="com.jaspersoft.studio.field.label" value="ukupan_iznos"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[ukupanIznos]]></fieldDescription>
 	</field>
-	<field name="ukupan_pdv" class="java.math.BigDecimal">
+	<field name="ukupan_pdv" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="ukupan_pdv"/>
 		<property name="com.jaspersoft.studio.field.label" value="ukupan_pdv"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[ukupanPDV]]></fieldDescription>
 	</field>
-	<field name="ukupna_osnovica" class="java.math.BigDecimal">
+	<field name="ukupna_osnovica" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="ukupna_osnovica"/>
 		<property name="com.jaspersoft.studio.field.label" value="ukupna_osnovica"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[ukupnaOsnovica]]></fieldDescription>
 	</field>
 	<field name="id_narudzbenice" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="id_narudzbenice"/>
 		<property name="com.jaspersoft.studio.field.label" value="id_narudzbenice"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[narudzbenica]]></fieldDescription>
 	</field>
 	<field name="id_godine" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="id_godine"/>
 		<property name="com.jaspersoft.studio.field.label" value="id_godine"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[poslovnaGodina]]></fieldDescription>
 	</field>
 	<field name="id_poslovnog_partnera" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="id_poslovnog_partnera"/>
 		<property name="com.jaspersoft.studio.field.label" value="id_poslovnog_partnera"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[poslovniPartner]]></fieldDescription>
 	</field>
 	<field name="id_preduzeca" class="java.lang.Long">
 		<property name="com.jaspersoft.studio.field.name" value="id_preduzeca"/>
 		<property name="com.jaspersoft.studio.field.label" value="id_preduzeca"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="faktura"/>
-		<fieldDescription><![CDATA[]]></fieldDescription>
+		<fieldDescription><![CDATA[preduzece]]></fieldDescription>
 	</field>
 	<background>
 		<band/>

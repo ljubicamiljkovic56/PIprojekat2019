@@ -491,7 +491,7 @@ function dodajPartnera(){
 		console.log('mesto: ' + mesto);
 		console.log('preduzece: ' + preduzece);
 		
-		if(naziv_poslovnog_partnera == '' || adresa == '' || telefona == '' || email == '' || vrsta_partnera == ''){
+		if(naziv_poslovnog_partnera == '' || adresa == '' || telefon == '' || email == '' || vrsta_partnera == ''){
 			alert("Niste uneli potrebne podatke.");
 		}
 		

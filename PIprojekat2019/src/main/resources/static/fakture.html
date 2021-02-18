@@ -135,6 +135,7 @@
 				<button id="storno" type="button" class="btn btn-outline-secondary">Storniraj</button>
 				<button id="export" type="button" class="btn btn-outline-secondary">Export fakture</button>
 				<button id="report" type="button" class="btn btn-outline-secondary">Jasper report fakture</button>
+				<button id="kif" type="button" class="btn btn-outline-secondary">Kreiraj dnevnik KIF</button>
 				
 				<!-- Pagination -->
 				
@@ -323,6 +324,34 @@
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary reportPromptClose">Otkaži</button>
 			        <button type="button" id="doReport" class="btn btn-primary">Napravi report</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			<!-- jasper kif  -->
+			<div class="modal fade" id="addModalScrollable" tabindex="-1" role="dialog" aria-labelledby="addModalScrollableTitle" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-scrollable" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="addModalScrollableTitle">Kreiraj dnevnik KIF</h5>
+			        <button type="button" class="close addModalClose" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <form>
+					  <div class="form-group">
+					    <label for="formatSelect">Format</label>
+					    <select class="form-control"  id="formatSelect">
+					    	<option>pdf</option>
+					    </select>
+					  </div>
+					</form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary addModalClose" >Otkaži</button>
+			        <button type="button" id="doKIF" class="btn btn-primary">Kreiraj KIF</button>
 			      </div>
 			    </div>
 			  </div>

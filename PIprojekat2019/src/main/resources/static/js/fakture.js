@@ -7,11 +7,11 @@ function getFakture() {
 		highlightRow(this);
 	});
 	
-	$(document).on("click", '#add', function(event){
+	$(document).on("click", '#kif', function(event){
 		$('#addModalScrollable').modal('show');
 	});
-	$(document).on("click", '#doAdd', function(event){
-		//dodajFakturu();
+	$(document).on("click", '#doKIF', function(event){
+		kreirajKIF();
 		$('#addModalScrollable').modal('hide');				
 	});
 	
@@ -425,7 +425,7 @@ function reportFakture(){
 	console.log(id);
 	
 	$('#doReport').on('click', function(event){
-		//console.log('broj_fakture: ' + broj_fakture);
+		console.log('id: ' + id);
 		
 		var params = {'id': id}
 	
@@ -439,6 +439,28 @@ function reportFakture(){
 		event.preventDefault();
 		return false;
 	});
+}
+
+function kreirajKIF(){
+	var formatSelect = $('#formatSelect');
+	var format = formatSelect.find(":selected").text();
+	
+	$('#doKIF').on('click', function(event){
+		console.log('format: ' + format);
+		
+		var params = {'format': format}
+	
+		$.post("http://localhost:8080/api/fakture/dnevnik", params, function(data) {
+			console.log('ispis...')
+			
+			alert('Jasper report dnevnik')
+			
+		});
+		console.log('slanje poruke');
+		event.preventDefault();
+		return false;
+	});
+	
 }
 
 function kreirajOtpremnicu(){

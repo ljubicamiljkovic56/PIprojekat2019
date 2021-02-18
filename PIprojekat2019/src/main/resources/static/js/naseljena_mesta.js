@@ -292,8 +292,8 @@ function izmeniMesto() {
 			alert('Izmena naseljenog mesta');
 			
 			dobaviMesta();
-			nazivMestaInput.val("");
-			pttBrojInput.val("");
+			nazivMestaIzmeniInput.val("");
+			pttBrojIzmeniInput.val("");
 		});
 		console.log('slanje poruke');
 		event.preventDefault();

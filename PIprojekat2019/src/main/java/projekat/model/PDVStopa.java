@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 
 
@@ -27,8 +27,9 @@ public class PDVStopa {
 	@Column(name = "datum_vazenja", columnDefinition = "DATE")
 	private Date datumVazenja;
 	
-	@NotNull(message = "Procenat ne sme biti prazan")
-	@Size(min=1, message = "Procenat ne sme da bude prazan")
+	//@NotBlank(message = "Procenat ne sme biti prazan")
+	//@Size(min=1, max=2, message = "Procenat ne sme da bude prazan")
+	@DecimalMax("2")
 	@Column(name = "procenat", columnDefinition = "DOUBLE")
 	private double procenat;
 
