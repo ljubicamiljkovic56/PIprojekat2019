@@ -54,4 +54,9 @@ public class StavkaFaktureService implements StavkaFaktureServiceInterface {
 		return stavkaFaktureRepository.findAllByIznos(iznos, new PageRequest(pageNo, pageSize));
 	}
 
+	@Override
+	public List<StavkaFakture> findByFaktura(Long idFakture) {
+		return stavkaFaktureRepository.findByFaktura(idFakture);
+	}
+
 }

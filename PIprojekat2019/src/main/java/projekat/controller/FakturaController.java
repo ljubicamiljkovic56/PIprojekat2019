@@ -47,7 +47,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -156,45 +155,24 @@ public class FakturaController {
 		return jasperReportFaktura(format);
 	}
 	
-
+	//primer preko putanje
 	public String jasperReportFaktura(String reportFormat) throws FileNotFoundException, JRException{
         List<Faktura> fakture = new ArrayList<Faktura>();
         fakture = fakturaServiceInterface.findAll();
         
 		String path = "C:\\Users\\Ljubica\\Downloads\\jasperFolder";
-		File file = ResourceUtils.getFile("C:\\Users\\Ljubica\\git\\PIprojekat2019\\PIprojekat2019\\src\\main\\resources\\fakture.jrxml");
+		File file = ResourceUtils.getFile("C:\\Users\\Ljubica\\git\\PIprojekat2019\\PIprojekat2019\\src\\main\\resources\\faktureDnevnik.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(fakture);
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("Faktura", "Poslovna informatika");
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
 		if(reportFormat.equalsIgnoreCase("pdf")) {
-			JasperExportManager.exportReportToPdfFile(jasperPrint, path + "fakture.pdf");
+			JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\faktureDnevnik.pdf");
 		}
 		System.out.println("Report on: " + path);
 		
     	return path;
-		
-	}
-	
-	//primer report-a
-	@GetMapping(path = "/report")
-	public ResponseEntity<Void> report(String reportFormat) throws FileNotFoundException, JRException{
-		
-		List<Faktura> fakture = fakturaServiceInterface.findAll();
-		String path = "C:\\Users\\Ljubica\\Downloads\\jasperFolder";
-		File file = ResourceUtils.getFile("classpath:faktura.jrxml");
-		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(fakture);
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("Faktura", "Poslovna informatika");
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-		if(reportFormat.equalsIgnoreCase("pdf")) {
-			JasperExportManager.exportReportToPdfFile(jasperPrint, path + "faktura.pdf");
-		}
-		System.out.println("Report on: " + path);
-		
-		return new ResponseEntity<Void>(HttpStatus.OK);
 		
 	}
 	
@@ -204,64 +182,110 @@ public class FakturaController {
 	public ResponseEntity jasperReport(@RequestParam("id") long id) {
 		
 		Faktura faktura = fakturaServiceInterface.findOne(id);
-        if(faktura==null){
-        	return new ResponseEntity(HttpStatus.NOT_FOUND);
-        	}
-    	List<StavkaFakture> stavkeFakture1 = faktura.getStavkeFakture();
-    	
-    	JRBeanCollectionDataSource stavkeFakture = new JRBeanCollectionDataSource(stavkeFakture1);
-    	
-        Map<String, Object> params  = new HashMap<>();
-    	params.put("faktura", faktura);
-    	params.put("stavkeFakture", stavkeFakture);
-    	
-    	for (StavkaFakture stavkaFakture : stavkeFakture1 ){
-			System.out.println("id fakture: " + stavkaFakture.getIdStavke());
-		}    	
-    	try {
-   		
-    		InputStream is = null;
-    		is = new FileInputStream(new File("C:\\Users\\Ljubica\\git\\PIprojekat2019\\PIprojekat2019\\src\\main\\resources\\faktura.jrxml"));
+	    if(faktura==null){
+	       return new ResponseEntity(HttpStatus.NOT_FOUND);
+	    }
+	    
+	    List<Faktura> fakture = new ArrayList<Faktura>();
+	    List<StavkaFakture> stavkeFaktureOrig = new ArrayList<StavkaFakture>();
+    	Connection conn = null;
+    	PreparedStatement pstmt = null;
+	    
+	    try {
 
-            JasperDesign jasperDesign = JRXmlLoader.load(is);            
-            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-
-    		JasperPrint jp = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
-    		ByteArrayInputStream bis = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));
-    		HttpHeaders headers = new HttpHeaders();
-    		headers.add("Content-Disposition", "inline; filename=fakturaSaStavkama.pdf");
-    		System.out.println("Jasper report fakture");
-      		return ResponseEntity
-    	       		.ok()
-    	       		.headers(headers)
-    	       		.contentType(MediaType.APPLICATION_PDF)
-   	       		.body(new InputStreamResource(bis));
-   	}catch (Exception ex) {
-    			ex.printStackTrace();
-   	}
-		return new ResponseEntity(HttpStatus.OK);
-	}
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/pi", "root", "root");
+	    	
+	    	String query = "SELECT f.id_fakture, f.broj_fakture, f.datum_fakture, f.datum_valute, f.status_fakture, f.ukupna_osnovica, f.ukupan_pdv, f.ukupan_iznos, s.id_stavke, s.kolicina, s.rabat, s.jedinicna_cena, s.iznos, s.pdv_stopa, s.osnovica_za_pdv, s.iznos_pdv, s.ukupan_iznos from faktura f, stavka_fakture s WHERE f.id_fakture = s.id_fakture AND f.id_fakture = " + id;
+	    	
+	    	pstmt = conn.prepareStatement(query);
+			ResultSet rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Faktura faktura2 = new Faktura();
+				faktura2.setIdFakture(rset.getLong("id_fakture"));
+				faktura2.setBrojFakture(rset.getInt("broj_fakture"));
+				faktura2.setDatumFakture(rset.getDate("datum_fakture"));
+				faktura2.setDatumValute(rset.getDate("datum_valute"));
+				faktura2.setStatusFakture(rset.getString("status_fakture"));
+				faktura2.setUkupnaOsnovica(rset.getDouble("ukupna_osnovica"));
+				faktura2.setUkupanPDV(rset.getDouble("ukupan_pdv"));
+				faktura2.setUkupanIznos(rset.getDouble("ukupan_iznos"));
+				fakture.add(faktura2);
+				
+				StavkaFakture stavkaFakture2 = new StavkaFakture();
+				stavkaFakture2.setIdStavke(rset.getLong("id_stavke"));
+				stavkaFakture2.setKolicina(rset.getDouble("kolicina"));
+				stavkaFakture2.setRabat(rset.getDouble("rabat"));
+				stavkaFakture2.setJedinicnaCena(rset.getDouble("jedinicna_cena"));
+				stavkaFakture2.setIznos(rset.getDouble("iznos"));
+				stavkaFakture2.setPdvStopa(rset.getDouble("pdv_stopa"));
+				stavkaFakture2.setOsnovicaZaPDV(rset.getDouble("osnovica_za_pdv"));
+				stavkaFakture2.setIznosPDV(rset.getDouble("iznos_pdv"));
+				stavkaFakture2.setUkupanIznos(rset.getDouble("ukupan_iznos"));
+				stavkeFaktureOrig.add(stavkaFakture2);
+				
+			}
+	    }catch (Exception e) {
+			e.printStackTrace();
+		}
+	    
+	    List<StavkaFakture> stavkeFaktureOrig2 = stavkeFaktureOrig;
+	    JRBeanCollectionDataSource stavkaFakture = new JRBeanCollectionDataSource(stavkeFaktureOrig2);
+	    System.out.print(stavkeFaktureOrig2);
+	    System.out.println(stavkaFakture.getData());
+	    Map<String, Object> params  = new HashMap<>();
+	    params.put("faktura", faktura);
+	    params.put("stavkaFakture", stavkaFakture);
+	    	
+	    for (StavkaFakture stavkaFakture1 : stavkeFaktureOrig2) {
+			System.out.println("id stavke fakture: " + stavkaFakture1.getIdStavke());
+		}
+	    	
+	    try {	    		
+	    	InputStream is = null;
+	    	is = new FileInputStream(new File("C:\\Users\\Ljubica\\git\\PIprojekat2019\\PIprojekat2019\\src\\main\\resources\\faktura.jrxml"));
+	    	JasperDesign jasperDesign = JRXmlLoader.load(is);
+	    	JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+	    	String path = "C:\\Users\\Ljubica\\Downloads\\jasperFolder\\fakturaSaStavkama.pdf";
+	    	JasperPrint jp = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+	    	ByteArrayInputStream bis = new ByteArrayInputStream(JasperExportManager.exportReportToPdf(jp));
+	    	JasperExportManager.exportReportToPdfFile(jp, path);
+	    	HttpHeaders headers = new HttpHeaders();
+	    	headers.add("Content-Disposition", "inline; filename=fakturaSaStavkama.pdf");
+	    	return ResponseEntity
+	    			.ok()
+	    			.headers(headers)
+	    			.contentType(MediaType.APPLICATION_PDF)
+	    			.body(new InputStreamResource(bis));
+	    }catch (Exception ex) {
+	    	ex.printStackTrace();
+	    }
+	    return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	
 	
 	//report svih faktura, dnevnik kif
 	@PostMapping(value = "/dnevnik",  consumes = "application/x-www-form-urlencoded;charset=UTF-8")
-	public ResponseEntity<String> dnevnik(@RequestParam("format") String format) throws FileNotFoundException, JRException {
-		
+	public String dnevnik(@RequestParam("format") String reportFormat) throws FileNotFoundException, JRException {
+
         List<Faktura> fakture = new ArrayList<Faktura>();
         fakture = fakturaServiceInterface.findAll();
         
 		String path = "C:\\Users\\Ljubica\\Downloads\\jasperFolder";
-		File file = ResourceUtils.getFile("C:\\Users\\Ljubica\\git\\PIprojekat2019\\PIprojekat2019\\src\\main\\resources\\faktureKIF.jrxml");
+		File file = ResourceUtils.getFile("C:\\Users\\Ljubica\\git\\PIprojekat2019\\PIprojekat2019\\src\\main\\resources\\faktureDnevnik.jrxml");
 		JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(fakture);
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("Faktura", "Poslovna informatika");
 		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-		if(format.equalsIgnoreCase("pdf")) {
-			JasperExportManager.exportReportToPdfFile(jasperPrint, path + "faktureKIF.pdf");
+		if(reportFormat.equalsIgnoreCase("pdf")) {
+			JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\faktureDnevnik.pdf");
 		}
 		System.out.println("Report on: " + path);
 		
-		return new ResponseEntity<String>(format, HttpStatus.OK);
+    	return path;
 	}
 
 	@PostMapping(path = "/stornirajFakturu")

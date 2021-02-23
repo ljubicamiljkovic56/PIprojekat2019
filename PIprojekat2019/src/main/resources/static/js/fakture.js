@@ -153,8 +153,8 @@ function dobaviFakture() {
 					newRow = 
 						"<tr>" 
 							+ "<td class=\"brojFakture\">" + data[i].brojFakture + "</td>"
-							+ "<td class=\"datumFakture\">" + data[i].datumFakture + "</td>"
-							+ "<td class=\"datumValute\">" + data[i].datumValute + "</td>"
+							+ "<td class=\"datumFakture\">" + new Date(data[i].datumFakture) + "</td>"
+							+ "<td class=\"datumValute\">" + new Date(data[i].datumValute) + "</td>"
 							+ "<td class=\"ukupnaOsnovica\">" + data[i].ukupnaOsnovica + "</td>"
 							+ "<td class=\"ukupanPDV\">" + data[i].ukupanPDV + "</td>"
 							+ "<td class=\"ukupanIznos\">" + data[i].ukupanIznos + "</td>"

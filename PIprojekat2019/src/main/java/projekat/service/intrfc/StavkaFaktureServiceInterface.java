@@ -21,5 +21,7 @@ public interface StavkaFaktureServiceInterface {
 	Page<StavkaFakture> findAll(int pageNo, int pageSize);
 
 	Page<StavkaFakture> findAllByIznos (double iznos, int pageNo, int pageSize);
+	
+	List<StavkaFakture> findByFaktura(Long idFakture);
 
 }

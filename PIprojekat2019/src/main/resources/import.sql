@@ -6,12 +6,6 @@ INSERT INTO pdv_kategorija(naziv_kategorije) VALUES ('Visa stopa pdv');
 INSERT INTO pdv_stopa(datum_vazenja, procenat, kategorija_id) VALUES ('2020-04-20', 8, 1);
 INSERT INTO pdv_stopa(datum_vazenja, procenat, kategorija_id) VALUES ('2020-08-29', 18, 2);
 
--- INSERT INTO proizvod(naziv, cena, opis) VALUES ('Laptop Dell Latitude', 22000, 'mali laptop');
--- INSERT INTO proizvod(naziv, cena, opis) VALUES ('Pakovanje malih zavrtnja', 100, 'visenamenski zavrtnji');
--- INSERT INTO proizvod(naziv, cena, opis) VALUES ('ScreenClean', 200, 'sprej za ciscenje monitora');
--- INSERT INTO proizvod(naziv, cena, opis) VALUES ('Asepsol', 600, 'sredstvo za dezinfekciju');
--- INSERT INTO proizvod(naziv, cena, opis) VALUES ('Steinberg antifriz', 310, 'antifriz za auto');
-
 INSERT INTO jedinica_mere(naziv_jedinice_mere, skraceni_naziv) VALUES ('komad', 'kom.');
 INSERT INTO jedinica_mere(naziv_jedinice_mere, skraceni_naziv) VALUES ('gram', 'gr');
 INSERT INTO jedinica_mere(naziv_jedinice_mere, skraceni_naziv) VALUES ('mililitar','ml');
@@ -66,6 +60,7 @@ INSERT INTO stavka_narudzbenice(jedinica_mere, kolicina, cena, iznos, id_narudzb
 INSERT INTO faktura(broj_fakture, datum_fakture, datum_valute, ukupna_osnovica, ukupan_pdv, ukupan_iznos, status_fakture, id_godine, id_preduzeca, id_poslovnog_partnera, id_narudzbenice) VALUES (1, '2020-08-08', '2020-08-08', 310, 10, 320, 'P', 1, 1, 1, 1);
 INSERT INTO faktura(broj_fakture, datum_fakture, datum_valute, ukupna_osnovica, ukupan_pdv, ukupan_iznos, status_fakture, id_godine, id_preduzeca, id_poslovnog_partnera, id_narudzbenice) VALUES (2, '2020-09-09', '2020-09-09', 200, 15, 215, 'F', 1, 1, 1, 2);
 INSERT INTO faktura(broj_fakture, datum_fakture, datum_valute, ukupna_osnovica, ukupan_pdv, ukupan_iznos, status_fakture, id_godine, id_preduzeca, id_poslovnog_partnera, id_narudzbenice) VALUES (3, '2020-09-09', '2020-09-09', 580, 20, 600, 'P', 1, 1, 1, 3);
+
 
 INSERT INTO stavka_fakture(kolicina, rabat, jedinicna_cena, iznos, pdv_stopa, osnovica_za_pdv, iznos_pdv, ukupan_iznos, id_preduzeca, id_fakture, id_robe) VALUES (1, 15.5, 310, 310, 5, 295, 15, 310, 1, 1, 5);
 INSERT INTO stavka_fakture(kolicina, rabat, jedinicna_cena, iznos, pdv_stopa, osnovica_za_pdv, iznos_pdv, ukupan_iznos, id_preduzeca, id_fakture, id_robe) VALUES (1, 10, 200, 200, 5, 190, 10, 200, 1, 2, 3);

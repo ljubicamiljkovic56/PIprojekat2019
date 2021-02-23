@@ -3,9 +3,10 @@ package projekat.service.intrfc;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-
+import org.springframework.stereotype.Service;
 import projekat.model.Faktura;
 
+@Service
 public interface FakturaServiceInterface {
 	
 	Faktura findByBrojFakture (int brojFakture);

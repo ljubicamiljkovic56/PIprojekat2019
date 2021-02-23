@@ -16,5 +16,6 @@ public interface StavkaFaktureRepository extends JpaRepository<StavkaFakture, Lo
 	List<StavkaFakture> findAll();
 	
 	Page<StavkaFakture> findAllByIznos (double iznos, Pageable pageable);
-
+	
+	List<StavkaFakture> findByFaktura(Long idFakture);
 }
